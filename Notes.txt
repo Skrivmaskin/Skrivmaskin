@@ -1,0 +1,17 @@
+Typewriter
+
+Master-details
+Content is text editor with syntax highlighting for variables and choices
+Paragraphs, AlternativeParagraphs, Sentences, AlternativeSentences, Text[VariableWords, AlternativeWords]
+Use collapsible tree for left hand master pane
+
+
+
+
+
+
+
+
+
+
+

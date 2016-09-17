@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skrivmaskin.Core", "Skrivmaskin.Core\Skrivmaskin.Core.csproj", "{FF6CEFEB-0FCC-4FB6-B05D-28BFEA778D65}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skrivmaskin.Core.Test", "Skrivmaskin.Core.Test\Skrivmaskin.Core.Test.csproj", "{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FF6CEFEB-0FCC-4FB6-B05D-28BFEA778D65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FF6CEFEB-0FCC-4FB6-B05D-28BFEA778D65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FF6CEFEB-0FCC-4FB6-B05D-28BFEA778D65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FF6CEFEB-0FCC-4FB6-B05D-28BFEA778D65}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
