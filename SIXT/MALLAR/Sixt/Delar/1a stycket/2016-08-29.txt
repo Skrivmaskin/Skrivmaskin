@@ -1,0 +1,78 @@
+STYCKE 1
+Letar/söker du efter en hyrbil i [MÄRKE]?
+Vill du boka en hyrbil i  [MÄRKE]?
+Planerar du att boka en hyrbil i  [MÄRKE]?
+
+STYCKE 2
+Vi_på/Här_på Sixt vet vi att varje resa/bilresa är unik/speciell.
+Vi_på/Här_på Sixt vet vi att alla har olika önskemål/krav då det gäller hyrbilar.
+Vi_på/Här_på Sixt vet vi att alla resor är unika.
+Varje resa/bilresa är unik och vi på Sixt vet att alla resenärer/bilförare har olika krav/önskemål.
+Vi_på/Här_på Sixt vet vi att alla resor ser_olika_ut/är_unika/ställer_olika krav.
+
+STYCKE 3
+Under en semester ser önskemålen ut på ett visst sätt men det finns självklart/givetvis även bilresor/resor med andra ändamål. 
+En semesterresa/semester ställer en viss typ av krav som skiljer sig åt mot behoven på jobbresan/affärsresan/resan_med_arbetet/resan_med_jobbet. 
+En  jobbresa/affärsresa/resa_med_arbetet/resa_med_jobbet ställer en viss typ av krav som skiljer sig åt mot behoven på semesterresa/semester/resan_med_familjen.
+
+STYCKE 4
+Därför är vi stolta/glada att kunna erbjuda ett brett utbud/urval av bilar på vår biluthyrning i [MÄRKE].
+
+STYCKE 5
+När du ska hyra bil i [MÄRKE] kan_vi/erbjuder_vi fordon/bilar/bilmodeller i alla pris- och storleksklasser.
+ 
+STYCKE 6
+Vår biluthyrning i [MÄRKE] är bekvämt belägen [P2]. 
+
+STYCKE 7
+Att hyra bil i [MÄRKE] är bekvämt och lätt - du hittar all information om våra fordon/bilar/bilmodeller på vår_hemsida/webben/på_nätet.
+
+STYCKE 8
+Du som vill hyra bil i [MÄRKE] kan boka en [P3].
+
+STYCKE 9
+När du bokar din hyrbil i [MÄRKE] kan du även addera/lägga_till flera bekväma/smarta extrafunktioner/tilläggsfunktioner.
+När du bokar din hyrbil i [MÄRKE] kan du även passa_på/ta_möjligheten att välja en rad olika extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner.
+Vi kan dessutom/även erbjuda olika/en_rad/en_rad_olika tilläggstjänster till din hyrbil i [MÄRKE].
+Du kan dessutom välja att lägga_till/addera olika/en_rad/en_rad_olika tilläggstjänster till din hyrbil i [MÄRKE].
+
+STYCKE 10
+Utöver vårt stora/breda sortiment/utbud kan vi erbjuda en rad tjänster/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner som underlättar din resa/bilresa. 
+Utöver vår breda/omfattande flotta kan vi/vi_på_Sixt erbjuda en rad tjänster/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner som underlättar din resa/bilresa. 
+När du bokar din/en hyrbil i [MÄRKE] kan du dessutom/därutöver välja bland en rad tilläggstjänster/extrafunktioner/tillvalstjänster.
+
+STYCKE 11
+Vi kan erbjuda extrafunktioner/tilläggsfunktioner till din hyrbil i [MÄRKE] i form av till exempel bilbarnstolar/barnstol/bilbarnstol, obegränsad_körsträcka/extra_förare/vintertillägg/dragkrok/premium_drive och navigationssystem/GPS/GPS-tjänster/navigationstjänster/GPS-teknik/navigationssystem/satellitnavigeringssystem.
+Några exempel på dessa tilläggstjänster/extrafunktioner/tillvalstjänster är bilbarnstolar/barnstol/bilbarnstol, vintertillägg/takräcke/dragkrok/försäkringspaket/extraförare och moderna/toppmoderna navigationssystem/GPS/GPS-tjänster/navigationstjänster/GPS-teknik/navigationssystem/satellitnavigeringssystem.Planerar du att köra långt/en_längre_sträcka/en_längre_resesträcka? Då kan det vara en smart/god idé att välja tillvalen/tillvalstjänsterna obegränsad körsträcka liksom en extra förare.
+Några exempel på dessa tilläggstjänster/extrafunktioner/tillvalstjänster är bilbarnstolar/barnstol/bilbarnstol, vintertillägg/takräcke/dragkrok/försäkringspaket/extraförare och moderna/toppmoderna navigationssystem/GPS/GPS-tjänster/navigationstjänster/GPS-teknik/navigationssystem/satellitnavigeringssystem. Ska du göra en längre resa/bilresa? Då/I_såna_fall kan det vara en smart/god idé att välja tillvalen/tillvalstjänsterna obegränsad körsträcka liksom en extra förare.
+Några exempel på dessa tilläggstjänster/extrafunktioner/tillvalstjänster är vintertillägg/takräcke/dragkrok/försäkringspaket/extraförare och moderna/toppmoderna navigationssystem/GPS/GPS-tjänster/navigationstjänster/GPS-teknik/navigationssystem/satellitnavigeringssystem. Planerar du en resa_med_familjen/en_familjeresa? Då erbjuder vi möjligheten att boka bilbarnstolar/barnstol/bilbarnstol.
+Några exempel på dessa tilläggstjänster/extrafunktioner/tillvalstjänster är bilbarnstolar/barnstol/bilbarnstol, obegränsad_körsträcka/extra_förare/vintertillägg/dragkrok/premium_driveoch navigationssystem/GPS/GPS-tjänster/navigationstjänster/GPS-teknik/navigationssystem/satellitnavigeringssystem.
+
+STYCKE 12
+Tack vare våra/dessa tillval/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner är det lätt/enkelt att hyra en bil i [MÄRKE] passar just dina behov/körbehov.
+Med dessa/våra tillval/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner är det alltid lätt/enkelt att hyra en bil i [MÄRKE] som passar just dina behov/körbehov.
+Med dessa/våra tillval/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner är det alltid lätt/enkelt att hyra en bil i [MÄRKE] som passar din önskemål.
+På vår biluthyrning i [MÄRKE] kan vi alltid ta fram en lösning/hyrbilslösning anpassad efter dina önskemål/krav när du ska bege_dig_ut_på/ge_dig_ut på vägarna.
+På vår biluthyrning i [MÄRKE] kan vi alltid ta fram en lösning/hyrbilslösning som passar just dina behov/körbehov.
+På vår biluthyrning i [MÄRKE] kan vi alltid ta fram en lösning/skräddarsydd_lösning som tar hänsyn till dina behov då det gäller säkerhet/körsäkerhet, bekvämlighet och trivsel/ekonomi/komfort.
+
+STYCKE 12
+Sätt ihop ett paket som passar just dig/din_resa/dina_önskemål! 
+Hitta en lösning/hyrbilslösning anpassad efte just dina krav/önskemål då det gäller säkerhet/körsäkerhet, bekvämlighet och trivsel/ekonomi/komfort.
+
+STYCKE 14
+Vi/vårt_team fokuserar alltid på att ge dig som kund/förare en smidig/prisvärd och bekväm/enkel/bekymmersfri lösning/hyrbilslösning som gör att du snabbt kommer igång med din resa/bilresa.
+Här på_Sixt/vår_biluthyrning_i_[MÄRKE] fokuserar vi alltid på att ge dig som kund/förare en smidig och bekväm/enkel/bekymmersfri lösning/hyrbilslösning som gör att du snabbt kommer igång med din resa/bilresa.
+Vårt fokus är att alltid_ge/erbjuda dig en smidig/prisvärd och bekväm/enkel/bekymmersfri lösning/hyrbilslösning som gör att du snabbt kommer igång med din resa/bilresa.
+Vårt_team/vårt_lokala_team/teamet_på_Sixt/Våra_medarbetare finns på_plats/tillgängliga för att se_till/säkerställa att du får en smidig/ och bekväm/enkel/bekymmersfri lösning/hyrbilslösning.
+Vi/vi_på_Sixt jobbar_hårt/fokuserar_alltid på att göra allt som rör din resa/bilresa så enkelt och 
+smidigt/bekvämt som möjligt.
+
+STYCKE 15
+Vårt centralt belägna kontor/uthyrningskontor/biluthyrningskontor  är en bra/perfekt utgångspunkt och härirfrån tar du dig lätt vidare……
+
+STYCKE 16
+Om du vill se så mycket som möjlighet av regionen är det alltid en bra/god/smart idé att hyra en bil i [MÄRKE].
+Det finns mycket att se/uppleva/utforska med genom att hyra en bil [MÄRKE] får du stor frihet när du planerar resrutten/resan/färden.
+
+STYCKE SLUT

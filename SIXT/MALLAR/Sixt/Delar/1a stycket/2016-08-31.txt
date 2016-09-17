@@ -1,0 +1,106 @@
+STYCKE 1
+Vill du boka en hyrbil i [MÄRKE]?
+Söker du en hyrbil i [MÄRKE]?
+Är du på jakt efter en hyrbil i [MÄRKE]?
+
+STYCKE 2
+Mitt i centrum av [MÄRKE], beläget [P2], ligger vårt kontor/uthyrningskontor.
+Mitt i centrum av [MÄRKE], beläget [P2], hittar du vårt kontor/uthyrningskontor.
+Centralt beläget [P2] hittar du vårt kontor/uthyrningskontor.
+
+STYCKE 3
+Bara ett stenkast härifrån ligger/hittar_du/finner_du några av stadens mest kända sevärdheter.
+Inte långt härifrån ligger/hittar_du/finner_du några av stadens mest kända sevärdheter/besöksmål/turistmål/attraktioner.
+
+STYCKE 4
+Läget är med andra ord svårslaget/perfekt om du planerar_att/ska/vill/önskar utforska staden med en egen bil.
+Ett svårslaget/perfekt läge om du planerar_att/ska/vill/önskar utforska staden med en egen bil.
+Det är svårt att tänka sig ett bättre läge om du vill/planerar att utforska staden/stan med en egen bil.
+
+STYCKE 5
+Eller kanske planerar_du/ska_du_göra/stundar/väntar en jobbresa/affärsresa/resa_med_jobbet/resa_i_arbetet/resa_i_arbetets_räkning/resa_med_kollegorna/jobbresa_kollegorna/affärsresa_med_kollegorna?
+
+STYCKE 6
+Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i [MÄRKE] ett brett/stort utbud/urval av bilar/bilmodeller.
+Oavsett vad anledning till ditt besök är erbjuder vi på Sixt dig som vill hyra bil i [MÄRKE] ett brett/stort utbud/urval av bilar/bilmodeller.
+Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i [MÄRKE] bilar/fordon/bilmodeller i många/alla storleksklasser/prisklasser. 
+
+STYCKE 7
+Dessutom erbjuds du även/också möjligheten att lägga till rad tillvalsfunktioner/tillvalstjänster/tilläggstjänster på vår biluthyrning i [MÄRKE] .
+Självklart finns erbjuds en rad andra tjänster/tillvalstjänster/extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner som underlättar gör resa/bilfärden extra_bekväm/bekväm.
+Dessutom erbjuds du även/också möjligheten att lägga till rad tillvalsfunktioner/tillvalstjänster/tilläggstjänster vilka är utformade/skapade/framtagna för att skräddarsy din resa/bilresa utifrån dina resbehov/körbehov/bilbehov.
+
+STYCKE 8
+Boka en hyrbil på [MÄRKE] och upplev den_flexibilitetet/de_valmöjligheter/de_möjlilgheter/den_bekvämlighet/höga_service/höga_servicegrad som vi på Sixt alltid erbjuder våra kunder.
+Boka en hyrbil på [MÄRKE] och ta del av alla_våra/samtliga_av_våra prisvärda/smarta paket/erbjudanden.
+
+STYCKE 9
+Vilken typ_av/slags bil/fordon/bilmodell passar bäst för dig_din_resa?
+
+STYCKE 10 
+På vår biluthyrning i [MÄRKE]  hittar du [P3].
+
+STYCKE 11
+Du gör din bokning enkelt och bekvämt/smidigt på vår hemsida/webbsida/webbplats.
+Bokningen gör bekvämt/smidigt direkt på vår hemsida/webbsida/webbplats.
+Besök vår hemsida/webbsida/webb för att göra en bokning/reservation.
+
+STYCKE 12
+Här/på_webben/i_webbokningen/här_på_webben kan du självklart även hantera dina olika tillval/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner.
+Självklart/naturligtvis/givetvis kan du även hantera dina olika tillval/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner på på_webben/i_webbokningen/här_på_webben/på_vår_webbsida/på_vår_hemsida.
+
+STYCKE 13
+Om du ska hyra bil i [MÄRKE], och komforten/körkomforten/lastutrymmet är viktig/a_och _o, erbjuder vi till exempel flera/en rad tjänster/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner som underlättar din resa/bilresa. 
+Om du ska hyra bil i [MÄRKE], och komforten/körkomforten är viktig/a_och _o, erbjuder vi till exempel flera/en_rad tjänster/tillvalstjänster/extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner som underlättar gör resa/bilfärden extra_bekväm/bekväm.
+Om du ska hyra bil i [MÄRKE], och även vill reservera navigationssystem/GPS/GPS-tjänster/navigationstjänster/GPS-teknik/navigationssystem/satellitnavigeringssystem erbjuder vi flera/en rad tjänster/tillvalstjänster /extrafunktioner/tilläggsfunktioner/tillvalsfunktioner/tilläggsfunktioner som gör resa/bilfärden smidig.
+
+STYCKE 14
+Sixt är en av världens främsta biluthyrare/biluthyrare och vi vet hur viktigt det är att ha flexibilitet under resan/bilresan.
+Sixt är ett av världens främsta biluthryningsföretag och vi vet hur viktigt det är att ha flexibilitet under resan/bilresan.
+Sixt är ett av världens främsta biluthryningsföretag och vi känner väl till betydelsen av flexibilitet under hela resan/bilresan.
+Sixt är en av världens främsta biluthyrare/biluthyrare och hos oss hittar/finner du alltid en modell/bilmodell fordonsmodell anpassad utifrån din krav/önskemål/resebehov/reseönskemål.
+Hos oss på Sixt, som är en av världens främsta/största biluthyrare/biluthyrningsföretag/hyrbilsföretag, är det alltid dina krav/önskemål/resebehov/reseönskemål som står i centrum. 
+Sixt är en av världens främsta biluthyrare/biluthyrare och vi vet hur viktigt det är att du som kund/förare kan skapa en skräddarsydd lösning som passar just dig/din_resa.
+Hos oss på Sixt, som är en av världens främsta/största biluthyrare/biluthyrningsföretag/hyrbilsföretag, har_din/ges_din resa alltid hög_grad_av  flexibilitet 
+Hos oss på Sixt, som är en av världens främsta/största biluthyrare/biluthyrningsföretag/hyrbilsföretag,
+får alltid många/en_rad/ett_stort_antal valmöjligheter/alternativ/hyrbilsmöjligheter när/då du väljer att hyra bil i [MÄRKE].
+
+STYCKE 15
+Vårt team på Sixt biluthyrning i [MÄRKE] önskar dig välkommen!
+Teamet på Sixt biluthyrning i [MÄRKE] önskar dig välkommen!
+Sixt team på vår  biluthyrning i [MÄRKE] önskar dig välkommen!
+Sixt team på vår  biluthyrning i [MÄRKE] hälsar dig välkommen/varmt_välkommen!
+
+STYCKE SLUT
+
+
+STYCKE 
+När du ska hyra bil i [MÄRKE], och vänder dig till oss på Sixt, kan du alltid räkna med utmärkt/högkvalitativ service.
+När du väljer Sixt när du ska hyra bil i [MÄRKE] kan du alltid räkna med service av hög kvalhet.
+När du väljer Sixt när du ska hyra bil i [MÄRKE] kan du alltid räkna med utmärkt/högkvalitativ service.
+
+Det  gör oss till förstahandsvalet/det_självklara_valet.
+Vår biluthyrning erbjuder ett brett utbud och är det självklara valet när du besöker/är_på_besök i landet.
+Vi på Sixt är det det_självklara_valet/det_givna_valet för besökare i staden.
+Du kan alltid räkna med service och kvalitet av toppklass/högsta_klass då du väljer att hyra bil i [MÄRKE].
+
+
+
+
+
+STYCKE 1
+
+Vad är viktigt/viktigast för dig när du ska hyra bil i [MÄRKE]?
+
+STYCKE 1
+
+På vårt kontor finns ett brett/stort urval av bilar/bilmodeller och vi erbjuder dig som förare/resenär/besökare/kund utmärkt/högkvalitativ service.
+Hos oss på Sixt kan du alltid räkna med ett brett/stort urval av bilar/bilmodeller och en utmärkt/högkvalitativ service/hyrbilsservice.
+
+
+
+Högkvalitativ service liksom en rad tillvalstjänster/möjligheter_till_tillval 
+
+
+
+
