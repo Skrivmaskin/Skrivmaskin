@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Core
 {
-    public class PhraseWordChoice : IBlockOfText
+    /// <summary>
+    /// A choice of words or short phrases that may comprise this block of text.
+    /// </summary>
+    public sealed class PhraseWordChoice : Choice<string>, IBlockOfText
     {
-        public PhraseWordChoice ()
-        {
-        }
-
-        public string [] Choices { get; set; }
     }
 }

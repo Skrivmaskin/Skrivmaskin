@@ -8,6 +8,7 @@ namespace Skrivmaskin.Core.Test
         [Test]
         public void TestCase ()
         {
+            
         }
     }
 }

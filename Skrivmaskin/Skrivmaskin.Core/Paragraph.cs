@@ -1,12 +1,11 @@
-﻿using System;
+using System;
+
 namespace Skrivmaskin.Core
 {
-    public class Paragraph
+    /// <summary>
+    /// Paragraph.
+    /// </summary>
+    public sealed class Paragraph : Choice<ParagraphChoice>
     {
-        public Paragraph ()
-        {
-        }
-
-        public ParagraphChoice [] Choices { get; set; }
     }
 }

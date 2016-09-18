@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Core
 {
-    public class SentenceChoice
+    /// <summary>
+    /// Leaf language element representing a small number of sentences.
+    /// </summary>
+    public sealed class SentenceChoice : Concat<IBlockOfText>
     {
-        public SentenceChoice ()
-        {
-        }
-
-        public IBlockOfText [] TextBlocks { get; set; }
     }
 }

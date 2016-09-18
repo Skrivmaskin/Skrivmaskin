@@ -1,12 +1,15 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Core
 {
-    public sealed class RawText : IBlockOfText
+    /// <summary>
+    /// Straight up raw text for this block of text.
+    /// </summary>
+    public sealed class PhraseText : IBlockOfText
     {
-        public RawText ()
-        {
-        }
-
+        /// <summary>
+        /// The raw text.
+        /// </summary>
+        /// <value>The text.</value>
         public string Text { get; set; }
     }
 }

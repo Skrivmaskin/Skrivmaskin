@@ -1,12 +1,15 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Core
 {
-    public sealed class VariableSubstitution : IBlockOfText
+    /// <summary>
+    /// Represents a variable substitution.
+    /// </summary>
+    public sealed class PhraseVariableSubstitution : IBlockOfText
     {
-        public VariableSubstitution ()
-        {
-        }
-
-        public Variable Variable { get; set; }
+        /// <summary>
+        /// The specific form of the variable needed for this substitution.
+        /// </summary>
+        /// <value>The variable.</value>
+        public VariableForm Variable { get; set; }
     }
 }

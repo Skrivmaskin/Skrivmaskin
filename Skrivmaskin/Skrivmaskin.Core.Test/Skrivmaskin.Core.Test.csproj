@@ -6,7 +6,7 @@
     <ProjectGuid>{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Skrivmaskin.Core.Test</RootNamespace>
-    <AssemblyName>Skrivmaskin.Core.Test</AssemblyName>
+    <AssemblyName>Skrivmaskin.Example</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,6 +35,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">
+      <Project>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</Project>
+      <Name>Skrivmaskin.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

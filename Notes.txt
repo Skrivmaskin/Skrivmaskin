@@ -2,16 +2,28 @@ Typewriter
 
 Master-details
 Content is text editor with syntax highlighting for variables and choices
-Paragraphs, AlternativeParagraphs, Sentences, AlternativeSentences, Text[VariableWords, AlternativeWords]
+
+Project
+- Config
+- Variables
+- Paragraphs (concat)
+
+Paragraph
+- ParagraphChoices (choice)
+
+ParagraphChoice
+- Sentences (concat)
+
+Sentence
+- SentenceChoices (choice)
+
+SentenceChoice
+- TextBlocks (concat)
+
+TextBlock
+- DU of Variable, WordChoice, RawText
+
 Use collapsible tree for left hand master pane
-
-
-
-
-
-
-
-
 
 
 

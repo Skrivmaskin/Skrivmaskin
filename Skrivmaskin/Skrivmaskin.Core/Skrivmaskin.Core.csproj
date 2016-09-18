@@ -3,14 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{FF6CEFEB-0FCC-4FB6-B05D-28BFEA778D65}</ProjectGuid>
-    <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <UseMSBuildEngine>true</UseMSBuildEngine>
+    <ProjectGuid>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Skrivmaskin.Core</RootNamespace>
     <AssemblyName>Skrivmaskin.Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,26 +17,54 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="ISkrivmaskin.cs" />
+    <Reference Include="System" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Sentence.cs" />
-    <Compile Include="Variable.cs" />
-    <Compile Include="Paragraph.cs" />
-    <Compile Include="SentenceChoice.cs" />
-    <Compile Include="ParagraphChoice.cs" />
-    <Compile Include="Document.cs" />
+    <Compile Include="CachingDialogBasedVariableSubstituter.cs" />
+    <Compile Include="Choice.cs" />
+    <Compile Include="Concat.cs" />
     <Compile Include="IBlockOfText.cs" />
+    <Compile Include="IDialogService.cs" />
+    <Compile Include="IRandomChooser.cs" />
+    <Compile Include="IVariableSubstituter.cs" />
+    <Compile Include="Paragraph.cs" />
+    <Compile Include="ParagraphChoice.cs" />
     <Compile Include="PhraseText.cs" />
     <Compile Include="PhraseVariableSubstitution.cs" />
     <Compile Include="PhraseWordChoice.cs" />
+    <Compile Include="Project.cs" />
+    <Compile Include="RandomChooser.cs" />
+    <Compile Include="Sentence.cs" />
+    <Compile Include="SentenceChoice.cs" />
+    <Compile Include="Skrivmaskin.cs" />
+    <Compile Include="Variable.cs" />
+    <Compile Include="VariableForm.cs" />
+    <Compile Include="Lexing\LexerException.cs" />
+    <Compile Include="Lexing\Token.cs" />
+    <Compile Include="Lexing\TokenType.cs" />
+    <Compile Include="Lexing\Lexer.cs" />
+    <Compile Include="Lexing\Syntax.cs" />
+    <Compile Include="Lexing\LexerState.cs" />
   </ItemGroup>
-  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Lexing\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Core
 {
-    public sealed class Sentence
+    /// <summary>
+    /// Represents the available set of equivalent choices for a sentence (or small number of sentences) to go into 
+    /// </summary>
+    public sealed class Sentence : Choice<SentenceChoice>
     {
-        public Sentence ()
-        {
-        }
-
-        public SentenceChoice [] Choices { get; set; }
     }
 }

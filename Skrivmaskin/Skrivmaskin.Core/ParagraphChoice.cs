@@ -1,12 +1,10 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Core
 {
-    public class ParagraphChoice
+    /// <summary>
+    /// Paragraph choice.
+    /// </summary>
+    public sealed class ParagraphChoice : Concat<Sentence>
     {
-        public ParagraphChoice ()
-        {
-        }
-
-        public Sentence [] Sentences { get; set; }
     }
 }
