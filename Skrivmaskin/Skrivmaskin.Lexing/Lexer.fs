@@ -1,5 +1,7 @@
 ﻿namespace Skrivmaskin.Lexing
 
+//TODO OPS Add comment syntax to the lexer.
+
 /// Global level token.
 type internal Token =
     /// Raw text or variable.

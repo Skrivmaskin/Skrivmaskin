@@ -52,7 +52,7 @@ namespace Skrivmaskin.Core
 
         string MakeSentenceChoice (SentenceChoice sc)
         {
-            return Concatenate ((IBlockOfText bot) => MakeBlock(bot), sc, " ");
+            return Concatenate ((IBlockOfText bot) => MakeBlock(bot), sc, "");
         }
 
         string MakeSentence (Sentence s)
@@ -62,7 +62,7 @@ namespace Skrivmaskin.Core
 
         string MakeParagraphChoice (ParagraphChoice pc)
         {
-            return Concatenate ((Sentence s) => MakeSentence (s), pc, "  ");
+            return Concatenate ((Sentence s) => MakeSentence (s), pc, " ");
         }
 
         string MakeParagraph (Paragraph p)

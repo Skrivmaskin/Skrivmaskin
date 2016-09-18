@@ -7,11 +7,12 @@ using System.Runtime.CompilerServices;
 [assembly: AssemblyTitle ("Skrivmaskin.Core")]
 [assembly: AssemblyDescription ("")]
 [assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("")]
-[assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright ("Oliver")]
+[assembly: AssemblyCompany ("Skrivmaskin")]
+[assembly: AssemblyProduct ("Skrivmaskin")]
+[assembly: AssemblyCopyright ("Skrivmaskin")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
+[assembly: InternalsVisibleTo ("Skrivmaskin.Core.Test")]
 
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".
 // The form "{Major}.{Minor}.*" will automatically update the build and revision,

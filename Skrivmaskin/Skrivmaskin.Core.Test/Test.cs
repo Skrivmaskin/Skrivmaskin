@@ -1,11 +1,10 @@
-﻿using NUnit.Framework;
+﻿using Xunit;
 using System;
 namespace Skrivmaskin.Core.Test
 {
-    [TestFixture]
     public class Test
     {
-        [Test]
+        [Fact]
         public void TestCase ()
         {
             

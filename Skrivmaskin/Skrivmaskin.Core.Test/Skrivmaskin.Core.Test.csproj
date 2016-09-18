@@ -26,21 +26,30 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
+    <Reference Include="xunit.abstractions">
+      <HintPath>..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.assert">
+      <HintPath>..\packages\xunit.assert.2.1.0\lib\dotnet\xunit.assert.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.core">
+      <HintPath>..\packages\xunit.extensibility.core.2.1.0\lib\dotnet\xunit.core.dll</HintPath>
+    </Reference>
+    <Reference Include="xunit.execution.desktop">
+      <HintPath>..\packages\xunit.extensibility.execution.2.1.0\lib\net45\xunit.execution.desktop.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">
       <Project>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</Project>
       <Name>Skrivmaskin.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
