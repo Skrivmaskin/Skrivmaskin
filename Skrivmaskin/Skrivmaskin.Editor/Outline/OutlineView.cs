@@ -20,7 +20,9 @@ namespace Skrivmaskin.Editor.Outline
             outlineView.AddColumn (column);
             // You must set OutlineTableColumn or the arrows showing children/expansion will not be drawn
             outlineView.OutlineTableColumn = column;
-            NSTableColumn details = new NSTableColumn ("Details");
+            NSTableColumn details = new NSTableColumn ("Details") {
+                Editable = true
+            };
             outlineView.AddColumn (details);
 
             // Setup the Delegate/DataSource instances to be interrogated for data and view information

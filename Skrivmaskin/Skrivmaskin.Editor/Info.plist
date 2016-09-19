@@ -5,7 +5,7 @@
 	<key>CFBundleDisplayName</key>
 	<string>SkrivMaskin.Editor</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.skrivmaskin.SkrivMaskin.Editor</string>
+	<string>com.skrivmaskin.Skrivmaskin.Editor</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
 	<key>LSMinimumSystemVersion</key>
@@ -15,6 +15,6 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>CFBundleName</key>
-	<string>SkrivMaskin.Editor</string>
+	<string>Skrivmaskin.Editor</string>
 </dict>
 </plist>
