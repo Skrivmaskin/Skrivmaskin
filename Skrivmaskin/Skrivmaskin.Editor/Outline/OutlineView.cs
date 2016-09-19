@@ -20,6 +20,8 @@ namespace Skrivmaskin.Editor.Outline
 			outlineView.AddColumn (column);
 			// You must set OutlineTableColumn or the arrows showing children/expansion will not be drawn
 			outlineView.OutlineTableColumn = column;
+            NSTableColumn details = new NSTableColumn ("Details");
+            outlineView.AddColumn (details);
 
 			// Setup the Delegate/DataSource instances to be interrogated for data and view information
 			// In Unified, these take an interface instead of a base class and you can combine these into

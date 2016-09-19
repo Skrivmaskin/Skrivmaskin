@@ -95,6 +95,31 @@ let project =
         }
     |> Seq.singleton
     |> Seq.toList
+    |> fun paras ->
+        {
+            Variables   =
+                [
+                    {
+                        Name        = "MÄRKE"
+                        Description = "Stad"
+                        Suggestion  = "London"
+                        Forms       = []
+                    }
+                    {
+                        Name        = "P2"
+                        Description = "Vår biluthyrning är belägen"
+                        Suggestion  = "Covent Garden"
+                        Forms       = []
+                    }
+                    {
+                        Name        = "P3"
+                        Description = "Typ av bilar?"
+                        Suggestion  = "Volvo"
+                        Forms       = []
+                    }
+                ]
+            Paragraphs  = paras
+        }
 
 project
 |> ProjectWriter.write (new FileInfo("/Users/Oliver/Projects/Skrivmaskin/Json/1aStycket.json"))

@@ -23,7 +23,19 @@ type Paragraph =
         ParagraphName           : string
         Paragraph               : ParagraphChoice list
     }
-type Project = Paragraph list
+type VariableFormDefinition     = string
+type VariableDefinition         =
+    {
+        Name                    : string
+        Description             : string
+        Suggestion              : string
+        Forms                   : VariableFormDefinition list
+    }
+type Project =
+    {
+        Variables               : VariableDefinition list
+        Paragraphs              : Paragraph list
+    }
 
 [<RequireQualifiedAccess>]
 module ProjectWriter =
