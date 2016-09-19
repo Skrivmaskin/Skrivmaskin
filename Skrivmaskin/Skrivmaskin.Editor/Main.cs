@@ -1,18 +1,13 @@
-using System;
-using CoreGraphics;
-using Foundation;
-using AppKit;
-using ObjCRuntime;
+﻿using AppKit;
 
 namespace Skrivmaskin.Editor
 {
-    class MainClass
+    static class MainClass
     {
-        static void Main (string[] args)
+        static void Main (string [] args)
         {
             NSApplication.Init ();
             NSApplication.Main (args);
         }
     }
 }
-

@@ -3,13 +3,13 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{45B71B7A-CF6F-4C6A-85D2-A1BDFA3880DF}</ProjectGuid>
     <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <ProjectGuid>{15FF1FC9-3C96-465E-BBFB-506FE2E6B04E}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>Skrivmaskin.Editor</RootNamespace>
-    <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
     <AssemblyName>Skrivmaskin.Editor</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
     <UseXamMacFullFramework>true</UseXamMacFullFramework>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -20,80 +20,76 @@
     <DefineConstants>DEBUG;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <UseRefCounting>false</UseRefCounting>
-    <UseSGen>false</UseSGen>
-    <IncludeMonoRuntime>false</IncludeMonoRuntime>
-    <EnablePackageSigning>false</EnablePackageSigning>
-    <CodeSigningKey>Mac Developer</CodeSigningKey>
     <EnableCodeSigning>false</EnableCodeSigning>
+    <CodeSigningKey>Mac Developer</CodeSigningKey>
     <CreatePackage>false</CreatePackage>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <UseSGen>true</UseSGen>
+    <UseRefCounting>true</UseRefCounting>
+    <HttpClientHandler>HttpClientHandler</HttpClientHandler>
+    <TlsProvider>Default</TlsProvider>
     <LinkMode>None</LinkMode>
-    <XamMacArch>x86_64</XamMacArch>
+    <XamMacArch></XamMacArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
+    <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
+    <DefineConstants></DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <LinkMode>None</LinkMode>
-    <UseRefCounting>false</UseRefCounting>
-    <UseSGen>false</UseSGen>
-    <IncludeMonoRuntime>true</IncludeMonoRuntime>
-    <CreatePackage>true</CreatePackage>
+    <EnableCodeSigning>true</EnableCodeSigning>
     <CodeSigningKey>Developer ID Application</CodeSigningKey>
-    <EnableCodeSigning>true</EnableCodeSigning>
-    <EnablePackageSigning>false</EnablePackageSigning>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\AppStore</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-    <LinkMode>None</LinkMode>
-    <UseRefCounting>false</UseRefCounting>
-    <UseSGen>false</UseSGen>
-    <IncludeMonoRuntime>true</IncludeMonoRuntime>
-    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
     <CreatePackage>true</CreatePackage>
-    <CodeSigningKey>3rd Party Mac Developer Application</CodeSigningKey>
-    <EnableCodeSigning>true</EnableCodeSigning>
-    <EnablePackageSigning>true</EnablePackageSigning>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <IncludeMonoRuntime>true</IncludeMonoRuntime>
+    <UseSGen>true</UseSGen>
+    <UseRefCounting>true</UseRefCounting>
+    <LinkMode>None</LinkMode>
+    <HttpClientHandler>HttpClientHandler</HttpClientHandler>
+    <TlsProvider>Default</TlsProvider>
+    <XamMacArch></XamMacArch>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="Xamarin.Mac" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Outline\" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-16.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-16%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-256.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-256%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-32.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-32%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512%402x.png" />
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainWindow.cs" />
-    <Compile Include="MainWindowController.cs" />
-    <Compile Include="MainWindow.designer.cs">
-      <DependentUpon>MainWindow.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Main.cs" />
-    <Compile Include="AppDelegate.cs" />
-    <Compile Include="AppDelegate.designer.cs">
-      <DependentUpon>AppDelegate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Outline\Node.cs" />
-    <Compile Include="Outline\OutlineView.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="MainWindow.xib" />
-    <InterfaceDefinition Include="MainMenu.xib" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="ViewController.cs" />
+    <Compile Include="ViewController.designer.cs">
+      <DependentUpon>ViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Node.cs" />
+    <Compile Include="SkrivmaskinOutlineViewDataSource.cs" />
+    <Compile Include="SkrivmaskinOutlineViewDelegate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">
