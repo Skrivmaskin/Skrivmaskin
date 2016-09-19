@@ -5,6 +5,12 @@ using Foundation;
 
 namespace Skrivmaskin.Editor.Outline
 {
+    static class OutlineIdentifiers
+    {
+        public const string Outline = "Outline";
+        public const string Details = "Details";
+    }
+
     static class OutlineSetup
     {
         // This sets up a NSOutlineView for demonstration
@@ -16,13 +22,11 @@ namespace Skrivmaskin.Editor.Outline
             };
 
             // Every NSOutlineView must have at least one column or your Delegate will not be called.
-            NSTableColumn column = new NSTableColumn ("Values");
+            NSTableColumn column = new NSTableColumn (OutlineIdentifiers.Outline);
             outlineView.AddColumn (column);
             // You must set OutlineTableColumn or the arrows showing children/expansion will not be drawn
             outlineView.OutlineTableColumn = column;
-            NSTableColumn details = new NSTableColumn ("Details") {
-                Editable = true
-            };
+            NSTableColumn details = new NSTableColumn (OutlineIdentifiers.Details);
             outlineView.AddColumn (details);
 
             // Setup the Delegate/DataSource instances to be interrogated for data and view information
@@ -45,20 +49,36 @@ namespace Skrivmaskin.Editor.Outline
         const string identifer = "myCellIdentifier";
         public override NSView GetView (NSOutlineView outlineView, NSTableColumn tableColumn, NSObject item)
         {
+            NSTextField view;
+
             // This pattern allows you reuse existing views when they are no-longer in use.
             // If the returned view is null, you instance up a new view
             // If a non-null view is returned, you modify it enough to reflect the new data
-            NSTextField view = (NSTextField)outlineView.MakeView (identifer, this);
-            if (view == null) {
-                view = new NSTextField () {
-                    Identifier = identifer,
-                    Bordered = false,
-                    Selectable = false,
-                    Editable = false
-                };
+            //TODO OPS Here I need to do different things for the outline and details columns.
+            if (tableColumn.Identifier == OutlineIdentifiers.Outline) {
+                view = (NSTextField)outlineView.MakeView (identifer, this);
+                if (view == null) {
+                    view = new NSTextField () {
+                        Identifier = identifer,
+                        Bordered = false,
+                        Selectable = false,
+                        Editable = false
+                    };
+                }
+                view.StringValue = ((Node)item).Name;
+            } else {
+                view = (NSTextField)outlineView.MakeView (identifer, this);
+                if (view == null) {
+                    view = new NSTextField () {
+                        Identifier = identifer,
+                        Bordered = false,
+                        Selectable = false,
+                        Editable = true
+                    };
+                }
+                view.StringValue = ((Node)item).Description;
             }
 
-            view.StringValue = ((Node)item).Name;
             return view;
         }
 

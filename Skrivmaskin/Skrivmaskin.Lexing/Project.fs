@@ -11,17 +11,17 @@ type SentenceChoice = string // user format
 type Sentence =
     {
         SentenceName            : string
-        Sentence                : SentenceChoice list
+        Sentence                : SentenceChoice seq
     }
 type ParagraphChoice =
     {
         ParagraphChoiceName     : string
-        ParagraphChoice         : Sentence list
+        ParagraphChoice         : Sentence seq
     }
 type Paragraph =
     {
         ParagraphName           : string
-        Paragraph               : ParagraphChoice list
+        Paragraph               : ParagraphChoice seq
     }
 type VariableFormDefinition     = string
 type VariableDefinition         =
@@ -29,12 +29,12 @@ type VariableDefinition         =
         Name                    : string
         Description             : string
         Suggestion              : string
-        Forms                   : VariableFormDefinition list
+        Forms                   : VariableFormDefinition seq
     }
 type Project =
     {
-        Variables               : VariableDefinition list
-        Paragraphs              : Paragraph list
+        Variables               : VariableDefinition seq
+        Paragraphs              : Paragraph seq
     }
 
 [<RequireQualifiedAccess>]
@@ -46,4 +46,11 @@ module ProjectWriter =
         use stream      = new FileStream(fileInfo.FullName, FileMode.Create, FileAccess.Write)
         use writer      = new StreamWriter(stream)
         serializer.Serialize(writer, project)
+    
+    /// Deserialize with Json.
+    let read (fileInfo:FileInfo) =
+        let serializer  = new JsonSerializer()
+        use stream      = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read)
+        use reader      = new StreamReader(stream)
+        unbox<Project>(serializer.Deserialize(reader, typeof<Project>))
 
