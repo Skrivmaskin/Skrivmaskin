@@ -6,13 +6,13 @@ using ObjCRuntime;
 
 namespace Skrivmaskin.Editor
 {
-	class MainClass
-	{
-		static void Main (string[] args)
-		{
-			NSApplication.Init ();
-			NSApplication.Main (args);
-		}
-	}
+    class MainClass
+    {
+        static void Main (string[] args)
+        {
+            NSApplication.Init ();
+            NSApplication.Main (args);
+        }
+    }
 }
 
