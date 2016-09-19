@@ -9,6 +9,8 @@ Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Skrivmaskin.Lexing", "Skriv
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Skrivmaskin.Lexing.Test", "Skrivmaskin.Lexing.Test\Skrivmaskin.Lexing.Test.fsproj", "{39F08C2D-532B-4670-A65A-93694595632E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skrivmaskin.Editor", "Skrivmaskin.Editor\Skrivmaskin.Editor.csproj", "{15FF1FC9-3C96-465E-BBFB-506FE2E6B04E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,5 +33,9 @@ Global
 		{39F08C2D-532B-4670-A65A-93694595632E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{39F08C2D-532B-4670-A65A-93694595632E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{39F08C2D-532B-4670-A65A-93694595632E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15FF1FC9-3C96-465E-BBFB-506FE2E6B04E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15FF1FC9-3C96-465E-BBFB-506FE2E6B04E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15FF1FC9-3C96-465E-BBFB-506FE2E6B04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15FF1FC9-3C96-465E-BBFB-506FE2E6B04E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -6,7 +6,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>Skrivmaskin.Lexing</RootNamespace>
     <AssemblyName>Skrivmaskin.Lexing</AssemblyName>
-    <TargetFrameworkVersion>v4.5.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -57,10 +57,10 @@
     <Compile Include="Syntax.fs" />
     <Compile Include="Lexer.fs" />
     <Compile Include="Project.fs" />
-    <Compile Include="Jsonizer.fsx" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Jsonizer.fsx" />
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
   <Import Project="..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />
