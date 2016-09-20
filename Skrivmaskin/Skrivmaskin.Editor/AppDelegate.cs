@@ -1,11 +1,11 @@
-﻿using System.IO;
+using System.IO;
 using AppKit;
 using Foundation;
 
 namespace Skrivmaskin.Editor
 {
     [Register ("AppDelegate")]
-    public class AppDelegate : NSApplicationDelegate
+    public partial class AppDelegate : NSApplicationDelegate
     {
         #region Computed Properties
         public int NewWindowNumber { get; set; } = -1;
@@ -53,7 +53,7 @@ namespace Skrivmaskin.Editor
 
                 // Is the file already open?
                 for (int n = 0; n < NSApplication.SharedApplication.Windows.Length; ++n) {
-                    var content = NSApplication.SharedApplication.Windows [n].ContentViewController as ViewController;
+                    var content = NSApplication.SharedApplication.Windows [n].ContentViewController as TabViewController;
                     if (content != null && path == content.FilePath) {
                         // Bring window to front
                         NSApplication.SharedApplication.Windows [n].MakeKeyAndOrderFront (this);
@@ -69,11 +69,19 @@ namespace Skrivmaskin.Editor
                 controller.ShowWindow (this);
 
                 // Load the model into the window
-                var viewController = controller.Window.ContentViewController as ViewController;
+                var viewController = controller.Window.ContentViewController as TabViewController;
+                DesignViewController designViewController = null;
+                foreach (var child in viewController.ChildViewControllers) {
+                    if (child is DesignViewController) {
+                        designViewController = child as DesignViewController;
+                        break;
+                    }
+                }
+
                 Node node;
                 string errorText;
                 if (Node.CreateTree (path, out node, out errorText)) {
-                    viewController.SetNode (node);
+                    designViewController.SetNode (node);
                 }
 
                 //viewController.SetLanguageFromPath (path);
@@ -112,6 +120,22 @@ namespace Skrivmaskin.Editor
                     OpenFile (url);
                 }
             }
+        }
+
+        /// <summary>
+        /// The user has clicked Generate.
+        /// </summary>
+        /// <remarks>
+        /// Responsiblities are:
+        /// - parse the content of the design view (only if anything has changed) and update the compiled (or report a compilation error)
+        /// - refresh the variables in the table, being careful not to lose the user's changes
+        /// - randomly generate the output
+        /// view.
+        /// </remarks>
+        /// <param name="sender">Sender.</param>
+        partial void generateAction (NSObject sender)
+        {
+            
         }
         #endregion
     }

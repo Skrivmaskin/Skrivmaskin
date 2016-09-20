@@ -80,13 +80,25 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewController.cs" />
-    <Compile Include="ViewController.designer.cs">
-      <DependentUpon>ViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Node.cs" />
     <Compile Include="SkrivmaskinOutlineViewDataSource.cs" />
     <Compile Include="SkrivmaskinOutlineViewDelegate.cs" />
+    <Compile Include="NodeType.cs" />
+    <Compile Include="TabViewController.cs" />
+    <Compile Include="TabViewController.designer.cs">
+      <DependentUpon>TabViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignViewController.cs" />
+    <Compile Include="DesignViewController.designer.cs">
+      <DependentUpon>DesignViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RunViewController.cs" />
+    <Compile Include="RunViewController.designer.cs">
+      <DependentUpon>RunViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AppDelegate.designer.cs">
+      <DependentUpon>AppDelegate.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

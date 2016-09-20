@@ -10,25 +10,25 @@ namespace Skrivmaskin.Editor
     // OPS This wants to be in terms of the Lexer's types, because it is all pre-lex.
     public class Node : NSObject
     {
-        public string Title { get; private set; }
+        public string Title { get; set; }
         List<Node> Children;
 
         public static void GenerateSubTree (Node parentNode, INode designNode)
         {
             if (designNode is TextNode)
-                parentNode.AddChild ("", ((TextNode)designNode).Value);
+                parentNode.AddChild (NodeType.Text, "", ((TextNode)designNode).Value);
             else if (designNode is CommentNode)
-                parentNode.AddChild ("", ((CommentNode)designNode).Value);
+                parentNode.AddChild (NodeType.Comment, "", ((CommentNode)designNode).Value);
             else if (designNode is ChoiceNode) {
                 var choiceNode = designNode as ChoiceNode;
-                var node = parentNode.AddChild (choiceNode.ChoiceName, "");
+                var node = parentNode.AddChild (NodeType.Choice, choiceNode.ChoiceName, "");
                 if (choiceNode.Choices != null)
                     foreach (var subNode in choiceNode.Choices) {
                         GenerateSubTree (node, subNode);
                     }
             } else if (designNode is ConcatNode) {
                 var concatNode = designNode as ConcatNode;
-                var node = parentNode.AddChild (concatNode.ConcatName, "");
+                var node = parentNode.AddChild (NodeType.Concat, concatNode.ConcatName, "");
                 if (concatNode.Sequential != null)
                     foreach (var subNode in concatNode.Sequential) {
                         GenerateSubTree (node, subNode);
@@ -43,39 +43,42 @@ namespace Skrivmaskin.Editor
                 var fileInfo = new FileInfo (filePath);
                 var project = ProjectWriter.Read (fileInfo);
 
-                node = new Node ("Name", "");
-                Node variables = node.AddChild ("Variables", "");
+                node = new Node (NodeType.Root, "Name", "");
+                Node variables = node.AddChild (NodeType.Root, "Variables", "");
                 foreach (var variable in project.VariableDefinitions) {
-                    var variableNode = variables.AddChild (variable.Name, variable.Description);
+                    var variableNode = variables.AddChild (NodeType.Variable, variable.Name, variable.Description);
                     foreach (var form in variable.Forms) {
-                        variableNode.AddChild (form.Name, form.Suggestion);
+                        variableNode.AddChild (NodeType.VariableForm, form.Name, form.Suggestion);
                     }
                 }
 
-                Node paragraphs = node.AddChild ("Definition", "");
+                Node paragraphs = node.AddChild (NodeType.Root, "Definition", "");
                 GenerateSubTree (paragraphs, project.Definition);
 
                 errorText = null;
                 return true;
             } catch (Exception e) {
                 errorText = e.ToString ();
-                node = new Node ("", "");
-                node.AddChild ("Variables", "");
-                node.AddChild ("Paragraphs", "");
+                node = new Node (NodeType.Root, "", "");
+                node.AddChild (NodeType.Root, "Variables", "");
+                node.AddChild (NodeType.Root, "Paragraphs", "");
             }
             return false;
         }
 
-        public Node (string title, string description)
+        public NodeType Type { get; private set;}
+
+        public Node (NodeType nodeType, string title, string description)
         {
+            Type = nodeType;
             Title = title;
             Children = new List<Node> ();
             this.description = description;
         }
 
-        public Node AddChild (string name, string description)
+        public Node AddChild (NodeType nodeType, string name, string description)
         {
-            Node n = new Node (name, description);
+            Node n = new Node (nodeType, name, description);
             Children.Add (n);
             return n;
         }
@@ -88,6 +91,10 @@ namespace Skrivmaskin.Editor
         private string description;
         public override string Description {
             get { return description; }
+        }
+        public void SetDescription (string desc)
+        {
+            description = desc;
         }
 
         public int ChildCount { get { return Children.Count; } }
