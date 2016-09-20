@@ -2,7 +2,7 @@
 using Foundation;
 using System.Collections.Generic;
 using System.IO;
-using Skrivmaskin.Lexing;
+using Skrivmaskin.Core.Design;
 
 namespace Skrivmaskin.Editor
 {
@@ -13,34 +13,52 @@ namespace Skrivmaskin.Editor
         public string Title { get; private set; }
         List<Node> Children;
 
-        public static bool CreateExampleTree (string filePath, out Node node)
+        public static void GenerateSubTree (Node parentNode, INode designNode)
+        {
+            if (designNode is TextNode)
+                parentNode.AddChild ("", ((TextNode)designNode).Text);
+            else if (designNode is CommentNode)
+                parentNode.AddChild ("", ((CommentNode)designNode).Comment);
+            else if (designNode is ChoiceNode) {
+                var choiceNode = designNode as ChoiceNode;
+                var node = parentNode.AddChild (choiceNode.ChoiceName, "");
+                if (choiceNode.Choices != null)
+                    foreach (var subNode in choiceNode.Choices) {
+                        GenerateSubTree (node, subNode);
+                    }
+            } else if (designNode is ConcatNode) {
+                var concatNode = designNode as ConcatNode;
+                var node = parentNode.AddChild (concatNode.ConcatName, "");
+                if (concatNode.Sequential != null)
+                    foreach (var subNode in concatNode.Sequential) {
+                        GenerateSubTree (node, subNode);
+                    }
+            } else
+                throw new ApplicationException ("Unexpected node type " + designNode.GetType ());
+        }
+
+        public static bool CreateTree (string filePath, out Node node, out string errorText)
         {
             try {
                 var fileInfo = new FileInfo (filePath);
-                var project = ProjectWriter.read (fileInfo);
+                var project = ProjectWriter.Read (fileInfo);
 
-                node = new Node ("", "");
+                node = new Node ("Name", "");
                 Node variables = node.AddChild ("Variables", "");
-                foreach (var variable in project.Variables) {
-                    variables.AddChild (variable.Name, variable.Description);
-                }
-
-                Node paragraphs = node.AddChild ("Paragraphs", "");
-                foreach (var paragraph in project.Paragraphs) {
-                    var paragraphNode = paragraphs.AddChild (paragraph.ParagraphName, "");
-                    foreach (var paragraphChoice in paragraph.Paragraph) {
-                        var paragraphChoiceNode = paragraphNode.AddChild (paragraphChoice.ParagraphChoiceName, "");
-                        foreach (var sentence in paragraphChoice.ParagraphChoice) {
-                            var sentenceNode = paragraphChoiceNode.AddChild (sentence.SentenceName, "");
-                            foreach (var sentenceChoice in sentence.Sentence) {
-                                sentenceNode.AddChild (sentenceChoice, sentenceChoice);
-                            }
-                        }
+                foreach (var variable in project.VariableDefinitions) {
+                    var variableNode = variables.AddChild (variable.Name, variable.Description);
+                    foreach (var form in variable.Forms) {
+                        variableNode.AddChild (form.Name, form.Suggestion);
                     }
                 }
 
+                Node paragraphs = node.AddChild ("Definition", "");
+                GenerateSubTree (paragraphs, project.Definition);
+
+                errorText = null;
                 return true;
-            } catch (Exception) {
+            } catch (Exception e) {
+                errorText = e.ToString ();
                 node = new Node ("", "");
                 node.AddChild ("Variables", "");
                 node.AddChild ("Paragraphs", "");

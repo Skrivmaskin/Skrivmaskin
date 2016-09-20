@@ -71,9 +71,11 @@ namespace Skrivmaskin.Editor
                 // Load the model into the window
                 var viewController = controller.Window.ContentViewController as ViewController;
                 Node node;
-                if (Node.CreateExampleTree (path, out node)) {
+                string errorText;
+                if (Node.CreateTree (path, out node, out errorText)) {
                     viewController.SetNode (node);
                 }
+
                 //viewController.SetLanguageFromPath (path);
                 viewController.View.Window.SetTitleWithRepresentedFilename (Path.GetFileName (path));
                 viewController.View.Window.RepresentedUrl = url;

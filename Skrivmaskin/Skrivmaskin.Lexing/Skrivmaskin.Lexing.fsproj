@@ -56,11 +56,16 @@
     <Compile Include="AssemblyInfo.fs" />
     <Compile Include="Syntax.fs" />
     <Compile Include="Lexer.fs" />
-    <Compile Include="Project.fs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Jsonizer.fsx" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">
+      <Project>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</Project>
+      <Name>Skrivmaskin.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(FSharpTargetsPath)" />
   <Import Project="..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.2.3.2.127\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

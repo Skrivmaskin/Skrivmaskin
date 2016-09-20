@@ -1,4 +1,5 @@
 ﻿#r "bin/Debug/Skrivmaskin.Lexing.dll"
+#r "bin/Debug/Skrivmaskin.Core.dll"
 #r "bin/Debug/Newtonsoft.Json.dll"
 #r "bin/Debug/Xamarin.Forms.Core.dll"
 #r "bin/Debug/Xamarin.Forms.Xaml.dll"
@@ -6,8 +7,10 @@
 
 open System
 open System.IO
+open System.Collections.Generic
 open System.Text.RegularExpressions
 open Skrivmaskin.Lexing
+open Skrivmaskin.Core.Design
 open Newtonsoft.Json
 
 let variableRegex = new Regex("(.*)\[([^\[\]]+)\](.*)")
@@ -65,18 +68,9 @@ let transformAll name file =
     |> List.rev
     |> List.map
         (fun (a,li) ->
-            let sentenceChoices = li
-            let sentence =
-                {
-                    SentenceName = (match a with | InStycke(n) -> sprintf "STYCKE %d" n | _ -> "")
-                    Sentence = sentenceChoices
-                }
-            sentence)
-    |> fun pc ->
-        {
-            ParagraphChoiceName = name
-            ParagraphChoice = pc 
-        }
+            let sentenceChoices = new List<INode>(li |> Seq.map (fun text -> new TextNode(text) :> INode))
+            new ChoiceNode((match a with | InStycke(n) -> sprintf "STYCKE %d" n | _ -> ""), sentenceChoices) :> INode)
+    |> fun li -> new ConcatNode(name, (new List<INode>(li))) :> INode
 
 let project =
     [
@@ -89,38 +83,20 @@ let project =
         (fun name ->
             transformAll name ("/Users/Oliver/Projects/Skrivmaskin/SIXT/MALLAR/Sixt/Delar/1a stycket/" + name + ".txt"))
     |> fun p ->
-        {
-            ParagraphName   = "1a stycket"
-            Paragraph       = p
-        }
-    |> Seq.singleton
-    |> Seq.toList
-    |> fun paras ->
-        {
-            Variables   =
-                [
-                    {
-                        Name        = "MÄRKE"
-                        Description = "Stad"
-                        Suggestion  = "London"
-                        Forms       = []
-                    }
-                    {
-                        Name        = "P2"
-                        Description = "Vår biluthyrning är belägen"
-                        Suggestion  = "Covent Garden"
-                        Forms       = []
-                    }
-                    {
-                        Name        = "P3"
-                        Description = "Typ av bilar?"
-                        Suggestion  = "Volvo"
-                        Forms       = []
-                    }
-                ]
-            Paragraphs  = paras
-        }
+        new ChoiceNode("1a stycket", (new List<INode>(p))) :> INode
+    |> fun p ->
+        let variables = new List<Variable>()
+        let markeForm = new VariableForm(Name="", Suggestion="London")
+        variables.Add(new Variable(Name="MÄRKE", Description="Stad", Forms=(new List<VariableForm>(Seq.singleton markeForm))))
+        let p2Form = new VariableForm(Name="", Suggestion="Covent Garden")
+        variables.Add(new Variable(Name="P2", Description="Vår biluthyrning är belägen", Forms=(new List<VariableForm>(Seq.singleton p2Form))))
+        let p3Form = new VariableForm(Name="", Suggestion="Volvo")
+        variables.Add(new Variable(Name="P3", Description="Typ av bilar?", Forms=(new List<VariableForm>(Seq.singleton p3Form))))
+        new Project(ProjectName="Sixt", VariableDefinitions=variables, Definition=p)
 
-project
-|> ProjectWriter.write (new FileInfo("/Users/Oliver/Projects/Skrivmaskin/Json/1aStycket.json"))
+let fileInfo = new FileInfo("/Users/Oliver/Projects/Skrivmaskin/Json/1aStycket.json")
+ProjectWriter.Write (fileInfo, project)
+let project2 = ProjectWriter.Read fileInfo
+
+
 
