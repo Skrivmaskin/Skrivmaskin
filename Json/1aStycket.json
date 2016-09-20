@@ -33,1543 +33,874 @@
     }
   ],
   "Definition": {
-    "Item1": 0,
-    "Item2": "1a stycket",
-    "Item3": null,
-    "Item4": [
+    "ChoiceName": "1a stycket",
+    "Choices": [
       {
-        "Item1": 1,
-        "Item2": "2016-08-23",
-        "Item3": null,
-        "Item4": [
+        "ConcatName": "2016-08-23",
+        "Sequential": [
           {
-            "Item1": 0,
-            "Item2": "STYCKE 1",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 1",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du ska hyra bil i $$MÄRKE$$ gör du det snabbt och enkelt via oss på Sixt.",
-                "Item4": null
+                "Value": "När du ska hyra bil i $$MÄRKE$$ gör du det snabbt och enkelt via oss på Sixt."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sixt erbjuder det enklaste sätter att hyra bil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Sixt erbjuder det enklaste sätter att hyra bil i $$MÄRKE$$."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vill du hyra bil i $$MÄRKE$$? Vi på Sixt erbjuder dig alltid en rad ((förmånliga||prisvärda)) ((erbjudanden||hyrbilslösningar)).",
-                "Item4": null
+                "Value": "Vill du hyra bil i $$MÄRKE$$? Vi på Sixt erbjuder dig alltid en rad ((förmånliga||prisvärda)) ((erbjudanden||hyrbilslösningar))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vill du hyra bil i $$MÄRKE$$? Hos oss på Sixt erbjuds ((du||resenärer)) alltid en rad ((förmångliga||prisvärda)) ((erbjudanden||hyrbilslösningar)).",
-                "Item4": null
+                "Value": "Vill du hyra bil i $$MÄRKE$$? Hos oss på Sixt erbjuds ((du||resenärer)) alltid en rad ((förmångliga||prisvärda)) ((erbjudanden||hyrbilslösningar))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Planerar du att hyra bil i $$MÄRKE$$? Vi på Sixt erbjuder dig alltid en rad ((förmånliga||prisvärda)) ((erbjudanden||hyrbilslösningar)).",
-                "Item4": null
+                "Value": "Planerar du att hyra bil i $$MÄRKE$$? Vi på Sixt erbjuder dig alltid en rad ((förmånliga||prisvärda)) ((erbjudanden||hyrbilslösningar))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi på Sixt har ((tagit fram||utvecklat)) ett enkelt och ((smidigt||bekvämt)) sätt att hyra bil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Vi på Sixt har ((tagit fram||utvecklat)) ett enkelt och ((smidigt||bekvämt)) sätt att hyra bil i $$MÄRKE$$."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Hos oss på Sixt kan du hyra bil i $$MÄRKE$$ till förmånliga priser. Vår biluthyrning i $$MÄRKE$$ har en bil för varje ändamål.",
-                "Item4": null
+                "Value": "Hos oss på Sixt kan du hyra bil i $$MÄRKE$$ till förmånliga priser. Vår biluthyrning i $$MÄRKE$$ har en bil för varje ändamål."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Letar du efter ett ((smidigt||enkelt)) sätt att hyra bil i $$MÄRKE$$? Då har du kommit ((rätt||helt rätt)).",
-                "Item4": null
+                "Value": "Letar du efter ett ((smidigt||enkelt)) sätt att hyra bil i $$MÄRKE$$? Då har du kommit ((rätt||helt rätt))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Att hyra bil i $$MÄRKE$$ är enkelt oavsett om du söker en större eller mindre bil.",
-                "Item4": null
+                "Value": "Att hyra bil i $$MÄRKE$$ är enkelt oavsett om du söker en större eller mindre bil."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Att hyra bil i $$MÄRKE$$ är enkelt oavsett om du söker en bil för en längre eller kortare resa.",
-                "Item4": null
+                "Value": "Att hyra bil i $$MÄRKE$$ är enkelt oavsett om du söker en bil för en längre eller kortare resa."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 2",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 2",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Utmärkt service och ett ((brett||stort)) urval av bilar gör vår biluthyrning i $$MÄRKE$$ till ((förstahandsvalet||det självklara valet)).",
-                "Item4": null
+                "Value": "Utmärkt service och ett ((brett||stort)) urval av bilar gör vår biluthyrning i $$MÄRKE$$ till ((förstahandsvalet||det självklara valet))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Högkvalitativ service liksom en rad ((tillvalstjänster||möjligheter till tillval)) gör vår biluthyrning i $$MÄRKE$$ till ((förstahandsvalet||det självklara valet)).",
-                "Item4": null
+                "Value": "Högkvalitativ service liksom en rad ((tillvalstjänster||möjligheter till tillval)) gör vår biluthyrning i $$MÄRKE$$ till ((förstahandsvalet||det självklara valet))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vår biluthyrning i $$MÄRKE$$ erbjuder ett brett utbud och är det självklara valet när du ((besöker||är på besök i)) landet.",
-                "Item4": null
+                "Value": "Vår biluthyrning i $$MÄRKE$$ erbjuder ett brett utbud och är det självklara valet när du ((besöker||är på besök i)) landet."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi på Sixt är det ((det självklara valet||det givna valet)) för besökare i staden.",
-                "Item4": null
+                "Value": "Vi på Sixt är det ((det självklara valet||det givna valet)) för besökare i staden."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Du kan alltid räkna med service och kvalitet av ((toppklass||högsta klass)) då du väljer att hyra bil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Du kan alltid räkna med service och kvalitet av ((toppklass||högsta klass)) då du väljer att hyra bil i $$MÄRKE$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 3",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 3",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Dessutom är vårt ((kontor||uthyrningskontor)) centralt beläget $$P2$$.",
-                "Item4": null
+                "Value": "Dessutom är vårt ((kontor||uthyrningskontor)) centralt beläget $$P2$$."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vårt  kontor ((centralt||uthyrningskontor)) är dessutom centralt beläget $$P2$$.",
-                "Item4": null
+                "Value": "Vårt  kontor ((centralt||uthyrningskontor)) är dessutom centralt beläget $$P2$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 4",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 4",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "En riktigt bra läge för dig som vill utforska stadskärnan med bil.",
-                "Item4": null
+                "Value": "En riktigt bra läge för dig som vill utforska stadskärnan med bil."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "En perfekt utgångspunkt för dig som vill uppleva staden med bil.",
-                "Item4": null
+                "Value": "En perfekt utgångspunkt för dig som vill uppleva staden med bil."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 5",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 5",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om det är en semester som lockar, och du ska hyra bil i $$MÄRKE$$, så är det här även ett perfekt läge för fortsatta utflykter i regionen.",
-                "Item4": null
+                "Value": "Om det är en semester som lockar, och du ska hyra bil i $$MÄRKE$$, så är det här även ett perfekt läge för fortsatta utflykter i regionen."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om det är en semester som fört dig hit, och du ska hyra bil i $$MÄRKE$$, så har du stora möjligheter att lägga upp resan precis som du vill.",
-                "Item4": null
+                "Value": "Om det är en semester som fört dig hit, och du ska hyra bil i $$MÄRKE$$, så har du stora möjligheter att lägga upp resan precis som du vill."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Genom att hyra bil i $$MÄRKE$$ lägger du upp resan i ((regionen||området)) precis som ((vill||önskar)), och vårt ((kontor||hyrbilskontor||uthyrningskontor)) är en bra ((utgångspunkt||start||startpunkt)) för den fortsatta ((bilresan||bilfärden||resan||färden||turen)).",
-                "Item4": null
+                "Value": "Genom att hyra bil i $$MÄRKE$$ lägger du upp resan i ((regionen||området)) precis som ((vill||önskar)), och vårt ((kontor||hyrbilskontor||uthyrningskontor)) är en bra ((utgångspunkt||start||startpunkt)) för den fortsatta ((bilresan||bilfärden||resan||färden||turen))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 6",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 6",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Eller kanske fortsätter även ((färden||bilresan)) vidare till andra städer i ((området||regionen))?",
-                "Item4": null
+                "Value": "Eller kanske fortsätter även ((färden||bilresan)) vidare till andra städer i ((området||regionen))?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Eller kanske har du planerat en längre ((resa||bilresa)) till angränsande  ((områden||regioner))?",
-                "Item4": null
+                "Value": "Eller kanske har du planerat en längre ((resa||bilresa)) till angränsande  ((områden||regioner))?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du även vill fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod)).",
-                "Item4": null
+                "Value": "Om du även vill fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du även vill fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod)).",
-                "Item4": null
+                "Value": "Om du även vill fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du planerar att fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod)).",
-                "Item4": null
+                "Value": "Om du planerar att fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Kanske vill du även ta ((chansen||möjligheten)) att ((se||besöka)) flera städer i ((området||regionen))? Då kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod)).",
-                "Item4": null
+                "Value": "Kanske vill du även ta ((chansen||möjligheten)) att ((se||besöka)) flera städer i ((området||regionen))? Då kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du även vill besöka närliggande ((städer||kommuner)) så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod)).",
-                "Item4": null
+                "Value": "Om du även vill besöka närliggande ((städer||kommuner)) så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 7",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 7",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Oavsett hur du ((planerar||lägger)) upp din ((vistelse||resa)) har vi garanterat ",
-                "Item4": null
+                "Value": "Oavsett hur du ((planerar||lägger)) upp din ((vistelse||resa)) har vi garanterat "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "en hyrbil i $$MÄRKE$$ för dig.",
-                "Item4": null
+                "Value": "en hyrbil i $$MÄRKE$$ för dig."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Alla resor ser olika ut. Oavsett om du är här ((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod)) så har vi en ((modell||bilmodell||hyrbilsslösning)) för dig.",
-                "Item4": null
+                "Value": "Alla resor ser olika ut. Oavsett om du är här ((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod)) så har vi en ((modell||bilmodell||hyrbilsslösning)) för dig."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi har en bilmodell för alla ((slags||typer av)) resor. Oavsett om du ska stanna ((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod)) ((tar vi fram||hittar vi||finner vi)) en lösning för dig.",
-                "Item4": null
+                "Value": "Vi har en bilmodell för alla ((slags||typer av)) resor. Oavsett om du ska stanna ((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod)) ((tar vi fram||hittar vi||finner vi)) en lösning för dig."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi på Sixt kan ta fram en lösning oavsett om du behöver en hyrbil i $$MÄRKE$$ för",
-                "Item4": null
+                "Value": "Vi på Sixt kan ta fram en lösning oavsett om du behöver en hyrbil i $$MÄRKE$$ för"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod)).",
-                "Item4": null
+                "Value": "((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 8",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 8",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Ta del av våra förmånliga erbjudanden för att boka en hyrbil i $$MÄRKE$$ redan nu.",
-                "Item4": null
+                "Value": "Ta del av våra förmånliga erbjudanden för att boka en hyrbil i $$MÄRKE$$ redan nu."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Ta del av våra förmånliga erbjudanden och boka en hyrbil i $$MÄRKE$$ redan ((idag||nu)). ",
-                "Item4": null
+                "Value": "Ta del av våra förmånliga erbjudanden och boka en hyrbil i $$MÄRKE$$ redan ((idag||nu)). "
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 9",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 9",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi på Sixt erbjuder dig alltid prisvärda ((hyrbilslösningar||lösningar)) om du söker en hyrbil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Vi på Sixt erbjuder dig alltid prisvärda ((hyrbilslösningar||lösningar)) om du söker en hyrbil i $$MÄRKE$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 10",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 10",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vill du resa vidare i en $$P3$$? ",
-                "Item4": null
+                "Value": "Vill du resa vidare i en $$P3$$? "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du vill boka en hyrbil i $$MÄRKE$$, och vänder dig till oss på Sixt, ser vi till att du får ((exakt||precis)) det du ((söker||är ute)) efter - oavsett om gäller en $$P3$$.",
-                "Item4": null
+                "Value": "När du vill boka en hyrbil i $$MÄRKE$$, och vänder dig till oss på Sixt, ser vi till att du får ((exakt||precis)) det du ((söker||är ute)) efter - oavsett om gäller en $$P3$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 11",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 11",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Osäker på vilken ((modell||bilmodell)) som passar ((dig||för din resa||för din färd))?",
-                "Item4": null
+                "Value": "Osäker på vilken ((modell||bilmodell)) som passar ((dig||för din resa||för din färd))?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vet du inte vilken ((modell||bilmodell||bil)) som passar dina önskemål bäst?",
-                "Item4": null
+                "Value": "Vet du inte vilken ((modell||bilmodell||bil)) som passar dina önskemål bäst?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vill du ((veta mer||få mer info||få mer information)) om ((våra erbjudanden||våra bilar||vår hyrbilsservice))?",
-                "Item4": null
+                "Value": "Vill du ((veta mer||få mer info||få mer information)) om ((våra erbjudanden||våra bilar||vår hyrbilsservice))?"
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 12",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 12",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Gå in på ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)), här presenteras alla våra ((modeller||bilar||fordon)).",
-                "Item4": null
+                "Value": "Gå in på ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)), här presenteras alla våra ((modeller||bilar||fordon))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Gå in på ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)), här ((hittar||finner)) du alla våra ((modeller||bilar||fordon)).",
-                "Item4": null
+                "Value": "Gå in på ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)), här ((hittar||finner)) du alla våra ((modeller||bilar||fordon))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "På ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)) finns alla våra ((modeller||bilar||fordon)) presenterade.",
-                "Item4": null
+                "Value": "På ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)) finns alla våra ((modeller||bilar||fordon)) presenterade."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 13",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 13",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Gör din ((bokning||reservation||bilbokning||hyrbilsbokning)) direkt på ((nätet||webben||hemsidan)) eller ((hör av dig till oss||kontakta oss)) per telefon för att hyra en bil i $$MÄRKE$$. ",
-                "Item4": null
+                "Value": "Gör din ((bokning||reservation||bilbokning||hyrbilsbokning)) direkt på ((nätet||webben||hemsidan)) eller ((hör av dig till oss||kontakta oss)) per telefon för att hyra en bil i $$MÄRKE$$. "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Här||På hemsidan||På webbsidan)) kan du även göra din bokning men du kan även hyra en bil i $$MÄRKE$$ genom att kontakta oss per telefon.",
-                "Item4": null
+                "Value": "((Här||På hemsidan||På webbsidan)) kan du även göra din bokning men du kan även hyra en bil i $$MÄRKE$$ genom att kontakta oss per telefon."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 14",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 14",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi på Sixt gör allt för att ((skapa||hitta||utforma||erbjuda)) en lösning som passar just ((dig||dina önskemål||)).",
-                "Item4": null
+                "Value": "Vi på Sixt gör allt för att ((skapa||hitta||utforma||erbjuda)) en lösning som passar just ((dig||dina önskemål||))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi på Sixt ger dig möjlighet att skapa en lösning som passar just dig.",
-                "Item4": null
+                "Value": "Vi på Sixt ger dig möjlighet att skapa en lösning som passar just dig."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du väljer att hyra bil på vårt kontor i $$MÄRKE$$ kan du också göra många tillval.",
-                "Item4": null
+                "Value": "När du väljer att hyra bil på vårt kontor i $$MÄRKE$$ kan du också göra många tillval."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 15",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 15",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Du kan till exempel välja att göra en_rad_flera olika ((tillägg||tillval)) som passar för just din resa.",
-                "Item4": null
+                "Value": "Du kan till exempel välja att göra en_rad_flera olika ((tillägg||tillval)) som passar för just din resa."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi erbjuder en_rad_flera olika ((tillägg||tillval||tjänster)) som gör din resa lite ((smidigare||enklar||mer bekväm)).",
-                "Item4": null
+                "Value": "Vi erbjuder en_rad_flera olika ((tillägg||tillval||tjänster)) som gör din resa lite ((smidigare||enklar||mer bekväm))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 16",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 16",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Du kan till exempel boka en ((barnstol||bilbarnstol)),((GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem)) och ((försäkringspaket||extraförare)).",
-                "Item4": null
+                "Value": "Du kan till exempel boka en ((barnstol||bilbarnstol)),((GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem)) och ((försäkringspaket||extraförare))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 17",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 17",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Boka en hyrbil på vårt kontor i $$MÄRKE$$ redan idag och ta chansen att upptäcka staden med bil.",
-                "Item4": null
+                "Value": "Boka en hyrbil på vårt kontor i $$MÄRKE$$ redan idag och ta chansen att upptäcka staden med bil."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Packa in ((väskorna||dina väskor||ditt bagage||dina resväskor)) i din hyrbil i $$MÄRKE$$ och gör dig redo att ((starta||påbörja)) din ((resa||restur)).",
-                "Item4": null
+                "Value": "Packa in ((väskorna||dina väskor||ditt bagage||dina resväskor)) i din hyrbil i $$MÄRKE$$ och gör dig redo att ((starta||påbörja)) din ((resa||restur))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 18",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 18",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "En hyrbil ger dig ((frihet||stor frihet)) och ((fler möjligheter||möjligheten)) att ((lägga upp||planera)) din ((semester||resa||semesterresa)) precis som du vill ha den. ",
-                "Item4": null
+                "Value": "En hyrbil ger dig ((frihet||stor frihet)) och ((fler möjligheter||möjligheten)) att ((lägga upp||planera)) din ((semester||resa||semesterresa)) precis som du vill ha den. "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du bestämmer dig att hyra bil i $$MÄRKE$$ kan du räkna med att få en toppmodern ((bil||bilmodell)) som motsvarar alla dina ((krav||önskemål)).",
-                "Item4": null
+                "Value": "När du bestämmer dig att hyra bil i $$MÄRKE$$ kan du räkna med att få en toppmodern ((bil||bilmodell)) som motsvarar alla dina ((krav||önskemål))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du bestämmer dig att hyra bil i $$MÄRKE$$ kan du räkna med att få en toppmodern ((lösning||premiumlösning)) som motsvarar ((alla dina||dina)) kravönskemål.",
-                "Item4": null
+                "Value": "När du bestämmer dig att hyra bil i $$MÄRKE$$ kan du räkna med att få en toppmodern ((lösning||premiumlösning)) som motsvarar ((alla dina||dina)) kravönskemål."
               }
             ]
           }
         ]
       },
       {
-        "Item1": 1,
-        "Item2": "2016-08-29",
-        "Item3": null,
-        "Item4": [
+        "ConcatName": "2016-08-29",
+        "Sequential": [
           {
-            "Item1": 0,
-            "Item2": "STYCKE 1",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 1",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Letar||söker)) du efter en hyrbil i $$MÄRKE$$?",
-                "Item4": null
+                "Value": "((Letar||söker)) du efter en hyrbil i $$MÄRKE$$?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vill du boka en hyrbil i  $$MÄRKE$$?",
-                "Item4": null
+                "Value": "Vill du boka en hyrbil i  $$MÄRKE$$?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Planerar du att boka en hyrbil i  $$MÄRKE$$?",
-                "Item4": null
+                "Value": "Planerar du att boka en hyrbil i  $$MÄRKE$$?"
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 2",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 2",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi på||Här på)) Sixt vet vi att varje ((resa||bilresa)) är ((unik||speciell)).",
-                "Item4": null
+                "Value": "((Vi på||Här på)) Sixt vet vi att varje ((resa||bilresa)) är ((unik||speciell))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi på||Här på)) Sixt vet vi att alla har olika ((önskemål||krav)) då det gäller hyrbilar.",
-                "Item4": null
+                "Value": "((Vi på||Här på)) Sixt vet vi att alla har olika ((önskemål||krav)) då det gäller hyrbilar."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi på||Här på)) Sixt vet vi att alla resor är unika.",
-                "Item4": null
+                "Value": "((Vi på||Här på)) Sixt vet vi att alla resor är unika."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Varje ((resa||bilresa)) är unik och vi på Sixt vet att alla ((resenärer||bilförare)) har olika ((krav||önskemål)).",
-                "Item4": null
+                "Value": "Varje ((resa||bilresa)) är unik och vi på Sixt vet att alla ((resenärer||bilförare)) har olika ((krav||önskemål))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi på||Här på)) Sixt vet vi att alla resor ((ser olika ut||är unika||ställer olika)) krav.",
-                "Item4": null
+                "Value": "((Vi på||Här på)) Sixt vet vi att alla resor ((ser olika ut||är unika||ställer olika)) krav."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 3",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 3",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Under en semester ser önskemålen ut på ett visst sätt men det finns ((självklart||givetvis)) även ((bilresor||resor)) med andra ändamål. ",
-                "Item4": null
+                "Value": "Under en semester ser önskemålen ut på ett visst sätt men det finns ((självklart||givetvis)) även ((bilresor||resor)) med andra ändamål. "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "En ((semesterresa||semester)) ställer en viss typ av krav som skiljer sig åt mot behoven på ((jobbresan||affärsresan||resan med arbetet||resan med jobbet)). ",
-                "Item4": null
+                "Value": "En ((semesterresa||semester)) ställer en viss typ av krav som skiljer sig åt mot behoven på ((jobbresan||affärsresan||resan med arbetet||resan med jobbet)). "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "En  ((jobbresa||affärsresa||resa med arbetet||resa med jobbet)) ställer en viss typ av krav som skiljer sig åt mot behoven på ((semesterresa||semester||resan med familjen)).",
-                "Item4": null
+                "Value": "En  ((jobbresa||affärsresa||resa med arbetet||resa med jobbet)) ställer en viss typ av krav som skiljer sig åt mot behoven på ((semesterresa||semester||resan med familjen))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 4",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 4",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Därför är vi ((stolta||glada)) att kunna erbjuda ett brett ((utbud||urval)) av bilar på vår biluthyrning i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Därför är vi ((stolta||glada)) att kunna erbjuda ett brett ((utbud||urval)) av bilar på vår biluthyrning i $$MÄRKE$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 5",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 5",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du ska hyra bil i $$MÄRKE$$ ((kan vi||erbjuder vi)) ((fordon||bilar||bilmodeller)) i alla pris- och storleksklasser.",
-                "Item4": null
+                "Value": "När du ska hyra bil i $$MÄRKE$$ ((kan vi||erbjuder vi)) ((fordon||bilar||bilmodeller)) i alla pris- och storleksklasser."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 6",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 6",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vår biluthyrning i $$MÄRKE$$ är bekvämt belägen $$P2$$. ",
-                "Item4": null
+                "Value": "Vår biluthyrning i $$MÄRKE$$ är bekvämt belägen $$P2$$. "
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 7",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 7",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Att hyra bil i $$MÄRKE$$ är bekvämt och lätt - du hittar all information om våra ((fordon||bilar||bilmodeller)) på ((vår hemsida||webben||på nätet)).",
-                "Item4": null
+                "Value": "Att hyra bil i $$MÄRKE$$ är bekvämt och lätt - du hittar all information om våra ((fordon||bilar||bilmodeller)) på ((vår hemsida||webben||på nätet))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 8",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 8",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Du som vill hyra bil i $$MÄRKE$$ kan boka en $$P3$$.",
-                "Item4": null
+                "Value": "Du som vill hyra bil i $$MÄRKE$$ kan boka en $$P3$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 9",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 9",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du bokar din hyrbil i $$MÄRKE$$ kan du även ((addera||lägga till)) flera ((bekväma||smarta)) ((extrafunktioner||tilläggsfunktioner)).",
-                "Item4": null
+                "Value": "När du bokar din hyrbil i $$MÄRKE$$ kan du även ((addera||lägga till)) flera ((bekväma||smarta)) ((extrafunktioner||tilläggsfunktioner))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du bokar din hyrbil i $$MÄRKE$$ kan du även ((passa på||ta möjligheten)) att välja en rad olika ((extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)).",
-                "Item4": null
+                "Value": "När du bokar din hyrbil i $$MÄRKE$$ kan du även ((passa på||ta möjligheten)) att välja en rad olika ((extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi kan ((dessutom||även)) erbjuda ((olika||en rad||en rad olika)) tilläggstjänster till din hyrbil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Vi kan ((dessutom||även)) erbjuda ((olika||en rad||en rad olika)) tilläggstjänster till din hyrbil i $$MÄRKE$$."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Du kan dessutom välja att ((lägga till||addera)) ((olika||en rad||en rad olika)) tilläggstjänster till din hyrbil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Du kan dessutom välja att ((lägga till||addera)) ((olika||en rad||en rad olika)) tilläggstjänster till din hyrbil i $$MÄRKE$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 10",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 10",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Utöver vårt ((stora||breda)) ((sortiment||utbud)) kan vi erbjuda en rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). ",
-                "Item4": null
+                "Value": "Utöver vårt ((stora||breda)) ((sortiment||utbud)) kan vi erbjuda en rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Utöver vår ((breda||omfattande)) flotta kan ((vi||vi på Sixt)) erbjuda en rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). ",
-                "Item4": null
+                "Value": "Utöver vår ((breda||omfattande)) flotta kan ((vi||vi på Sixt)) erbjuda en rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "När du bokar ((din||en)) hyrbil i $$MÄRKE$$ kan du ((dessutom||därutöver)) välja bland en rad ((tilläggstjänster||extrafunktioner||tillvalstjänster)).",
-                "Item4": null
+                "Value": "När du bokar ((din||en)) hyrbil i $$MÄRKE$$ kan du ((dessutom||därutöver)) välja bland en rad ((tilläggstjänster||extrafunktioner||tillvalstjänster))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 11",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 11",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi kan erbjuda ((extrafunktioner||tilläggsfunktioner)) till din hyrbil i $$MÄRKE$$ i form av till exempel ((bilbarnstolar||barnstol||bilbarnstol)), ((obegränsad körsträcka||extra förare||vintertillägg||dragkrok||premium drive)) och ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)).",
-                "Item4": null
+                "Value": "Vi kan erbjuda ((extrafunktioner||tilläggsfunktioner)) till din hyrbil i $$MÄRKE$$ i form av till exempel ((bilbarnstolar||barnstol||bilbarnstol)), ((obegränsad körsträcka||extra förare||vintertillägg||dragkrok||premium drive)) och ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)).Planerar du att köra ((långt||en längre sträcka||en längre resesträcka))? Då kan det vara en ((smart||god)) idé att välja ((tillvalen||tillvalstjänsterna)) obegränsad körsträcka liksom en extra förare.",
-                "Item4": null
+                "Value": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)).Planerar du att köra ((långt||en längre sträcka||en längre resesträcka))? Då kan det vara en ((smart||god)) idé att välja ((tillvalen||tillvalstjänsterna)) obegränsad körsträcka liksom en extra förare."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)). Ska du göra en längre ((resa||bilresa))? ((Då||I såna fall)) kan det vara en ((smart||god)) idé att välja ((tillvalen||tillvalstjänsterna)) obegränsad körsträcka liksom en extra förare.",
-                "Item4": null
+                "Value": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)). Ska du göra en längre ((resa||bilresa))? ((Då||I såna fall)) kan det vara en ((smart||god)) idé att välja ((tillvalen||tillvalstjänsterna)) obegränsad körsträcka liksom en extra förare."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)). Planerar du en ((resa med familjen||en familjeresa))? Då erbjuder vi möjligheten att boka ((bilbarnstolar||barnstol||bilbarnstol)).",
-                "Item4": null
+                "Value": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)). Planerar du en ((resa med familjen||en familjeresa))? Då erbjuder vi möjligheten att boka ((bilbarnstolar||barnstol||bilbarnstol))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((obegränsad körsträcka||extra förare||vintertillägg||dragkrok||premium driveoch)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)).",
-                "Item4": null
+                "Value": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((obegränsad körsträcka||extra förare||vintertillägg||dragkrok||premium driveoch)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 12",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 12",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Tack vare ((våra||dessa)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ passar just dina ((behov||körbehov)).",
-                "Item4": null
+                "Value": "Tack vare ((våra||dessa)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ passar just dina ((behov||körbehov))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Med ((dessa||våra)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det alltid ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ som passar just dina ((behov||körbehov)).",
-                "Item4": null
+                "Value": "Med ((dessa||våra)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det alltid ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ som passar just dina ((behov||körbehov))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Med ((dessa||våra)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det alltid ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ som passar din önskemål.",
-                "Item4": null
+                "Value": "Med ((dessa||våra)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det alltid ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ som passar din önskemål."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||hyrbilslösning)) anpassad efter dina ((önskemål||krav)) när du ska ((bege dig ut på||ge dig ut)) på vägarna.",
-                "Item4": null
+                "Value": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||hyrbilslösning)) anpassad efter dina ((önskemål||krav)) när du ska ((bege dig ut på||ge dig ut)) på vägarna."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||hyrbilslösning)) som passar just dina ((behov||körbehov)).",
-                "Item4": null
+                "Value": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||hyrbilslösning)) som passar just dina ((behov||körbehov))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||skräddarsydd lösning)) som tar hänsyn till dina behov då det gäller ((säkerhet||körsäkerhet)), bekvämlighet och ((trivsel||ekonomi||komfort)).",
-                "Item4": null
+                "Value": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||skräddarsydd lösning)) som tar hänsyn till dina behov då det gäller ((säkerhet||körsäkerhet)), bekvämlighet och ((trivsel||ekonomi||komfort))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 12",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 12",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sätt ihop ett paket som passar just ((dig||din resa||dina önskemål))! ",
-                "Item4": null
+                "Value": "Sätt ihop ett paket som passar just ((dig||din resa||dina önskemål))! "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Hitta en ((lösning||hyrbilslösning)) anpassad efte just dina ((krav||önskemål)) då det gäller ((säkerhet||körsäkerhet)), bekvämlighet och ((trivsel||ekonomi||komfort)).",
-                "Item4": null
+                "Value": "Hitta en ((lösning||hyrbilslösning)) anpassad efte just dina ((krav||önskemål)) då det gäller ((säkerhet||körsäkerhet)), bekvämlighet och ((trivsel||ekonomi||komfort))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 14",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 14",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi||vårt team)) fokuserar alltid på att ge dig som ((kund||förare)) en ((smidig||prisvärd)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa)).",
-                "Item4": null
+                "Value": "((Vi||vårt team)) fokuserar alltid på att ge dig som ((kund||förare)) en ((smidig||prisvärd)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Här ((på Sixt||vår biluthyrning i $$MÄRKE$$)) fokuserar vi alltid på att ge dig som ((kund||förare)) en smidig och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa)).",
-                "Item4": null
+                "Value": "Här ((på Sixt||vår biluthyrning i $$MÄRKE$$)) fokuserar vi alltid på att ge dig som ((kund||förare)) en smidig och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vårt fokus är att ((alltid ge||erbjuda)) dig en ((smidig||prisvärd)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa)).",
-                "Item4": null
+                "Value": "Vårt fokus är att ((alltid ge||erbjuda)) dig en ((smidig||prisvärd)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vårt team||vårt lokala team||teamet på Sixt||Våra medarbetare)) finns ((på plats||tillgängliga)) för att ((se till||säkerställa)) att du får en ((smidig||)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)).",
-                "Item4": null
+                "Value": "((Vårt team||vårt lokala team||teamet på Sixt||Våra medarbetare)) finns ((på plats||tillgängliga)) för att ((se till||säkerställa)) att du får en ((smidig||)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi||vi på Sixt)) ((jobbar hårt||fokuserar alltid)) på att göra allt som rör din ((resa||bilresa)) så enkelt och ",
-                "Item4": null
+                "Value": "((Vi||vi på Sixt)) ((jobbar hårt||fokuserar alltid)) på att göra allt som rör din ((resa||bilresa)) så enkelt och "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((smidigt||bekvämt)) som möjligt.",
-                "Item4": null
+                "Value": "((smidigt||bekvämt)) som möjligt."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 15",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 15",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vårt centralt belägna ((kontor||uthyrningskontor||biluthyrningskontor))  är en ((bra||perfekt)) utgångspunkt och härirfrån tar du dig lätt ",
-                "Item4": null
+                "Value": "Vårt centralt belägna ((kontor||uthyrningskontor||biluthyrningskontor))  är en ((bra||perfekt)) utgångspunkt och härirfrån tar du dig lätt "
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 16",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 16",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du vill se så mycket som möjlighet av regionen är det alltid en ((bra||god||smart)) idé att hyra en bil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Om du vill se så mycket som möjlighet av regionen är det alltid en ((bra||god||smart)) idé att hyra en bil i $$MÄRKE$$."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Det finns mycket att ((se||uppleva||utforska)) med genom att hyra en bil $$MÄRKE$$ får du stor frihet när du planerar ((resrutten||resan||färden)).",
-                "Item4": null
+                "Value": "Det finns mycket att ((se||uppleva||utforska)) med genom att hyra en bil $$MÄRKE$$ får du stor frihet när du planerar ((resrutten||resan||färden))."
               }
             ]
           }
         ]
       },
       {
-        "Item1": 1,
-        "Item2": "2016-08-31",
-        "Item3": null,
-        "Item4": [
+        "ConcatName": "2016-08-31",
+        "Sequential": [
           {
-            "Item1": 0,
-            "Item2": "STYCKE 1",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 1",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vill du boka en hyrbil i $$MÄRKE$$?",
-                "Item4": null
+                "Value": "Vill du boka en hyrbil i $$MÄRKE$$?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Söker du en hyrbil i $$MÄRKE$$?",
-                "Item4": null
+                "Value": "Söker du en hyrbil i $$MÄRKE$$?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Är du på jakt efter en hyrbil i $$MÄRKE$$?",
-                "Item4": null
+                "Value": "Är du på jakt efter en hyrbil i $$MÄRKE$$?"
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 2",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 2",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Mitt i centrum av $$MÄRKE$$, beläget $$P2$$, ligger vårt ((kontor||uthyrningskontor)).",
-                "Item4": null
+                "Value": "Mitt i centrum av $$MÄRKE$$, beläget $$P2$$, ligger vårt ((kontor||uthyrningskontor))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Mitt i centrum av $$MÄRKE$$, beläget $$P2$$, hittar du vårt ((kontor||uthyrningskontor)).",
-                "Item4": null
+                "Value": "Mitt i centrum av $$MÄRKE$$, beläget $$P2$$, hittar du vårt ((kontor||uthyrningskontor))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Centralt beläget $$P2$$ hittar du vårt ((kontor||uthyrningskontor)).",
-                "Item4": null
+                "Value": "Centralt beläget $$P2$$ hittar du vårt ((kontor||uthyrningskontor))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 3",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 3",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Bara ett stenkast härifrån ((ligger||hittar du||finner du)) några av stadens mest kända sevärdheter.",
-                "Item4": null
+                "Value": "Bara ett stenkast härifrån ((ligger||hittar du||finner du)) några av stadens mest kända sevärdheter."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Inte långt härifrån ((ligger||hittar du||finner du)) några av stadens mest kända ((sevärdheter||besöksmål||turistmål||attraktioner)).",
-                "Item4": null
+                "Value": "Inte långt härifrån ((ligger||hittar du||finner du)) några av stadens mest kända ((sevärdheter||besöksmål||turistmål||attraktioner))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 4",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 4",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Läget är med andra ord ((svårslaget||perfekt)) om du ((planerar att||ska||vill||önskar)) utforska staden med en egen bil.",
-                "Item4": null
+                "Value": "Läget är med andra ord ((svårslaget||perfekt)) om du ((planerar att||ska||vill||önskar)) utforska staden med en egen bil."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Ett ((svårslaget||perfekt)) läge om du ((planerar att||ska||vill||önskar)) utforska staden med en egen bil.",
-                "Item4": null
+                "Value": "Ett ((svårslaget||perfekt)) läge om du ((planerar att||ska||vill||önskar)) utforska staden med en egen bil."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Det är svårt att tänka sig ett bättre läge om du ((vill||planerar)) att utforska ((staden||stan)) med en egen bil.",
-                "Item4": null
+                "Value": "Det är svårt att tänka sig ett bättre läge om du ((vill||planerar)) att utforska ((staden||stan)) med en egen bil."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 5",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 5",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Eller kanske ((planerar du||ska du göra||stundar||väntar)) en ((jobbresa||affärsresa||resa med jobbet||resa i arbetet||resa i arbetets räkning||resa med kollegorna||jobbresa kollegorna||affärsresa med kollegorna))?",
-                "Item4": null
+                "Value": "Eller kanske ((planerar du||ska du göra||stundar||väntar)) en ((jobbresa||affärsresa||resa med jobbet||resa i arbetet||resa i arbetets räkning||resa med kollegorna||jobbresa kollegorna||affärsresa med kollegorna))?"
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 6",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 6",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i $$MÄRKE$$ ett ((brett||stort)) ((utbud||urval)) av ((bilar||bilmodeller)).",
-                "Item4": null
+                "Value": "Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i $$MÄRKE$$ ett ((brett||stort)) ((utbud||urval)) av ((bilar||bilmodeller))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Oavsett vad anledning till ditt besök är erbjuder vi på Sixt dig som vill hyra bil i $$MÄRKE$$ ett ((brett||stort)) ((utbud||urval)) av ((bilar||bilmodeller)).",
-                "Item4": null
+                "Value": "Oavsett vad anledning till ditt besök är erbjuder vi på Sixt dig som vill hyra bil i $$MÄRKE$$ ett ((brett||stort)) ((utbud||urval)) av ((bilar||bilmodeller))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i $$MÄRKE$$ ((bilar||fordon||bilmodeller)) i ((många||alla)) ((storleksklasser||prisklasser)). ",
-                "Item4": null
+                "Value": "Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i $$MÄRKE$$ ((bilar||fordon||bilmodeller)) i ((många||alla)) ((storleksklasser||prisklasser)). "
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 7",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 7",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Dessutom erbjuds du ((även||också)) möjligheten att lägga till rad ((tillvalsfunktioner||tillvalstjänster||tilläggstjänster)) på vår biluthyrning i $$MÄRKE$$ .",
-                "Item4": null
+                "Value": "Dessutom erbjuds du ((även||också)) möjligheten att lägga till rad ((tillvalsfunktioner||tillvalstjänster||tilläggstjänster)) på vår biluthyrning i $$MÄRKE$$ ."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Självklart finns erbjuds en rad andra ((tjänster||tillvalstjänster||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar gör ((resa||bilfärden)) ((extra bekväm||bekväm)).",
-                "Item4": null
+                "Value": "Självklart finns erbjuds en rad andra ((tjänster||tillvalstjänster||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar gör ((resa||bilfärden)) ((extra bekväm||bekväm))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Dessutom erbjuds du ((även||också)) möjligheten att lägga till rad ((tillvalsfunktioner||tillvalstjänster||tilläggstjänster)) vilka är ((utformade||skapade||framtagna)) för att skräddarsy din ((resa||bilresa)) utifrån dina ((resbehov||körbehov||bilbehov)).",
-                "Item4": null
+                "Value": "Dessutom erbjuds du ((även||också)) möjligheten att lägga till rad ((tillvalsfunktioner||tillvalstjänster||tilläggstjänster)) vilka är ((utformade||skapade||framtagna)) för att skräddarsy din ((resa||bilresa)) utifrån dina ((resbehov||körbehov||bilbehov))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 8",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 8",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Boka en hyrbil på $$MÄRKE$$ och upplev ((den flexibilitetet||de valmöjligheter||de möjlilgheter||den bekvämlighet||höga service||höga servicegrad)) som vi på Sixt alltid erbjuder våra kunder.",
-                "Item4": null
+                "Value": "Boka en hyrbil på $$MÄRKE$$ och upplev ((den flexibilitetet||de valmöjligheter||de möjlilgheter||den bekvämlighet||höga service||höga servicegrad)) som vi på Sixt alltid erbjuder våra kunder."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Boka en hyrbil på $$MÄRKE$$ och ta del av ((alla våra||samtliga av våra)) ((prisvärda||smarta)) ((paket||erbjudanden)).",
-                "Item4": null
+                "Value": "Boka en hyrbil på $$MÄRKE$$ och ta del av ((alla våra||samtliga av våra)) ((prisvärda||smarta)) ((paket||erbjudanden))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 9",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 9",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vilken ((typ av||slags)) ((bil||fordon||bilmodell)) passar bäst för dig_din_resa?",
-                "Item4": null
+                "Value": "Vilken ((typ av||slags)) ((bil||fordon||bilmodell)) passar bäst för dig_din_resa?"
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 10",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 10",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "På vår biluthyrning i $$MÄRKE$$  hittar du $$P3$$.",
-                "Item4": null
+                "Value": "På vår biluthyrning i $$MÄRKE$$  hittar du $$P3$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 11",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 11",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Du gör din bokning enkelt och ((bekvämt||smidigt)) på vår ((hemsida||webbsida||webbplats)).",
-                "Item4": null
+                "Value": "Du gör din bokning enkelt och ((bekvämt||smidigt)) på vår ((hemsida||webbsida||webbplats))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Bokningen gör ((bekvämt||smidigt)) direkt på vår ((hemsida||webbsida||webbplats)).",
-                "Item4": null
+                "Value": "Bokningen gör ((bekvämt||smidigt)) direkt på vår ((hemsida||webbsida||webbplats))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Besök vår ((hemsida||webbsida||webb)) för att göra en ((bokning||reservation)).",
-                "Item4": null
+                "Value": "Besök vår ((hemsida||webbsida||webb)) för att göra en ((bokning||reservation))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 12",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 12",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Här||på webben||i webbokningen||här på webben)) kan du självklart även hantera dina olika ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)).",
-                "Item4": null
+                "Value": "((Här||på webben||i webbokningen||här på webben)) kan du självklart även hantera dina olika ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Självklart||naturligtvis||givetvis)) kan du även hantera dina olika ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) på ((på webben||i webbokningen||här på webben||på vår webbsida||på vår hemsida)).",
-                "Item4": null
+                "Value": "((Självklart||naturligtvis||givetvis)) kan du även hantera dina olika ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) på ((på webben||i webbokningen||här på webben||på vår webbsida||på vår hemsida))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 13",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 13",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du ska hyra bil i $$MÄRKE$$, och ((komforten||körkomforten||lastutrymmet)) är ((viktig||a och)) _o, erbjuder vi till exempel ((flera||en)) rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). ",
-                "Item4": null
+                "Value": "Om du ska hyra bil i $$MÄRKE$$, och ((komforten||körkomforten||lastutrymmet)) är ((viktig||a och)) _o, erbjuder vi till exempel ((flera||en)) rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du ska hyra bil i $$MÄRKE$$, och ((komforten||körkomforten)) är ((viktig||a och)) _o, erbjuder vi till exempel ((flera||en rad)) ((tjänster||tillvalstjänster||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar gör ((resa||bilfärden)) ((extra bekväm||bekväm)).",
-                "Item4": null
+                "Value": "Om du ska hyra bil i $$MÄRKE$$, och ((komforten||körkomforten)) är ((viktig||a och)) _o, erbjuder vi till exempel ((flera||en rad)) ((tjänster||tillvalstjänster||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar gör ((resa||bilfärden)) ((extra bekväm||bekväm))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du ska hyra bil i $$MÄRKE$$, och även vill reservera ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)) erbjuder vi ((flera||en)) rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som gör ((resa||bilfärden)) smidig.",
-                "Item4": null
+                "Value": "Om du ska hyra bil i $$MÄRKE$$, och även vill reservera ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)) erbjuder vi ((flera||en)) rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som gör ((resa||bilfärden)) smidig."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 14",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 14",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och vi vet hur viktigt det är att ha flexibilitet under ((resan||bilresan)).",
-                "Item4": null
+                "Value": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och vi vet hur viktigt det är att ha flexibilitet under ((resan||bilresan))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sixt är ett av världens främsta biluthryningsföretag och vi vet hur viktigt det är att ha flexibilitet under ((resan||bilresan)).",
-                "Item4": null
+                "Value": "Sixt är ett av världens främsta biluthryningsföretag och vi vet hur viktigt det är att ha flexibilitet under ((resan||bilresan))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sixt är ett av världens främsta biluthryningsföretag och vi känner väl till betydelsen av flexibilitet under hela ((resan||bilresan)).",
-                "Item4": null
+                "Value": "Sixt är ett av världens främsta biluthryningsföretag och vi känner väl till betydelsen av flexibilitet under hela ((resan||bilresan))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och hos oss ((hittar||finner)) du alltid en ((modell||bilmodell)) fordonsmodell anpassad utifrån din ((krav||önskemål||resebehov||reseönskemål)).",
-                "Item4": null
+                "Value": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och hos oss ((hittar||finner)) du alltid en ((modell||bilmodell)) fordonsmodell anpassad utifrån din ((krav||önskemål||resebehov||reseönskemål))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)), är det alltid dina ((krav||önskemål||resebehov||reseönskemål)) som står i centrum. ",
-                "Item4": null
+                "Value": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)), är det alltid dina ((krav||önskemål||resebehov||reseönskemål)) som står i centrum. "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och vi vet hur viktigt det är att du som ((kund||förare)) kan skapa en skräddarsydd lösning som passar just ((dig||din resa)).",
-                "Item4": null
+                "Value": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och vi vet hur viktigt det är att du som ((kund||förare)) kan skapa en skräddarsydd lösning som passar just ((dig||din resa))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)), ((har din||ges din)) resa alltid hög_grad_av  flexibilitet ",
-                "Item4": null
+                "Value": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)), ((har din||ges din)) resa alltid hög_grad_av  flexibilitet "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)),",
-                "Item4": null
+                "Value": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)),"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "får alltid ((många||en rad||ett stort antal)) ((valmöjligheter||alternativ||hyrbilsmöjligheter)) ((när||då)) du väljer att hyra bil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "får alltid ((många||en rad||ett stort antal)) ((valmöjligheter||alternativ||hyrbilsmöjligheter)) ((när||då)) du väljer att hyra bil i $$MÄRKE$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 15",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 15",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vårt team på Sixt biluthyrning i $$MÄRKE$$ önskar dig välkommen!",
-                "Item4": null
+                "Value": "Vårt team på Sixt biluthyrning i $$MÄRKE$$ önskar dig välkommen!"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Teamet på Sixt biluthyrning i $$MÄRKE$$ önskar dig välkommen!",
-                "Item4": null
+                "Value": "Teamet på Sixt biluthyrning i $$MÄRKE$$ önskar dig välkommen!"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sixt team på vår  biluthyrning i $$MÄRKE$$ önskar dig välkommen!",
-                "Item4": null
+                "Value": "Sixt team på vår  biluthyrning i $$MÄRKE$$ önskar dig välkommen!"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Sixt team på vår  biluthyrning i $$MÄRKE$$ hälsar dig ((välkommen||varmt välkommen))!",
-                "Item4": null
+                "Value": "Sixt team på vår  biluthyrning i $$MÄRKE$$ hälsar dig ((välkommen||varmt välkommen))!"
               }
             ]
           }
         ]
       },
       {
-        "Item1": 1,
-        "Item2": "2016-09-14",
-        "Item3": null,
-        "Item4": [
+        "ConcatName": "2016-09-14",
+        "Sequential": [
           {
-            "Item1": 0,
-            "Item2": "STYCKE 1",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 1",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Letar||söker)) du efter en ((prisvärd||central||centralt belägen)) biluthyrning i $$MÄRKE$$?",
-                "Item4": null
+                "Value": "((Letar||söker)) du efter en ((prisvärd||central||centralt belägen)) biluthyrning i $$MÄRKE$$?"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Från vår centralt_belägna biluthyrning i $$MÄRKE$$ har du nära till det mesta.",
-                "Item4": null
+                "Value": "Från vår centralt_belägna biluthyrning i $$MÄRKE$$ har du nära till det mesta."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Starta||påbörja)) din resa från vår centralt_belägna biluthyrning i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "((Starta||påbörja)) din resa från vår centralt_belägna biluthyrning i $$MÄRKE$$."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Att ((starta||påbörja)) resa på vår biluthyrning i $$MÄRKE$$ är ett smart val.",
-                "Item4": null
+                "Value": "Att ((starta||påbörja)) resa på vår biluthyrning i $$MÄRKE$$ är ett smart val."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Låt din resa ((börja||starta)) på vår biluthyrning i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "Låt din resa ((börja||starta)) på vår biluthyrning i $$MÄRKE$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 2",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 2",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vårt ((uthyrningskontor||vårt kontor||kontoret)) ett perfekt läge vid.. , härifrån av avståndet ((kort||inte långt)) till några av stadens mest kända ((besöksmål||turistmål||attraktioner)).",
-                "Item4": null
+                "Value": "Vårt ((uthyrningskontor||vårt kontor||kontoret)) ett perfekt läge vid.. , härifrån av avståndet ((kort||inte långt)) till några av stadens mest kända ((besöksmål||turistmål||attraktioner))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Uthyrningskontoret||vårt kontor||kontoret)) har ett perfekt läge vid..på ((kort avstånd från||nära)) några av stadens mest kända ((besöksmål||turistmål||attraktioner)).",
-                "Item4": null
+                "Value": "((Uthyrningskontoret||vårt kontor||kontoret)) har ett perfekt läge vid..på ((kort avstånd från||nära)) några av stadens mest kända ((besöksmål||turistmål||attraktioner))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 3",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 3",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Härifrån ta du dig även ((snabbt||enkelt)) vidare ut på vägarna,,",
-                "Item4": null
+                "Value": "Härifrån ta du dig även ((snabbt||enkelt)) vidare ut på vägarna,,"
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Det är även ett ((bra||perfekt)) utgångsläge för fortsatta resor i ((regionen||området||angränsande städer)).",
-                "Item4": null
+                "Value": "Det är även ett ((bra||perfekt)) utgångsläge för fortsatta resor i ((regionen||området||angränsande städer))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Läget är även ((utmärkt||perfekt)) för fortsatta resor i ((regionen||området||angränsande städer)).",
-                "Item4": null
+                "Value": "Läget är även ((utmärkt||perfekt)) för fortsatta resor i ((regionen||området||angränsande städer))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 4",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 4",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Läget är även ((utmärkt||perfekt)) för längre ((resor||bilresor)) som fortsätter vidare utanför_ ((staden||utanför stadens gränser||till andra städer i regionen||till andra städer i området||till närliggande städer i regionen||ill närliggande platser i regionen)).",
-                "Item4": null
+                "Value": "Läget är även ((utmärkt||perfekt)) för längre ((resor||bilresor)) som fortsätter vidare utanför_ ((staden||utanför stadens gränser||till andra städer i regionen||till andra städer i området||till närliggande städer i regionen||ill närliggande platser i regionen))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 5",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 5",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vårt_ ((kunniga team||team||Våra medarbetare||våra kunninga medarbetare på plats||våra kunninga medarbetare)) hjälper dig att snabbt komma igång med din resa.",
-                "Item4": null
+                "Value": "Vårt_ ((kunniga team||team||Våra medarbetare||våra kunninga medarbetare på plats||våra kunninga medarbetare)) hjälper dig att snabbt komma igång med din resa."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 6",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 6",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi||vi på Sixt)) erbjuder alla som vill hyra bil i $$MÄRKE$$ en lösning av ((högsta||förstaklassig||bästa||hög)) kvalitet.",
-                "Item4": null
+                "Value": "((Vi||vi på Sixt)) erbjuder alla som vill hyra bil i $$MÄRKE$$ en lösning av ((högsta||förstaklassig||bästa||hög)) kvalitet."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi||vi på Sixt)) erbjuder alla som vill hyra bil i $$MÄRKE$$ får en lösning ((med||som motsvarar)) den standard och komfort som du ((önskar||vill ha||eftersträvar||efterfrågar)).",
-                "Item4": null
+                "Value": "((Vi||vi på Sixt)) erbjuder alla som vill hyra bil i $$MÄRKE$$ får en lösning ((med||som motsvarar)) den standard och komfort som du ((önskar||vill ha||eftersträvar||efterfrågar))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi_på_Sixt strävar alltid efter att ((ge||tillhandahålla||erbjuda)) dig som vill hyra bil i $$MÄRKE$$ en lösning av ((högsta||förstaklassig||bästa||hög)) kvalitet.",
-                "Item4": null
+                "Value": "Vi_på_Sixt strävar alltid efter att ((ge||tillhandahålla||erbjuda)) dig som vill hyra bil i $$MÄRKE$$ en lösning av ((högsta||förstaklassig||bästa||hög)) kvalitet."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi_på_Sixt strävar alltid efter att ((ge||tillhandahålla||erbjuda)) dig som vill hyra bil i $$MÄRKE$$ en lösning ((med||som motsvarar)) den standard och komfort som du ((önskar||vill ha||eftersträvar||efterfrågar)).",
-                "Item4": null
+                "Value": "Vi_på_Sixt strävar alltid efter att ((ge||tillhandahålla||erbjuda)) dig som vill hyra bil i $$MÄRKE$$ en lösning ((med||som motsvarar)) den standard och komfort som du ((önskar||vill ha||eftersträvar||efterfrågar))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 7",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 7",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "På ((webben||nätet||hemsida)) kan du ((enkelt||snabbt)) jämföra de olika ((modellerna||bilmodellerna||fordonsmodellerna)) och genomföra din bokning för en hyrbil i ",
-                "Item4": null
+                "Value": "På ((webben||nätet||hemsida)) kan du ((enkelt||snabbt)) jämföra de olika ((modellerna||bilmodellerna||fordonsmodellerna)) och genomföra din bokning för en hyrbil i "
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Boka din hyrbil i $$MÄRKE$$ ((enkelt||snabbt||smidigt||bekvämt)) direkt på ((webben||nätet||hemsidan)).",
-                "Item4": null
+                "Value": "Boka din hyrbil i $$MÄRKE$$ ((enkelt||snabbt||smidigt||bekvämt)) direkt på ((webben||nätet||hemsidan))."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "I vår webbokning kan du jämföra de olika ((modellerna||bilmodellerna||fordonsmodellerna)) och genomföra din bokning för en hyrbil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "I vår webbokning kan du jämföra de olika ((modellerna||bilmodellerna||fordonsmodellerna)) och genomföra din bokning för en hyrbil i $$MÄRKE$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 8",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 8",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((För dig||resenärer)) som vill hyra bil i $$MÄRKE$$ erbjuds alltid en ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden.",
-                "Item4": null
+                "Value": "((För dig||resenärer)) som vill hyra bil i $$MÄRKE$$ erbjuds alltid en ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Vi på Sixt||vi)) kan erbjuda dig som vill hyra bil i $$MÄRKE$$ en ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden.",
-                "Item4": null
+                "Value": "((Vi på Sixt||vi)) kan erbjuda dig som vill hyra bil i $$MÄRKE$$ en ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "En ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden erbjuds alltid ((för dig||resenärer)) som vill hyra bil i $$MÄRKE$$.",
-                "Item4": null
+                "Value": "En ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden erbjuds alltid ((för dig||resenärer)) som vill hyra bil i $$MÄRKE$$."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 7",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 7",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vår moderna flotta rymmer..",
-                "Item4": null
+                "Value": "Vår moderna flotta rymmer.."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 8",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 8",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Om du har frågor om att  hyra bil i $$MÄRKE$$ kan du ((givetvis||naturligtvis||självklart)) ((även||också)) ((kontakta||höra av dig till)) ((oss||vårt team||våra medarbetare)) direkt.",
-                "Item4": null
+                "Value": "Om du har frågor om att  hyra bil i $$MÄRKE$$ kan du ((givetvis||naturligtvis||självklart)) ((även||också)) ((kontakta||höra av dig till)) ((oss||vårt team||våra medarbetare)) direkt."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 9",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 9",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Vi hjälper gärna till en hitta en hyrbil i $$MÄRKE$$ som passar ((just dig||just för dig||just dina resebehov||just dina behov||just dina önskemål)).",
-                "Item4": null
+                "Value": "Vi hjälper gärna till en hitta en hyrbil i $$MÄRKE$$ som passar ((just dig||just för dig||just dina resebehov||just dina behov||just dina önskemål))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 10",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 10",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Du kan till exempel göra en rad ((tillval||tillvalsfunktioner||tillvalstjänster||tilläggstjänster)).",
-                "Item4": null
+                "Value": "Du kan till exempel göra en rad ((tillval||tillvalsfunktioner||tillvalstjänster||tilläggstjänster))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 11",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 11",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Kanske har du ((särskilda||specifika)) ((önskemål||krav)) då det gäller ((komfort||säkerhet||körkomfort)) och navigering? ",
-                "Item4": null
+                "Value": "Kanske har du ((särskilda||specifika)) ((önskemål||krav)) då det gäller ((komfort||säkerhet||körkomfort)) och navigering? "
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 12",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 12",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Kolla in våra ((erbjudanden||paket||paketlösningar)) och ((skapa||skräddarsy||sätt ihop||sätt samman)) en unikt för ((dig||din resa||din bilresa)).",
-                "Item4": null
+                "Value": "Kolla in våra ((erbjudanden||paket||paketlösningar)) och ((skapa||skräddarsy||sätt ihop||sätt samman)) en unikt för ((dig||din resa||din bilresa))."
               }
             ]
           },
           {
-            "Item1": 0,
-            "Item2": "STYCKE 13",
-            "Item3": null,
-            "Item4": [
+            "ChoiceName": "STYCKE 13",
+            "Choices": [
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "Valmöjligheterna för dig som ((vill||ska)) boka en hyrbil i $$MÄRKE$$ är många.",
-                "Item4": null
+                "Value": "Valmöjligheterna för dig som ((vill||ska)) boka en hyrbil i $$MÄRKE$$ är många."
               },
               {
-                "Item1": 2,
-                "Item2": null,
-                "Item3": "((Valfriheten||flexibiliteten)) för dig som ((vill||ska)) boka en hyrbil i $$MÄRKE$$ är stor.",
-                "Item4": null
+                "Value": "((Valfriheten||flexibiliteten)) för dig som ((vill||ska)) boka en hyrbil i $$MÄRKE$$ är stor."
               }
             ]
           }

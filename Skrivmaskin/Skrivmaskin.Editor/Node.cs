@@ -16,9 +16,9 @@ namespace Skrivmaskin.Editor
         public static void GenerateSubTree (Node parentNode, INode designNode)
         {
             if (designNode is TextNode)
-                parentNode.AddChild ("", ((TextNode)designNode).Text);
+                parentNode.AddChild ("", ((TextNode)designNode).Value);
             else if (designNode is CommentNode)
-                parentNode.AddChild ("", ((CommentNode)designNode).Comment);
+                parentNode.AddChild ("", ((CommentNode)designNode).Value);
             else if (designNode is ChoiceNode) {
                 var choiceNode = designNode as ChoiceNode;
                 var node = parentNode.AddChild (choiceNode.ChoiceName, "");

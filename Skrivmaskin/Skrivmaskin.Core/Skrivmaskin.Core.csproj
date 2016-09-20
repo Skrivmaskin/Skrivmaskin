@@ -62,7 +62,6 @@
     <Compile Include="Design\VariableForm.cs" />
     <Compile Include="Design\Project.cs" />
     <Compile Include="Design\ProjectWriter.cs" />
-    <Compile Include="Design\NodeTypes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
