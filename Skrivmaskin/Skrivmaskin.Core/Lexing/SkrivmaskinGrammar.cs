@@ -53,5 +53,10 @@ namespace Skrivmaskin.Core.Lexing
 
             // 4. Operators precedence
         }
+
+        public override void SkipWhitespace (ISourceStream source)
+        {
+            // Whitespace is important for us. Don't skip it.
+        }
     }
 }
