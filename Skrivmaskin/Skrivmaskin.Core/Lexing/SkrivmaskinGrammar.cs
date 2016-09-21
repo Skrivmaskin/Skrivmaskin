@@ -18,7 +18,6 @@ namespace Skrivmaskin.Core.Lexing
             var Escape = new SkrivmaskinEscapeTerminal (nameof (SkrivmaskinTokens.Escape), lexerSyntax);
             var VarName = new RegexBasedTerminal (nameof (SkrivmaskinTokens.VarName), "[A-Za-z0-9_]+");
             var VarForm = new RegexBasedTerminal (nameof (SkrivmaskinTokens.VarForm), "[A-Za-z0-9_]+");
-            var Space = ToTerm (" ", nameof (SkrivmaskinTokens.Space));
 
             // 2. Non-terminals
             var CompoundText = new NonTerminal (nameof (SkrivmaskinTokens.CompoundText));
@@ -34,13 +33,13 @@ namespace Skrivmaskin.Core.Lexing
             var Anything = new NonTerminal (nameof (SkrivmaskinTokens.Anything));
 
             // 3. BNF rules
-            CompoundText.Rule = Text | Escape | Space;
+            CompoundText.Rule = Text | Escape;
             Phrase.Rule = MakePlusRule (Phrase, CompoundText);
             SimpleVariable.Rule = lexerSyntax.VariableStartDelimiter.ToString () + VarName + lexerSyntax.VariableEndDelimiter.ToString ();
             CompoundVariable.Rule = lexerSyntax.VariableStartDelimiter.ToString () + VarName + lexerSyntax.VariableFormDelimiter.ToString() + VarForm + lexerSyntax.VariableEndDelimiter.ToString ();
             Variable.Rule = SimpleVariable | CompoundVariable;
 
-            SimpleChoice.Rule = MakeStarRule (Sentence, Anything);
+            SimpleChoice.Rule = MakeStarRule (SimpleChoice, Anything);
             OrOp.Rule = ToTerm (lexerSyntax.ChoiceAlternativeDelimiter.ToString ());
             Choice.Rule = MakePlusRule (Choice, OrOp, SimpleChoice);
             MultiChoice.Rule = lexerSyntax.ChoiceStartDelimiter.ToString () + Choice + lexerSyntax.ChoiceEndDelimiter.ToString();
@@ -52,6 +51,9 @@ namespace Skrivmaskin.Core.Lexing
             this.Root = Sentence;
 
             // 4. Operators precedence
+
+            // 5. Transient stuff
+            //TODO Mark stuff as transient to improve performance in compiler????
         }
 
         public override void SkipWhitespace (ISourceStream source)

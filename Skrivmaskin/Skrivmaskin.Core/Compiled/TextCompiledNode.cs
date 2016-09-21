@@ -41,5 +41,10 @@ namespace Skrivmaskin.Core.Compiled
         /// </summary>
         /// <value>The text.</value>
         public string Text { get; set; }
+
+        internal static ICompiledNode Make (string text, INode node, int? startCharacter, int? endCharacter)
+        {
+            return new TextCompiledNode () { Text = text, Location = node, StartCharacter = startCharacter, EndCharacter = endCharacter };
+        }
     }
 }

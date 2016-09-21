@@ -7,7 +7,6 @@ namespace Skrivmaskin.Core.Lexing
         Escape,
         VarName,
         VarForm,
-        Space,
         CompoundText,
         Phrase,
         SimpleVariable,

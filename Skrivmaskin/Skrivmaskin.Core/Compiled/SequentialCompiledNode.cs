@@ -40,6 +40,11 @@ namespace Skrivmaskin.Core.Compiled
         /// The sequential subnodes.
         /// </summary>
         /// <value>The sequential.</value>
-        public List<ICompiledNode> Sequential { get; set; } = new List<ICompiledNode> ();
+        public IEnumerable<ICompiledNode> Sequential { get; set; } = new List<ICompiledNode> ();
+
+        internal static ICompiledNode Make (IEnumerable<ICompiledNode> childNodes, INode node, int? startCharacter, int? endCharacter)
+        {
+            return new SequentialCompiledNode () { Sequential = childNodes, Location = node, StartCharacter = startCharacter, EndCharacter = endCharacter };
+        }
     }
 }

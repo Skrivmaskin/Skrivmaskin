@@ -41,5 +41,10 @@ namespace Skrivmaskin.Core.Compiled
         /// </summary>
         /// <value>The name of the variable full.</value>
         public string VariableFullName { get; set; }
+
+        internal static ICompiledNode Make (string variableFullName, INode node, int? startCharacter, int? endCharacter)
+        {
+            return new VariableCompiledNode () { VariableFullName = variableFullName, Location = node, StartCharacter = startCharacter, EndCharacter = endCharacter };
+        }
     }
 }
