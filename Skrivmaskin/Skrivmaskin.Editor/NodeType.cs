@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Editor
 {
     /// <summary>
@@ -11,7 +11,7 @@ namespace Skrivmaskin.Editor
         Comment,
         Variable,
         VariableForm,
-        Concat,
+        Sequential,
         Root
     }
 }

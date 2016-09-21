@@ -4,6 +4,7 @@ namespace Skrivmaskin.Core.Design
     /// <summary>
     /// Storage representation of a node in the calculation graph.
     /// </summary>
-    public interface INode {
+    public interface INode : IEquatable<INode>
+    {
     }
 }

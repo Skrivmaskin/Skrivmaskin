@@ -1,4 +1,4 @@
-﻿namespace Skrivmaskin.Lexing
+namespace Skrivmaskin.Lexing
 
 //TODO OPS Add comment syntax to the lexer.
 

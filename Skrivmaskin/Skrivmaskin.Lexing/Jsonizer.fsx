@@ -1,4 +1,4 @@
-﻿#r "bin/Debug/Skrivmaskin.Lexing.dll"
+#r "bin/Debug/Skrivmaskin.Lexing.dll"
 #r "bin/Debug/Skrivmaskin.Core.dll"
 #r "bin/Debug/Newtonsoft.Json.dll"
 #r "bin/Debug/Xamarin.Forms.Core.dll"
@@ -70,7 +70,7 @@ let transformAll name file =
         (fun (a,li) ->
             let sentenceChoices = new List<INode>(li |> Seq.map (fun text -> new TextNode(text) :> INode))
             new ChoiceNode((match a with | InStycke(n) -> sprintf "STYCKE %d" n | _ -> ""), sentenceChoices) :> INode)
-    |> fun li -> new ConcatNode(name, (new List<INode>(li))) :> INode
+    |> fun li -> new SequentialNode(name, (new List<INode>(li))) :> INode
 
 let project =
     [

@@ -31,37 +31,44 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Irony">
+      <HintPath>..\packages\Irony.0.9.1\lib\net40\Irony.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Compiled\CachingDialogBasedVariableSubstituter.cs" />
-    <Compile Include="Compiled\Choice.cs" />
-    <Compile Include="Compiled\Concat.cs" />
-    <Compile Include="Compiled\IBlockOfText.cs" />
-    <Compile Include="Compiled\IDialogService.cs" />
-    <Compile Include="Compiled\IRandomChooser.cs" />
-    <Compile Include="Compiled\IVariableSubstituter.cs" />
-    <Compile Include="Compiled\Paragraph.cs" />
-    <Compile Include="Compiled\ParagraphChoice.cs" />
-    <Compile Include="Compiled\PhraseText.cs" />
-    <Compile Include="Compiled\PhraseVariableSubstitution.cs" />
-    <Compile Include="Compiled\PhraseWordChoice.cs" />
-    <Compile Include="Compiled\Project.cs" />
-    <Compile Include="Compiled\RandomChooser.cs" />
-    <Compile Include="Compiled\Sentence.cs" />
-    <Compile Include="Compiled\SentenceChoice.cs" />
-    <Compile Include="Compiled\Skrivmaskin.cs" />
-    <Compile Include="Compiled\Variable.cs" />
-    <Compile Include="Compiled\VariableForm.cs" />
+    <Compile Include="Compiled\CompiledProject.cs" />
     <Compile Include="Design\INode.cs" />
     <Compile Include="Design\TextNode.cs" />
-    <Compile Include="Design\ConcatNode.cs" />
+    <Compile Include="Design\SequentialNode.cs" />
     <Compile Include="Design\ChoiceNode.cs" />
     <Compile Include="Design\CommentNode.cs" />
     <Compile Include="Design\Variable.cs" />
     <Compile Include="Design\VariableForm.cs" />
     <Compile Include="Design\Project.cs" />
     <Compile Include="Design\ProjectWriter.cs" />
+    <Compile Include="Design\ParagraphBreakNode.cs" />
+    <Compile Include="Compiled\ICompiledNode.cs" />
+    <Compile Include="Compiled\CompiledVariable.cs" />
+    <Compile Include="Compiled\VariableCompiledNode.cs" />
+    <Compile Include="Compiled\TextCompiledNode.cs" />
+    <Compile Include="Compiled\SequentialCompiledNode.cs" />
+    <Compile Include="Compiled\ChoiceCompiledNode.cs" />
+    <Compile Include="Interfaces\IDialogService.cs" />
+    <Compile Include="Interfaces\IVariableSubstituter.cs" />
+    <Compile Include="Interfaces\IRandomChooser.cs" />
+    <Compile Include="Services\CachingDialogBasedVariableSubstituter.cs" />
+    <Compile Include="Services\RandomChooser.cs" />
+    <Compile Include="Compiler.cs" />
+    <Compile Include="Interfaces\ILexerSyntax.cs" />
+    <Compile Include="Lexing\DefaultLexerSyntax.cs" />
+    <Compile Include="Lexing\SkrivmaskinGrammar.cs" />
+    <Compile Include="Compiled\SentenceCompiledNode.cs" />
+    <Compile Include="Lexing\SkrivmaskinTextTerminal.cs" />
+    <Compile Include="Lexing\SpecialCharacters.cs" />
+    <Compile Include="Parsing\SkrivmaskinParser.cs" />
+    <Compile Include="Lexing\SkrivmaskinEscapeTerminal.cs" />
+    <Compile Include="Lexing\SkrivmaskinTokens.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -69,6 +76,10 @@
   <ItemGroup>
     <Folder Include="Compiled\" />
     <Folder Include="Design\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+    <Folder Include="Lexing\" />
+    <Folder Include="Parsing\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

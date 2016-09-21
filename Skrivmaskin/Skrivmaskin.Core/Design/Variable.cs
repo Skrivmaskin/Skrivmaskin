@@ -6,7 +6,7 @@ namespace Skrivmaskin.Core.Design
     /// <summary>
     /// A user variable. This sets up a random replacement in the runner.
     /// </summary>
-    public sealed class Variable
+    public sealed class Variable : IEquatable<Variable>
     {
         public Variable ()
         {
@@ -30,5 +30,16 @@ namespace Skrivmaskin.Core.Design
         /// </summary>
         /// <value>The forms.</value>
         public List<VariableForm> Forms { get; set; }
+
+        public bool Equals (Variable other)
+        {
+            if (this.Name != other.Name) return false;
+            if (this.Description != other.Description) return false;
+            if (this.Forms.Count != other.Forms.Count) return false;
+            for (int i = 0; i < this.Forms.Count; i++) {
+                if (!this.Forms [i].Equals (other.Forms [i])) return false;
+            }
+            return true;
+        }
     }
 }

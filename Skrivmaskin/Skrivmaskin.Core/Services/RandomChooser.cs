@@ -1,5 +1,8 @@
 using System;
-namespace Skrivmaskin.Core.Compiled
+using Skrivmaskin.Core.Compiled;
+using Skrivmaskin.Core.Interfaces;
+
+namespace Skrivmaskin.Core.Services
 {
     /// <summary>
     /// Concrete random chooser, using a pseudo RNG.
@@ -16,10 +19,9 @@ namespace Skrivmaskin.Core.Compiled
         /// Make the choice.
         /// </summary>
         /// <param name="choice">Choice.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        public T Choose<T> (Choice<T> choice)
+        public ICompiledNode Choose (ChoiceCompiledNode choice)
         {
-            return choice.Choices [random.Next (0, choice.Choices.Length)];
+            return choice.Choices [random.Next (0, choice.Choices.Count)];
         }
     }
 }

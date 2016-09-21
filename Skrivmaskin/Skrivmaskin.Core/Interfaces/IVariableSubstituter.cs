@@ -1,5 +1,5 @@
 using System;
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Interfaces
 {
     /// <summary>
     /// Variable substituter.
@@ -12,7 +12,7 @@ namespace Skrivmaskin.Core.Compiled
         /// <summary>
         /// Perform the substitution.
         /// </summary>
-        /// <param name="variable">Variable.</param>
-        string Substitute (VariableForm variable);
+        /// <param name="variableFullName">Variable full name.</param>
+        string Substitute (string variableFullName);
     }
 }

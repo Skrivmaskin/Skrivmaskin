@@ -10,6 +10,7 @@ namespace Skrivmaskin.Editor
 	public partial class DesignViewController : NSViewController
 	{
         public Node Node { get; private set; }
+        private Node lastCompiledNode { get; set; }
 
         public DesignViewController (IntPtr handle) : base (handle)
 		{
@@ -36,6 +37,14 @@ namespace Skrivmaskin.Editor
             var datasource = new SkrivmaskinOutlineViewDataSource (node);
             SkrivmaskinOutlineView.DataSource = datasource;
             SkrivmaskinOutlineView.Delegate = new SkrivmaskinOutlineViewDelegate (datasource);
+        }
+
+        //TODO farm this out to threads??
+        private void Compile ()
+        {
+            if (lastCompiledNode != Node) {
+                
+            }
         }
 	}
 }

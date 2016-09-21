@@ -834,7 +834,7 @@
                                     <scrollView autohidesScrollers="YES" horizontalLineScroll="19" horizontalPageScroll="10" verticalLineScroll="19" verticalPageScroll="10" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8I-Pg-sBH">
                                         <rect key="frame" x="0.0" y="25" width="450" height="275"/>
                                         <clipView key="contentView" id="jcG-HC-BYy">
-                                            <rect key="frame" x="1" y="23" width="448" height="251"/>
+                                            <rect key="frame" x="1" y="0.0" width="448" height="274"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <subviews>
                                                 <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="XwF-br-2AR" viewBased="YES" id="s6G-xT-SoZ">
@@ -918,7 +918,7 @@
                                             <rect key="frame" x="1" y="119" width="223" height="15"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
-                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="SzS-PG-Foe">
+                                        <scroller key="verticalScroller" hidden="YES" verticalHuggingPriority="750" horizontal="NO" id="SzS-PG-Foe">
                                             <rect key="frame" x="224" y="17" width="15" height="102"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </scroller>
@@ -965,6 +965,7 @@
                     </view>
                     <connections>
                         <outlet property="Results" destination="mRE-kq-BXi" id="T2G-sd-Y0h"/>
+                        <outlet property="VariablesOutline" destination="s6G-xT-SoZ" id="TQ9-Xz-c91"/>
                     </connections>
                 </viewController>
                 <customObject id="SiD-hf-epA" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

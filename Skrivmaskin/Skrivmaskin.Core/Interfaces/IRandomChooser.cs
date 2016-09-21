@@ -1,5 +1,7 @@
 using System;
-namespace Skrivmaskin.Core.Compiled
+using Skrivmaskin.Core.Compiled;
+
+namespace Skrivmaskin.Core.Interfaces
 {
     /// <summary>
     /// Make a random choice.
@@ -10,7 +12,6 @@ namespace Skrivmaskin.Core.Compiled
         /// Make the choice.
         /// </summary>
         /// <param name="choice">Choice.</param>
-        /// <typeparam name="T">The 1st type parameter.</typeparam>
-        T Choose<T> (Choice<T> choice);
+        ICompiledNode Choose (ChoiceCompiledNode choice);
     }
 }

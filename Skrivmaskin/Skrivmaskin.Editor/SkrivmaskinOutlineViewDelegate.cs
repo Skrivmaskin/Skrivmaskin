@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using AppKit;
 using CoreGraphics;
 using Foundation;
@@ -57,7 +57,7 @@ namespace Skrivmaskin.Editor
                     view.TextField.Editable = false;
                     view.ImageView.Image = NSImage.ImageNamed (NSImageName.Folder);
                     break;
-                case NodeType.Concat:
+                case NodeType.Sequential:
                     view.TextField.Editable = (tableColumn.Identifier == TitleIdentifier);
                     view.ImageView.Image = NSImage.ImageNamed (NSImageName.StatusNone);
                     break;
@@ -141,7 +141,7 @@ namespace Skrivmaskin.Editor
                 case NodeType.Root:
                     view.Editable = false;
                     break;
-                case NodeType.Concat:
+                case NodeType.Sequential:
                     view.Editable = (tableColumn.Identifier == TitleIdentifier);
                     break;
                 case NodeType.Choice:

@@ -4,7 +4,7 @@ namespace Skrivmaskin.Core.Design
     /// <summary>
     /// Free form comment that the user can set at any point.
     /// </summary>
-    public sealed class CommentNode : INode
+    public sealed class CommentNode : INode, IEquatable<CommentNode>
     {
         public CommentNode () : this ("", "")
         {
@@ -28,5 +28,17 @@ namespace Skrivmaskin.Core.Design
         /// </summary>
         /// <value>The text.</value>
         public string Value { get; set; }
+
+        public bool Equals (CommentNode other)
+        {
+            return ((this.CommentName == other.CommentName) && (this.Value == other.Value));
+        }
+
+        public bool Equals (INode other)
+        {
+            var o = other as CommentNode;
+            if (o == null) return false;
+            return this.Equals (o);
+        }
     }
 }

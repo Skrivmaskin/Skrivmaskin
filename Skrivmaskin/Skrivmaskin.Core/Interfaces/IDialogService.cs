@@ -1,5 +1,5 @@
 using System;
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Interfaces
 {
     /// <summary>
     /// Dialog service.

@@ -6,7 +6,7 @@ namespace Skrivmaskin.Core.Design
     /// <summary>
     /// Choice node. Nodes below here are chosen at random.
     /// </summary>
-    public sealed class ChoiceNode : INode
+    public sealed class ChoiceNode : INode, IEquatable<ChoiceNode>
     {
         public ChoiceNode () : this ("", new List<INode> ())
         {
@@ -30,5 +30,22 @@ namespace Skrivmaskin.Core.Design
         /// </summary>
         /// <value>The choices.</value>
         public List<INode> Choices { get; set; }
+
+        public bool Equals (INode other)
+        {
+            var o = other as ChoiceNode;
+            if (o == null) return false;
+            return this.Equals (o);
+        }
+
+        public bool Equals (ChoiceNode other)
+        {
+            if (this.ChoiceName != other.ChoiceName) return false;
+            if (this.Choices.Count != other.Choices.Count) return false;
+            for (int i = 0; i < this.Choices.Count; i++) {
+                if (!this.Choices [i].Equals (other.Choices)) return false;
+            }
+            return true;
+        }
     }
 }

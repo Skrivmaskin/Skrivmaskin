@@ -5,7 +5,7 @@ namespace Skrivmaskin.Core.Design
     /// Variable form. This represents a grammatical form that the parent variable may be in, e.g. plural, possessive etc, in case there are language
     /// specific adjustments to be made.
     /// </summary>
-    public sealed class VariableForm
+    public sealed class VariableForm : IEquatable<VariableForm>
     {
         public VariableForm ()
         {
@@ -22,5 +22,10 @@ namespace Skrivmaskin.Core.Design
         /// </summary>
         /// <value>The suggestion.</value>
         public string Suggestion { get; set; }
+
+        public bool Equals (VariableForm other)
+        {
+            return ((this.Name == other.Name) && (this.Suggestion == other.Suggestion));
+        }
     }
 }

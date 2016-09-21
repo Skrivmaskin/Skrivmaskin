@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -34,18 +34,34 @@ namespace Skrivmaskin.Core.Design
                     return choiceNode;
                 }
                 if (jObject ["Sequential"] != null) {
-                    var concatNode = new ConcatNode ();
-                    serializer.Populate (jObject.CreateReader (), concatNode);
-                    return concatNode;
+                    var sequentialNode = new SequentialNode ();
+                    serializer.Populate (jObject.CreateReader (), sequentialNode);
+                    return sequentialNode;
                 }
-                var textNode = new TextNode ();
-                serializer.Populate (jObject.CreateReader (), textNode);
-                return textNode;
+                if (jObject ["Text"] != null) {
+                    var textNode = new TextNode ();
+                    serializer.Populate (jObject.CreateReader (), textNode);
+                    return textNode;
+                }
+                var paragraphBreakNode = new ParagraphBreakNode ();
+                serializer.Populate (jObject.CreateReader (), paragraphBreakNode);
+                return paragraphBreakNode;
             }
 
             public override void WriteJson (JsonWriter writer, object value, JsonSerializer serializer)
             {
                 throw new NotImplementedException ();
+            }
+        }
+
+        /// <summary>
+        /// Get the JSON converters needed to write projects, for testing and for users to be able
+        /// to serialize Projects themselves.
+        /// </summary>
+        /// <value>The json converters.</value>
+        public static JsonConverter [] JsonConverters {
+            get {
+                return new JsonConverter [1] { new NodeConverter () };
             }
         }
 

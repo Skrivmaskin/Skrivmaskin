@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Foundation;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +16,7 @@ namespace Skrivmaskin.Editor
         public static void GenerateSubTree (Node parentNode, INode designNode)
         {
             if (designNode is TextNode)
-                parentNode.AddChild (NodeType.Text, "", ((TextNode)designNode).Value);
+                parentNode.AddChild (NodeType.Text, "", ((TextNode)designNode).Text);
             else if (designNode is CommentNode)
                 parentNode.AddChild (NodeType.Comment, "", ((CommentNode)designNode).Value);
             else if (designNode is ChoiceNode) {
@@ -26,11 +26,11 @@ namespace Skrivmaskin.Editor
                     foreach (var subNode in choiceNode.Choices) {
                         GenerateSubTree (node, subNode);
                     }
-            } else if (designNode is ConcatNode) {
-                var concatNode = designNode as ConcatNode;
-                var node = parentNode.AddChild (NodeType.Concat, concatNode.ConcatName, "");
-                if (concatNode.Sequential != null)
-                    foreach (var subNode in concatNode.Sequential) {
+            } else if (designNode is SequentialNode) {
+                var sequentialNode = designNode as SequentialNode;
+                var node = parentNode.AddChild (NodeType.Sequential, sequentialNode.SequentialName, "");
+                if (sequentialNode.Sequential != null)
+                    foreach (var subNode in sequentialNode.Sequential) {
                         GenerateSubTree (node, subNode);
                     }
             } else

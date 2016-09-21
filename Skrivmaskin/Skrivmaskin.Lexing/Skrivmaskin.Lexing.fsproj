@@ -51,6 +51,9 @@
     <Reference Include="FSharp.Core">
       <HintPath>..\packages\FSharp.Core.4.0.1.5\lib\net40\FSharp.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Irony">
+      <HintPath>..\packages\Irony.0.9.1\lib\net40\Irony.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
@@ -60,6 +63,7 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Jsonizer.fsx" />
+    <None Include="Irony.fsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">
