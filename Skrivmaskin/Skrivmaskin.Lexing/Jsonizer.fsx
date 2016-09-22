@@ -21,7 +21,7 @@ let rec transformLine n (line:string) =
     if n >= 10 then
         failwithf "%s" line
     else if variableMatch.Success then
-        transformLine (n + 1) (variableMatch.Groups.[1].Value + "$$" + variableMatch.Groups.[2].Value + "$$" + variableMatch.Groups.[3].Value)
+        transformLine (n + 1) (variableMatch.Groups.[1].Value + "$L$" + variableMatch.Groups.[2].Value + "$R$" + variableMatch.Groups.[3].Value)
     else
         let mcOffset = line.IndexOf("/")
         if mcOffset > 0 then
@@ -31,11 +31,11 @@ let rec transformLine n (line:string) =
                     (fun (p,l,b) c ->
                         if Char.IsWhiteSpace c || c = '.' || c = ',' || c = '!' || c = '?' then
                             if b then
-                                ("", l + "((" + p.Replace("_", " ") + "))" + (c.ToString()), false)
+                                ("", l + "{" + p.Replace("_", " ") + "}" + (c.ToString()), false)
                             else
                                 ("", l + p + (c.ToString()), false)
                         else if c = '/' then
-                            (p + "||", l, true)
+                            (p + "|", l, true)
                         else
                             (p + c.ToString(), l, b))
                     ("", "", false)
@@ -62,7 +62,7 @@ let transformAll name file =
                 let num = Int32.Parse(line.Replace("STYCKE ", "").Replace(" ", ""))
                 (None, (if currentSet.IsSome then (state,(currentSet.Value |> List.rev))::total else total), InStycke(num))
             else
-                (Some((transformLine 0 line)::(currentSet |> defaultArg <| [])), total, state))
+                (Some(((transformLine 0 line).Replace("$L$", "[").Replace("$R$", "]"))::(currentSet |> defaultArg <| [])), total, state))
         (None,[],Preparing)
     |> fun (_,a,_) -> a
     |> List.rev

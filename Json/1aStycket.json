@@ -36,40 +36,40 @@
     "ChoiceName": "1a stycket",
     "Choices": [
       {
-        "ConcatName": "2016-08-23",
+        "SequentialName": "2016-08-23",
         "Sequential": [
           {
             "ChoiceName": "STYCKE 1",
             "Choices": [
               {
-                "Value": "När du ska hyra bil i $$MÄRKE$$ gör du det snabbt och enkelt via oss på Sixt."
+                "Text": "När du ska hyra bil i [MÄRKE] gör du det snabbt och enkelt via oss på Sixt."
               },
               {
-                "Value": "Sixt erbjuder det enklaste sätter att hyra bil i $$MÄRKE$$."
+                "Text": "Sixt erbjuder det enklaste sätter att hyra bil i [MÄRKE]."
               },
               {
-                "Value": "Vill du hyra bil i $$MÄRKE$$? Vi på Sixt erbjuder dig alltid en rad ((förmånliga||prisvärda)) ((erbjudanden||hyrbilslösningar))."
+                "Text": "Vill du hyra bil i [MÄRKE]? Vi på Sixt erbjuder dig alltid en rad {förmånliga|prisvärda} {erbjudanden|hyrbilslösningar}."
               },
               {
-                "Value": "Vill du hyra bil i $$MÄRKE$$? Hos oss på Sixt erbjuds ((du||resenärer)) alltid en rad ((förmångliga||prisvärda)) ((erbjudanden||hyrbilslösningar))."
+                "Text": "Vill du hyra bil i [MÄRKE]? Hos oss på Sixt erbjuds {du|resenärer} alltid en rad {förmångliga|prisvärda} {erbjudanden|hyrbilslösningar}."
               },
               {
-                "Value": "Planerar du att hyra bil i $$MÄRKE$$? Vi på Sixt erbjuder dig alltid en rad ((förmånliga||prisvärda)) ((erbjudanden||hyrbilslösningar))."
+                "Text": "Planerar du att hyra bil i [MÄRKE]? Vi på Sixt erbjuder dig alltid en rad {förmånliga|prisvärda} {erbjudanden|hyrbilslösningar}."
               },
               {
-                "Value": "Vi på Sixt har ((tagit fram||utvecklat)) ett enkelt och ((smidigt||bekvämt)) sätt att hyra bil i $$MÄRKE$$."
+                "Text": "Vi på Sixt har {tagit fram|utvecklat} ett enkelt och {smidigt|bekvämt} sätt att hyra bil i [MÄRKE]."
               },
               {
-                "Value": "Hos oss på Sixt kan du hyra bil i $$MÄRKE$$ till förmånliga priser. Vår biluthyrning i $$MÄRKE$$ har en bil för varje ändamål."
+                "Text": "Hos oss på Sixt kan du hyra bil i [MÄRKE] till förmånliga priser. Vår biluthyrning i [MÄRKE] har en bil för varje ändamål."
               },
               {
-                "Value": "Letar du efter ett ((smidigt||enkelt)) sätt att hyra bil i $$MÄRKE$$? Då har du kommit ((rätt||helt rätt))."
+                "Text": "Letar du efter ett {smidigt|enkelt} sätt att hyra bil i [MÄRKE]? Då har du kommit {rätt|helt rätt}."
               },
               {
-                "Value": "Att hyra bil i $$MÄRKE$$ är enkelt oavsett om du söker en större eller mindre bil."
+                "Text": "Att hyra bil i [MÄRKE] är enkelt oavsett om du söker en större eller mindre bil."
               },
               {
-                "Value": "Att hyra bil i $$MÄRKE$$ är enkelt oavsett om du söker en bil för en längre eller kortare resa."
+                "Text": "Att hyra bil i [MÄRKE] är enkelt oavsett om du söker en bil för en längre eller kortare resa."
               }
             ]
           },
@@ -77,19 +77,19 @@
             "ChoiceName": "STYCKE 2",
             "Choices": [
               {
-                "Value": "Utmärkt service och ett ((brett||stort)) urval av bilar gör vår biluthyrning i $$MÄRKE$$ till ((förstahandsvalet||det självklara valet))."
+                "Text": "Utmärkt service och ett {brett|stort} urval av bilar gör vår biluthyrning i [MÄRKE] till {förstahandsvalet|det självklara valet}."
               },
               {
-                "Value": "Högkvalitativ service liksom en rad ((tillvalstjänster||möjligheter till tillval)) gör vår biluthyrning i $$MÄRKE$$ till ((förstahandsvalet||det självklara valet))."
+                "Text": "Högkvalitativ service liksom en rad {tillvalstjänster|möjligheter till tillval} gör vår biluthyrning i [MÄRKE] till {förstahandsvalet|det självklara valet}."
               },
               {
-                "Value": "Vår biluthyrning i $$MÄRKE$$ erbjuder ett brett utbud och är det självklara valet när du ((besöker||är på besök i)) landet."
+                "Text": "Vår biluthyrning i [MÄRKE] erbjuder ett brett utbud och är det självklara valet när du {besöker|är på besök i} landet."
               },
               {
-                "Value": "Vi på Sixt är det ((det självklara valet||det givna valet)) för besökare i staden."
+                "Text": "Vi på Sixt är det {det självklara valet|det givna valet} för besökare i staden."
               },
               {
-                "Value": "Du kan alltid räkna med service och kvalitet av ((toppklass||högsta klass)) då du väljer att hyra bil i $$MÄRKE$$."
+                "Text": "Du kan alltid räkna med service och kvalitet av {toppklass|högsta klass} då du väljer att hyra bil i [MÄRKE]."
               }
             ]
           },
@@ -97,10 +97,10 @@
             "ChoiceName": "STYCKE 3",
             "Choices": [
               {
-                "Value": "Dessutom är vårt ((kontor||uthyrningskontor)) centralt beläget $$P2$$."
+                "Text": "Dessutom är vårt {kontor|uthyrningskontor} centralt beläget [P2]."
               },
               {
-                "Value": "Vårt  kontor ((centralt||uthyrningskontor)) är dessutom centralt beläget $$P2$$."
+                "Text": "Vårt  kontor {centralt|uthyrningskontor} är dessutom centralt beläget [P2]."
               }
             ]
           },
@@ -108,10 +108,10 @@
             "ChoiceName": "STYCKE 4",
             "Choices": [
               {
-                "Value": "En riktigt bra läge för dig som vill utforska stadskärnan med bil."
+                "Text": "En riktigt bra läge för dig som vill utforska stadskärnan med bil."
               },
               {
-                "Value": "En perfekt utgångspunkt för dig som vill uppleva staden med bil."
+                "Text": "En perfekt utgångspunkt för dig som vill uppleva staden med bil."
               }
             ]
           },
@@ -119,13 +119,13 @@
             "ChoiceName": "STYCKE 5",
             "Choices": [
               {
-                "Value": "Om det är en semester som lockar, och du ska hyra bil i $$MÄRKE$$, så är det här även ett perfekt läge för fortsatta utflykter i regionen."
+                "Text": "Om det är en semester som lockar, och du ska hyra bil i [MÄRKE], så är det här även ett perfekt läge för fortsatta utflykter i regionen."
               },
               {
-                "Value": "Om det är en semester som fört dig hit, och du ska hyra bil i $$MÄRKE$$, så har du stora möjligheter att lägga upp resan precis som du vill."
+                "Text": "Om det är en semester som fört dig hit, och du ska hyra bil i [MÄRKE], så har du stora möjligheter att lägga upp resan precis som du vill."
               },
               {
-                "Value": "Genom att hyra bil i $$MÄRKE$$ lägger du upp resan i ((regionen||området)) precis som ((vill||önskar)), och vårt ((kontor||hyrbilskontor||uthyrningskontor)) är en bra ((utgångspunkt||start||startpunkt)) för den fortsatta ((bilresan||bilfärden||resan||färden||turen))."
+                "Text": "Genom att hyra bil i [MÄRKE] lägger du upp resan i {regionen|området} precis som {vill|önskar}, och vårt {kontor|hyrbilskontor|uthyrningskontor} är en bra {utgångspunkt|start|startpunkt} för den fortsatta {bilresan|bilfärden|resan|färden|turen}."
               }
             ]
           },
@@ -133,25 +133,25 @@
             "ChoiceName": "STYCKE 6",
             "Choices": [
               {
-                "Value": "Eller kanske fortsätter även ((färden||bilresan)) vidare till andra städer i ((området||regionen))?"
+                "Text": "Eller kanske fortsätter även {färden|bilresan} vidare till andra städer i {området|regionen}?"
               },
               {
-                "Value": "Eller kanske har du planerat en längre ((resa||bilresa)) till angränsande  ((områden||regioner))?"
+                "Text": "Eller kanske har du planerat en längre {resa|bilresa} till angränsande  {områden|regioner}?"
               },
               {
-                "Value": "Om du även vill fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
+                "Text": "Om du även vill fortsätta resan till närliggande städer så kan du hyra bil i [MÄRKE] för en längre {period|tidsperiod}."
               },
               {
-                "Value": "Om du även vill fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
+                "Text": "Om du även vill fortsätta resan till närliggande städer så kan du hyra bil i [MÄRKE] för en längre {period|tidsperiod}."
               },
               {
-                "Value": "Om du planerar att fortsätta resan till närliggande städer så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
+                "Text": "Om du planerar att fortsätta resan till närliggande städer så kan du hyra bil i [MÄRKE] för en längre {period|tidsperiod}."
               },
               {
-                "Value": "Kanske vill du även ta ((chansen||möjligheten)) att ((se||besöka)) flera städer i ((området||regionen))? Då kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
+                "Text": "Kanske vill du även ta {chansen|möjligheten} att {se|besöka} flera städer i {området|regionen}? Då kan du hyra bil i [MÄRKE] för en längre {period|tidsperiod}."
               },
               {
-                "Value": "Om du även vill besöka närliggande ((städer||kommuner)) så kan du hyra bil i $$MÄRKE$$ för en längre ((period||tidsperiod))."
+                "Text": "Om du även vill besöka närliggande {städer|kommuner} så kan du hyra bil i [MÄRKE] för en längre {period|tidsperiod}."
               }
             ]
           },
@@ -159,22 +159,22 @@
             "ChoiceName": "STYCKE 7",
             "Choices": [
               {
-                "Value": "Oavsett hur du ((planerar||lägger)) upp din ((vistelse||resa)) har vi garanterat "
+                "Text": "Oavsett hur du {planerar|lägger} upp din {vistelse|resa} har vi garanterat "
               },
               {
-                "Value": "en hyrbil i $$MÄRKE$$ för dig."
+                "Text": "en hyrbil i [MÄRKE] för dig."
               },
               {
-                "Value": "Alla resor ser olika ut. Oavsett om du är här ((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod)) så har vi en ((modell||bilmodell||hyrbilsslösning)) för dig."
+                "Text": "Alla resor ser olika ut. Oavsett om du är här {för en längre eller kortare tid|för en längre eller kortare period|för en längre eller kortare tidsperiod|för en lång eller kort tid|för en längre eller kortare tid|för en lång eller kort tidsperiod} så har vi en {modell|bilmodell|hyrbilsslösning} för dig."
               },
               {
-                "Value": "Vi har en bilmodell för alla ((slags||typer av)) resor. Oavsett om du ska stanna ((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod)) ((tar vi fram||hittar vi||finner vi)) en lösning för dig."
+                "Text": "Vi har en bilmodell för alla {slags|typer av} resor. Oavsett om du ska stanna {för en längre eller kortare tid|för en längre eller kortare period|för en längre eller kortare tidsperiod|för en lång eller kort tid|för en längre eller kortare tid|för en lång eller kort tidsperiod} {tar vi fram|hittar vi|finner vi} en lösning för dig."
               },
               {
-                "Value": "Vi på Sixt kan ta fram en lösning oavsett om du behöver en hyrbil i $$MÄRKE$$ för"
+                "Text": "Vi på Sixt kan ta fram en lösning oavsett om du behöver en hyrbil i [MÄRKE] för"
               },
               {
-                "Value": "((för en längre eller kortare tid||för en längre eller kortare period||för en längre eller kortare tidsperiod||för en lång eller kort tid||för en längre eller kortare tid||för en lång eller kort tidsperiod))."
+                "Text": "{för en längre eller kortare tid|för en längre eller kortare period|för en längre eller kortare tidsperiod|för en lång eller kort tid|för en längre eller kortare tid|för en lång eller kort tidsperiod}."
               }
             ]
           },
@@ -182,10 +182,10 @@
             "ChoiceName": "STYCKE 8",
             "Choices": [
               {
-                "Value": "Ta del av våra förmånliga erbjudanden för att boka en hyrbil i $$MÄRKE$$ redan nu."
+                "Text": "Ta del av våra förmånliga erbjudanden för att boka en hyrbil i [MÄRKE] redan nu."
               },
               {
-                "Value": "Ta del av våra förmånliga erbjudanden och boka en hyrbil i $$MÄRKE$$ redan ((idag||nu)). "
+                "Text": "Ta del av våra förmånliga erbjudanden och boka en hyrbil i [MÄRKE] redan {idag|nu}. "
               }
             ]
           },
@@ -193,7 +193,7 @@
             "ChoiceName": "STYCKE 9",
             "Choices": [
               {
-                "Value": "Vi på Sixt erbjuder dig alltid prisvärda ((hyrbilslösningar||lösningar)) om du söker en hyrbil i $$MÄRKE$$."
+                "Text": "Vi på Sixt erbjuder dig alltid prisvärda {hyrbilslösningar|lösningar} om du söker en hyrbil i [MÄRKE]."
               }
             ]
           },
@@ -201,10 +201,10 @@
             "ChoiceName": "STYCKE 10",
             "Choices": [
               {
-                "Value": "Vill du resa vidare i en $$P3$$? "
+                "Text": "Vill du resa vidare i en [P3]? "
               },
               {
-                "Value": "När du vill boka en hyrbil i $$MÄRKE$$, och vänder dig till oss på Sixt, ser vi till att du får ((exakt||precis)) det du ((söker||är ute)) efter - oavsett om gäller en $$P3$$."
+                "Text": "När du vill boka en hyrbil i [MÄRKE], och vänder dig till oss på Sixt, ser vi till att du får {exakt|precis} det du {söker|är ute} efter - oavsett om gäller en [P3]."
               }
             ]
           },
@@ -212,13 +212,13 @@
             "ChoiceName": "STYCKE 11",
             "Choices": [
               {
-                "Value": "Osäker på vilken ((modell||bilmodell)) som passar ((dig||för din resa||för din färd))?"
+                "Text": "Osäker på vilken {modell|bilmodell} som passar {dig|för din resa|för din färd}?"
               },
               {
-                "Value": "Vet du inte vilken ((modell||bilmodell||bil)) som passar dina önskemål bäst?"
+                "Text": "Vet du inte vilken {modell|bilmodell|bil} som passar dina önskemål bäst?"
               },
               {
-                "Value": "Vill du ((veta mer||få mer info||få mer information)) om ((våra erbjudanden||våra bilar||vår hyrbilsservice))?"
+                "Text": "Vill du {veta mer|få mer info|få mer information} om {våra erbjudanden|våra bilar|vår hyrbilsservice}?"
               }
             ]
           },
@@ -226,13 +226,13 @@
             "ChoiceName": "STYCKE 12",
             "Choices": [
               {
-                "Value": "Gå in på ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)), här presenteras alla våra ((modeller||bilar||fordon))."
+                "Text": "Gå in på {vår|Sixt} {hemsida|webbsida|nätsida|webb}, här presenteras alla våra {modeller|bilar|fordon}."
               },
               {
-                "Value": "Gå in på ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)), här ((hittar||finner)) du alla våra ((modeller||bilar||fordon))."
+                "Text": "Gå in på {vår|Sixt} {hemsida|webbsida|nätsida|webb}, här {hittar|finner} du alla våra {modeller|bilar|fordon}."
               },
               {
-                "Value": "På ((vår||Sixt)) ((hemsida||webbsida||nätsida||webb)) finns alla våra ((modeller||bilar||fordon)) presenterade."
+                "Text": "På {vår|Sixt} {hemsida|webbsida|nätsida|webb} finns alla våra {modeller|bilar|fordon} presenterade."
               }
             ]
           },
@@ -240,10 +240,10 @@
             "ChoiceName": "STYCKE 13",
             "Choices": [
               {
-                "Value": "Gör din ((bokning||reservation||bilbokning||hyrbilsbokning)) direkt på ((nätet||webben||hemsidan)) eller ((hör av dig till oss||kontakta oss)) per telefon för att hyra en bil i $$MÄRKE$$. "
+                "Text": "Gör din {bokning|reservation|bilbokning|hyrbilsbokning} direkt på {nätet|webben|hemsidan} eller {hör av dig till oss|kontakta oss} per telefon för att hyra en bil i [MÄRKE]. "
               },
               {
-                "Value": "((Här||På hemsidan||På webbsidan)) kan du även göra din bokning men du kan även hyra en bil i $$MÄRKE$$ genom att kontakta oss per telefon."
+                "Text": "{Här|På hemsidan|På webbsidan} kan du även göra din bokning men du kan även hyra en bil i [MÄRKE] genom att kontakta oss per telefon."
               }
             ]
           },
@@ -251,13 +251,13 @@
             "ChoiceName": "STYCKE 14",
             "Choices": [
               {
-                "Value": "Vi på Sixt gör allt för att ((skapa||hitta||utforma||erbjuda)) en lösning som passar just ((dig||dina önskemål||))."
+                "Text": "Vi på Sixt gör allt för att {skapa|hitta|utforma|erbjuda} en lösning som passar just {dig|dina önskemål|}."
               },
               {
-                "Value": "Vi på Sixt ger dig möjlighet att skapa en lösning som passar just dig."
+                "Text": "Vi på Sixt ger dig möjlighet att skapa en lösning som passar just dig."
               },
               {
-                "Value": "När du väljer att hyra bil på vårt kontor i $$MÄRKE$$ kan du också göra många tillval."
+                "Text": "När du väljer att hyra bil på vårt kontor i [MÄRKE] kan du också göra många tillval."
               }
             ]
           },
@@ -265,10 +265,10 @@
             "ChoiceName": "STYCKE 15",
             "Choices": [
               {
-                "Value": "Du kan till exempel välja att göra en_rad_flera olika ((tillägg||tillval)) som passar för just din resa."
+                "Text": "Du kan till exempel välja att göra en_rad_flera olika {tillägg|tillval} som passar för just din resa."
               },
               {
-                "Value": "Vi erbjuder en_rad_flera olika ((tillägg||tillval||tjänster)) som gör din resa lite ((smidigare||enklar||mer bekväm))."
+                "Text": "Vi erbjuder en_rad_flera olika {tillägg|tillval|tjänster} som gör din resa lite {smidigare|enklar|mer bekväm}."
               }
             ]
           },
@@ -276,7 +276,7 @@
             "ChoiceName": "STYCKE 16",
             "Choices": [
               {
-                "Value": "Du kan till exempel boka en ((barnstol||bilbarnstol)),((GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem)) och ((försäkringspaket||extraförare))."
+                "Text": "Du kan till exempel boka en {barnstol|bilbarnstol},{GPS|GPS-tjänster|navigationstjänster|GPS-teknik|navigationssystem} och {försäkringspaket|extraförare}."
               }
             ]
           },
@@ -284,10 +284,10 @@
             "ChoiceName": "STYCKE 17",
             "Choices": [
               {
-                "Value": "Boka en hyrbil på vårt kontor i $$MÄRKE$$ redan idag och ta chansen att upptäcka staden med bil."
+                "Text": "Boka en hyrbil på vårt kontor i [MÄRKE] redan idag och ta chansen att upptäcka staden med bil."
               },
               {
-                "Value": "Packa in ((väskorna||dina väskor||ditt bagage||dina resväskor)) i din hyrbil i $$MÄRKE$$ och gör dig redo att ((starta||påbörja)) din ((resa||restur))."
+                "Text": "Packa in {väskorna|dina väskor|ditt bagage|dina resväskor} i din hyrbil i [MÄRKE] och gör dig redo att {starta|påbörja} din {resa|restur}."
               }
             ]
           },
@@ -295,32 +295,32 @@
             "ChoiceName": "STYCKE 18",
             "Choices": [
               {
-                "Value": "En hyrbil ger dig ((frihet||stor frihet)) och ((fler möjligheter||möjligheten)) att ((lägga upp||planera)) din ((semester||resa||semesterresa)) precis som du vill ha den. "
+                "Text": "En hyrbil ger dig {frihet|stor frihet} och {fler möjligheter|möjligheten} att {lägga upp|planera} din {semester|resa|semesterresa} precis som du vill ha den. "
               },
               {
-                "Value": "När du bestämmer dig att hyra bil i $$MÄRKE$$ kan du räkna med att få en toppmodern ((bil||bilmodell)) som motsvarar alla dina ((krav||önskemål))."
+                "Text": "När du bestämmer dig att hyra bil i [MÄRKE] kan du räkna med att få en toppmodern {bil|bilmodell} som motsvarar alla dina {krav|önskemål}."
               },
               {
-                "Value": "När du bestämmer dig att hyra bil i $$MÄRKE$$ kan du räkna med att få en toppmodern ((lösning||premiumlösning)) som motsvarar ((alla dina||dina)) kravönskemål."
+                "Text": "När du bestämmer dig att hyra bil i [MÄRKE] kan du räkna med att få en toppmodern {lösning|premiumlösning} som motsvarar {alla dina|dina} kravönskemål."
               }
             ]
           }
         ]
       },
       {
-        "ConcatName": "2016-08-29",
+        "SequentialName": "2016-08-29",
         "Sequential": [
           {
             "ChoiceName": "STYCKE 1",
             "Choices": [
               {
-                "Value": "((Letar||söker)) du efter en hyrbil i $$MÄRKE$$?"
+                "Text": "{Letar|söker} du efter en hyrbil i [MÄRKE]?"
               },
               {
-                "Value": "Vill du boka en hyrbil i  $$MÄRKE$$?"
+                "Text": "Vill du boka en hyrbil i  [MÄRKE]?"
               },
               {
-                "Value": "Planerar du att boka en hyrbil i  $$MÄRKE$$?"
+                "Text": "Planerar du att boka en hyrbil i  [MÄRKE]?"
               }
             ]
           },
@@ -328,19 +328,19 @@
             "ChoiceName": "STYCKE 2",
             "Choices": [
               {
-                "Value": "((Vi på||Här på)) Sixt vet vi att varje ((resa||bilresa)) är ((unik||speciell))."
+                "Text": "{Vi på|Här på} Sixt vet vi att varje {resa|bilresa} är {unik|speciell}."
               },
               {
-                "Value": "((Vi på||Här på)) Sixt vet vi att alla har olika ((önskemål||krav)) då det gäller hyrbilar."
+                "Text": "{Vi på|Här på} Sixt vet vi att alla har olika {önskemål|krav} då det gäller hyrbilar."
               },
               {
-                "Value": "((Vi på||Här på)) Sixt vet vi att alla resor är unika."
+                "Text": "{Vi på|Här på} Sixt vet vi att alla resor är unika."
               },
               {
-                "Value": "Varje ((resa||bilresa)) är unik och vi på Sixt vet att alla ((resenärer||bilförare)) har olika ((krav||önskemål))."
+                "Text": "Varje {resa|bilresa} är unik och vi på Sixt vet att alla {resenärer|bilförare} har olika {krav|önskemål}."
               },
               {
-                "Value": "((Vi på||Här på)) Sixt vet vi att alla resor ((ser olika ut||är unika||ställer olika)) krav."
+                "Text": "{Vi på|Här på} Sixt vet vi att alla resor {ser olika ut|är unika|ställer olika} krav."
               }
             ]
           },
@@ -348,13 +348,13 @@
             "ChoiceName": "STYCKE 3",
             "Choices": [
               {
-                "Value": "Under en semester ser önskemålen ut på ett visst sätt men det finns ((självklart||givetvis)) även ((bilresor||resor)) med andra ändamål. "
+                "Text": "Under en semester ser önskemålen ut på ett visst sätt men det finns {självklart|givetvis} även {bilresor|resor} med andra ändamål. "
               },
               {
-                "Value": "En ((semesterresa||semester)) ställer en viss typ av krav som skiljer sig åt mot behoven på ((jobbresan||affärsresan||resan med arbetet||resan med jobbet)). "
+                "Text": "En {semesterresa|semester} ställer en viss typ av krav som skiljer sig åt mot behoven på {jobbresan|affärsresan|resan med arbetet|resan med jobbet}. "
               },
               {
-                "Value": "En  ((jobbresa||affärsresa||resa med arbetet||resa med jobbet)) ställer en viss typ av krav som skiljer sig åt mot behoven på ((semesterresa||semester||resan med familjen))."
+                "Text": "En  {jobbresa|affärsresa|resa med arbetet|resa med jobbet} ställer en viss typ av krav som skiljer sig åt mot behoven på {semesterresa|semester|resan med familjen}."
               }
             ]
           },
@@ -362,7 +362,7 @@
             "ChoiceName": "STYCKE 4",
             "Choices": [
               {
-                "Value": "Därför är vi ((stolta||glada)) att kunna erbjuda ett brett ((utbud||urval)) av bilar på vår biluthyrning i $$MÄRKE$$."
+                "Text": "Därför är vi {stolta|glada} att kunna erbjuda ett brett {utbud|urval} av bilar på vår biluthyrning i [MÄRKE]."
               }
             ]
           },
@@ -370,7 +370,7 @@
             "ChoiceName": "STYCKE 5",
             "Choices": [
               {
-                "Value": "När du ska hyra bil i $$MÄRKE$$ ((kan vi||erbjuder vi)) ((fordon||bilar||bilmodeller)) i alla pris- och storleksklasser."
+                "Text": "När du ska hyra bil i [MÄRKE] {kan vi|erbjuder vi} {fordon|bilar|bilmodeller} i alla pris- och storleksklasser."
               }
             ]
           },
@@ -378,7 +378,7 @@
             "ChoiceName": "STYCKE 6",
             "Choices": [
               {
-                "Value": "Vår biluthyrning i $$MÄRKE$$ är bekvämt belägen $$P2$$. "
+                "Text": "Vår biluthyrning i [MÄRKE] är bekvämt belägen [P2]. "
               }
             ]
           },
@@ -386,7 +386,7 @@
             "ChoiceName": "STYCKE 7",
             "Choices": [
               {
-                "Value": "Att hyra bil i $$MÄRKE$$ är bekvämt och lätt - du hittar all information om våra ((fordon||bilar||bilmodeller)) på ((vår hemsida||webben||på nätet))."
+                "Text": "Att hyra bil i [MÄRKE] är bekvämt och lätt - du hittar all information om våra {fordon|bilar|bilmodeller} på {vår hemsida|webben|på nätet}."
               }
             ]
           },
@@ -394,7 +394,7 @@
             "ChoiceName": "STYCKE 8",
             "Choices": [
               {
-                "Value": "Du som vill hyra bil i $$MÄRKE$$ kan boka en $$P3$$."
+                "Text": "Du som vill hyra bil i [MÄRKE] kan boka en [P3]."
               }
             ]
           },
@@ -402,16 +402,16 @@
             "ChoiceName": "STYCKE 9",
             "Choices": [
               {
-                "Value": "När du bokar din hyrbil i $$MÄRKE$$ kan du även ((addera||lägga till)) flera ((bekväma||smarta)) ((extrafunktioner||tilläggsfunktioner))."
+                "Text": "När du bokar din hyrbil i [MÄRKE] kan du även {addera|lägga till} flera {bekväma|smarta} {extrafunktioner|tilläggsfunktioner}."
               },
               {
-                "Value": "När du bokar din hyrbil i $$MÄRKE$$ kan du även ((passa på||ta möjligheten)) att välja en rad olika ((extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner))."
+                "Text": "När du bokar din hyrbil i [MÄRKE] kan du även {passa på|ta möjligheten} att välja en rad olika {extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner}."
               },
               {
-                "Value": "Vi kan ((dessutom||även)) erbjuda ((olika||en rad||en rad olika)) tilläggstjänster till din hyrbil i $$MÄRKE$$."
+                "Text": "Vi kan {dessutom|även} erbjuda {olika|en rad|en rad olika} tilläggstjänster till din hyrbil i [MÄRKE]."
               },
               {
-                "Value": "Du kan dessutom välja att ((lägga till||addera)) ((olika||en rad||en rad olika)) tilläggstjänster till din hyrbil i $$MÄRKE$$."
+                "Text": "Du kan dessutom välja att {lägga till|addera} {olika|en rad|en rad olika} tilläggstjänster till din hyrbil i [MÄRKE]."
               }
             ]
           },
@@ -419,13 +419,13 @@
             "ChoiceName": "STYCKE 10",
             "Choices": [
               {
-                "Value": "Utöver vårt ((stora||breda)) ((sortiment||utbud)) kan vi erbjuda en rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). "
+                "Text": "Utöver vårt {stora|breda} {sortiment|utbud} kan vi erbjuda en rad {tjänster|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} som underlättar din {resa|bilresa}. "
               },
               {
-                "Value": "Utöver vår ((breda||omfattande)) flotta kan ((vi||vi på Sixt)) erbjuda en rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). "
+                "Text": "Utöver vår {breda|omfattande} flotta kan {vi|vi på Sixt} erbjuda en rad {tjänster|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} som underlättar din {resa|bilresa}. "
               },
               {
-                "Value": "När du bokar ((din||en)) hyrbil i $$MÄRKE$$ kan du ((dessutom||därutöver)) välja bland en rad ((tilläggstjänster||extrafunktioner||tillvalstjänster))."
+                "Text": "När du bokar {din|en} hyrbil i [MÄRKE] kan du {dessutom|därutöver} välja bland en rad {tilläggstjänster|extrafunktioner|tillvalstjänster}."
               }
             ]
           },
@@ -433,19 +433,19 @@
             "ChoiceName": "STYCKE 11",
             "Choices": [
               {
-                "Value": "Vi kan erbjuda ((extrafunktioner||tilläggsfunktioner)) till din hyrbil i $$MÄRKE$$ i form av till exempel ((bilbarnstolar||barnstol||bilbarnstol)), ((obegränsad körsträcka||extra förare||vintertillägg||dragkrok||premium drive)) och ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem))."
+                "Text": "Vi kan erbjuda {extrafunktioner|tilläggsfunktioner} till din hyrbil i [MÄRKE] i form av till exempel {bilbarnstolar|barnstol|bilbarnstol}, {obegränsad körsträcka|extra förare|vintertillägg|dragkrok|premium drive} och {navigationssystem|GPS|GPS-tjänster|navigationstjänster|GPS-teknik|navigationssystem|satellitnavigeringssystem}."
               },
               {
-                "Value": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)).Planerar du att köra ((långt||en längre sträcka||en längre resesträcka))? Då kan det vara en ((smart||god)) idé att välja ((tillvalen||tillvalstjänsterna)) obegränsad körsträcka liksom en extra förare."
+                "Text": "Några exempel på dessa {tilläggstjänster|extrafunktioner|tillvalstjänster} är {bilbarnstolar|barnstol|bilbarnstol}, {vintertillägg|takräcke|dragkrok|försäkringspaket|extraförare} och {moderna|toppmoderna} {navigationssystem|GPS|GPS-tjänster|navigationstjänster|GPS-teknik|navigationssystem|satellitnavigeringssystem}.Planerar du att köra {långt|en längre sträcka|en längre resesträcka}? Då kan det vara en {smart|god} idé att välja {tillvalen|tillvalstjänsterna} obegränsad körsträcka liksom en extra förare."
               },
               {
-                "Value": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)). Ska du göra en längre ((resa||bilresa))? ((Då||I såna fall)) kan det vara en ((smart||god)) idé att välja ((tillvalen||tillvalstjänsterna)) obegränsad körsträcka liksom en extra förare."
+                "Text": "Några exempel på dessa {tilläggstjänster|extrafunktioner|tillvalstjänster} är {bilbarnstolar|barnstol|bilbarnstol}, {vintertillägg|takräcke|dragkrok|försäkringspaket|extraförare} och {moderna|toppmoderna} {navigationssystem|GPS|GPS-tjänster|navigationstjänster|GPS-teknik|navigationssystem|satellitnavigeringssystem}. Ska du göra en längre {resa|bilresa}? {Då|I såna fall} kan det vara en {smart|god} idé att välja {tillvalen|tillvalstjänsterna} obegränsad körsträcka liksom en extra förare."
               },
               {
-                "Value": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((vintertillägg||takräcke||dragkrok||försäkringspaket||extraförare)) och ((moderna||toppmoderna)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)). Planerar du en ((resa med familjen||en familjeresa))? Då erbjuder vi möjligheten att boka ((bilbarnstolar||barnstol||bilbarnstol))."
+                "Text": "Några exempel på dessa {tilläggstjänster|extrafunktioner|tillvalstjänster} är {vintertillägg|takräcke|dragkrok|försäkringspaket|extraförare} och {moderna|toppmoderna} {navigationssystem|GPS|GPS-tjänster|navigationstjänster|GPS-teknik|navigationssystem|satellitnavigeringssystem}. Planerar du en {resa med familjen|en familjeresa}? Då erbjuder vi möjligheten att boka {bilbarnstolar|barnstol|bilbarnstol}."
               },
               {
-                "Value": "Några exempel på dessa ((tilläggstjänster||extrafunktioner||tillvalstjänster)) är ((bilbarnstolar||barnstol||bilbarnstol)), ((obegränsad körsträcka||extra förare||vintertillägg||dragkrok||premium driveoch)) ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem))."
+                "Text": "Några exempel på dessa {tilläggstjänster|extrafunktioner|tillvalstjänster} är {bilbarnstolar|barnstol|bilbarnstol}, {obegränsad körsträcka|extra förare|vintertillägg|dragkrok|premium driveoch} {navigationssystem|GPS|GPS-tjänster|navigationstjänster|GPS-teknik|navigationssystem|satellitnavigeringssystem}."
               }
             ]
           },
@@ -453,22 +453,22 @@
             "ChoiceName": "STYCKE 12",
             "Choices": [
               {
-                "Value": "Tack vare ((våra||dessa)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ passar just dina ((behov||körbehov))."
+                "Text": "Tack vare {våra|dessa} {tillval|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} är det {lätt|enkelt} att hyra en bil i [MÄRKE] passar just dina {behov|körbehov}."
               },
               {
-                "Value": "Med ((dessa||våra)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det alltid ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ som passar just dina ((behov||körbehov))."
+                "Text": "Med {dessa|våra} {tillval|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} är det alltid {lätt|enkelt} att hyra en bil i [MÄRKE] som passar just dina {behov|körbehov}."
               },
               {
-                "Value": "Med ((dessa||våra)) ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) är det alltid ((lätt||enkelt)) att hyra en bil i $$MÄRKE$$ som passar din önskemål."
+                "Text": "Med {dessa|våra} {tillval|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} är det alltid {lätt|enkelt} att hyra en bil i [MÄRKE] som passar din önskemål."
               },
               {
-                "Value": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||hyrbilslösning)) anpassad efter dina ((önskemål||krav)) när du ska ((bege dig ut på||ge dig ut)) på vägarna."
+                "Text": "På vår biluthyrning i [MÄRKE] kan vi alltid ta fram en {lösning|hyrbilslösning} anpassad efter dina {önskemål|krav} när du ska {bege dig ut på|ge dig ut} på vägarna."
               },
               {
-                "Value": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||hyrbilslösning)) som passar just dina ((behov||körbehov))."
+                "Text": "På vår biluthyrning i [MÄRKE] kan vi alltid ta fram en {lösning|hyrbilslösning} som passar just dina {behov|körbehov}."
               },
               {
-                "Value": "På vår biluthyrning i $$MÄRKE$$ kan vi alltid ta fram en ((lösning||skräddarsydd lösning)) som tar hänsyn till dina behov då det gäller ((säkerhet||körsäkerhet)), bekvämlighet och ((trivsel||ekonomi||komfort))."
+                "Text": "På vår biluthyrning i [MÄRKE] kan vi alltid ta fram en {lösning|skräddarsydd lösning} som tar hänsyn till dina behov då det gäller {säkerhet|körsäkerhet}, bekvämlighet och {trivsel|ekonomi|komfort}."
               }
             ]
           },
@@ -476,10 +476,10 @@
             "ChoiceName": "STYCKE 12",
             "Choices": [
               {
-                "Value": "Sätt ihop ett paket som passar just ((dig||din resa||dina önskemål))! "
+                "Text": "Sätt ihop ett paket som passar just {dig|din resa|dina önskemål}! "
               },
               {
-                "Value": "Hitta en ((lösning||hyrbilslösning)) anpassad efte just dina ((krav||önskemål)) då det gäller ((säkerhet||körsäkerhet)), bekvämlighet och ((trivsel||ekonomi||komfort))."
+                "Text": "Hitta en {lösning|hyrbilslösning} anpassad efte just dina {krav|önskemål} då det gäller {säkerhet|körsäkerhet}, bekvämlighet och {trivsel|ekonomi|komfort}."
               }
             ]
           },
@@ -487,22 +487,22 @@
             "ChoiceName": "STYCKE 14",
             "Choices": [
               {
-                "Value": "((Vi||vårt team)) fokuserar alltid på att ge dig som ((kund||förare)) en ((smidig||prisvärd)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa))."
+                "Text": "{Vi|vårt team} fokuserar alltid på att ge dig som {kund|förare} en {smidig|prisvärd} och {bekväm|enkel|bekymmersfri} {lösning|hyrbilslösning} som gör att du snabbt kommer igång med din {resa|bilresa}."
               },
               {
-                "Value": "Här ((på Sixt||vår biluthyrning i $$MÄRKE$$)) fokuserar vi alltid på att ge dig som ((kund||förare)) en smidig och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa))."
+                "Text": "Här {på Sixt|vår biluthyrning i [MÄRKE]} fokuserar vi alltid på att ge dig som {kund|förare} en smidig och {bekväm|enkel|bekymmersfri} {lösning|hyrbilslösning} som gör att du snabbt kommer igång med din {resa|bilresa}."
               },
               {
-                "Value": "Vårt fokus är att ((alltid ge||erbjuda)) dig en ((smidig||prisvärd)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning)) som gör att du snabbt kommer igång med din ((resa||bilresa))."
+                "Text": "Vårt fokus är att {alltid ge|erbjuda} dig en {smidig|prisvärd} och {bekväm|enkel|bekymmersfri} {lösning|hyrbilslösning} som gör att du snabbt kommer igång med din {resa|bilresa}."
               },
               {
-                "Value": "((Vårt team||vårt lokala team||teamet på Sixt||Våra medarbetare)) finns ((på plats||tillgängliga)) för att ((se till||säkerställa)) att du får en ((smidig||)) och ((bekväm||enkel||bekymmersfri)) ((lösning||hyrbilslösning))."
+                "Text": "{Vårt team|vårt lokala team|teamet på Sixt|Våra medarbetare} finns {på plats|tillgängliga} för att {se till|säkerställa} att du får en {smidig|} och {bekväm|enkel|bekymmersfri} {lösning|hyrbilslösning}."
               },
               {
-                "Value": "((Vi||vi på Sixt)) ((jobbar hårt||fokuserar alltid)) på att göra allt som rör din ((resa||bilresa)) så enkelt och "
+                "Text": "{Vi|vi på Sixt} {jobbar hårt|fokuserar alltid} på att göra allt som rör din {resa|bilresa} så enkelt och "
               },
               {
-                "Value": "((smidigt||bekvämt)) som möjligt."
+                "Text": "{smidigt|bekvämt} som möjligt."
               }
             ]
           },
@@ -510,7 +510,7 @@
             "ChoiceName": "STYCKE 15",
             "Choices": [
               {
-                "Value": "Vårt centralt belägna ((kontor||uthyrningskontor||biluthyrningskontor))  är en ((bra||perfekt)) utgångspunkt och härirfrån tar du dig lätt "
+                "Text": "Vårt centralt belägna {kontor|uthyrningskontor|biluthyrningskontor}  är en {bra|perfekt} utgångspunkt och härirfrån tar du dig lätt "
               }
             ]
           },
@@ -518,29 +518,29 @@
             "ChoiceName": "STYCKE 16",
             "Choices": [
               {
-                "Value": "Om du vill se så mycket som möjlighet av regionen är det alltid en ((bra||god||smart)) idé att hyra en bil i $$MÄRKE$$."
+                "Text": "Om du vill se så mycket som möjlighet av regionen är det alltid en {bra|god|smart} idé att hyra en bil i [MÄRKE]."
               },
               {
-                "Value": "Det finns mycket att ((se||uppleva||utforska)) med genom att hyra en bil $$MÄRKE$$ får du stor frihet när du planerar ((resrutten||resan||färden))."
+                "Text": "Det finns mycket att {se|uppleva|utforska} med genom att hyra en bil [MÄRKE] får du stor frihet när du planerar {resrutten|resan|färden}."
               }
             ]
           }
         ]
       },
       {
-        "ConcatName": "2016-08-31",
+        "SequentialName": "2016-08-31",
         "Sequential": [
           {
             "ChoiceName": "STYCKE 1",
             "Choices": [
               {
-                "Value": "Vill du boka en hyrbil i $$MÄRKE$$?"
+                "Text": "Vill du boka en hyrbil i [MÄRKE]?"
               },
               {
-                "Value": "Söker du en hyrbil i $$MÄRKE$$?"
+                "Text": "Söker du en hyrbil i [MÄRKE]?"
               },
               {
-                "Value": "Är du på jakt efter en hyrbil i $$MÄRKE$$?"
+                "Text": "Är du på jakt efter en hyrbil i [MÄRKE]?"
               }
             ]
           },
@@ -548,13 +548,13 @@
             "ChoiceName": "STYCKE 2",
             "Choices": [
               {
-                "Value": "Mitt i centrum av $$MÄRKE$$, beläget $$P2$$, ligger vårt ((kontor||uthyrningskontor))."
+                "Text": "Mitt i centrum av [MÄRKE], beläget [P2], ligger vårt {kontor|uthyrningskontor}."
               },
               {
-                "Value": "Mitt i centrum av $$MÄRKE$$, beläget $$P2$$, hittar du vårt ((kontor||uthyrningskontor))."
+                "Text": "Mitt i centrum av [MÄRKE], beläget [P2], hittar du vårt {kontor|uthyrningskontor}."
               },
               {
-                "Value": "Centralt beläget $$P2$$ hittar du vårt ((kontor||uthyrningskontor))."
+                "Text": "Centralt beläget [P2] hittar du vårt {kontor|uthyrningskontor}."
               }
             ]
           },
@@ -562,10 +562,10 @@
             "ChoiceName": "STYCKE 3",
             "Choices": [
               {
-                "Value": "Bara ett stenkast härifrån ((ligger||hittar du||finner du)) några av stadens mest kända sevärdheter."
+                "Text": "Bara ett stenkast härifrån {ligger|hittar du|finner du} några av stadens mest kända sevärdheter."
               },
               {
-                "Value": "Inte långt härifrån ((ligger||hittar du||finner du)) några av stadens mest kända ((sevärdheter||besöksmål||turistmål||attraktioner))."
+                "Text": "Inte långt härifrån {ligger|hittar du|finner du} några av stadens mest kända {sevärdheter|besöksmål|turistmål|attraktioner}."
               }
             ]
           },
@@ -573,13 +573,13 @@
             "ChoiceName": "STYCKE 4",
             "Choices": [
               {
-                "Value": "Läget är med andra ord ((svårslaget||perfekt)) om du ((planerar att||ska||vill||önskar)) utforska staden med en egen bil."
+                "Text": "Läget är med andra ord {svårslaget|perfekt} om du {planerar att|ska|vill|önskar} utforska staden med en egen bil."
               },
               {
-                "Value": "Ett ((svårslaget||perfekt)) läge om du ((planerar att||ska||vill||önskar)) utforska staden med en egen bil."
+                "Text": "Ett {svårslaget|perfekt} läge om du {planerar att|ska|vill|önskar} utforska staden med en egen bil."
               },
               {
-                "Value": "Det är svårt att tänka sig ett bättre läge om du ((vill||planerar)) att utforska ((staden||stan)) med en egen bil."
+                "Text": "Det är svårt att tänka sig ett bättre läge om du {vill|planerar} att utforska {staden|stan} med en egen bil."
               }
             ]
           },
@@ -587,7 +587,7 @@
             "ChoiceName": "STYCKE 5",
             "Choices": [
               {
-                "Value": "Eller kanske ((planerar du||ska du göra||stundar||väntar)) en ((jobbresa||affärsresa||resa med jobbet||resa i arbetet||resa i arbetets räkning||resa med kollegorna||jobbresa kollegorna||affärsresa med kollegorna))?"
+                "Text": "Eller kanske {planerar du|ska du göra|stundar|väntar} en {jobbresa|affärsresa|resa med jobbet|resa i arbetet|resa i arbetets räkning|resa med kollegorna|jobbresa kollegorna|affärsresa med kollegorna}?"
               }
             ]
           },
@@ -595,13 +595,13 @@
             "ChoiceName": "STYCKE 6",
             "Choices": [
               {
-                "Value": "Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i $$MÄRKE$$ ett ((brett||stort)) ((utbud||urval)) av ((bilar||bilmodeller))."
+                "Text": "Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i [MÄRKE] ett {brett|stort} {utbud|urval} av {bilar|bilmodeller}."
               },
               {
-                "Value": "Oavsett vad anledning till ditt besök är erbjuder vi på Sixt dig som vill hyra bil i $$MÄRKE$$ ett ((brett||stort)) ((utbud||urval)) av ((bilar||bilmodeller))."
+                "Text": "Oavsett vad anledning till ditt besök är erbjuder vi på Sixt dig som vill hyra bil i [MÄRKE] ett {brett|stort} {utbud|urval} av {bilar|bilmodeller}."
               },
               {
-                "Value": "Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i $$MÄRKE$$ ((bilar||fordon||bilmodeller)) i ((många||alla)) ((storleksklasser||prisklasser)). "
+                "Text": "Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i [MÄRKE] {bilar|fordon|bilmodeller} i {många|alla} {storleksklasser|prisklasser}. "
               }
             ]
           },
@@ -609,13 +609,13 @@
             "ChoiceName": "STYCKE 7",
             "Choices": [
               {
-                "Value": "Dessutom erbjuds du ((även||också)) möjligheten att lägga till rad ((tillvalsfunktioner||tillvalstjänster||tilläggstjänster)) på vår biluthyrning i $$MÄRKE$$ ."
+                "Text": "Dessutom erbjuds du {även|också} möjligheten att lägga till rad {tillvalsfunktioner|tillvalstjänster|tilläggstjänster} på vår biluthyrning i [MÄRKE] ."
               },
               {
-                "Value": "Självklart finns erbjuds en rad andra ((tjänster||tillvalstjänster||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar gör ((resa||bilfärden)) ((extra bekväm||bekväm))."
+                "Text": "Självklart finns erbjuds en rad andra {tjänster|tillvalstjänster|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} som underlättar gör {resa|bilfärden} {extra bekväm|bekväm}."
               },
               {
-                "Value": "Dessutom erbjuds du ((även||också)) möjligheten att lägga till rad ((tillvalsfunktioner||tillvalstjänster||tilläggstjänster)) vilka är ((utformade||skapade||framtagna)) för att skräddarsy din ((resa||bilresa)) utifrån dina ((resbehov||körbehov||bilbehov))."
+                "Text": "Dessutom erbjuds du {även|också} möjligheten att lägga till rad {tillvalsfunktioner|tillvalstjänster|tilläggstjänster} vilka är {utformade|skapade|framtagna} för att skräddarsy din {resa|bilresa} utifrån dina {resbehov|körbehov|bilbehov}."
               }
             ]
           },
@@ -623,10 +623,10 @@
             "ChoiceName": "STYCKE 8",
             "Choices": [
               {
-                "Value": "Boka en hyrbil på $$MÄRKE$$ och upplev ((den flexibilitetet||de valmöjligheter||de möjlilgheter||den bekvämlighet||höga service||höga servicegrad)) som vi på Sixt alltid erbjuder våra kunder."
+                "Text": "Boka en hyrbil på [MÄRKE] och upplev {den flexibilitetet|de valmöjligheter|de möjlilgheter|den bekvämlighet|höga service|höga servicegrad} som vi på Sixt alltid erbjuder våra kunder."
               },
               {
-                "Value": "Boka en hyrbil på $$MÄRKE$$ och ta del av ((alla våra||samtliga av våra)) ((prisvärda||smarta)) ((paket||erbjudanden))."
+                "Text": "Boka en hyrbil på [MÄRKE] och ta del av {alla våra|samtliga av våra} {prisvärda|smarta} {paket|erbjudanden}."
               }
             ]
           },
@@ -634,7 +634,7 @@
             "ChoiceName": "STYCKE 9",
             "Choices": [
               {
-                "Value": "Vilken ((typ av||slags)) ((bil||fordon||bilmodell)) passar bäst för dig_din_resa?"
+                "Text": "Vilken {typ av|slags} {bil|fordon|bilmodell} passar bäst för dig_din_resa?"
               }
             ]
           },
@@ -642,7 +642,7 @@
             "ChoiceName": "STYCKE 10",
             "Choices": [
               {
-                "Value": "På vår biluthyrning i $$MÄRKE$$  hittar du $$P3$$."
+                "Text": "På vår biluthyrning i [MÄRKE]  hittar du [P3]."
               }
             ]
           },
@@ -650,13 +650,13 @@
             "ChoiceName": "STYCKE 11",
             "Choices": [
               {
-                "Value": "Du gör din bokning enkelt och ((bekvämt||smidigt)) på vår ((hemsida||webbsida||webbplats))."
+                "Text": "Du gör din bokning enkelt och {bekvämt|smidigt} på vår {hemsida|webbsida|webbplats}."
               },
               {
-                "Value": "Bokningen gör ((bekvämt||smidigt)) direkt på vår ((hemsida||webbsida||webbplats))."
+                "Text": "Bokningen gör {bekvämt|smidigt} direkt på vår {hemsida|webbsida|webbplats}."
               },
               {
-                "Value": "Besök vår ((hemsida||webbsida||webb)) för att göra en ((bokning||reservation))."
+                "Text": "Besök vår {hemsida|webbsida|webb} för att göra en {bokning|reservation}."
               }
             ]
           },
@@ -664,10 +664,10 @@
             "ChoiceName": "STYCKE 12",
             "Choices": [
               {
-                "Value": "((Här||på webben||i webbokningen||här på webben)) kan du självklart även hantera dina olika ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner))."
+                "Text": "{Här|på webben|i webbokningen|här på webben} kan du självklart även hantera dina olika {tillval|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner}."
               },
               {
-                "Value": "((Självklart||naturligtvis||givetvis)) kan du även hantera dina olika ((tillval||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) på ((på webben||i webbokningen||här på webben||på vår webbsida||på vår hemsida))."
+                "Text": "{Självklart|naturligtvis|givetvis} kan du även hantera dina olika {tillval|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} på {på webben|i webbokningen|här på webben|på vår webbsida|på vår hemsida}."
               }
             ]
           },
@@ -675,13 +675,13 @@
             "ChoiceName": "STYCKE 13",
             "Choices": [
               {
-                "Value": "Om du ska hyra bil i $$MÄRKE$$, och ((komforten||körkomforten||lastutrymmet)) är ((viktig||a och)) _o, erbjuder vi till exempel ((flera||en)) rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar din ((resa||bilresa)). "
+                "Text": "Om du ska hyra bil i [MÄRKE], och {komforten|körkomforten|lastutrymmet} är {viktig|a och} _o, erbjuder vi till exempel {flera|en} rad {tjänster|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} som underlättar din {resa|bilresa}. "
               },
               {
-                "Value": "Om du ska hyra bil i $$MÄRKE$$, och ((komforten||körkomforten)) är ((viktig||a och)) _o, erbjuder vi till exempel ((flera||en rad)) ((tjänster||tillvalstjänster||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som underlättar gör ((resa||bilfärden)) ((extra bekväm||bekväm))."
+                "Text": "Om du ska hyra bil i [MÄRKE], och {komforten|körkomforten} är {viktig|a och} _o, erbjuder vi till exempel {flera|en rad} {tjänster|tillvalstjänster|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} som underlättar gör {resa|bilfärden} {extra bekväm|bekväm}."
               },
               {
-                "Value": "Om du ska hyra bil i $$MÄRKE$$, och även vill reservera ((navigationssystem||GPS||GPS-tjänster||navigationstjänster||GPS-teknik||navigationssystem||satellitnavigeringssystem)) erbjuder vi ((flera||en)) rad ((tjänster||tillvalstjänster)) ((||extrafunktioner||tilläggsfunktioner||tillvalsfunktioner||tilläggsfunktioner)) som gör ((resa||bilfärden)) smidig."
+                "Text": "Om du ska hyra bil i [MÄRKE], och även vill reservera {navigationssystem|GPS|GPS-tjänster|navigationstjänster|GPS-teknik|navigationssystem|satellitnavigeringssystem} erbjuder vi {flera|en} rad {tjänster|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} som gör {resa|bilfärden} smidig."
               }
             ]
           },
@@ -689,31 +689,31 @@
             "ChoiceName": "STYCKE 14",
             "Choices": [
               {
-                "Value": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och vi vet hur viktigt det är att ha flexibilitet under ((resan||bilresan))."
+                "Text": "Sixt är en av världens främsta {biluthyrare|biluthyrare} och vi vet hur viktigt det är att ha flexibilitet under {resan|bilresan}."
               },
               {
-                "Value": "Sixt är ett av världens främsta biluthryningsföretag och vi vet hur viktigt det är att ha flexibilitet under ((resan||bilresan))."
+                "Text": "Sixt är ett av världens främsta biluthryningsföretag och vi vet hur viktigt det är att ha flexibilitet under {resan|bilresan}."
               },
               {
-                "Value": "Sixt är ett av världens främsta biluthryningsföretag och vi känner väl till betydelsen av flexibilitet under hela ((resan||bilresan))."
+                "Text": "Sixt är ett av världens främsta biluthryningsföretag och vi känner väl till betydelsen av flexibilitet under hela {resan|bilresan}."
               },
               {
-                "Value": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och hos oss ((hittar||finner)) du alltid en ((modell||bilmodell)) fordonsmodell anpassad utifrån din ((krav||önskemål||resebehov||reseönskemål))."
+                "Text": "Sixt är en av världens främsta {biluthyrare|biluthyrare} och hos oss {hittar|finner} du alltid en {modell|bilmodell} fordonsmodell anpassad utifrån din {krav|önskemål|resebehov|reseönskemål}."
               },
               {
-                "Value": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)), är det alltid dina ((krav||önskemål||resebehov||reseönskemål)) som står i centrum. "
+                "Text": "Hos oss på Sixt, som är en av världens {främsta|största} {biluthyrare|biluthyrningsföretag|hyrbilsföretag}, är det alltid dina {krav|önskemål|resebehov|reseönskemål} som står i centrum. "
               },
               {
-                "Value": "Sixt är en av världens främsta ((biluthyrare||biluthyrare)) och vi vet hur viktigt det är att du som ((kund||förare)) kan skapa en skräddarsydd lösning som passar just ((dig||din resa))."
+                "Text": "Sixt är en av världens främsta {biluthyrare|biluthyrare} och vi vet hur viktigt det är att du som {kund|förare} kan skapa en skräddarsydd lösning som passar just {dig|din resa}."
               },
               {
-                "Value": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)), ((har din||ges din)) resa alltid hög_grad_av  flexibilitet "
+                "Text": "Hos oss på Sixt, som är en av världens {främsta|största} {biluthyrare|biluthyrningsföretag|hyrbilsföretag}, {har din|ges din} resa alltid hög_grad_av  flexibilitet "
               },
               {
-                "Value": "Hos oss på Sixt, som är en av världens ((främsta||största)) ((biluthyrare||biluthyrningsföretag||hyrbilsföretag)),"
+                "Text": "Hos oss på Sixt, som är en av världens {främsta|största} {biluthyrare|biluthyrningsföretag|hyrbilsföretag},"
               },
               {
-                "Value": "får alltid ((många||en rad||ett stort antal)) ((valmöjligheter||alternativ||hyrbilsmöjligheter)) ((när||då)) du väljer att hyra bil i $$MÄRKE$$."
+                "Text": "får alltid {många|en rad|ett stort antal} {valmöjligheter|alternativ|hyrbilsmöjligheter} {när|då} du väljer att hyra bil i [MÄRKE]."
               }
             ]
           },
@@ -721,41 +721,41 @@
             "ChoiceName": "STYCKE 15",
             "Choices": [
               {
-                "Value": "Vårt team på Sixt biluthyrning i $$MÄRKE$$ önskar dig välkommen!"
+                "Text": "Vårt team på Sixt biluthyrning i [MÄRKE] önskar dig välkommen!"
               },
               {
-                "Value": "Teamet på Sixt biluthyrning i $$MÄRKE$$ önskar dig välkommen!"
+                "Text": "Teamet på Sixt biluthyrning i [MÄRKE] önskar dig välkommen!"
               },
               {
-                "Value": "Sixt team på vår  biluthyrning i $$MÄRKE$$ önskar dig välkommen!"
+                "Text": "Sixt team på vår  biluthyrning i [MÄRKE] önskar dig välkommen!"
               },
               {
-                "Value": "Sixt team på vår  biluthyrning i $$MÄRKE$$ hälsar dig ((välkommen||varmt välkommen))!"
+                "Text": "Sixt team på vår  biluthyrning i [MÄRKE] hälsar dig {välkommen|varmt välkommen}!"
               }
             ]
           }
         ]
       },
       {
-        "ConcatName": "2016-09-14",
+        "SequentialName": "2016-09-14",
         "Sequential": [
           {
             "ChoiceName": "STYCKE 1",
             "Choices": [
               {
-                "Value": "((Letar||söker)) du efter en ((prisvärd||central||centralt belägen)) biluthyrning i $$MÄRKE$$?"
+                "Text": "{Letar|söker} du efter en {prisvärd|central|centralt belägen} biluthyrning i [MÄRKE]?"
               },
               {
-                "Value": "Från vår centralt_belägna biluthyrning i $$MÄRKE$$ har du nära till det mesta."
+                "Text": "Från vår centralt_belägna biluthyrning i [MÄRKE] har du nära till det mesta."
               },
               {
-                "Value": "((Starta||påbörja)) din resa från vår centralt_belägna biluthyrning i $$MÄRKE$$."
+                "Text": "{Starta|påbörja} din resa från vår centralt_belägna biluthyrning i [MÄRKE]."
               },
               {
-                "Value": "Att ((starta||påbörja)) resa på vår biluthyrning i $$MÄRKE$$ är ett smart val."
+                "Text": "Att {starta|påbörja} resa på vår biluthyrning i [MÄRKE] är ett smart val."
               },
               {
-                "Value": "Låt din resa ((börja||starta)) på vår biluthyrning i $$MÄRKE$$."
+                "Text": "Låt din resa {börja|starta} på vår biluthyrning i [MÄRKE]."
               }
             ]
           },
@@ -763,10 +763,10 @@
             "ChoiceName": "STYCKE 2",
             "Choices": [
               {
-                "Value": "Vårt ((uthyrningskontor||vårt kontor||kontoret)) ett perfekt läge vid.. , härifrån av avståndet ((kort||inte långt)) till några av stadens mest kända ((besöksmål||turistmål||attraktioner))."
+                "Text": "Vårt {uthyrningskontor|vårt kontor|kontoret} ett perfekt läge vid.. , härifrån av avståndet {kort|inte långt} till några av stadens mest kända {besöksmål|turistmål|attraktioner}."
               },
               {
-                "Value": "((Uthyrningskontoret||vårt kontor||kontoret)) har ett perfekt läge vid..på ((kort avstånd från||nära)) några av stadens mest kända ((besöksmål||turistmål||attraktioner))."
+                "Text": "{Uthyrningskontoret|vårt kontor|kontoret} har ett perfekt läge vid..på {kort avstånd från|nära} några av stadens mest kända {besöksmål|turistmål|attraktioner}."
               }
             ]
           },
@@ -774,13 +774,13 @@
             "ChoiceName": "STYCKE 3",
             "Choices": [
               {
-                "Value": "Härifrån ta du dig även ((snabbt||enkelt)) vidare ut på vägarna,,"
+                "Text": "Härifrån ta du dig även {snabbt|enkelt} vidare ut på vägarna,,"
               },
               {
-                "Value": "Det är även ett ((bra||perfekt)) utgångsläge för fortsatta resor i ((regionen||området||angränsande städer))."
+                "Text": "Det är även ett {bra|perfekt} utgångsläge för fortsatta resor i {regionen|området|angränsande städer}."
               },
               {
-                "Value": "Läget är även ((utmärkt||perfekt)) för fortsatta resor i ((regionen||området||angränsande städer))."
+                "Text": "Läget är även {utmärkt|perfekt} för fortsatta resor i {regionen|området|angränsande städer}."
               }
             ]
           },
@@ -788,7 +788,7 @@
             "ChoiceName": "STYCKE 4",
             "Choices": [
               {
-                "Value": "Läget är även ((utmärkt||perfekt)) för längre ((resor||bilresor)) som fortsätter vidare utanför_ ((staden||utanför stadens gränser||till andra städer i regionen||till andra städer i området||till närliggande städer i regionen||ill närliggande platser i regionen))."
+                "Text": "Läget är även {utmärkt|perfekt} för längre {resor|bilresor} som fortsätter vidare utanför_ {staden|utanför stadens gränser|till andra städer i regionen|till andra städer i området|till närliggande städer i regionen|ill närliggande platser i regionen}."
               }
             ]
           },
@@ -796,7 +796,7 @@
             "ChoiceName": "STYCKE 5",
             "Choices": [
               {
-                "Value": "Vårt_ ((kunniga team||team||Våra medarbetare||våra kunninga medarbetare på plats||våra kunninga medarbetare)) hjälper dig att snabbt komma igång med din resa."
+                "Text": "Vårt_ {kunniga team|team|Våra medarbetare|våra kunninga medarbetare på plats|våra kunninga medarbetare} hjälper dig att snabbt komma igång med din resa."
               }
             ]
           },
@@ -804,16 +804,16 @@
             "ChoiceName": "STYCKE 6",
             "Choices": [
               {
-                "Value": "((Vi||vi på Sixt)) erbjuder alla som vill hyra bil i $$MÄRKE$$ en lösning av ((högsta||förstaklassig||bästa||hög)) kvalitet."
+                "Text": "{Vi|vi på Sixt} erbjuder alla som vill hyra bil i [MÄRKE] en lösning av {högsta|förstaklassig|bästa|hög} kvalitet."
               },
               {
-                "Value": "((Vi||vi på Sixt)) erbjuder alla som vill hyra bil i $$MÄRKE$$ får en lösning ((med||som motsvarar)) den standard och komfort som du ((önskar||vill ha||eftersträvar||efterfrågar))."
+                "Text": "{Vi|vi på Sixt} erbjuder alla som vill hyra bil i [MÄRKE] får en lösning {med|som motsvarar} den standard och komfort som du {önskar|vill ha|eftersträvar|efterfrågar}."
               },
               {
-                "Value": "Vi_på_Sixt strävar alltid efter att ((ge||tillhandahålla||erbjuda)) dig som vill hyra bil i $$MÄRKE$$ en lösning av ((högsta||förstaklassig||bästa||hög)) kvalitet."
+                "Text": "Vi_på_Sixt strävar alltid efter att {ge|tillhandahålla|erbjuda} dig som vill hyra bil i [MÄRKE] en lösning av {högsta|förstaklassig|bästa|hög} kvalitet."
               },
               {
-                "Value": "Vi_på_Sixt strävar alltid efter att ((ge||tillhandahålla||erbjuda)) dig som vill hyra bil i $$MÄRKE$$ en lösning ((med||som motsvarar)) den standard och komfort som du ((önskar||vill ha||eftersträvar||efterfrågar))."
+                "Text": "Vi_på_Sixt strävar alltid efter att {ge|tillhandahålla|erbjuda} dig som vill hyra bil i [MÄRKE] en lösning {med|som motsvarar} den standard och komfort som du {önskar|vill ha|eftersträvar|efterfrågar}."
               }
             ]
           },
@@ -821,13 +821,13 @@
             "ChoiceName": "STYCKE 7",
             "Choices": [
               {
-                "Value": "På ((webben||nätet||hemsida)) kan du ((enkelt||snabbt)) jämföra de olika ((modellerna||bilmodellerna||fordonsmodellerna)) och genomföra din bokning för en hyrbil i "
+                "Text": "På {webben|nätet|hemsida} kan du {enkelt|snabbt} jämföra de olika {modellerna|bilmodellerna|fordonsmodellerna} och genomföra din bokning för en hyrbil i "
               },
               {
-                "Value": "Boka din hyrbil i $$MÄRKE$$ ((enkelt||snabbt||smidigt||bekvämt)) direkt på ((webben||nätet||hemsidan))."
+                "Text": "Boka din hyrbil i [MÄRKE] {enkelt|snabbt|smidigt|bekvämt} direkt på {webben|nätet|hemsidan}."
               },
               {
-                "Value": "I vår webbokning kan du jämföra de olika ((modellerna||bilmodellerna||fordonsmodellerna)) och genomföra din bokning för en hyrbil i $$MÄRKE$$."
+                "Text": "I vår webbokning kan du jämföra de olika {modellerna|bilmodellerna|fordonsmodellerna} och genomföra din bokning för en hyrbil i [MÄRKE]."
               }
             ]
           },
@@ -835,13 +835,13 @@
             "ChoiceName": "STYCKE 8",
             "Choices": [
               {
-                "Value": "((För dig||resenärer)) som vill hyra bil i $$MÄRKE$$ erbjuds alltid en ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden."
+                "Text": "{För dig|resenärer} som vill hyra bil i [MÄRKE] erbjuds alltid en {rad|mängd} {prisvärda|smarta|förmånliga} erbjudanden."
               },
               {
-                "Value": "((Vi på Sixt||vi)) kan erbjuda dig som vill hyra bil i $$MÄRKE$$ en ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden."
+                "Text": "{Vi på Sixt|vi} kan erbjuda dig som vill hyra bil i [MÄRKE] en {rad|mängd} {prisvärda|smarta|förmånliga} erbjudanden."
               },
               {
-                "Value": "En ((rad||mängd)) ((prisvärda||smarta||förmånliga)) erbjudanden erbjuds alltid ((för dig||resenärer)) som vill hyra bil i $$MÄRKE$$."
+                "Text": "En {rad|mängd} {prisvärda|smarta|förmånliga} erbjudanden erbjuds alltid {för dig|resenärer} som vill hyra bil i [MÄRKE]."
               }
             ]
           },
@@ -849,7 +849,7 @@
             "ChoiceName": "STYCKE 7",
             "Choices": [
               {
-                "Value": "Vår moderna flotta rymmer.."
+                "Text": "Vår moderna flotta rymmer.."
               }
             ]
           },
@@ -857,7 +857,7 @@
             "ChoiceName": "STYCKE 8",
             "Choices": [
               {
-                "Value": "Om du har frågor om att  hyra bil i $$MÄRKE$$ kan du ((givetvis||naturligtvis||självklart)) ((även||också)) ((kontakta||höra av dig till)) ((oss||vårt team||våra medarbetare)) direkt."
+                "Text": "Om du har frågor om att  hyra bil i [MÄRKE] kan du {givetvis|naturligtvis|självklart} {även|också} {kontakta|höra av dig till} {oss|vårt team|våra medarbetare} direkt."
               }
             ]
           },
@@ -865,7 +865,7 @@
             "ChoiceName": "STYCKE 9",
             "Choices": [
               {
-                "Value": "Vi hjälper gärna till en hitta en hyrbil i $$MÄRKE$$ som passar ((just dig||just för dig||just dina resebehov||just dina behov||just dina önskemål))."
+                "Text": "Vi hjälper gärna till en hitta en hyrbil i [MÄRKE] som passar {just dig|just för dig|just dina resebehov|just dina behov|just dina önskemål}."
               }
             ]
           },
@@ -873,7 +873,7 @@
             "ChoiceName": "STYCKE 10",
             "Choices": [
               {
-                "Value": "Du kan till exempel göra en rad ((tillval||tillvalsfunktioner||tillvalstjänster||tilläggstjänster))."
+                "Text": "Du kan till exempel göra en rad {tillval|tillvalsfunktioner|tillvalstjänster|tilläggstjänster}."
               }
             ]
           },
@@ -881,7 +881,7 @@
             "ChoiceName": "STYCKE 11",
             "Choices": [
               {
-                "Value": "Kanske har du ((särskilda||specifika)) ((önskemål||krav)) då det gäller ((komfort||säkerhet||körkomfort)) och navigering? "
+                "Text": "Kanske har du {särskilda|specifika} {önskemål|krav} då det gäller {komfort|säkerhet|körkomfort} och navigering? "
               }
             ]
           },
@@ -889,7 +889,7 @@
             "ChoiceName": "STYCKE 12",
             "Choices": [
               {
-                "Value": "Kolla in våra ((erbjudanden||paket||paketlösningar)) och ((skapa||skräddarsy||sätt ihop||sätt samman)) en unikt för ((dig||din resa||din bilresa))."
+                "Text": "Kolla in våra {erbjudanden|paket|paketlösningar} och {skapa|skräddarsy|sätt ihop|sätt samman} en unikt för {dig|din resa|din bilresa}."
               }
             ]
           },
@@ -897,10 +897,10 @@
             "ChoiceName": "STYCKE 13",
             "Choices": [
               {
-                "Value": "Valmöjligheterna för dig som ((vill||ska)) boka en hyrbil i $$MÄRKE$$ är många."
+                "Text": "Valmöjligheterna för dig som {vill|ska} boka en hyrbil i [MÄRKE] är många."
               },
               {
-                "Value": "((Valfriheten||flexibiliteten)) för dig som ((vill||ska)) boka en hyrbil i $$MÄRKE$$ är stor."
+                "Text": "{Valfriheten|flexibiliteten} för dig som {vill|ska} boka en hyrbil i [MÄRKE] är stor."
               }
             ]
           }

@@ -6,7 +6,8 @@ using Foundation;
 
 namespace Skrivmaskin.Editor
 {
-    // Data sources walk a given data source and respond to questions from AppKit to generat    // the data used in your Delegate. In this example, we walk a simple tree.
+    // Data sources walk a given data source and respond to questions from AppKit to generate
+    // the data used in your Delegate. In this example, we walk a simple tree.
     public class SkrivmaskinOutlineViewDataSource : NSOutlineViewDataSource
     {
         Node parentNode;
