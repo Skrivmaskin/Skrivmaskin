@@ -7,9 +7,11 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Skrivmaskin.Edito{
+namespace Skrivmaskin.Editor
+{
 	[Register ("TabViewController")]
-	partial class TabViewControlle	{
+	partial class TabViewController
+    {
 		
 		void ReleaseDesignerOutlets ()
 		{
