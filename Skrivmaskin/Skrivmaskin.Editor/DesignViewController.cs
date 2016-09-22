@@ -7,14 +7,14 @@ using AppKit;
 
 namespace Skrivmaskin.Editor
 {
-	public partial class DesignViewController : NSViewController
+    public partial class DesignViewController : NSViewController
     {
         public Node Node { get; private set; }
         private Node lastCompiledNode { get; set; }
 
         public DesignViewController (IntPtr handle) : base (handle)
-		{
-		}
+        {
+        }
 
         public override void ViewDidLoad ()
         {
@@ -46,5 +46,5 @@ namespace Skrivmaskin.Editor
                 
             }
         }
-	}
+    }
 }

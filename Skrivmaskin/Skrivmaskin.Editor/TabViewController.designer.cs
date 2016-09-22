@@ -9,12 +9,12 @@ using System.CodeDom.Compiler;
 
 namespace Skrivmaskin.Editor
 {
-	[Register ("TabViewController")]
-	partial class TabViewController
+    [Register ("TabViewController")]
+    partial class TabViewController
     {
-		
-		void ReleaseDesignerOutlets ()
-		{
-		}
-	}
+        
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }

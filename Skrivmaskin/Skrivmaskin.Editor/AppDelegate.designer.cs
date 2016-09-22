@@ -9,13 +9,13 @@ using System.CodeDom.Compiler;
 
 namespace Skrivmaskin.Editor
 {
-	partial class AppDelegate
+    partial class AppDelegate
     {
-		[Action ("generateAction:")]
-		partial void generateAction (Foundation.NSObject sender);
-		
-		void ReleaseDesignerOutlets ()
-		{
-		}
-	}
+        [Action ("generateAction:")]
+        partial void generateAction (Foundation.NSObject sender);
+        
+        void ReleaseDesignerOutlets ()
+        {
+        }
+    }
 }
