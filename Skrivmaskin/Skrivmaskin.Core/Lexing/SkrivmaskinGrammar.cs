@@ -13,10 +13,10 @@ namespace Skrivmaskin.Core.Lexing
             this.GrammarComments = @"Basic grammar for single line Skrivmaskin input";
 
             // 1. Terminals
-            var Text = new SkrivmaskinTextTerminal (nameof(SkrivmaskinTokens.Text), lexerSyntax);
+            var Text = new SkrivmaskinTextTerminal (nameof(SkrivmaskinTokens.Text), lexerSyntax, true);
             var Escape = new SkrivmaskinEscapeTerminal (nameof (SkrivmaskinTokens.Escape), lexerSyntax);
-            var VarName = new RegexBasedTerminal (nameof (SkrivmaskinTokens.VarName), "[A-Za-z0-9_]+");
-            var VarForm = new RegexBasedTerminal (nameof (SkrivmaskinTokens.VarForm), "[A-Za-z0-9_]+");
+            var VarName = new SkrivmaskinTextTerminal (nameof (SkrivmaskinTokens.VarName), lexerSyntax, false);
+            var VarForm = new SkrivmaskinTextTerminal (nameof (SkrivmaskinTokens.VarForm), lexerSyntax, false);
 
             // 2. Non-terminals
             var CompoundText = new NonTerminal (nameof (SkrivmaskinTokens.CompoundText));

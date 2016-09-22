@@ -32,6 +32,7 @@ namespace Skrivmaskin.Core.Parsing
             return parser.Parse (s);
         }
 
+        //TODO Switch out API for one that reports errors as nodes?
         /// <summary>
         /// Parse a design time node into a compiled node.
         /// </summary>
@@ -59,7 +60,7 @@ namespace Skrivmaskin.Core.Parsing
                     } else if (node.ChildNodes.Count == 1) {
                         return ConvertAnything (designNode, node.ChildNodes [0]);
                     } else {
-                        return SequentialCompiledNode.Make (node.ChildNodes.Select ((ptn) => ConvertAnything (designNode, ptn)), designNode, 1, node.Span.Length);
+                        return SequentialCompiledNode.Make (node.ChildNodes.Select ((ptn) => ConvertAnything (designNode, ptn)).ToList (), designNode, 1, node.Span.Length);
                     }
                 default:
                     throw new ApplicationException (string.Format ("Unexpected token when expected a sentence: {0}", token));
@@ -158,8 +159,8 @@ namespace Skrivmaskin.Core.Parsing
         private ICompiledNode ConvertSimpleChoice (INode designNode, ParseTreeNode node)
         {
             if (node.ChildNodes.Count == 0) return TextCompiledNode.Make ("", designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
-            if (node.ChildNodes.Count == 1) return ConvertAnything (designNode, node.ChildNodes[0]);
-            return SequentialCompiledNode.Make (node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            if (node.ChildNodes.Count == 1) return ConvertAnything (designNode, node.ChildNodes [0]);
+            return SequentialCompiledNode.Make (node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)).ToList (), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
         }
     }
 }
