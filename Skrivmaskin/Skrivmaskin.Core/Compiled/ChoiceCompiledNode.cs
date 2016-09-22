@@ -40,6 +40,11 @@ namespace Skrivmaskin.Core.Compiled
         /// Ths choices.
         /// </summary>
         /// <value>The choices.</value>
-        public List<ICompiledNode> Choices { get; set; } = new List<ICompiledNode> ();
+        public IReadOnlyList<ICompiledNode> Choices { get; set; } = new List<ICompiledNode> ();
+
+        internal static ICompiledNode Make (IReadOnlyList<ICompiledNode> childNodes, INode node, int? startCharacter, int? endCharacter)
+        {
+            return new ChoiceCompiledNode () { Choices = childNodes, Location = node, StartCharacter = startCharacter, EndCharacter = endCharacter };
+        }
     }
 }

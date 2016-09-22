@@ -9,7 +9,6 @@ open System.Runtime.CompilerServices
 [<assembly: AssemblyProduct("")>]
 [<assembly: AssemblyCopyright("Oliver")>]
 [<assembly: AssemblyTrademark("")>]
-[<assembly: InternalsVisibleTo("Skrivmaskin.Lexing.Test")>]
 
 // The assembly version has the format {Major}.{Minor}.{Build}.{Revision}
 

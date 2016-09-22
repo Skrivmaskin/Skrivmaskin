@@ -108,7 +108,6 @@ namespace Skrivmaskin.Core.Parsing
             default:
                 throw new ApplicationException (string.Format ("Unexpected token when expected a variable type: {0}", token));
             }
-            throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
         }
 
         private ICompiledNode ConvertPhrase (INode designNode, ParseTreeNode node)
@@ -118,7 +117,7 @@ namespace Skrivmaskin.Core.Parsing
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
             if (token != SkrivmaskinTokens.Phrase)
                 throw new ApplicationException (string.Format ("Unexpected token when expected a phrase: {0}", token));
-            return TextCompiledNode.Make (string.Join("", node.ChildNodes.Select((cn) => ConvertText(cn))), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            return TextCompiledNode.Make (string.Join ("", node.ChildNodes.Select ((cn) => ConvertText (cn))), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
 
         }
 
@@ -137,16 +136,30 @@ namespace Skrivmaskin.Core.Parsing
             default:
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
             }
-            throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
         }
 
         private ICompiledNode ConvertMultiChoice (INode designNode, ParseTreeNode node)
         {
-            //case SkrivmaskinTokens.SimpleChoice: break;
-            //case SkrivmaskinTokens.Choice: break;
-            //case SkrivmaskinTokens.OrOp: break;
+            if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
+            node = node.ChildNodes [1];
+            SkrivmaskinTokens token;
+            if (!Enum.TryParse (node.Term.Name, out token))
+                throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
+            switch (token) {
+            case SkrivmaskinTokens.SimpleChoice:
+                return ConvertSimpleChoice (designNode, node);
+            case SkrivmaskinTokens.Choice:
+                return ChoiceCompiledNode.Make (node.ChildNodes.Select ((cn) => ConvertSimpleChoice (designNode, cn)).ToList(), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            default:
+                throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
+            }
+        }
 
-            throw new NotImplementedException ();
+        private ICompiledNode ConvertSimpleChoice (INode designNode, ParseTreeNode node)
+        {
+            if (node.ChildNodes.Count == 0) return TextCompiledNode.Make ("", designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            if (node.ChildNodes.Count == 1) return ConvertAnything (designNode, node.ChildNodes[0]);
+            return SequentialCompiledNode.Make (node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
         }
     }
 }

@@ -48,5 +48,17 @@ namespace Skrivmaskin.Core.Test
             Assert.True (ok);
         }
 
+        [Test]
+        public void TestTwoTextChoices ()
+        {
+            var inputText = "{Hello|World}";
+            var designNode = new TextNode () { Text = inputText };
+            ICompiledNode compiledNode;
+            int firstErrorChar;
+            string firstErrorMessage;
+            var ok = parser.Compile (designNode, out compiledNode, out firstErrorChar, out firstErrorMessage);
+            Assert.True (ok);
+        }
+
     }
 }

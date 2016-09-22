@@ -57,13 +57,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AssemblyInfo.fs" />
-    <Compile Include="Syntax.fs" />
-    <Compile Include="Lexer.fs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="Jsonizer.fsx" />
-    <None Include="Irony.fsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">
