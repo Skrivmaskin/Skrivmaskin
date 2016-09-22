@@ -42,6 +42,7 @@
     <Compile Include="TestSpecialCharacters.cs" />
     <Compile Include="TestSkrivmaskinGrammar.cs" />
     <Compile Include="TestSkrivmaskinParser.cs" />
+    <Compile Include="TestRandomChooser.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">

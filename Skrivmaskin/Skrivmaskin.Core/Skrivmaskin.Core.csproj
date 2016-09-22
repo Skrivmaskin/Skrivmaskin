@@ -72,6 +72,7 @@
     <Compile Include="Compilation\CompiledNodeOrErrors.cs" />
     <Compile Include="Compilation\CompilationErrors.cs" />
     <Compile Include="Compilation\VariableRequirements.cs" />
+    <Compile Include="Generation\SkrivmaskinGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -84,6 +85,7 @@
     <Folder Include="Lexing\" />
     <Folder Include="Parsing\" />
     <Folder Include="Compilation\" />
+    <Folder Include="Generation\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
