@@ -5,12 +5,22 @@ using Skrivmaskin.Core.Interfaces;
 
 namespace Skrivmaskin.Core.Services
 {
+    /// <summary>
+    /// An implementation of a variable substituter that asks a dialog service for the result when needed and caches the answer.
+    /// </summary>
     public sealed class CachingDialogBasedVariableSubstituter : IVariableSubstituter
     {
         readonly IDialogService dialogService;
         readonly IDictionary<string, string> substitutions = new Dictionary<string, string> ();
-        readonly IDictionary<string, CompiledVariable> variableDefinitions;
-        public CachingDialogBasedVariableSubstituter (IDialogService dialogService, IDictionary<string, CompiledVariable> variableDefinitions)
+        readonly IDictionary<string, ICompiledVariable> variableDefinitions;
+
+        /// <summary>
+        /// Initializes a new instance of the
+        /// <see cref="T:Skrivmaskin.Core.Services.CachingDialogBasedVariableSubstituter"/> class.
+        /// </summary>
+        /// <param name="dialogService">Dialog service.</param>
+        /// <param name="variableDefinitions">Variable definitions.</param>
+        public CachingDialogBasedVariableSubstituter (IDialogService dialogService, IDictionary<string, ICompiledVariable> variableDefinitions)
         {
             this.dialogService = dialogService;
             this.variableDefinitions = variableDefinitions;

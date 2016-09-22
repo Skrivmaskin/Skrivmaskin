@@ -1,25 +1,16 @@
-using System;
-using Skrivmaskin.Core.Interfaces;
-
+﻿using System;
 namespace Skrivmaskin.Core.Compiled
 {
     /// <summary>
-    /// Representation of a compiled variable declaration.
+    /// A compiled variable.
     /// </summary>
-    internal sealed class CompiledVariable : ICompiledVariable
+    public interface ICompiledVariable
     {
-        readonly ILexerSyntax lexerSyntax;
-
-        public CompiledVariable (ILexerSyntax lexerSyntax)
-        {
-            this.lexerSyntax = lexerSyntax;
-        }
-
         /// <summary>
         /// The root name of this variable.
         /// </summary>
         /// <value>The name.</value>
-        public string Name { get; set; }
+        string Name { get; }
 
         /// <summary>
         /// The user's form of this variable. This represents a particular variant of this variable, and can be used to handle language specific
@@ -29,24 +20,24 @@ namespace Skrivmaskin.Core.Compiled
         /// Every variable will have one entry with the empty string here. This is the root form of this variable.
         /// </remarks>
         /// <value>The name of the form.</value>
-        public string FormName { get; set; }
+        string FormName { get; }
 
         /// <summary>
         /// The user's description of this variable. This is stored in order to provide it back to the user when the user defines the valu        /// at run time.
         /// </summary>
         /// <value>The description.</value>
-        public string Description { get; set; }
+        string Description { get; }
 
         /// <summary>
         /// The user's sample suggestion for this variable value.
         /// </summary>
         /// <value>The suggestion.</value>
-        public string Suggestion { get; set; }
+        string Suggestion { get; }
 
         /// <summary>
         /// The full name of this variable, including form (if necessary).
         /// </summary>
         /// <value>The full name.</value>
-        public string FullName { get { return ((FormName == "") ? Name : (Name + lexerSyntax.VariableFormDelimiter + FormName)); } }
+        string FullName { get; }
     }
 }

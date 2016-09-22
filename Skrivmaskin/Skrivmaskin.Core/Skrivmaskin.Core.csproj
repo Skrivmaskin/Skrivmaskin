@@ -62,7 +62,6 @@
     <Compile Include="Interfaces\ILexerSyntax.cs" />
     <Compile Include="Lexing\DefaultLexerSyntax.cs" />
     <Compile Include="Lexing\SkrivmaskinGrammar.cs" />
-    <Compile Include="Compiled\SentenceCompiledNode.cs" />
     <Compile Include="Lexing\SkrivmaskinTextTerminal.cs" />
     <Compile Include="Lexing\SpecialCharacters.cs" />
     <Compile Include="Parsing\SkrivmaskinParser.cs" />
@@ -73,6 +72,11 @@
     <Compile Include="Compilation\CompilationErrors.cs" />
     <Compile Include="Compilation\VariableRequirements.cs" />
     <Compile Include="Generation\SkrivmaskinGenerator.cs" />
+    <Compile Include="Compiled\SentenceBreakCompiledNode.cs" />
+    <Compile Include="Interfaces\IGeneratorConfig.cs" />
+    <Compile Include="Services\SingleSpaceGeneratorConfig.cs" />
+    <Compile Include="Compiled\ParagraphBreakCompiledNode.cs" />
+    <Compile Include="Compiled\ICompiledVariable.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

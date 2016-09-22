@@ -7,7 +7,7 @@ namespace Skrivmaskin.Core.Compiled
     /// <summary>
     /// Represents a compiled set of nodes to be chosen between.
     /// </summary>
-    public sealed class ChoiceCompiledNode : ICompiledNode
+    internal sealed class ChoiceCompiledNode : ICompiledNode
     {
         /// <summary>
         /// The location in the design tree of this item.

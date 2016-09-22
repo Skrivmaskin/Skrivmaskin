@@ -6,7 +6,7 @@
     <ProjectGuid>{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>Skrivmaskin.Core.Test</RootNamespace>
-    <AssemblyName>Skrivmaskin.Editor.Sb</AssemblyName>
+    <AssemblyName>Skrivmaskin.Core.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -35,6 +35,12 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.3.4.1\lib\net45\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="Castle.Core">
+      <HintPath>..\packages\Castle.Core.3.3.3\lib\net45\Castle.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Moq">
+      <HintPath>..\packages\Moq.4.5.22\lib\net45\Moq.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="TestProjectUtils.cs" />
@@ -43,6 +49,8 @@
     <Compile Include="TestSkrivmaskinGrammar.cs" />
     <Compile Include="TestSkrivmaskinParser.cs" />
     <Compile Include="TestRandomChooser.cs" />
+    <Compile Include="TestGenerator.cs" />
+    <Compile Include="TestGeneratorUtils.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">

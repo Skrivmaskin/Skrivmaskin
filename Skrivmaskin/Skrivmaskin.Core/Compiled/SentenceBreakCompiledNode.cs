@@ -1,13 +1,12 @@
-using System;
-using System.Collections.Generic;
+﻿using System;
 using Skrivmaskin.Core.Design;
 
 namespace Skrivmaskin.Core.Compiled
 {
     /// <summary>
-    /// Represents a compiled set of nodes that are to be inserted sequentially.
+    /// Rationale: The generator can be provisioned with information about double spacing and so forth.
     /// </summary>
-    internal class SequentialCompiledNode : ICompiledNode
+    internal sealed class SentenceBreakCompiledNode : ICompiledNode
     {
         /// <summary>
         /// The location in the design tree of this item.
@@ -16,7 +15,7 @@ namespace Skrivmaskin.Core.Compiled
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The location.</value>
-        public INode Location { get; set; }
+        public INode Location { get { return null; } set { } }
 
         /// <summary>
         /// The start character in the line of this item.
@@ -25,7 +24,7 @@ namespace Skrivmaskin.Core.Compiled
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The start character.</value>
-        public int? StartCharacter { get; set; }
+        public int? StartCharacter { get { return null; } set { } }
 
         /// <summary>
         /// The end character in the line of this item.
@@ -34,17 +33,6 @@ namespace Skrivmaskin.Core.Compiled
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The end character.</value>
-        public int? EndCharacter { get; set; }
-
-        /// <summary>
-        /// The sequential subnodes.
-        /// </summary>
-        /// <value>The sequential.</value>
-        public IReadOnlyList<ICompiledNode> Sequential { get; set; } = new List<ICompiledNode> ();
-
-        internal static ICompiledNode Make (IReadOnlyList<ICompiledNode> childNodes, INode node, int? startCharacter, int? endCharacter)
-        {
-            return new SequentialCompiledNode () { Sequential = childNodes, Location = node, StartCharacter = startCharacter, EndCharacter = endCharacter };
-        }
+        public int? EndCharacter { get { return null; } set { } }
     }
 }

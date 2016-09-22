@@ -7,7 +7,7 @@ namespace Skrivmaskin.Core.Compiled
     /// <summary>
     /// A compiled node representing raw text.
     /// </summary>
-    public sealed class TextCompiledNode : ICompiledNode
+    internal sealed class TextCompiledNode : ICompiledNode
     {
         /// <summary>
         /// The location in the design tree of this item.

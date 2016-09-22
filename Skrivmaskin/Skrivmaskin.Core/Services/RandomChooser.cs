@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Skrivmaskin.Core.Compiled;
 using Skrivmaskin.Core.Interfaces;
 
@@ -49,10 +50,10 @@ namespace Skrivmaskin.Core.Service{
         /// <summary>
         /// Make the choice.
         /// </summary>
-        /// <param name="choice">Choice.</param>
-        public ICompiledNode Choose (ChoiceCompiledNode choice)
+        /// <param name="choices">Choices.</param>
+        public ICompiledNode Choose (IReadOnlyList<ICompiledNode> choices)
         {
-            return choice.Choices [random.Next (0, choice.Choices.Count)];
+            return choices [random.Next (0, choices.Count)];
         }
 
         /// <summary>

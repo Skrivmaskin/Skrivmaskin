@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Skrivmaskin.Core.Compiled;
 
 namespace Skrivmaskin.Core.Interfaces
@@ -27,7 +28,7 @@ namespace Skrivmaskin.Core.Interfaces
         /// Make a choice.
         /// </summary>
         /// <param name="choice">Choice.</param>
-        ICompiledNode Choose (ChoiceCompiledNode choice);
+        ICompiledNode Choose (IReadOnlyList<ICompiledNode> choice);
 
         /// <summary>
         /// End random choosing.

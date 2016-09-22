@@ -18,7 +18,7 @@ namespace Skrivmaskin.Core.Compiled
         /// The user's variable definitions.
         /// </summary>
         /// <value>The variable definitions.</value>
-        public Dictionary<string, CompiledVariable> VariableDefinitions { get; set; }
+        public IReadOnlyDictionary<string, ICompiledVariable> VariableDefinitions { get; set; }
 
         /// <summary>
         /// The definition of the project.

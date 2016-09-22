@@ -37,12 +37,11 @@ namespace Skrivmaskin.Core.Test
         [Test]
         public void TestLastSeed ()
         {
-
             var rc = new RandomChooser ();
 
             // Choice 1
             rc.Begin ();
-            var tn1 = rc.Choose (simpleChoice) as TextCompiledNode;
+            var tn1 = rc.Choose (simpleChoice.Choices) as TextCompiledNode;
             Assert.IsNotNull (tn1);
             rc.End ();
 
@@ -50,14 +49,14 @@ namespace Skrivmaskin.Core.Test
             var lastSeed = rc.LastSeed;
             Assert.IsNotNull (lastSeed);
             rc.BeginWithSeed (lastSeed.Value);
-            var tn2 = rc.Choose (simpleChoice) as TextCompiledNode;
+            var tn2 = rc.Choose (simpleChoice.Choices) as TextCompiledNode;
             Assert.IsNotNull (tn2);
             rc.End ();
 
             // ReferenceEquals
             Assert.True (Object.ReferenceEquals (tn1, tn2));
         }
-    
+
         [Test]
         public void TestLastSeedGivenSeed ()
         {
@@ -67,7 +66,7 @@ namespace Skrivmaskin.Core.Test
 
             // Choice 1
             rc.BeginWithSeed (inputSeed);
-            var tn1 = rc.Choose (simpleChoice) as TextCompiledNode;
+            var tn1 = rc.Choose (simpleChoice.Choices) as TextCompiledNode;
             Assert.IsNotNull (tn1);
             rc.End ();
 
@@ -76,7 +75,7 @@ namespace Skrivmaskin.Core.Test
             Assert.AreEqual (inputSeed, lastSeed.Value);
             Assert.IsNotNull (lastSeed);
             rc.BeginWithSeed (lastSeed.Value);
-            var tn2 = rc.Choose (simpleChoice) as TextCompiledNode;
+            var tn2 = rc.Choose (simpleChoice.Choices) as TextCompiledNode;
             Assert.IsNotNull (tn2);
             rc.End ();
 
@@ -84,6 +83,9 @@ namespace Skrivmaskin.Core.Test
 
             // ReferenceEquals
             Assert.True (Object.ReferenceEquals (tn1, tn2));
+            // One I checked earlier.
+            Assert.AreEqual ("Option3", tn1.Text);
+            Assert.AreEqual ("Option3", tn2.Text);
         }
     }
 }
