@@ -13,13 +13,19 @@ namespace Skrivmaskin.Core.Compiled
     public interface ICompiledNode
     {
         /// <summary>
+        /// The type of this compiled node. 
+        /// </summary>
+        /// <value>The type.</value>
+        CompiledNodeType Type { get; }
+
+        /// <summary>
         /// The location in the design tree of this item.
         /// </summary>
         /// <remarks>
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The location.</value>
-        INode Location { get; set; }
+        INode Location { get; }
 
         /// <summary>
         /// The start character in the line of this item.
@@ -28,7 +34,7 @@ namespace Skrivmaskin.Core.Compiled
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The start character.</value>
-        int? StartCharacter { get; set; }
+        int? StartCharacter { get; }
 
         /// <summary>
         /// The end character in the line of this item.
@@ -37,6 +43,11 @@ namespace Skrivmaskin.Core.Compiled
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The end character.</value>
-        int? EndCharacter { get; set; }
+        int? EndCharacter { get; }
+
+        /// <summary>
+        /// Are there errors in or below this node?
+        /// </summary>
+        bool HasErrors { get; }
     }
 }

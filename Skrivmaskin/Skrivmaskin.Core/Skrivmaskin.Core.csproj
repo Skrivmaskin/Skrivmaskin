@@ -68,15 +68,13 @@
     <Compile Include="Lexing\SkrivmaskinEscapeTerminal.cs" />
     <Compile Include="Lexing\SkrivmaskinTokens.cs" />
     <Compile Include="Compilation\SkrivmaskinCompiler.cs" />
-    <Compile Include="Compilation\CompiledNodeOrErrors.cs" />
-    <Compile Include="Compilation\CompilationErrors.cs" />
     <Compile Include="Compilation\VariableRequirements.cs" />
     <Compile Include="Generation\SkrivmaskinGenerator.cs" />
-    <Compile Include="Compiled\SentenceBreakCompiledNode.cs" />
-    <Compile Include="Interfaces\IGeneratorConfig.cs" />
-    <Compile Include="Services\SingleSpaceGeneratorConfig.cs" />
-    <Compile Include="Compiled\ParagraphBreakCompiledNode.cs" />
+    <Compile Include="Interfaces\ICompiledConfig.cs" />
+    <Compile Include="Services\SingleSpaceUnixCompilerConfig.cs" />
     <Compile Include="Compiled\ICompiledVariable.cs" />
+    <Compile Include="Compiled\CompiledNodeType.cs" />
+    <Compile Include="Compiled\ErrorCompiledNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

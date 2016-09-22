@@ -4,7 +4,7 @@ namespace Skrivmaskin.Core.Compiled
     /// <summary>
     /// A compiled variable.
     /// </summary>
-    public interface ICompiledVariable
+    public interface ICompiledVariable : IEquatable<ICompiledVariable>
     {
         /// <summary>
         /// The root name of this variable.

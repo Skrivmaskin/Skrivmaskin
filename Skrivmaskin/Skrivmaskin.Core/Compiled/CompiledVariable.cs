@@ -10,6 +10,10 @@ namespace Skrivmaskin.Core.Compiled
     {
         readonly ILexerSyntax lexerSyntax;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Skrivmaskin.Core.Compiled.CompiledVariable"/> class.
+        /// </summary>
+        /// <param name="lexerSyntax">Lexer syntax.</param>
         public CompiledVariable (ILexerSyntax lexerSyntax)
         {
             this.lexerSyntax = lexerSyntax;
@@ -48,5 +52,17 @@ namespace Skrivmaskin.Core.Compiled
         /// </summary>
         /// <value>The full name.</value>
         public string FullName { get { return ((FormName == "") ? Name : (Name + lexerSyntax.VariableFormDelimiter + FormName)); } }
+
+        /// <summary>
+        /// Determines whether the specified <see cref="Skrivmaskin.Core.Compiled.ICompiledVariable"/> is equal to the
+        /// current <see cref="T:Skrivmaskin.Core.Compiled.CompiledVariable"/>.
+        /// </summary>
+        /// <param name="other">The <see cref="Skrivmaskin.Core.Compiled.ICompiledVariable"/> to compare with the current <see cref="T:Skrivmaskin.Core.Compiled.CompiledVariable"/>.</param>
+        /// <returns><c>true</c> if the specified <see cref="Skrivmaskin.Core.Compiled.ICompiledVariable"/> is equal to the
+        /// current <see cref="T:Skrivmaskin.Core.Compiled.CompiledVariable"/>; otherwise, <c>false</c>.</returns>
+        public bool Equals (ICompiledVariable other)
+        {
+            return FullName == other.FullName;
+        }
     }
 }

@@ -4,9 +4,9 @@ using Skrivmaskin.Core.Interfaces;
 namespace Skrivmaskin.Core.Services
 {
     /// <summary>
-    /// Generator config that inserts one space between sentences.
+    /// Compiler config that inserts one space between sentences and uses UNIX line endings.
     /// </summary>
-    public sealed class SingleSpaceGeneratorConfig : IGeneratorConfig
+    public sealed class SingleSpaceUnixCompilerConfig : ICompilerConfig
     {
         /// <summary>
         /// Two new lines using Unix line endings.

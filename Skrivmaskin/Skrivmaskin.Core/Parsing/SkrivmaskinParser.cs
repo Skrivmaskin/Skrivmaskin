@@ -56,11 +56,11 @@ namespace Skrivmaskin.Core.Parsing
                 switch (token) {
                 case SkrivmaskinTokens.Sentence:
                     if (node.ChildNodes.Count == 0) {
-                        return TextCompiledNode.Make ("", designNode, 1, 1);
+                        return new TextCompiledNode ("", designNode, 1, 1);
                     } else if (node.ChildNodes.Count == 1) {
                         return ConvertAnything (designNode, node.ChildNodes [0]);
                     } else {
-                        return SequentialCompiledNode.Make (node.ChildNodes.Select ((ptn) => ConvertAnything (designNode, ptn)).ToList (), designNode, 1, node.Span.Length);
+                        return new SequentialCompiledNode (node.ChildNodes.Select ((ptn) => ConvertAnything (designNode, ptn)).ToList (), designNode, 1, node.Span.Length);
                     }
                 default:
                     throw new ApplicationException (string.Format ("Unexpected token when expected a sentence: {0}", token));
@@ -102,10 +102,10 @@ namespace Skrivmaskin.Core.Parsing
             switch (token) {
             case SkrivmaskinTokens.SimpleVariable:
                 if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
-                return VariableCompiledNode.Make (node.ChildNodes [1].Token.Text, designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+                return new VariableCompiledNode (node.ChildNodes [1].Token.Text, designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
             case SkrivmaskinTokens.CompoundVariable:
                 if (node.ChildNodes.Count != 5) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
-                return VariableCompiledNode.Make (node.ChildNodes [1].Token.Text + lexerSyntax.VariableFormDelimiter.ToString () + node.ChildNodes [3].Token.Text, designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+                return new VariableCompiledNode (node.ChildNodes [1].Token.Text + lexerSyntax.VariableFormDelimiter.ToString () + node.ChildNodes [3].Token.Text, designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
             default:
                 throw new ApplicationException (string.Format ("Unexpected token when expected a variable type: {0}", token));
             }
@@ -118,7 +118,7 @@ namespace Skrivmaskin.Core.Parsing
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
             if (token != SkrivmaskinTokens.Phrase)
                 throw new ApplicationException (string.Format ("Unexpected token when expected a phrase: {0}", token));
-            return TextCompiledNode.Make (string.Join ("", node.ChildNodes.Select ((cn) => ConvertText (cn))), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            return new TextCompiledNode (string.Join ("", node.ChildNodes.Select ((cn) => ConvertText (cn))), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
 
         }
 
@@ -150,7 +150,7 @@ namespace Skrivmaskin.Core.Parsing
             case SkrivmaskinTokens.SimpleChoice:
                 return ConvertSimpleChoice (designNode, node);
             case SkrivmaskinTokens.Choice:
-                return ChoiceCompiledNode.Make (node.ChildNodes.Select ((cn) => ConvertSimpleChoice (designNode, cn)).ToList(), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+                return new ChoiceCompiledNode (node.ChildNodes.Select ((cn) => ConvertSimpleChoice (designNode, cn)).ToList(), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
             default:
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
             }
@@ -158,9 +158,9 @@ namespace Skrivmaskin.Core.Parsing
 
         private ICompiledNode ConvertSimpleChoice (INode designNode, ParseTreeNode node)
         {
-            if (node.ChildNodes.Count == 0) return TextCompiledNode.Make ("", designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            if (node.ChildNodes.Count == 0) return new TextCompiledNode ("", designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
             if (node.ChildNodes.Count == 1) return ConvertAnything (designNode, node.ChildNodes [0]);
-            return SequentialCompiledNode.Make (node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)).ToList (), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            return new SequentialCompiledNode (node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)).ToList (), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
         }
     }
 }

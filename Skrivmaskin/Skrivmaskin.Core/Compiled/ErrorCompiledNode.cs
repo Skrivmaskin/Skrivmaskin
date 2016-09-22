@@ -1,13 +1,13 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Skrivmaskin.Core.Design;
 
 namespace Skrivmaskin.Core.Compiled
 {
     /// <summary>
-    /// Represents a compiled set of nodes to be chosen between.
+    /// Compiled node representing a compiler error.
     /// </summary>
-    internal sealed class ChoiceCompiledNode : ICompiledNode
+    internal sealed class ErrorCompiledNode : ICompiledNode
     {
         /// <summary>
         /// The location in the design tree of this item.
@@ -37,42 +37,27 @@ namespace Skrivmaskin.Core.Compiled
         public int? EndCharacter { get; private set; }
 
         /// <summary>
-        /// Ths choices.
-        /// </summary>
-        /// <value>The choices.</value>
-        public IReadOnlyList<ICompiledNode> Choices { get; private set; }
-
-        /// <summary>
         /// Gets the type.
         /// </summary>
         /// <value>The type.</value>
         public CompiledNodeType Type {
             get {
-                return CompiledNodeType.Choice;
+                return CompiledNodeType.Error;
             }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ChoiceCompiledNode"/>
-        /// has errors.
+        /// Gets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ErrorCompiledNode"/> has errors.
         /// </summary>
         /// <value><c>true</c> if has errors; otherwise, <c>false</c>.</value>
-        public bool HasErrors { get; private set;}
+        public bool HasErrors { get { return true; } }
 
-        internal ChoiceCompiledNode (IReadOnlyList<ICompiledNode> childNodes, INode node, int? startCharacter, int? endCharacter)
+        //TODO pass back info from Irony about the error
+        internal ErrorCompiledNode (INode node, int? startCharacter, int? endCharacter)
         {
-            bool hasErrors = false;
-            foreach (var item in childNodes) {
-                if (item.HasErrors) {
-                    hasErrors = true;
-                    break;
-                }
-            }
-            Choices = childNodes;
             Location = node;
             StartCharacter = startCharacter;
             EndCharacter = endCharacter;
-            HasErrors = hasErrors;
         }
     }
 }

@@ -12,7 +12,6 @@ namespace Skrivmaskin.Core.Generation
     {
         readonly CompiledProject project;
         readonly IRandomChooser randomChooser;
-        readonly IGeneratorConfig generatorConfig;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Skrivmaskin.Core.Generation.SkrivmaskinGenerator"/> class.
@@ -22,7 +21,7 @@ namespace Skrivmaskin.Core.Generation
         /// </remarks>
         /// <param name="project">Project.</param>
         /// <param name="randomChooser">Random chooser.</param>
-        public SkrivmaskinGenerator (CompiledProject project, IRandomChooser randomChooser, IGeneratorConfig generatorConfig)
+        public SkrivmaskinGenerator (CompiledProject project, IRandomChooser randomChooser)
         {
             this.project = project;
             this.randomChooser = randomChooser;
@@ -30,16 +29,12 @@ namespace Skrivmaskin.Core.Generation
 
         private string GenerateText (ICompiledNode node, IVariableSubstituter variableSubstituter)
         {
-            var paraBreakNode = node as ParagraphBreakCompiledNode;
-            if (paraBreakNode != null) return generatorConfig.ParagraphBreak;
             var textNode = node as TextCompiledNode;
             if (textNode != null) return textNode.Text;
             var variableNode = node as VariableCompiledNode;
             if (variableNode != null) return variableSubstituter.Substitute (variableNode.VariableFullName);
             var choiceNode = node as ChoiceCompiledNode;
             if (choiceNode != null) return GenerateText (randomChooser.Choose (choiceNode.Choices), variableSubstituter);
-            var sentenceBreakNode = node as SentenceBreakCompiledNode;
-            if (sentenceBreakNode != null) return generatorConfig.Spacing;
             var sequentialNode = node as SequentialCompiledNode;
             if (sequentialNode != null) return string.Concat (sequentialNode.Sequential.Select ((n) => GenerateText (n, variableSubstituter)));
             throw new ApplicationException ("Unrecognised compiled node type " + node.GetType ());

@@ -5,9 +5,9 @@ using Skrivmaskin.Core.Design;
 namespace Skrivmaskin.Core.Compiled
 {
     /// <summary>
-    /// A compiled node representing a variable for replacement.
+    /// A compiled node representing raw text.
     /// </summary>
-    public sealed class VariableCompiledNode : ICompiledNode
+    internal sealed class VariableCompiledNode : ICompiledNode
     {
         /// <summary>
         /// The location in the design tree of this item.
@@ -16,7 +16,7 @@ namespace Skrivmaskin.Core.Compiled
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The location.</value>
-        public INode Location { get; set; }
+        public INode Location { get; private set; }
 
         /// <summary>
         /// The start character in the line of this item.
@@ -25,7 +25,7 @@ namespace Skrivmaskin.Core.Compiled
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The start character.</value>
-        public int? StartCharacter { get; set; }
+        public int? StartCharacter { get; private set; }
 
         /// <summary>
         /// The end character in the line of this item.
@@ -34,17 +34,36 @@ namespace Skrivmaskin.Core.Compiled
         /// Will be null if this compiled tree is compiled for release.
         /// </remarks>
         /// <value>The end character.</value>
-        public int? EndCharacter { get; set; }
+        public int? EndCharacter { get; private set; }
 
         /// <summary>
-        /// The full name of the variable.
+        /// The full name for this variable.
         /// </summary>
-        /// <value>The name of the variable full.</value>
-        public string VariableFullName { get; set; }
+        /// <value>The full name.</value>
+        public string VariableFullName { get; private set; }
 
-        internal static ICompiledNode Make (string variableFullName, INode node, int? startCharacter, int? endCharacter)
+        /// <summary>
+        /// Gets the type.
+        /// </summary>
+        /// <value>The type.</value>
+        public CompiledNodeType Type {
+            get {
+                return CompiledNodeType.Variable;
+            }
+        }
+
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ErrorCompiledNode"/> has errors.
+        /// </summary>
+        /// <value><c>true</c> if has errors; otherwise, <c>false</c>.</value>
+        public bool HasErrors { get { return false; } }
+
+        internal VariableCompiledNode (string variableFullName, INode node, int? startCharacter, int? endCharacter)
         {
-            return new VariableCompiledNode () { VariableFullName = variableFullName, Location = node, StartCharacter = startCharacter, EndCharacter = endCharacter };
+            VariableFullName = variableFullName;
+            Location = node;
+            StartCharacter = startCharacter;
+            EndCharacter = endCharacter;
         }
     }
 }

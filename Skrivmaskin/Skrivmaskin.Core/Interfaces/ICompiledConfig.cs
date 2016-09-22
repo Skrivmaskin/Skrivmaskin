@@ -2,9 +2,9 @@
 namespace Skrivmaskin.Core.Interfaces
 {
     /// <summary>
-    /// Provides the generator with formatting information.
+    /// Provides the compiler with formatting information to replace special instructions with text.
     /// </summary>
-    public interface IGeneratorConfig
+    public interface ICompilerConfig
     {
         /// <summary>
         /// Spacing between sentences.
