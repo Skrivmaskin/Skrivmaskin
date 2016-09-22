@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Skrivmaskin.Core.Interfaces;
 
 namespace Skrivmaskin.Core.Compiled
@@ -32,8 +32,7 @@ namespace Skrivmaskin.Core.Compiled
         public string FormName { get; set; }
 
         /// <summary>
-        /// The user's description of this variable. This is stored in order to provide it back to the user when the user defines the value
-        /// at run time.
+        /// The user's description of this variable. This is stored in order to provide it back to the user when the user defines the valu        /// at run time.
         /// </summary>
         /// <value>The description.</value>
         public string Description { get; set; }

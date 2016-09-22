@@ -71,7 +71,6 @@ let transformAll name file =
             let sentenceChoices = new List<INode>(li |> Seq.map (fun text -> new TextNode(text) :> INode))
             new ChoiceNode((match a with | InStycke(n) -> sprintf "STYCKE %d" n | _ -> ""), sentenceChoices) :> INode)
     |> fun li -> new SequentialNode(name, (new List<INode>(li))) :> INode
-
 let project =
     [
         "2016-08-23"

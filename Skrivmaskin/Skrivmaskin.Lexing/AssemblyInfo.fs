@@ -1,4 +1,4 @@
-﻿namespace Skrivmaskin.Lexing
+namespace Skrivmaskin.Lexing
 open System.Reflection
 open System.Runtime.CompilerServices
 

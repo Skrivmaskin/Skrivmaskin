@@ -59,7 +59,6 @@
     <Compile Include="Interfaces\IRandomChooser.cs" />
     <Compile Include="Services\CachingDialogBasedVariableSubstituter.cs" />
     <Compile Include="Services\RandomChooser.cs" />
-    <Compile Include="Compiler.cs" />
     <Compile Include="Interfaces\ILexerSyntax.cs" />
     <Compile Include="Lexing\DefaultLexerSyntax.cs" />
     <Compile Include="Lexing\SkrivmaskinGrammar.cs" />
@@ -69,6 +68,10 @@
     <Compile Include="Parsing\SkrivmaskinParser.cs" />
     <Compile Include="Lexing\SkrivmaskinEscapeTerminal.cs" />
     <Compile Include="Lexing\SkrivmaskinTokens.cs" />
+    <Compile Include="Compilation\SkrivmaskinCompiler.cs" />
+    <Compile Include="Compilation\CompiledNodeOrErrors.cs" />
+    <Compile Include="Compilation\CompilationErrors.cs" />
+    <Compile Include="Compilation\VariableRequirements.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -80,6 +83,7 @@
     <Folder Include="Services\" />
     <Folder Include="Lexing\" />
     <Folder Include="Parsing\" />
+    <Folder Include="Compilation\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using Irony.Parsing;
@@ -20,7 +20,7 @@ namespace Skrivmaskin.Core.Lexing
                     lexerSyntax.VariableFormDelimiter,
                     lexerSyntax.VariableStartDelimiter,
                     lexerSyntax.EscapeCharacter
-                };
+            };
             var escapePlusSpecial = String.Join ("|", specialCharacters.Select ((x) => "(" + SpecialCharacters.GetEscapeForRegexInRoot (lexerSyntax.EscapeCharacter) + SpecialCharacters.GetEscapeForRegexInRoot (x) + ")"));
             return escapePlusSpecial;
         }

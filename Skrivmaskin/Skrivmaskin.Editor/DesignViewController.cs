@@ -8,7 +8,7 @@ using AppKit;
 namespace Skrivmaskin.Editor
 {
 	public partial class DesignViewController : NSViewController
-	{
+    {
         public Node Node { get; private set; }
         private Node lastCompiledNode { get; set; }
 

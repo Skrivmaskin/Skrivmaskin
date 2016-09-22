@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Skrivmaskin.Core.Interfaces;
 
 namespace Skrivmaskin.Core.Lexing

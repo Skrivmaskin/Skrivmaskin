@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using NUnit.Framework;
 using Skrivmaskin.Core.Lexing;
 using Skrivmaskin.Core.Parsing;

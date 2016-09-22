@@ -11,7 +11,7 @@ namespace Skrivmaskin.Editor
 {
 	[Register ("DesignViewController")]
 	partial class DesignViewController
-	{
+    {
 		[Outlet]
 		AppKit.NSOutlineView SkrivmaskinOutlineView { get; set; }
 		

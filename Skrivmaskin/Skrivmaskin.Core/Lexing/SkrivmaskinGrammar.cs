@@ -1,5 +1,4 @@
-﻿// This grammar is based on the ExpressionEvaluatorGrammar from Irony.Samples
-// Copyright (c) Roman Ivantsov
+// This grammar is based on the ExpressionEvaluatorGrammar from Irony.Sample// Copyright (c) Roman Ivantsov
 // Details at http://irony.codeplex.com
 using Irony.Parsing;
 using Skrivmaskin.Core.Interfaces;
@@ -50,10 +49,8 @@ namespace Skrivmaskin.Core.Lexing
 
             this.Root = Sentence;
 
-            // 4. Operators precedence
-
-            // 5. Transient stuff
-            //TODO Mark stuff as transient to improve performance in compiler????
+            // 4. Operators precedenc
+            // 5. Transient stuf            //TODO Mark stuff as transient to improve performance in compiler????
         }
 
         public override void SkipWhitespace (ISourceStream source)

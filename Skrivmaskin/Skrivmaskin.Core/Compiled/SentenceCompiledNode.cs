@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Core.Compiled
 {
     /// <summary>

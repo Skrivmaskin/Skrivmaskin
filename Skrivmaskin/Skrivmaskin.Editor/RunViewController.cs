@@ -8,7 +8,7 @@ using AppKit;
 namespace Skrivmaskin.Editor
 {
 	public partial class RunViewController : NSViewController
-	{
+    {
 		public RunViewController (IntPtr handle) : base (handle)
 		{
 		}

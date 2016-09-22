@@ -8,7 +8,7 @@ using AppKit;
 namespace Skrivmaskin.Editor
 {
 	public partial class TabViewController : NSTabViewController
-	{
+    {
         public string FilePath { get; set; } = null;
 
 		public TabViewController (IntPtr handle) : base (handle)

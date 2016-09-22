@@ -2,8 +2,7 @@ using System;
 using Skrivmaskin.Core.Compiled;
 using Skrivmaskin.Core.Interfaces;
 
-namespace Skrivmaskin.Core.Services
-{
+namespace Skrivmaskin.Core.Service{
     /// <summary>
     /// Concrete random chooser, using a pseudo RNG.
     /// </summary>

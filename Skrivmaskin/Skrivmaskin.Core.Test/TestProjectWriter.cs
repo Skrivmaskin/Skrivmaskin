@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using Skrivmaskin.Core.Design;
 using Newtonsoft.Json;
 using System.IO;

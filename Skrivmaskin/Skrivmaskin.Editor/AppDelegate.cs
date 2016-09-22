@@ -7,17 +7,12 @@ namespace Skrivmaskin.Editor
     [Register ("AppDelegate")]
     public partial class AppDelegate : NSApplicationDelegate
     {
-        #region Computed Properties
         public int NewWindowNumber { get; set; } = -1;
-        #endregion
 
-        #region Constructors
         public AppDelegate ()
         {
         }
-        #endregion
 
-        #region Override Methods
         public override void DidFinishLaunching (NSNotification notification)
         {
             // Insert code here to initialize your application
@@ -40,10 +35,8 @@ namespace Skrivmaskin.Editor
                 return false;
             }
         }
-        #endregion
 
-        #region Private Methods
-        private bool OpenFile (NSUrl url)
+    private bool OpenFile (NSUrl url)
         {
             var good = false;
 
@@ -101,9 +94,7 @@ namespace Skrivmaskin.Editor
             // Return results
             return good;
         }
-        #endregion
 
-        #region Actions
         [Export ("openDocument:")]
         void OpenDialog (NSObject sender)
         {
@@ -129,14 +120,12 @@ namespace Skrivmaskin.Editor
         /// Responsiblities are:
         /// - parse the content of the design view (only if anything has changed) and update the compiled (or report a compilation error)
         /// - refresh the variables in the table, being careful not to lose the user's changes
-        /// - randomly generate the output
-        /// view.
+        /// - randomly generate the output view.
         /// </remarks>
         /// <param name="sender">Sender.</param>
         partial void generateAction (NSObject sender)
         {
             
         }
-        #endregion
     }
 }

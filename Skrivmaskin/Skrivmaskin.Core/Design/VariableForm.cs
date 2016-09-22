@@ -1,9 +1,8 @@
-﻿using System;
+using System;
 namespace Skrivmaskin.Core.Design
 {
     /// <summary>
-    /// Variable form. This represents a grammatical form that the parent variable may be in, e.g. plural, possessive etc, in case there are language
-    /// specific adjustments to be made.
+    /// Variable form. This represents a grammatical form that the parent variable may be in, e.g. plural, possessive etc, in case there are languag    /// specific adjustments to be made.
     /// </summary>
     public sealed class VariableForm : IEquatable<VariableForm>
     {

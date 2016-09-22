@@ -11,7 +11,7 @@ namespace Skrivmaskin.Editor
 {
 	[Register ("RunViewController")]
 	partial class RunViewController
-	{
+    {
 		[Outlet]
 		AppKit.NSTextField Results { get; set; }
 

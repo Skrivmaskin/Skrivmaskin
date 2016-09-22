@@ -55,8 +55,7 @@ namespace Skrivmaskin.Core.Design
         }
 
         /// <summary>
-        /// Get the JSON converters needed to write projects, for testing and for users to be able
-        /// to serialize Projects themselves.
+        /// Get the JSON converters needed to write projects, for testing and for users to be abl        /// to serialize Projects themselves.
         /// </summary>
         /// <value>The json converters.</value>
         public static JsonConverter [] JsonConverters {

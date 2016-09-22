@@ -104,8 +104,7 @@ namespace Skrivmaskin.Editor
                     }
                 };
 
-                //TODO Contextual drop down menu or whatever
-
+                //TODO Contextual drop down menu or whateve
                 // Setup view based on the column selected
                 switch (tableColumn.Title) {
                 case TitleIdentifier:
@@ -184,8 +183,7 @@ namespace Skrivmaskin.Editor
                     }
                 };
 
-                //TODO Contextual drop down menu or whatever
-
+                //TODO Contextual drop down menu or whateve
                 // Setup view based on the column selected
                 switch (tableColumn.Title) {
                 case TitleIdentifier:
