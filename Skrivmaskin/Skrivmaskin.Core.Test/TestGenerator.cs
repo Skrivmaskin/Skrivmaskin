@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Moq;
 using NUnit.Framework;
-using Skrivmaskin.Core.Compiled;
+using Skrivmaskin.Core.Compiler;
 using Skrivmaskin.Core.Design;
 using Skrivmaskin.Core.Generation;
 using Skrivmaskin.Core.Interfaces;

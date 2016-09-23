@@ -1,13 +1,14 @@
-﻿using System;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using Skrivmaskin.Core.Design;
 
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
-    /// Compiled node representing a compiler error.
+    /// Represents a compiled set of nodes to be chosen between.
     /// </summary>
-    internal sealed class ErrorCompiledNode : ICompiledNode
+    internal sealed class ChoiceCompiledNode : ICompiledNode
     {
         /// <summary>
         /// The location in the design tree of this item.
@@ -37,27 +38,55 @@ namespace Skrivmaskin.Core.Compiled
         public int? EndCharacter { get; private set; }
 
         /// <summary>
+        /// Ths choices.
+        /// </summary>
+        /// <value>The choices.</value>
+        public IReadOnlyList<ICompiledNode> Choices { get; private set; }
+
+        /// <summary>
         /// Gets the type.
         /// </summary>
         /// <value>The type.</value>
         public CompiledNodeType Type {
             get {
-                return CompiledNodeType.Error;
+                return CompiledNodeType.Choice;
             }
         }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ErrorCompiledNode"/> has errors.
+        /// Gets or sets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ChoiceCompiledNode"/>
+        /// has errors.
         /// </summary>
         /// <value><c>true</c> if has errors; otherwise, <c>false</c>.</value>
-        public bool HasErrors { get { return true; } }
+        public bool HasErrors { get; private set;}
 
-        //TODO pass back info from Irony about the error
-        internal ErrorCompiledNode (INode node, int? startCharacter, int? endCharacter)
+        /// <summary>
+        /// Gets the required variables.
+        /// </summary>
+        /// <value>The required variables.</value>
+        public IEnumerable<string> RequiredVariables { get; private set; }
+
+        internal ChoiceCompiledNode (IReadOnlyList<ICompiledNode> childNodes, INode node, int? startCharacter, int? endCharacter)
         {
+            bool hasErrors = false;
+            foreach (var item in childNodes) {
+                if (item.HasErrors) {
+                    hasErrors = true;
+                    break;
+                }
+            }
+            Choices = childNodes;
             Location = node;
             StartCharacter = startCharacter;
             EndCharacter = endCharacter;
+            HasErrors = hasErrors;
+            var rv = new HashSet<string> ();
+            foreach (var cn in childNodes) {
+                foreach (var item in cn.RequiredVariables) {
+                    rv.Add (item);
+                }
+            }
+            RequiredVariables = rv;
         }
     }
 }

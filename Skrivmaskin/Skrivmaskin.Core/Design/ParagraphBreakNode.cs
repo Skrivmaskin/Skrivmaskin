@@ -1,4 +1,6 @@
 using System;
+using Newtonsoft.Json;
+
 namespace Skrivmaskin.Core.Design
 {
     /// <summary>
@@ -10,5 +12,8 @@ namespace Skrivmaskin.Core.Design
         {
             return (other is ParagraphBreakNode);
         }
+
+        [JsonIgnore]
+        public NodeType Type { get { return NodeType.ParagraphBreak; } }
     }
 }

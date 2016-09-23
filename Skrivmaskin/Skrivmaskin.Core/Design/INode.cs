@@ -6,5 +6,6 @@ namespace Skrivmaskin.Core.Design
     /// </summary>
     public interface INode : IEquatable<INode>
     {
+        NodeType Type { get; }
     }
 }

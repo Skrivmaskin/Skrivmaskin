@@ -1,6 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
-using Skrivmaskin.Core.Compiled;
+using Skrivmaskin.Core.Compiler;
 using Skrivmaskin.Core.Design;
 using Skrivmaskin.Core.Lexing;
 using Skrivmaskin.Core.Parsing;

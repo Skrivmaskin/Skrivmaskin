@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Skrivmaskin.Core.Design
 {
@@ -30,6 +31,13 @@ namespace Skrivmaskin.Core.Design
         /// </summary>
         /// <value>The choices.</value>
         public List<INode> Choices { get; set; }
+
+        [JsonIgnore]
+        public NodeType Type {
+            get {
+                return NodeType.Choice;
+            }
+        }
 
         public bool Equals (INode other)
         {

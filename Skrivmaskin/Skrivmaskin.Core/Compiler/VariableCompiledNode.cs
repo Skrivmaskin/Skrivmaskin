@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using Skrivmaskin.Core.Design;
 
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
-    /// Represents a compiled set of nodes to be chosen between.
+    /// A compiled node representing raw text.
     /// </summary>
-    internal sealed class ChoiceCompiledNode : ICompiledNode
+    internal sealed class VariableCompiledNode : ICompiledNode
     {
         /// <summary>
         /// The location in the design tree of this item.
@@ -37,10 +37,10 @@ namespace Skrivmaskin.Core.Compiled
         public int? EndCharacter { get; private set; }
 
         /// <summary>
-        /// Ths choices.
+        /// The full name for this variable.
         /// </summary>
-        /// <value>The choices.</value>
-        public IReadOnlyList<ICompiledNode> Choices { get; private set; }
+        /// <value>The full name.</value>
+        public string VariableFullName { get; private set; }
 
         /// <summary>
         /// Gets the type.
@@ -48,31 +48,24 @@ namespace Skrivmaskin.Core.Compiled
         /// <value>The type.</value>
         public CompiledNodeType Type {
             get {
-                return CompiledNodeType.Choice;
+                return CompiledNodeType.Variable;
             }
         }
 
         /// <summary>
-        /// Gets or sets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ChoiceCompiledNode"/>
-        /// has errors.
+        /// Gets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ErrorCompiledNode"/> has errors.
         /// </summary>
         /// <value><c>true</c> if has errors; otherwise, <c>false</c>.</value>
-        public bool HasErrors { get; private set;}
+        public bool HasErrors { get { return false; } }
 
-        internal ChoiceCompiledNode (IReadOnlyList<ICompiledNode> childNodes, INode node, int? startCharacter, int? endCharacter)
+        public IEnumerable<string> RequiredVariables { get { return new string [1] { VariableFullName }; } }
+
+        internal VariableCompiledNode (string variableFullName, INode node, int? startCharacter, int? endCharacter)
         {
-            bool hasErrors = false;
-            foreach (var item in childNodes) {
-                if (item.HasErrors) {
-                    hasErrors = true;
-                    break;
-                }
-            }
-            Choices = childNodes;
+            VariableFullName = variableFullName;
             Location = node;
             StartCharacter = startCharacter;
             EndCharacter = endCharacter;
-            HasErrors = hasErrors;
         }
     }
 }

@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Skrivmaskin.Core.Compiled;
+using Skrivmaskin.Core.Compiler;
 using Skrivmaskin.Core.Interfaces;
 
 namespace Skrivmaskin.Core.Services

@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
     /// The user's design time project.

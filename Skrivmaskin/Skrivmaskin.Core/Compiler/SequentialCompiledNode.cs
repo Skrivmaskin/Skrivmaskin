@@ -2,12 +2,12 @@ using System;
 using System.Collections.Generic;
 using Skrivmaskin.Core.Design;
 
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
-    /// A compiled node representing raw text.
+    /// Represents a compiled set of nodes to be laid out sequentially.
     /// </summary>
-    internal sealed class VariableCompiledNode : ICompiledNode
+    internal sealed class SequentialCompiledNode : ICompiledNode
     {
         /// <summary>
         /// The location in the design tree of this item.
@@ -37,10 +37,10 @@ namespace Skrivmaskin.Core.Compiled
         public int? EndCharacter { get; private set; }
 
         /// <summary>
-        /// The full name for this variable.
+        /// Ths choices.
         /// </summary>
-        /// <value>The full name.</value>
-        public string VariableFullName { get; private set; }
+        /// <value>The choices.</value>
+        public IReadOnlyList<ICompiledNode> Sequential { get; private set; }
 
         /// <summary>
         /// Gets the type.
@@ -48,22 +48,44 @@ namespace Skrivmaskin.Core.Compiled
         /// <value>The type.</value>
         public CompiledNodeType Type {
             get {
-                return CompiledNodeType.Variable;
+                return CompiledNodeType.Sequential;
             }
         }
 
         /// <summary>
-        /// Gets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ErrorCompiledNode"/> has errors.
+        /// Gets or sets a value indicating whether this <see cref="T:Skrivmaskin.Core.Compiled.ChoiceCompiledNode"/>
+        /// has errors.
         /// </summary>
         /// <value><c>true</c> if has errors; otherwise, <c>false</c>.</value>
-        public bool HasErrors { get { return false; } }
+        public bool HasErrors { get; private set; }
 
-        internal VariableCompiledNode (string variableFullName, INode node, int? startCharacter, int? endCharacter)
+        /// <summary>
+        /// Gets the required variables.
+        /// </summary>
+        /// <value>The required variables.</value>
+        public IEnumerable<string> RequiredVariables { get; private set; }
+
+        internal SequentialCompiledNode (IReadOnlyList<ICompiledNode> childNodes, INode node, int? startCharacter, int? endCharacter)
         {
-            VariableFullName = variableFullName;
+            bool hasErrors = false;
+            foreach (var item in childNodes) {
+                if (item.HasErrors) {
+                    hasErrors = true;
+                    break;
+                }
+            }
+            Sequential = childNodes;
             Location = node;
             StartCharacter = startCharacter;
             EndCharacter = endCharacter;
+            HasErrors = hasErrors;
+            var rv = new HashSet<string> ();
+            foreach (var cn in childNodes) {
+                foreach (var item in cn.RequiredVariables) {
+                    rv.Add (item);
+                }
+            }
+            RequiredVariables = rv;
         }
     }
 }

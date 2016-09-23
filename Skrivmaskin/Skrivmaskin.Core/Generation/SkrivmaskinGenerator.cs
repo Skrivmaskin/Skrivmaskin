@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Linq;
-using Skrivmaskin.Core.Compiled;
+using Skrivmaskin.Core.Compiler;
 using Skrivmaskin.Core.Interfaces;
 
 namespace Skrivmaskin.Core.Generation

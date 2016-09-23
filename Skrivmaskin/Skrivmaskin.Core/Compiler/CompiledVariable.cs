@@ -1,7 +1,7 @@
 using System;
 using Skrivmaskin.Core.Interfaces;
 
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
     /// Representation of a compiled variable declaration.

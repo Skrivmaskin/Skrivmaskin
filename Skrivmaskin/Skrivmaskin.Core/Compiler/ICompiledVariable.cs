@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
     /// A compiled variable.

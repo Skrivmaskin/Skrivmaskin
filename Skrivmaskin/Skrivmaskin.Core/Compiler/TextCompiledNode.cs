@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Skrivmaskin.Core.Design;
 
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
     /// A compiled node representing raw text.
@@ -57,6 +57,12 @@ namespace Skrivmaskin.Core.Compiled
         /// </summary>
         /// <value><c>true</c> if has errors; otherwise, <c>false</c>.</value>
         public bool HasErrors { get { return false; } }
+
+        public IEnumerable<string> RequiredVariables {
+            get {
+                return new string [0];
+            }
+        }
 
         internal TextCompiledNode (string text, INode node, int? startCharacter, int? endCharacter)
         {

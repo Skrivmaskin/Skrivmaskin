@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using Skrivmaskin.Core.Compiled;
 using Skrivmaskin.Core.Design;
 using Skrivmaskin.Core.Interfaces;
 using Skrivmaskin.Core.Parsing;
 
-namespace Skrivmaskin.Core.Compilation
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
     /// Skrivmaskin compiler. This manages compilation of the tree.
@@ -34,7 +33,7 @@ namespace Skrivmaskin.Core.Compilation
             throw new NotImplementedException ();
         }
 
-        private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node, out bool hadErrors, out VariableRequirements variableRequirements)
+        private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node)
         {
             // Text nodes are a special case here. The compiled node will come out as an error compiled node if there are errors.
             var textNode = node as TextNode;

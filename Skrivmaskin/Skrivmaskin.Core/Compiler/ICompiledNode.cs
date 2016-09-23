@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Skrivmaskin.Core.Design;
 
-namespace Skrivmaskin.Core.Compiled
+namespace Skrivmaskin.Core.Compiler
 {
     /// <summary>
     /// Represents a compiled node, with meta data for debug compilation.
@@ -49,5 +49,11 @@ namespace Skrivmaskin.Core.Compiled
         /// Are there errors in or below this node?
         /// </summary>
         bool HasErrors { get; }
+
+        /// <summary>
+        /// Gets the required variables.
+        /// </summary>
+        /// <value>The required variables.</value>
+        IEnumerable<string> RequiredVariables { get; }
     }
 }

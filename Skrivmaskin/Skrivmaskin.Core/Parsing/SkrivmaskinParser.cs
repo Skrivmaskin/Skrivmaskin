@@ -2,7 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Linq;
 using Irony.Parsing;
-using Skrivmaskin.Core.Compiled;
+using Skrivmaskin.Core.Compiler;
 using Skrivmaskin.Core.Design;
 using Skrivmaskin.Core.Interfaces;
 using Skrivmaskin.Core.Lexing;

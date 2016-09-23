@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
 
 namespace Skrivmaskin.Core.Design
 {
@@ -30,6 +31,13 @@ namespace Skrivmaskin.Core.Design
         /// </summary>
         /// <value>The nodes.</value>
         public List<INode> Sequential { get; set; }
+
+        [JsonIgnore]
+        public NodeType Type {
+            get {
+                return NodeType.Sequential;
+            }
+        }
 
         public bool Equals (SequentialNode other)
         {

@@ -1,4 +1,6 @@
 ﻿using System;
+using Newtonsoft.Json;
+
 namespace Skrivmaskin.Core.Design
 {
     /// <summary>
@@ -28,6 +30,13 @@ namespace Skrivmaskin.Core.Design
         /// </summary>
         /// <value>The text.</value>
         public string Value { get; set; }
+
+        [JsonIgnore]
+        public NodeType Type {
+            get {
+                return NodeType.Comment;
+            }
+        }
 
         public bool Equals (CommentNode other)
         {
