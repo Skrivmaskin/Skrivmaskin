@@ -8,8 +8,6 @@ namespace Skrivmaskin.Core.Compiler
     {
         Choice,
         Variable,
-        ParagraphBreak,
-        SentenceBreak,
         Sequential,
         Text,
         Error

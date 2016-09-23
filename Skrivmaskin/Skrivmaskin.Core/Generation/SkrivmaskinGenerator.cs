@@ -29,15 +29,18 @@ namespace Skrivmaskin.Core.Generation
 
         private string GenerateText (ICompiledNode node, IVariableSubstituter variableSubstituter)
         {
-            var textNode = node as TextCompiledNode;
-            if (textNode != null) return textNode.Text;
-            var variableNode = node as VariableCompiledNode;
-            if (variableNode != null) return variableSubstituter.Substitute (variableNode.VariableFullName);
-            var choiceNode = node as ChoiceCompiledNode;
-            if (choiceNode != null) return GenerateText (randomChooser.Choose (choiceNode.Choices), variableSubstituter);
-            var sequentialNode = node as SequentialCompiledNode;
-            if (sequentialNode != null) return string.Concat (sequentialNode.Sequential.Select ((n) => GenerateText (n, variableSubstituter)));
-            throw new ApplicationException ("Unrecognised compiled node type " + node.GetType ());
+            switch (node.Type) {
+            case CompiledNodeType.Text:
+                return (node as TextCompiledNode).Text;
+            case CompiledNodeType.Variable:
+                return variableSubstituter.Substitute ((node as VariableCompiledNode).VariableFullName);
+            case CompiledNodeType.Sequential:
+                return string.Concat ((node as SequentialCompiledNode).Sequential.Select ((n) => GenerateText (n, variableSubstituter)));
+            case CompiledNodeType.Choice:
+                return GenerateText (randomChooser.Choose ((node as ChoiceCompiledNode).Choices), variableSubstituter);
+            default:
+                throw new ApplicationException ("Unrecognised to generate text when there were compiler errors " + node.GetType ());
+            }
         }
 
         /// <summary>
