@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Skrivmaskin.Core.Design;
 using Skrivmaskin.Core.Interfaces;
@@ -30,7 +31,9 @@ namespace Skrivmaskin.Core.Compiler
         public ICompiledNode Compile (Project project)
         {
             var transientCompiledNodes = new Dictionary<TextNode, ICompiledNode> ();
-            throw new NotImplementedException ();
+            var compiledNode = CompileNode (transientCompiledNodes, project.Definition);
+            compiledNodes = transientCompiledNodes;
+            return compiledNode;
         }
 
         private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node)
@@ -46,26 +49,24 @@ namespace Skrivmaskin.Core.Compiler
                     transientCompiledNodes.Add (textNode, result);
                     return result;
                 }
-                break;
+                result = parser.Compile (textNode);
+                transientCompiledNodes.Add (textNode, result);
+                return result;
             case NodeType.Comment:
-                break;
+                var commentNode = node as CommentNode;
+                return new TextCompiledNode ("", commentNode, 1, commentNode.Value.Length);
             case NodeType.Choice:
-                break;
+                var choiceNode = node as ChoiceNode;
+                return new ChoiceCompiledNode (choiceNode.Choices.Select ((c) => CompileNode (transientCompiledNodes, c)).ToList (), choiceNode, 1, 1);
             case NodeType.Sequential:
-                break;
+                var sequentialNode = node as SequentialNode;
+                return new SequentialCompiledNode (sequentialNode.Sequential.Select ((c) => CompileNode (transientCompiledNodes, c)).ToList (), sequentialNode, 1, 1);
             case NodeType.ParagraphBreak:
-                break;
+                //TODO reinstate this in compile time
+                throw new NotImplementedException ();
             default:
                 break;
             }
-            //      if (transientCompiledNodes.TryGetValue (textNode, out result)) {
-            //         return result;
-            //      } else if (compiledNodes.TryGetValue (textNode, out result)) {
-            //           transientCompiledNodes.Add (textNode, result);
-            //            return result;
-            //          } else {
-            //
-            //            }
             return null;
         }
     }
