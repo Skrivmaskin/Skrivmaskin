@@ -11,72 +11,89 @@ using Skrivmaskin.Core.Interfaces;
 namespace Skrivmaskin.Core.Test
 {
     [TestFixture]
-    public class TestGenerator
+    public class TestGenerator : TestGeneratorBase
     {
-        [Test]
-        public void TestGenerateSimpleText ()
+        Mock<IVariableSubstituter> mockVariableSubstituter;
+        Mock<IRandomChooser> mockRandomChooser;
+        SkrivmaskinGenerator generator;
+
+        [SetUp]
+        public void Setup ()
         {
-            var mockVariableSubstituter = new Mock<IVariableSubstituter> ();
-            var mockRandomChooser = new Mock<IRandomChooser> ();
-            var project = new CompiledProject ();
-            project.ProjectName = "SimpleText";
-            project.VariableDefinitions = new Dictionary<string, ICompiledVariable> ();
-            var text = "Hello world";
-            var mockDesignNode = new Mock<INode> ();
-            project.Definition = new TextCompiledNode (text, mockDesignNode.Object, 1, 11);
-            var generator = new SkrivmaskinGenerator (project, mockRandomChooser.Object);
+            mockVariableSubstituter = new Mock<IVariableSubstituter> ();
+            mockRandomChooser = new Mock<IRandomChooser> ();
+            generator = new SkrivmaskinGenerator (mockRandomChooser.Object);
+        }
+
+        [TearDown]
+        public void Teardown ()
+        {
+            mockVariableSubstituter = null;
+            mockRandomChooser = null;
+            generator = null;
+        }
+
+        [Test]
+        public void TestSimpleText ()
+        {
+            var text = "Simple text";
+            var definition = MakeSimpleText (text);
+            var project = MakeProject (null, definition);
             var seed = 42;
-            var generatedText = generator.GenerateWithSeed (seed, mockVariableSubstituter.Object);
+            var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
             Assert.AreEqual (text, generatedText);
         }
 
         [Test]
-        public void TestGenerateVariable ()
+        public void TestVariable ()
         {
-            var mockVariableSubstituter = new Mock<IVariableSubstituter> ();
             var varName = "MyVar";
             var varValue = "MyValue";
             mockVariableSubstituter.Setup ((vs) => vs.Substitute (varName)).Returns (varValue);
-            var mockRandomChooser = new Mock<IRandomChooser> ();
-            var project = new CompiledProject ();
-            project.ProjectName = "Variable";
-            project.VariableDefinitions = new Dictionary<string, ICompiledVariable> ();
-            var mockDesignNode = new Mock<INode> ();
-            project.Definition = new VariableCompiledNode (varName, mockDesignNode.Object, 2, 6);
-            var generator = new SkrivmaskinGenerator (project, mockRandomChooser.Object);
+            var definition = MakeSimpleVariable (varName);
+            var project = MakeProject (null, definition);
             var seed = 42;
-            var generatedText = generator.GenerateWithSeed (seed, mockVariableSubstituter.Object);
+            var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
             Assert.AreEqual (varValue, generatedText);
+            mockRandomChooser.SetupGet ((rc) => rc.LastSeed).Returns (42);
+            Assert.IsTrue (generator.CanRegenerate (project));
             mockVariableSubstituter.Verify ((vs) => vs.Substitute (It.IsAny<string> ()), Times.Once ());
         }
 
         [Test]
-        public void TestGenerateChoice ()
+        public void TestChoice ()
         {
-            var mockVariableSubstituter = new Mock<IVariableSubstituter> ();
-            var mockRandomChooser = new Mock<IRandomChooser> ();
-            var expectedText = "Hello world";
-            var unexpectedText = "Something else";
-            var mockDesignNode = new Mock<INode> ();
-            var chosen = new TextCompiledNode (expectedText, mockDesignNode.Object, 17, 27);
-            var notChosen1 = new TextCompiledNode (unexpectedText, mockDesignNode.Object, 1, 15);
-            var notChosen2 = new TextCompiledNode (unexpectedText, mockDesignNode.Object, 29, 45);
-            var notChosen3 = new TextCompiledNode (unexpectedText, mockDesignNode.Object, 47, 64);
-            var choices = new List<ICompiledNode> ();
-            choices.Add (notChosen1);
-            choices.Add (chosen);
-            choices.Add (notChosen2);
-            choices.Add (notChosen3);
-            mockRandomChooser.Setup ((rc) => rc.Choose (choices)).Returns (chosen);
-            var project = new CompiledProject ();
-            project.ProjectName = "Choice";
-            project.VariableDefinitions = new Dictionary<string, ICompiledVariable> ();
-            project.Definition = new ChoiceCompiledNode (choices, mockDesignNode.Object, 2, 6);
-            var generator = new SkrivmaskinGenerator (project, mockRandomChooser.Object);
+            var expectedText = "This is the expected text";
+            var unexpectedText = "This would be less good";
+            var notChosen1 = MakeSimpleText (unexpectedText);
+            var notChosen2 = MakeSimpleText (unexpectedText);
+            var notChosen3 = MakeSimpleText (unexpectedText);
+            var chosen = MakeSimpleText (expectedText);
+            var definition = MakeChoice (notChosen1, chosen, notChosen2, notChosen3);
+            var project = MakeProject (null, definition);
+            mockRandomChooser.Setup ((rc) => rc.Choose (definition.Choices)).Returns (chosen);
             var seed = 42;
-            var generatedText = generator.GenerateWithSeed (seed, mockVariableSubstituter.Object);
+            var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
             Assert.AreEqual (expectedText, generatedText);
             mockRandomChooser.Verify ((rc) => rc.Choose (It.IsAny<IReadOnlyList<ICompiledNode>> ()), Times.Once ());
         }
-    }
+    
+        [Test]
+        public void TestConcat ()
+        {
+            var firstSentence = "This is the first sentence.";
+            var spacing = " ";
+            var secondSentence = "This is the second sentence.";
+            var expectedText = firstSentence + spacing + secondSentence;
+            var nodeFirstSentence = MakeSimpleText (firstSentence);
+            var nodeSpacing = MakeSimpleText (spacing);
+            var nodeSecondSentence = MakeSimpleText (secondSentence);
+            var definition = MakeSequential (nodeFirstSentence, nodeSpacing, nodeSecondSentence);
+            var project = MakeProject (null, definition);
+            var seed = 42;
+            var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
+            Assert.AreEqual (expectedText, generatedText);
+            mockRandomChooser.Verify ((rc) => rc.Choose (It.IsAny<IReadOnlyList<ICompiledNode>> ()), Times.Never ());
+        }
+}
 }

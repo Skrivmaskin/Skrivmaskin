@@ -10,7 +10,6 @@ namespace Skrivmaskin.Core.Generation
     /// </summary>
     public sealed class SkrivmaskinGenerator
     {
-        readonly CompiledProject project;
         readonly IRandomChooser randomChooser;
 
         /// <summary>
@@ -19,11 +18,9 @@ namespace Skrivmaskin.Core.Generation
         /// <remarks>
         /// This takes ownership of the random chooser and will manage its lifetime. Access to the last seed should be via the generator.
         /// </remarks>
-        /// <param name="project">Project.</param>
         /// <param name="randomChooser">Random chooser.</param>
-        public SkrivmaskinGenerator (CompiledProject project, IRandomChooser randomChooser)
+        public SkrivmaskinGenerator (IRandomChooser randomChooser)
         {
-            this.project = project;
             this.randomChooser = randomChooser;
         }
 
@@ -59,16 +56,28 @@ namespace Skrivmaskin.Core.Generation
         /// May be used by a user interface to allow the user to activate and hide controls that Regenerate.
         /// </remarks>
         /// <returns><c>true</c>, if regenerate was caned, <c>false</c> otherwise.</returns>
-        public bool CanRegenerate ()
+        public bool CanRegenerate (CompiledProject project)
         {
-            return LastSeed != null;
+            return LastSeed != null && !project.Definition.HasErrors;
+        }
+
+        /// <summary>
+        /// Determines if it is possible for this generator to generate.
+        /// </summary>
+        /// <remarks>
+        /// May be used by a user interface to allow the user to activate and hide controls that Generate.
+        /// </remarks>
+        /// <returns><c>true</c>, if regenerate was caned, <c>false</c> otherwise.</returns>
+        public bool CanGenerate (CompiledProject project)
+        {
+            return !project.Definition.HasErrors;
         }
 
         /// <summary>
         /// Generate the text for a given set of variable substitutions.
         /// </summary>
         /// <param name="variableSubstituer">Variable substituer.</param>
-        public string Generate (IVariableSubstituter variableSubstituer)
+        public string Generate (CompiledProject project, IVariableSubstituter variableSubstituer)
         {
             randomChooser.Begin ();
             var result = GenerateText (project.Definition, variableSubstituer);
@@ -80,7 +89,7 @@ namespace Skrivmaskin.Core.Generation
         /// Generate the text for a given set of variable substitutions, using the same random seed as before to get the same variable substitutions.
         /// </summary>
         /// <param name="variableSubstituter">Variable substituter.</param>
-        public string Regenerate (IVariableSubstituter variableSubstituter)
+        public string Regenerate (CompiledProject project, IVariableSubstituter variableSubstituter)
         {
             var lastSeed = LastSeed;
             if (lastSeed == null) throw new ApplicationException ("Unable to regenerate when we haven't run before");
@@ -89,17 +98,17 @@ namespace Skrivmaskin.Core.Generation
             randomChooser.End ();
             return result;
         }
-    
+
         /// <summary>
         /// Generate the text for a given set of variable substitutions, using a given random seed.
         /// </summary>
         /// <param name="variableSubstituter">Variable substituter.</param>
-        public string GenerateWithSeed (int seed, IVariableSubstituter variableSubstituter)
+        public string GenerateWithSeed (CompiledProject project, IVariableSubstituter variableSubstituter, int seed)
         {
             randomChooser.BeginWithSeed (seed);
             var result = GenerateText (project.Definition, variableSubstituter);
             randomChooser.End ();
             return result;
         }
-}
+    }
 }
