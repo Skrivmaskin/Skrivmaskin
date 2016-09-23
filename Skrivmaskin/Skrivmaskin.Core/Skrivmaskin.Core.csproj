@@ -68,7 +68,7 @@
     <Compile Include="Lexing\SkrivmaskinEscapeTerminal.cs" />
     <Compile Include="Lexing\SkrivmaskinTokens.cs" />
     <Compile Include="Generation\SkrivmaskinGenerator.cs" />
-    <Compile Include="Interfaces\ICompiledConfig.cs" />
+    <Compile Include="Interfaces\ICompilerConfig.cs" />
     <Compile Include="Services\SingleSpaceUnixCompilerConfig.cs" />
     <Compile Include="Compiler\ICompiledVariable.cs" />
     <Compile Include="Compiler\CompiledNodeType.cs" />

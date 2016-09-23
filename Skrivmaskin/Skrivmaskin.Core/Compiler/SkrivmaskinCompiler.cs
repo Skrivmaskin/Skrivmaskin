@@ -14,14 +14,16 @@ namespace Skrivmaskin.Core.Compiler
     {
         readonly SkrivmaskinParser parser;
         Dictionary<TextNode, ICompiledNode> compiledNodes = new Dictionary<TextNode, ICompiledNode> ();
+        readonly ICompilerConfig compilerConfig;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Skrivmaskin.Core.Compilation.SkrivmaskinCompiler"/> class.
         /// </summary>
         /// <param name="lexerSyntax">Lexer syntax.</param>
-        public SkrivmaskinCompiler (ILexerSyntax lexerSyntax)
+        public SkrivmaskinCompiler (ILexerSyntax lexerSyntax, ICompilerConfig compilerConfig)
         {
             parser = new SkrivmaskinParser (lexerSyntax);
+            this.compilerConfig = compilerConfig;
         }
 
         /// <summary>
@@ -60,14 +62,21 @@ namespace Skrivmaskin.Core.Compiler
                 return new ChoiceCompiledNode (choiceNode.Choices.Select ((c) => CompileNode (transientCompiledNodes, c)).ToList (), choiceNode, 1, 1);
             case NodeType.Sequential:
                 var sequentialNode = node as SequentialNode;
-                return new SequentialCompiledNode (sequentialNode.Sequential.Select ((c) => CompileNode (transientCompiledNodes, c)).ToList (), sequentialNode, 1, 1);
+                if (sequentialNode.Sequential.Count > 0) {
+                    var li = new List<ICompiledNode> ();
+                    for (int i = 0; i < sequentialNode.Sequential.Count - 1; i++) {
+                        li.Add (CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]));
+                        li.Add (new TextCompiledNode (compilerConfig.Spacing, node, 1, 1));
+                    }
+                    li.Add (CompileNode (transientCompiledNodes, sequentialNode.Sequential [sequentialNode.Sequential.Count - 1]));
+                    return new SequentialCompiledNode (li, sequentialNode, 1, 1);
+                }
+                return new TextCompiledNode ("", sequentialNode, 1, 1);
             case NodeType.ParagraphBreak:
-                //TODO reinstate this in compile time
-                throw new NotImplementedException ();
+                return new TextCompiledNode (compilerConfig.ParagraphBreak, node, 1, 1);
             default:
-                break;
+                throw new ApplicationException ("Unexpected design time node during compilation " + (node.GetType ()));
             }
-            return null;
         }
     }
 }
