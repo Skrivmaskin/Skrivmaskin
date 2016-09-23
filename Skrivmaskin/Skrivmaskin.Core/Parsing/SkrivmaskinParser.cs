@@ -32,21 +32,17 @@ namespace Skrivmaskin.Core.Parsing
             return parser.Parse (s);
         }
 
-        //TODO Switch out API for one that reports errors as nodes?
         /// <summary>
         /// Parse a design time node into a compiled node.
         /// </summary>
-        public bool Compile (TextNode designNode, out ICompiledNode compiledNode, out int firstErrorChar, out string firstErrorMessage)
+        public ICompiledNode Compile (TextNode designNode)
         {
             var parseTree = ParseToTree (designNode.Text);
             if (parseTree.HasErrors ()) {
-                compiledNode = null;
-                throw new NotImplementedException ();
+                //TODO Pass back some info about the errors
+                return new ErrorCompiledNode (designNode, 1, designNode.Text.Length);
             }
-            firstErrorChar = 0;
-            firstErrorMessage = "";
-            compiledNode = ConvertSentence (designNode, parseTree.Root);
-            return true;
+            return ConvertSentence (designNode, parseTree.Root);
         }
 
         private ICompiledNode ConvertSentence (INode designNode, ParseTreeNode node)

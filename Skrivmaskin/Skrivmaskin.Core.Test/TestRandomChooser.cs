@@ -19,12 +19,7 @@ namespace Skrivmaskin.Core.Test
             var text = "{Option1|Option2|Option3|Option4}";
             var designNode = new TextNode (text);
             var parser = new SkrivmaskinParser (new DefaultLexerSyntax ());
-            ICompiledNode compiledNode;
-            int firstErrorChar;
-            string firstErrorMessage;
-            var ok = parser.Compile (designNode, out compiledNode, out firstErrorChar, out firstErrorMessage);
-            Assert.True (ok);
-            simpleChoice = compiledNode as ChoiceCompiledNode;
+            simpleChoice = parser.Compile (designNode) as ChoiceCompiledNode;
             Assert.IsNotNull (simpleChoice);
         }
 

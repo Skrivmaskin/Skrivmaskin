@@ -36,17 +36,37 @@ namespace Skrivmaskin.Core.Compiler
         private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node)
         {
             // Text nodes are a special case here. The compiled node will come out as an error compiled node if there are errors.
-            var textNode = node as TextNode;
             ICompiledNode result;
-      //      if (transientCompiledNodes.TryGetValue (textNode, out result)) {
-       //         return result;
-      //      } else if (compiledNodes.TryGetValue (textNode, out result)) {
-     //           transientCompiledNodes.Add (textNode, result);
-    //            return result;
-  //          } else {
-//
-//            }
-            throw new NotImplementedException ();
+            switch (node.Type) {
+            case NodeType.Text:
+                var textNode = node as TextNode;
+                if (transientCompiledNodes.TryGetValue (textNode, out result))
+                    return result;
+                if (compiledNodes.TryGetValue (textNode, out result)) {
+                    transientCompiledNodes.Add (textNode, result);
+                    return result;
+                }
+                break;
+            case NodeType.Comment:
+                break;
+            case NodeType.Choice:
+                break;
+            case NodeType.Sequential:
+                break;
+            case NodeType.ParagraphBreak:
+                break;
+            default:
+                break;
+            }
+            //      if (transientCompiledNodes.TryGetValue (textNode, out result)) {
+            //         return result;
+            //      } else if (compiledNodes.TryGetValue (textNode, out result)) {
+            //           transientCompiledNodes.Add (textNode, result);
+            //            return result;
+            //          } else {
+            //
+            //            }
+            return null;
         }
     }
 }

@@ -18,12 +18,8 @@ namespace Skrivmaskin.Core.Test
         {
             var inputText = "Hello world";
             var designNode = new TextNode () { Text = inputText };
-            ICompiledNode compiledNode;
-            int firstErrorChar;
-            string firstErrorMessage;
-            var ok = parser.Compile (designNode, out compiledNode, out firstErrorChar, out firstErrorMessage);
-            Assert.True (ok);
-            Assert.True (compiledNode is TextCompiledNode);
+            var compiledNode = parser.Compile (designNode) as TextCompiledNode;
+            Assert.IsNotNull (compiledNode);
             var cn = compiledNode as TextCompiledNode;
             Assert.AreEqual (1, compiledNode.StartCharacter.Value);
             Assert.AreEqual (11, compiledNode.EndCharacter.Value);
@@ -36,11 +32,8 @@ namespace Skrivmaskin.Core.Test
         {
             var inputText = "[SimpleVariable]";
             var designNode = new TextNode () { Text = inputText };
-            ICompiledNode compiledNode;
-            int firstErrorChar;
-            string firstErrorMessage;
-            var ok = parser.Compile (designNode, out compiledNode, out firstErrorChar, out firstErrorMessage);
-            Assert.True (ok);
+            var compiledNode = parser.Compile (designNode) as VariableCompiledNode;
+            Assert.IsNotNull (compiledNode);
         }
 
         [Test]
@@ -48,11 +41,8 @@ namespace Skrivmaskin.Core.Test
         {
             var inputText = "[Compound|Variable]";
             var designNode = new TextNode () { Text = inputText };
-            ICompiledNode compiledNode;
-            int firstErrorChar;
-            string firstErrorMessage;
-            var ok = parser.Compile (designNode, out compiledNode, out firstErrorChar, out firstErrorMessage);
-            Assert.True (ok);
+            var compiledNode = parser.Compile (designNode) as VariableCompiledNode;
+            Assert.IsNotNull (compiledNode);
         }
 
         [Test]
@@ -60,15 +50,11 @@ namespace Skrivmaskin.Core.Test
         {
             var inputText = "{Hello|World} {World|Hello}";
             var designNode = new TextNode () { Text = inputText };
-            ICompiledNode compiledNode;
-            int firstErrorChar;
-            string firstErrorMessage;
-            var ok = parser.Compile (designNode, out compiledNode, out firstErrorChar, out firstErrorMessage);
-            Assert.True (ok);
+            var compiledNode = parser.Compile (designNode)as SequentialCompiledNode;
+            Assert.IsNotNull (compiledNode);
             Assert.AreEqual (1, compiledNode.StartCharacter);
             Assert.AreEqual (27, compiledNode.EndCharacter);
-            var sq = compiledNode as SequentialCompiledNode;
-            Assert.IsNotNull (sq);
+            var sq = compiledNode;
             Assert.AreEqual (3, sq.Sequential.Count);
             var cn = sq.Sequential [0] as ChoiceCompiledNode;
             Assert.IsNotNull (cn);
@@ -98,11 +84,8 @@ namespace Skrivmaskin.Core.Test
         {
             var inputText = "När du ska hyra bil i [MÄRKE] gör du det snabbt och enkelt via oss på Sixt.";
             var designNode = new TextNode () { Text = inputText };
-            ICompiledNode compiledNode;
-            int firstErrorChar;
-            string firstErrorMessage;
-            var ok = parser.Compile (designNode, out compiledNode, out firstErrorChar, out firstErrorMessage);
-            Assert.True (ok);
+            var compiledNode = parser.Compile (designNode) as SequentialCompiledNode;
+            Assert.IsNotNull (compiledNode);
         }
 
         [Test]
@@ -110,11 +93,8 @@ namespace Skrivmaskin.Core.Test
         {
             var inputText = "[MÄRKE|MÄRKE_Variant]";
             var designNode = new TextNode () { Text = inputText };
-            ICompiledNode compiledNode;
-            int firstErrorChar;
-            string firstErrorMessage;
-            var ok = parser.Compile (designNode, out compiledNode, out firstErrorChar, out firstErrorMessage);
-            Assert.True (ok);
+            var compiledNode = parser.Compile (designNode) as VariableCompiledNode;
+            Assert.IsNotNull (compiledNode);
         }
     }
 }
