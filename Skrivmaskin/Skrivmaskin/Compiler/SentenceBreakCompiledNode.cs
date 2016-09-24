@@ -38,18 +38,12 @@ namespace Skrivmaskin.Compiler
         public int? EndCharacter { get; private set; }
 
         /// <summary>
-        /// Ths choices.
-        /// </summary>
-        /// <value>The choices.</value>
-        public IReadOnlyList<ICompiledNode> Choices { get; private set; }
-
-        /// <summary>
         /// Gets the type.
         /// </summary>
         /// <value>The type.</value>
         public CompiledNodeType Type {
             get {
-                return CompiledNodeType.Choice;
+                return CompiledNodeType.SentenceBreak;
             }
         }
 

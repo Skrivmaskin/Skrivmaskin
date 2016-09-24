@@ -7,6 +7,7 @@ using Skrivmaskin.Compiler;
 using Skrivmaskin.Design;
 using Skrivmaskin.Generation;
 using Skrivmaskin.Interfaces;
+using Skrivmaskin.Services;
 
 namespace Skrivmaskin.Test
 {
@@ -22,7 +23,7 @@ namespace Skrivmaskin.Test
         {
             mockVariableSubstituter = new Mock<IVariableSubstituter> ();
             mockRandomChooser = new Mock<IRandomChooser> ();
-            generator = new SkrivmaskinGenerator (mockRandomChooser.Object);
+            generator = new SkrivmaskinGenerator (mockRandomChooser.Object, new SingleSpaceUnixGeneratorConfig());
         }
 
         [TearDown]
@@ -71,11 +72,11 @@ namespace Skrivmaskin.Test
             var chosen = MakeSimpleText (expectedText);
             var definition = MakeChoice (notChosen1, chosen, notChosen2, notChosen3);
             var project = MakeProject (null, definition);
-            mockRandomChooser.Setup ((rc) => rc.Choose (definition.Choices)).Returns (chosen);
+            mockRandomChooser.Setup ((rc) => rc.Choose (4)).Returns (1);
             var seed = 42;
             var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
             Assert.AreEqual (expectedText, generatedText);
-            mockRandomChooser.Verify ((rc) => rc.Choose (It.IsAny<IReadOnlyList<ICompiledNode>> ()), Times.Once ());
+            mockRandomChooser.Verify ((rc) => rc.Choose (It.IsAny<int> ()), Times.Once ());
         }
 
         [Test]
@@ -93,9 +94,8 @@ namespace Skrivmaskin.Test
             var seed = 42;
             var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
             Assert.AreEqual (expectedText, generatedText);
-            mockRandomChooser.Verify ((rc) => rc.Choose (It.IsAny<IReadOnlyList<ICompiledNode>> ()), Times.Never ());
+            mockRandomChooser.Verify ((rc) => rc.Choose (It.IsAny<int> ()), Times.Never ());
         }
-
 
     }
 }

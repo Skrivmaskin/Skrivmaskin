@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using Skrivmaskin.Compiler;
 using Skrivmaskin.Interfaces;
 
-namespace Skrivmaskin.Service{
+namespace Skrivmaskin.Services
+{
     /// <summary>
     /// Concrete random chooser, using a pseudo RNG.
     /// </summary>
@@ -50,10 +51,10 @@ namespace Skrivmaskin.Service{
         /// <summary>
         /// Make the choice.
         /// </summary>
-        /// <param name="choices">Choices.</param>
-        public ICompiledNode Choose (IReadOnlyList<ICompiledNode> choices)
+        /// <param name="numOptions">Number of options.</param>
+        public int Choose (int numOptions)
         {
-            return choices [random.Next (0, choices.Count)];
+            return random.Next (0, numOptions);
         }
 
         /// <summary>

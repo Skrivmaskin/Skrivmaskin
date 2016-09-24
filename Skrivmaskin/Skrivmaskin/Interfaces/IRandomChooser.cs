@@ -27,8 +27,11 @@ namespace Skrivmaskin.Interfaces
         /// <summary>
         /// Make a choice.
         /// </summary>
-        /// <param name="choice">Choice.</param>
-        ICompiledNode Choose (IReadOnlyList<ICompiledNode> choice);
+        /// <remarks>
+        /// The number returned must be in the range [0, numOptions).
+        /// </remarks>
+        /// <param name="numOptions">Number of options to choose between.</param>
+        int Choose (int numOptions);
 
         /// <summary>
         /// End random choosing.

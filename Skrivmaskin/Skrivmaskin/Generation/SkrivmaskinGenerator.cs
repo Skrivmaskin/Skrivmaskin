@@ -11,6 +11,7 @@ namespace Skrivmaskin.Generation
     public sealed class SkrivmaskinGenerator
     {
         readonly IRandomChooser randomChooser;
+        readonly IGeneratorConfig generatorConfig;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Skrivmaskin.Generation.SkrivmaskinGenerator"/> class.
@@ -19,9 +20,10 @@ namespace Skrivmaskin.Generation
         /// This takes ownership of the random chooser and will manage its lifetime. Access to the last seed should be via the generator.
         /// </remarks>
         /// <param name="randomChooser">Random chooser.</param>
-        public SkrivmaskinGenerator (IRandomChooser randomChooser)
+        public SkrivmaskinGenerator (IRandomChooser randomChooser, IGeneratorConfig generatorConfig)
         {
             this.randomChooser = randomChooser;
+            this.generatorConfig = generatorConfig;
         }
 
         private string GenerateText (ICompiledNode node, IVariableSubstituter variableSubstituter)
@@ -34,7 +36,12 @@ namespace Skrivmaskin.Generation
             case CompiledNodeType.Sequential:
                 return string.Concat ((node as SequentialCompiledNode).Sequential.Select ((n) => GenerateText (n, variableSubstituter)));
             case CompiledNodeType.Choice:
-                return GenerateText (randomChooser.Choose ((node as ChoiceCompiledNode).Choices), variableSubstituter);
+                var choices = (node as ChoiceCompiledNode).Choices;
+                return GenerateText (choices [randomChooser.Choose (choices.Count)], variableSubstituter);
+            case CompiledNodeType.SentenceBreak:
+                return generatorConfig.Spacing;
+            case CompiledNodeType.ParagraphBreak:
+                return generatorConfig.ParagraphBreak;
             default:
                 throw new ApplicationException ("Unrecognised to generate text when there were compiler errors " + node.GetType ());
             }

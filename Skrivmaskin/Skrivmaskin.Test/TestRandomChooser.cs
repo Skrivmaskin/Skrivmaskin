@@ -4,31 +4,13 @@ using Skrivmaskin.Compiler;
 using Skrivmaskin.Design;
 using Skrivmaskin.Lexing;
 using Skrivmaskin.Parsing;
-using Skrivmaskin.Service;
+using Skrivmaskin.Services;
 
 namespace Skrivmaskin.Test
 {
     [TestFixture]
     public class TestRandomChooser
     {
-        ChoiceCompiledNode simpleChoice;
-
-        [SetUp]
-        public void Setup ()
-        {
-            var text = "{Option1|Option2|Option3|Option4}";
-            var designNode = new TextNode (text);
-            var parser = new SkrivmaskinParser (new DefaultLexerSyntax ());
-            simpleChoice = parser.Compile (designNode) as ChoiceCompiledNode;
-            Assert.IsNotNull (simpleChoice);
-        }
-
-        [TearDown]
-        public void Teardown ()
-        {
-            simpleChoice = null;
-        }
-
         [Test]
         public void TestLastSeed ()
         {
@@ -36,20 +18,17 @@ namespace Skrivmaskin.Test
 
             // Choice 1
             rc.Begin ();
-            var tn1 = rc.Choose (simpleChoice.Choices) as TextCompiledNode;
-            Assert.IsNotNull (tn1);
+            var tn1 = rc.Choose (4);
             rc.End ();
 
             // Choice 2
             var lastSeed = rc.LastSeed;
             Assert.IsNotNull (lastSeed);
             rc.BeginWithSeed (lastSeed.Value);
-            var tn2 = rc.Choose (simpleChoice.Choices) as TextCompiledNode;
-            Assert.IsNotNull (tn2);
+            var tn2 = rc.Choose (4);
             rc.End ();
 
-            // ReferenceEquals
-            Assert.True (Object.ReferenceEquals (tn1, tn2));
+            Assert.AreEqual (tn1, tn2);
         }
 
         [Test]
@@ -61,8 +40,7 @@ namespace Skrivmaskin.Test
 
             // Choice 1
             rc.BeginWithSeed (inputSeed);
-            var tn1 = rc.Choose (simpleChoice.Choices) as TextCompiledNode;
-            Assert.IsNotNull (tn1);
+            var tn1 = rc.Choose (4);
             rc.End ();
 
             // Choice 2
@@ -70,17 +48,15 @@ namespace Skrivmaskin.Test
             Assert.AreEqual (inputSeed, lastSeed.Value);
             Assert.IsNotNull (lastSeed);
             rc.BeginWithSeed (lastSeed.Value);
-            var tn2 = rc.Choose (simpleChoice.Choices) as TextCompiledNode;
-            Assert.IsNotNull (tn2);
+            var tn2 = rc.Choose (4);
             rc.End ();
 
             Assert.AreEqual (inputSeed, lastSeed.Value);
 
-            // ReferenceEquals
-            Assert.True (Object.ReferenceEquals (tn1, tn2));
+            Assert.AreEqual (tn1, tn2);
             // One I checked earlier.
-            Assert.AreEqual ("Option3", tn1.Text);
-            Assert.AreEqual ("Option3", tn2.Text);
+            Assert.AreEqual (2, tn1);
+            Assert.AreEqual (2, tn2);
         }
     }
 }
