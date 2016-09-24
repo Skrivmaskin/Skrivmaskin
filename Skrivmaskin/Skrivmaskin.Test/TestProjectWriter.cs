@@ -42,6 +42,13 @@ namespace Skrivmaskin.Test
             TestWrite (TestProjects.OneVariable);
         }
 
+        [Test]
+        public void TestWriteParagraphBreak ()
+        {
+            TestWrite (TestProjects.ParagraphBreak);
+        }
+
+
         public void TestRead (TestProjects testProject)
         {
             var jsonConverters = ProjectWriter.JsonConverters;

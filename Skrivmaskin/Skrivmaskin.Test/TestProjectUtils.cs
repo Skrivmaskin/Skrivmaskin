@@ -7,7 +7,8 @@ namespace Skrivmaskin.Test
     public enum TestProjects
     {
         Empty,
-        OneVariable
+        OneVariable,
+        ParagraphBreak
     }
 
     public static class TestProjectUtils
@@ -43,8 +44,11 @@ namespace Skrivmaskin.Test
             var oneVariableExpected = "{\n  \"ProjectName\": \"OneVariable\",\n  \"VariableDefinitions\": [\n    {\n      \"Name\": \"City\",\n      \"Description\": \"Where do you live?\",\n      \"Forms\": [\n        {\n          \"Name\": \"\",\n          \"Suggestion\": \"London\"\n        }\n      ]\n    }\n  ],\n  \"Definition\": {\n    \"ChoiceName\": \"\",\n    \"Choices\": []\n  }\n}";
             projects.Add (TestProjects.OneVariable, new Tuple<Project, string> (oneVariableProject, oneVariableExpected));
 
+            // Paragraph break.
+            var paragraphBreakProject = new Project (nameof (TestProjects.ParagraphBreak), new List<Variable>(), new ParagraphBreakNode ());
+            var paragraphBreakExpected = "{\n  \"ProjectName\": \"ParagraphBreak\",\n  \"VariableDefinitions\": [],\n  \"Definition\": {}\n}";
+            projects.Add (TestProjects.ParagraphBreak, new Tuple<Project, string> (paragraphBreakProject, paragraphBreakExpected));
             return projects;
         }
-
     }
 }
