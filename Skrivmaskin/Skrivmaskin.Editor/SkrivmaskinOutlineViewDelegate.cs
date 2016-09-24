@@ -68,6 +68,7 @@ namespace Skrivmaskin.Editor
                 case DesignNodeType.Text:
                     view.TextField.TextColor = (tableColumn.Identifier == TitleIdentifier) ? NSColor.Brown : NSColor.Blue;
                     view.TextField.Editable = (tableColumn.Identifier == DescriptionIdentifier);
+                    view.ImageView.Image = NSImage.ImageNamed (NSImageName.GoRightTemplate);
                     break;
                 case DesignNodeType.Comment:
                     view.TextField.TextColor = (tableColumn.Identifier == TitleIdentifier) ? NSColor.Brown : NSColor.Purple;

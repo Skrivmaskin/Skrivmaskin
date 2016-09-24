@@ -50,7 +50,6 @@
     <Compile Include="TestSkrivmaskinParser.cs" />
     <Compile Include="TestRandomChooser.cs" />
     <Compile Include="TestGenerator.cs" />
-    <Compile Include="TestCompiler.cs" />
     <Compile Include="TestCompilerBase.cs" />
     <Compile Include="TestGeneratorBase.cs" />
     <Compile Include="TestScenario.cs" />
