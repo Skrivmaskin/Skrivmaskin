@@ -4,6 +4,8 @@ using System;
 
 using Foundation;
 using AppKit;
+using Skrivmaskin.Compiler;
+using Skrivmaskin.Lexing;
 
 namespace Skrivmaskin.Editor
 {
@@ -11,6 +13,7 @@ namespace Skrivmaskin.Editor
     {
         public Node Node { get; private set; }
         private Node lastCompiledNode { get; set; }
+        private SkrivmaskinCompiler compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
 
         public DesignViewController (IntPtr handle) : base (handle)
         {

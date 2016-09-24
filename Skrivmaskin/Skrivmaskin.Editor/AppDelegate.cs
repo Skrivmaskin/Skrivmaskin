@@ -1,6 +1,7 @@
 using System.IO;
 using AppKit;
 using Foundation;
+using Skrivmaskin.Design;
 
 namespace Skrivmaskin.Editor
 {
@@ -36,7 +37,7 @@ namespace Skrivmaskin.Editor
             }
         }
 
-    private bool OpenFile (NSUrl url)
+        private bool OpenFile (NSUrl url)
         {
             var good = false;
 
@@ -73,7 +74,9 @@ namespace Skrivmaskin.Editor
 
                 Node node;
                 string errorText;
-                if (Node.CreateTree (path, out node, out errorText)) {
+                var fileInfo = new FileInfo (path);
+                var project = ProjectWriter.Read (fileInfo);
+                if (Node.CreateTree (project, out node, out errorText)) {
                     designViewController.SetNode (node);
                 }
 

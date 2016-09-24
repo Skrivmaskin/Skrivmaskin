@@ -52,7 +52,8 @@
     <Compile Include="TestGenerator.cs" />
     <Compile Include="TestCompiler.cs" />
     <Compile Include="TestCompilerBase.cs" />
-    <Compile Include="TestGeneratorBase" />
+    <Compile Include="TestGeneratorBase.cs" />
+    <Compile Include="TestScenario.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin\Skrivmaskin.csproj">
@@ -62,6 +63,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Scenario.Project1.json" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

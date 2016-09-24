@@ -37,12 +37,9 @@ namespace Skrivmaskin.Editor
                 throw new ApplicationException ("Unexpected node type " + designNode.GetType ());
         }
 
-        public static bool CreateTree (string filePath, out Node node, out string errorText)
+        public static bool CreateTree (Project project, out Node node, out string errorText)
         {
             try {
-                var fileInfo = new FileInfo (filePath);
-                var project = ProjectWriter.Read (fileInfo);
-
                 node = new Node (NodeType.Root, "Name", "");
                 Node variables = node.AddChild (NodeType.Root, "Variables", "");
                 foreach (var variable in project.VariableDefinitions) {
