@@ -10,8 +10,8 @@ namespace Skrivmaskin.Editor
     // the data used in your Delegate. In this example, we walk a simple tree.
     public class SkrivmaskinOutlineViewDataSource : NSOutlineViewDataSource
     {
-        Node parentNode;
-        public SkrivmaskinOutlineViewDataSource (Node node)
+        DesignNode parentNode;
+        public SkrivmaskinOutlineViewDataSource (DesignNode node)
         {
             parentNode = node;
         }
@@ -20,21 +20,21 @@ namespace Skrivmaskin.Editor
         {
             // If item is null, we are referring to the root element in the tree
             item = item == null ? parentNode : item;
-            return ((Node)item).ChildCount;
+            return ((DesignNode)item).ChildCount;
         }
 
         public override NSObject GetChild (NSOutlineView outlineView, nint childIndex, NSObject item)
         {
             // If item is null, we are referring to the root element in the tree
             item = item == null ? parentNode : item;
-            return ((Node)item).GetChild ((int)childIndex);
+            return ((DesignNode)item).GetChild ((int)childIndex);
         }
 
         public override bool ItemExpandable (NSOutlineView outlineView, NSObject item)
         {
             // If item is null, we are referring to the root element in the tree
             item = item == null ? parentNode : item;
-            return !((Node)item).IsLeaf;
+            return !((DesignNode)item).IsLeaf;
         }
     }
 }

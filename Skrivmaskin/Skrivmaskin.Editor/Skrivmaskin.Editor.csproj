@@ -80,10 +80,9 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Node.cs" />
+    <Compile Include="DesignNode.cs" />
     <Compile Include="SkrivmaskinOutlineViewDataSource.cs" />
     <Compile Include="SkrivmaskinOutlineViewDelegate.cs" />
-    <Compile Include="NodeType.cs" />
     <Compile Include="TabViewController.cs" />
     <Compile Include="TabViewController.designer.cs">
       <DependentUpon>TabViewController.cs</DependentUpon>
@@ -99,6 +98,7 @@
     <Compile Include="AppDelegate.designer.cs">
       <DependentUpon>AppDelegate.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesignNodeType.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

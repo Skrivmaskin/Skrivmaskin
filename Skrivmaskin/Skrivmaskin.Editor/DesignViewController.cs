@@ -11,8 +11,8 @@ namespace Skrivmaskin.Editor
 {
     public partial class DesignViewController : NSViewController
     {
-        public Node Node { get; private set; }
-        private Node lastCompiledNode { get; set; }
+        public DesignNode Node { get; private set; }
+        private DesignNode lastCompiledNode { get; set; }
         private SkrivmaskinCompiler compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
 
         public DesignViewController (IntPtr handle) : base (handle)
@@ -34,7 +34,7 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        internal void SetNode (Node node)
+        internal void SetNode (DesignNode node)
         {
             Node = node;
             var datasource = new SkrivmaskinOutlineViewDataSource (node);

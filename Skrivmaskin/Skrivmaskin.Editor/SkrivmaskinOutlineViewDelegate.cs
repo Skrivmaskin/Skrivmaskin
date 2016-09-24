@@ -23,7 +23,7 @@ namespace Skrivmaskin.Editor
         public override NSView GetView (NSOutlineView outlineView, NSTableColumn tableColumn, NSObject item)
         {
             // Cast item
-            var node = item as Node;
+            var node = item as DesignNode;
             NSView retVal;
 
             if (tableColumn.Identifier == TitleIdentifier) {
@@ -49,33 +49,34 @@ namespace Skrivmaskin.Editor
                 retVal = view;
 
                 view.TextField.TextColor = NSColor.Black;
+                view.ImageView.Image = null;
 
                 // Set formatting, ?icons and whether the value is editable.
                 //TODO LOOOOADS of stuff.
                 switch (node.Type) {
-                case NodeType.Root:
+                case DesignNodeType.Root:
                     view.TextField.Editable = false;
                     view.ImageView.Image = NSImage.ImageNamed (NSImageName.Folder);
                     break;
-                case NodeType.Sequential:
+                case DesignNodeType.Sequential:
                     view.TextField.Editable = (tableColumn.Identifier == TitleIdentifier);
                     view.ImageView.Image = NSImage.ImageNamed (NSImageName.StatusNone);
                     break;
-                case NodeType.Choice:
+                case DesignNodeType.Choice:
                     view.TextField.Editable = (tableColumn.Identifier == TitleIdentifier);
                     view.ImageView.Image = NSImage.ImageNamed (NSImageName.StatusPartiallyAvailable);
                     break;
-                case NodeType.Text:
+                case DesignNodeType.Text:
                     view.TextField.TextColor = (tableColumn.Identifier == TitleIdentifier) ? NSColor.Brown : NSColor.Blue;
                     view.TextField.Editable = (tableColumn.Identifier == DescriptionIdentifier);
                     break;
-                case NodeType.Comment:
+                case DesignNodeType.Comment:
                     view.TextField.TextColor = (tableColumn.Identifier == TitleIdentifier) ? NSColor.Brown : NSColor.Purple;
                     view.ImageView.Image = NSImage.ImageNamed (NSImageName.StatusUnavailable);
                     view.TextField.Editable = true;
                     break;
-                case NodeType.Variable:
-                case NodeType.VariableForm:
+                case DesignNodeType.Variable:
+                case DesignNodeType.VariableForm:
                     view.TextField.Editable = true;
                     view.ImageView.Image = NSImage.ImageNamed (NSImageName.UserGuest);
                     break;
@@ -91,7 +92,7 @@ namespace Skrivmaskin.Editor
                 view.TextField.EditingEnded += (sender, e) => {
 
                     // Grab node
-                    var nd = outlineView.ItemAtRow (view.TextField.Tag) as Node;
+                    var nd = outlineView.ItemAtRow (view.TextField.Tag) as DesignNode;
 
                     // Take action based on type
                     switch (tableColumn.Title) {
@@ -137,25 +138,25 @@ namespace Skrivmaskin.Editor
                 // Set formatting, ?icons and whether the value is editable.
                 //TODO LOOOOADS of stuff.
                 switch (node.Type) {
-                case NodeType.Root:
+                case DesignNodeType.Root:
                     view.Editable = false;
                     break;
-                case NodeType.Sequential:
+                case DesignNodeType.Sequential:
                     view.Editable = (tableColumn.Identifier == TitleIdentifier);
                     break;
-                case NodeType.Choice:
+                case DesignNodeType.Choice:
                     view.Editable = (tableColumn.Identifier == TitleIdentifier);
                     break;
-                case NodeType.Text:
+                case DesignNodeType.Text:
                     view.TextColor = (tableColumn.Identifier == TitleIdentifier) ? NSColor.Brown : NSColor.Blue;
                     view.Editable = (tableColumn.Identifier == DescriptionIdentifier);
                     break;
-                case NodeType.Comment:
+                case DesignNodeType.Comment:
                     view.TextColor = (tableColumn.Identifier == TitleIdentifier) ? NSColor.Brown : NSColor.Purple;
                     view.Editable = true;
                     break;
-                case NodeType.Variable:
-                case NodeType.VariableForm:
+                case DesignNodeType.Variable:
+                case DesignNodeType.VariableForm:
                     view.Editable = true;
                     break;
                 default:
@@ -170,7 +171,7 @@ namespace Skrivmaskin.Editor
                 view.EditingEnded += (sender, e) => {
 
                     // Grab node
-                    var nd = outlineView.ItemAtRow (view.Tag) as Node;
+                    var nd = outlineView.ItemAtRow (view.Tag) as DesignNode;
 
                     // Take action based on type
                     switch (tableColumn.Title) {

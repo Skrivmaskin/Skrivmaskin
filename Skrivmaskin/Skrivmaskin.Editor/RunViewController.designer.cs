@@ -9,26 +9,29 @@ using System.CodeDom.Compiler;
 
 namespace Skrivmaskin.Editor
 {
-    [Register ("RunViewController")]
-    partial class RunViewController
-    {
-        [Outlet]
-        AppKit.NSTextField Results { get; set; }
+	[Register ("RunViewController")]
+	partial class RunViewController
+	{
+		[Outlet]
+		AppKit.NSTextView Results { get; set; }
 
-        [Outlet]
-        AppKit.NSTableView VariablesOutline { get; set; }
-        
-        void ReleaseDesignerOutlets ()
-        {
-            if (VariablesOutline != null) {
-                VariablesOutline.Dispose ();
-                VariablesOutline = null;
-            }
+		[Outlet]
+		AppKit.NSOutlineView VariablesOutline { get; set; }
 
-            if (Results != null) {
-                Results.Dispose ();
-                Results = null;
-            }
-        }
-    }
+		[Action ("GenerateClicked:")]
+		partial void GenerateClicked (Foundation.NSObject sender);
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (VariablesOutline != null) {
+				VariablesOutline.Dispose ();
+				VariablesOutline = null;
+			}
+
+			if (Results != null) {
+				Results.Dispose ();
+				Results = null;
+			}
+		}
+	}
 }

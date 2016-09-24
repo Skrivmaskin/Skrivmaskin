@@ -72,11 +72,11 @@ namespace Skrivmaskin.Editor
                     }
                 }
 
-                Node node;
+                DesignNode node;
                 string errorText;
                 var fileInfo = new FileInfo (path);
                 var project = ProjectWriter.Read (fileInfo);
-                if (Node.CreateTree (project, out node, out errorText)) {
+                if (DesignNode.CreateTree (project, out node, out errorText)) {
                     designViewController.SetNode (node);
                 }
 

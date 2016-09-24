@@ -4,13 +4,21 @@ using System;
 
 using Foundation;
 using AppKit;
+using Skrivmaskin.Compiler;
 
 namespace Skrivmaskin.Editor
 {
     public partial class RunViewController : NSViewController
     {
+        private CompiledProject compiledProject = null;
+
         public RunViewController (IntPtr handle) : base (handle)
         {
+        }
+
+        internal void SetCompiledProject (CompiledProject c)
+        {
+            compiledProject = c;
         }
     }
 }
