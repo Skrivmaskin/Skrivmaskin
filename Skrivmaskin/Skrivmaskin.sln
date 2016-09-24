@@ -1,9 +1,9 @@
 
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skrivmaskin.Core.Test", "Skrivmaskin.Core.Test\Skrivmaskin.Core.Test.csproj", "{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skrivmaskin.Test", "Skrivmaskin.Test\Skrivmaskin.Test.csproj", "{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skrivmaskin.Core", "Skrivmaskin.Core\Skrivmaskin.Core.csproj", "{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Skrivmaskin", "Skrivmaskin\Skrivmaskin.csproj", "{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}"
 EndProject
 Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Skrivmaskin.Lexing", "Skrivmaskin.Lexing\Skrivmaskin.Lexing.fsproj", "{0BE4711A-1F71-4E10-A1E5-FEE7195DF16E}"
 EndProject

@@ -104,9 +104,9 @@
     <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Skrivmaskin.Core\Skrivmaskin.Core.csproj">
+    <ProjectReference Include="..\Skrivmaskin\Skrivmaskin.csproj">
       <Project>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</Project>
-      <Name>Skrivmaskin.Core</Name>
+      <Name>Skrivmaskin</Name>
     </ProjectReference>
     <ProjectReference Include="..\Skrivmaskin.Lexing\Skrivmaskin.Lexing.fsproj">
       <Project>{0BE4711A-1F71-4E10-A1E5-FEE7195DF16E}</Project>

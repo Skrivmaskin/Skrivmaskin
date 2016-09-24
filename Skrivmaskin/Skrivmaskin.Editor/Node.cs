@@ -2,7 +2,7 @@ using System;
 using Foundation;
 using System.Collections.Generic;
 using System.IO;
-using Skrivmaskin.Core.Design;
+using Skrivmaskin.Design;
 
 namespace Skrivmaskin.Editor
 {

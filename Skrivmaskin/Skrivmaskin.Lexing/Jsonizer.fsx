@@ -1,5 +1,5 @@
 #r "bin/Debug/Skrivmaskin.Lexing.dll"
-#r "bin/Debug/Skrivmaskin.Core.dll"
+#r "bin/Debug/Skrivmaskin.dll"
 #r "bin/Debug/Newtonsoft.Json.dll"
 #r "bin/Debug/Xamarin.Forms.Core.dll"
 #r "bin/Debug/Xamarin.Forms.Xaml.dll"
@@ -10,7 +10,7 @@ open System.IO
 open System.Collections.Generic
 open System.Text.RegularExpressions
 open Skrivmaskin.Lexing
-open Skrivmaskin.Core.Design
+open Skrivmaskin.Design
 open Newtonsoft.Json
 
 let variableRegex = new Regex("(.*)\[([^\[\]]+)\](.*)")
