@@ -16,21 +16,21 @@ namespace Skrivmaskin.Editor
 		AppKit.NSTextView Results { get; set; }
 
 		[Outlet]
-		AppKit.NSOutlineView VariablesOutline { get; set; }
+		AppKit.NSTableView Variables { get; set; }
 
 		[Action ("GenerateClicked:")]
 		partial void GenerateClicked (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (VariablesOutline != null) {
-				VariablesOutline.Dispose ();
-				VariablesOutline = null;
-			}
-
 			if (Results != null) {
 				Results.Dispose ();
 				Results = null;
+			}
+
+			if (Variables != null) {
+				Variables.Dispose ();
+				Variables = null;
 			}
 		}
 	}

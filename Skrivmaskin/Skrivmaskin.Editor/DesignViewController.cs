@@ -6,6 +6,7 @@ using Foundation;
 using AppKit;
 using Skrivmaskin.Compiler;
 using Skrivmaskin.Lexing;
+using Skrivmaskin.Design;
 
 namespace Skrivmaskin.Editor
 {
@@ -17,6 +18,19 @@ namespace Skrivmaskin.Editor
 
         public DesignViewController (IntPtr handle) : base (handle)
         {
+        }
+
+        internal CompiledProject CompiledProject { get; private set; } = null;
+
+        public bool CreateTree (Project project, out string errorText)
+        {
+            DesignNode node;
+            if (DesignNode.CreateTree (project, out node, out errorText)) {
+                SetNode (node);
+                CompiledProject = compiler.Compile (project);
+                return true;
+            }
+            return false;
         }
 
         public override void ViewDidLoad ()

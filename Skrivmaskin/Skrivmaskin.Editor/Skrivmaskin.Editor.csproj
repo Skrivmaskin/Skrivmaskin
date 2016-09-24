@@ -99,6 +99,8 @@
       <DependentUpon>AppDelegate.cs</DependentUpon>
     </Compile>
     <Compile Include="DesignNodeType.cs" />
+    <Compile Include="SkrivmaskinVariablesTableViewDelegate.cs" />
+    <Compile Include="SkrivmaskinVariablesTableViewDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

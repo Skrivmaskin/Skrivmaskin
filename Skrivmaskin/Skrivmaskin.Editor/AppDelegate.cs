@@ -2,6 +2,8 @@ using System.IO;
 using AppKit;
 using Foundation;
 using Skrivmaskin.Design;
+using Skrivmaskin.Generation;
+using Skrivmaskin.Services;
 
 namespace Skrivmaskin.Editor
 {
@@ -37,6 +39,9 @@ namespace Skrivmaskin.Editor
             }
         }
 
+        DesignViewController designViewController = null;
+        RunViewController runViewController = null;
+
         private bool OpenFile (NSUrl url)
         {
             var good = false;
@@ -64,20 +69,25 @@ namespace Skrivmaskin.Editor
 
                 // Load the model into the window
                 var viewController = controller.Window.ContentViewController as TabViewController;
-                DesignViewController designViewController = null;
                 foreach (var child in viewController.ChildViewControllers) {
                     if (child is DesignViewController) {
                         designViewController = child as DesignViewController;
                         break;
                     }
                 }
+                foreach (var child in viewController.ChildViewControllers) {
+                    if (child is RunViewController) {
+                        runViewController = child as RunViewController;
+                        break;
+                    }
+                }
 
-                DesignNode node;
                 string errorText;
                 var fileInfo = new FileInfo (path);
                 var project = ProjectWriter.Read (fileInfo);
-                if (DesignNode.CreateTree (project, out node, out errorText)) {
-                    designViewController.SetNode (node);
+                if (designViewController.CreateTree (project, out errorText)) {
+                    //TODO recompile when there are edits made in the design view
+                    runViewController.SetCompiledProject (designViewController.CompiledProject);
                 }
 
                 //viewController.SetLanguageFromPath (path);
@@ -117,18 +127,14 @@ namespace Skrivmaskin.Editor
         }
 
         /// <summary>
-        /// The user has clicked Generate.
+        /// The user has clicked Generate (either via menu or via button).
         /// </summary>
-        /// <remarks>
-        /// Responsiblities are:
-        /// - parse the content of the design view (only if anything has changed) and update the compiled (or report a compilation error)
-        /// - refresh the variables in the table, being careful not to lose the user's changes
-        /// - randomly generate the output view.
-        /// </remarks>
         /// <param name="sender">Sender.</param>
         partial void generateAction (NSObject sender)
         {
-            
+            if (runViewController != null) {
+                runViewController.Generate ();
+            }
         }
     }
 }

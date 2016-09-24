@@ -78,6 +78,7 @@
     <Compile Include="Compiler\BlankCompiledNode.cs" />
     <Compile Include="Compiler\ParagraphBreakCompiledNode.cs" />
     <Compile Include="Compiler\SentenceBreakCompiledNode.cs" />
+    <Compile Include="Services\DictionaryBackedVariableSubstituter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

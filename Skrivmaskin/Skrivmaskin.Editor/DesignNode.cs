@@ -71,7 +71,7 @@ namespace Skrivmaskin.Editor
 
         public DesignNodeType Type { get; private set;}
 
-        public DesignNode (DesignNodeType nodeType, string title, string description)
+        private DesignNode (DesignNodeType nodeType, string title, string description)
         {
             Type = nodeType;
             Title = title;
