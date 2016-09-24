@@ -14,6 +14,7 @@ namespace Skrivmaskin.Compiler
     {
         readonly SkrivmaskinParser parser;
         Dictionary<TextNode, ICompiledNode> compiledNodes = new Dictionary<TextNode, ICompiledNode> ();
+        readonly ILexerSyntax lexerSyntax;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Skrivmaskin.Compilation.SkrivmaskinCompiler"/> class.
@@ -22,18 +23,26 @@ namespace Skrivmaskin.Compiler
         public SkrivmaskinCompiler (ILexerSyntax lexerSyntax)
         {
             parser = new SkrivmaskinParser (lexerSyntax);
+            this.lexerSyntax = lexerSyntax;
         }
 
         /// <summary>
         /// Compile the specified design time project.
         /// </summary>
         /// <param name="project">Project.</param>
-        public ICompiledNode Compile (Project project)
+        public CompiledProject Compile (Project project)
         {
             var transientCompiledNodes = new Dictionary<TextNode, ICompiledNode> ();
             var compiledNode = CompileNode (transientCompiledNodes, project.Definition);
             compiledNodes = transientCompiledNodes;
-            return compiledNode;
+            var variables = new List<ICompiledVariable> ();
+            foreach (var definition in project.VariableDefinitions) {
+                foreach (var form in definition.Forms) {
+                    var compiledVariable = new CompiledVariable (lexerSyntax, definition, form);
+                    variables.Add (compiledVariable);
+                }
+            }
+            return new CompiledProject (project.ProjectName, variables, compiledNode);
         }
 
         private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node)

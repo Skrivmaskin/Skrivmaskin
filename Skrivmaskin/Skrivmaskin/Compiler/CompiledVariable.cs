@@ -1,4 +1,5 @@
 using System;
+using Skrivmaskin.Design;
 using Skrivmaskin.Interfaces;
 
 namespace Skrivmaskin.Compiler
@@ -14,16 +15,20 @@ namespace Skrivmaskin.Compiler
         /// Initializes a new instance of the <see cref="T:Skrivmaskin.Compiled.CompiledVariable"/> class.
         /// </summary>
         /// <param name="lexerSyntax">Lexer syntax.</param>
-        public CompiledVariable (ILexerSyntax lexerSyntax)
+        public CompiledVariable (ILexerSyntax lexerSyntax, Variable definition, VariableForm form)
         {
             this.lexerSyntax = lexerSyntax;
+            Name = definition.Name;
+            FormName = form.Name;
+            Description = definition.Description;
+            Suggestion = form.Suggestion;
         }
 
         /// <summary>
         /// The root name of this variable.
         /// </summary>
         /// <value>The name.</value>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// The user's form of this variable. This represents a particular variant of this variable, and can be used to handle language specific
@@ -33,19 +38,19 @@ namespace Skrivmaskin.Compiler
         /// Every variable will have one entry with the empty string here. This is the root form of this variable.
         /// </remarks>
         /// <value>The name of the form.</value>
-        public string FormName { get; set; }
+        public string FormName { get; private set; }
 
         /// <summary>
         /// The user's description of this variable. This is stored in order to provide it back to the user when the user defines the valu        /// at run time.
         /// </summary>
         /// <value>The description.</value>
-        public string Description { get; set; }
+        public string Description { get; private set; }
 
         /// <summary>
         /// The user's sample suggestion for this variable value.
         /// </summary>
         /// <value>The suggestion.</value>
-        public string Suggestion { get; set; }
+        public string Suggestion { get; private set; }
 
         /// <summary>
         /// The full name of this variable, including form (if necessary).
@@ -54,12 +59,12 @@ namespace Skrivmaskin.Compiler
         public string FullName { get { return ((FormName == "") ? Name : (Name + lexerSyntax.VariableFormDelimiter + FormName)); } }
 
         /// <summary>
-        /// Determines whether the specified <see cref="Skrivmaskin.Compiled.ICompiledVariable"/> is equal to the
+        /// Determines whether the specified <see cref="ICompiledVariable"/> is equal to the
         /// current <see cref="T:Skrivmaskin.Compiled.CompiledVariable"/>.
         /// </summary>
-        /// <param name="other">The <see cref="Skrivmaskin.Compiled.ICompiledVariable"/> to compare with the current <see cref="T:Skrivmaskin.Compiled.CompiledVariable"/>.</param>
-        /// <returns><c>true</c> if the specified <see cref="Skrivmaskin.Compiled.ICompiledVariable"/> is equal to the
-        /// current <see cref="T:Skrivmaskin.Compiled.CompiledVariable"/>; otherwise, <c>false</c>.</returns>
+        /// <param name="other">The <see cref="ICompiledVariable"/> to compare with the current <see cref="T:Skrivmaskin.Compiled.CompiledVariable"/>.</param>
+        /// <returns><c>true</c> if the specified <see cref="ICompiledVariable"/> is equal to the
+        /// current <see cref="T:CompiledVariable"/>; otherwise, <c>false</c>.</returns>
         public bool Equals (ICompiledVariable other)
         {
             return FullName == other.FullName;

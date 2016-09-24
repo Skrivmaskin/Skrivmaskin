@@ -12,17 +12,7 @@ namespace Skrivmaskin.Test
     {
         public CompiledProject MakeProject (IEnumerable<ICompiledVariable> variables, ICompiledNode definition, [CallerMemberName] string testName = "Test Project")
         {
-            var project = new CompiledProject ();
-            project.ProjectName = testName.Replace("Test", "");
-            var variableDefinitions = new Dictionary<string, ICompiledVariable> ();
-            if (variables != null) {
-                foreach (var item in variables) {
-                    variableDefinitions.Add (item.FullName, item);
-                }
-            }
-            project.VariableDefinitions = variableDefinitions;
-            project.Definition = definition;
-            return project;
+            return new CompiledProject (testName.Replace ("Test", ""), variables ?? new List<ICompiledVariable> (), definition);
         }
 
         internal TextCompiledNode MakeSimpleText (string text)
