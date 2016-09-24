@@ -73,6 +73,10 @@
       },
       {
           "Text": "[COLOUR|Capitalized] [BREED|Plural] are so {cute|irritating|[COLOUR]}."
+      },
+      {},
+      {
+          "Text": "The end."
       }
     ]
   }

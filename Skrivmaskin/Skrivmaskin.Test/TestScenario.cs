@@ -118,7 +118,7 @@ namespace Skrivmaskin.Test
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("COLOUR")).Returns ("brown");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("COLOUR|Capitalized")).Returns ("Brown");
                 var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 17);
-                var expectedText = "I used to have a brown terrier named Susie. She would run alongside me while I jogged through the streets of London. Brown terriers are so irritating.";
+                var expectedText = "I used to have a brown terrier named Susie. She would run alongside me while I jogged through the streets of London. Brown terriers are so irritating.\n\nThe end.";
                 Assert.AreEqual (expectedText, generatedText);
             }
         }
