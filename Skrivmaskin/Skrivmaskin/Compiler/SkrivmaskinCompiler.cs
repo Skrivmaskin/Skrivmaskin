@@ -70,20 +70,21 @@ namespace Skrivmaskin.Compiler
                 var sequentialNode = node as SequentialNode;
                 if (sequentialNode.Sequential.Count > 0) {
                     var li = new List<ICompiledNode> ();
-                    for (int i = 0; i < sequentialNode.Sequential.Count; i++) {
-                        var compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
+                    ICompiledNode compiledNode;
+                    int i = 0;
+                    for (; i < sequentialNode.Sequential.Count - 1; i++) {
+                        compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
                         if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
-                        if (sequentialNode.Sequential [i].Type == NodeType.Text && i < sequentialNode.Sequential.Count - 1) li.Add (new SentenceBreakCompiledNode ());
+                        if (sequentialNode.Sequential [i].Type != NodeType.ParagraphBreak &&
+                            sequentialNode.Sequential [i].Type != NodeType.Comment &&
+                            sequentialNode.Sequential [i + 1].Type != NodeType.ParagraphBreak &&
+                            sequentialNode.Sequential [i + 1].Type != NodeType.Comment)
+                            li.Add (new SentenceBreakCompiledNode ());
                     }
+                    compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
+                    if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
                     if (li.Count == 0) return new BlankCompiledNode ();
-                    var li2 = new List<ICompiledNode> ();
-                    for (int i = 0; i < li.Count - 1; i++) {
-                        var cn = li [i];
-                        li2.Add (cn);
-                        li2.Add (new SentenceBreakCompiledNode ());
-                    }
-                    li2.Add (li [li.Count - 1]);
-                    return new SequentialCompiledNode (li2, sequentialNode, 0, 0);
+                    return new SequentialCompiledNode (li, sequentialNode, 0, 0);
                 }
                 return new BlankCompiledNode ();
             case NodeType.ParagraphBreak:
