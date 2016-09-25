@@ -39,9 +39,6 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        DesignViewController designViewController = null;
-        RunViewController runViewController = null;
-
         private bool OpenFile (NSUrl url)
         {
             var good = false;
@@ -66,6 +63,9 @@ namespace Skrivmaskin.Editor
 
                 // Display
                 controller.ShowWindow (this);
+
+                DesignViewController designViewController = null;
+                RunViewController runViewController = null;
 
                 // Load the model into the window
                 var viewController = controller.Window.ContentViewController as TabViewController;
@@ -123,17 +123,6 @@ namespace Skrivmaskin.Editor
                     // Open the document in a new window
                     OpenFile (url);
                 }
-            }
-        }
-
-        /// <summary>
-        /// The user has clicked Generate (either via menu or via button).
-        /// </summary>
-        /// <param name="sender">Sender.</param>
-        partial void generateAction (NSObject sender)
-        {
-            if (runViewController != null) {
-                runViewController.Generate ();
             }
         }
     }

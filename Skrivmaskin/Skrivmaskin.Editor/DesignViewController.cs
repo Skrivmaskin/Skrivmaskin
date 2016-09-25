@@ -21,14 +21,11 @@ namespace Skrivmaskin.Editor
 
         internal CompiledProject CompiledProject { get; private set; } = null;
 
-
         private NSMutableArray designs = new NSMutableArray ();
-
         [Export ("designModelArray")]
         public NSArray Designs {
             get { return designs; }
         }
-
 
         [Export ("addObject:")]
         public void AddDesign (DesignModel design)
@@ -69,7 +66,7 @@ namespace Skrivmaskin.Editor
             SetDesigns (array);
             var variables = new DesignModel ("Variables");
             AddDesign (variables);
-            var definition = new DesignModel ("Definition");
+            var definition = new DesignModel (DesignNodeType.Sequential, "Definition", "");
             AddDesign (definition);
         }
 
@@ -86,7 +83,7 @@ namespace Skrivmaskin.Editor
             return true;
         }
 
-        public bool CreateDefinition (INode designNode, DesignModel definition, out string errorText)
+        public bool CreateDefinition (INode designNode, Action<DesignModel> addDefn, out string errorText)
         {
             IEnumerable<INode> children;
             DesignModel design;
@@ -114,9 +111,9 @@ namespace Skrivmaskin.Editor
             default:
                 throw new ApplicationException ("Unrecognised design node type " + designNode.Type);
             }
-            definition.AddDesign (design);
+            addDefn (design);
             foreach (var child in children) {
-                if (!CreateDefinition (child, design, out errorText))
+                if (!CreateDefinition (child, (d)=>design.AddDesign(d), out errorText))
                     return false;
             }
             errorText = "";
@@ -129,10 +126,8 @@ namespace Skrivmaskin.Editor
             SetDesigns (array);
             var variables = new DesignModel ("Variables");
             AddDesign (variables);
-            var definition = new DesignModel ("Definition");
-            AddDesign (definition);
             if (this.CreateVariables (project, variables, out errorText)) {
-                if (this.CreateDefinition (project.Definition, definition, out errorText)) {
+                if (this.CreateDefinition (project.Definition, (d) => AddDesign (d), out errorText)) {
                     CompiledProject = compiler.Compile (project);
                     return true;
                 }

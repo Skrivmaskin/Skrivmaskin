@@ -42,7 +42,7 @@ namespace Skrivmaskin.Compiler
                     variables.Add (compiledVariable);
                 }
             }
-            return new CompiledProject (project.ProjectName, variables, compiledNode);
+            return new CompiledProject (variables, compiledNode);
         }
 
         private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node)

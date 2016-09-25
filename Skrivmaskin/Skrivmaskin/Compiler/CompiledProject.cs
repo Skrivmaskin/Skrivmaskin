@@ -11,12 +11,10 @@ namespace Skrivmaskin.Compiler
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Skrivmaskin.Compiler.CompiledProject"/> class.
         /// </summary>
-        /// <param name="projectName">Project name.</param>
         /// <param name="variables">Variables.</param>
         /// <param name="definition">Definition.</param>
-        public CompiledProject (string projectName, IEnumerable<ICompiledVariable> variables, ICompiledNode definition)
+        public CompiledProject (IEnumerable<ICompiledVariable> variables, ICompiledNode definition)
         {
-            ProjectName = projectName;
             var variableDefinitions = new Dictionary<string, ICompiledVariable> ();
             foreach (var item in variables) {
                 variableDefinitions.Add (item.FullName, item);
@@ -24,12 +22,6 @@ namespace Skrivmaskin.Compiler
             VariableDefinitions = variableDefinitions;
             Definition = definition;
         }
-
-        /// <summary>
-        /// The name of this project.
-        /// </summary>
-        /// <value>The name.</value>
-        public string ProjectName { get; private set; }
 
         /// <summary>
         /// The user's variable definitions.
