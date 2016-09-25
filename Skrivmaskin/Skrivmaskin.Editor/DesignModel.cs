@@ -23,21 +23,21 @@ namespace Skrivmaskin.Editor
         public string nameToolTip {
             get {
                 switch (nodeType) {
-                case DesignNodeType.Text:
+                case DesignModelType.Text:
                     return "Text to be inserted into the output.";
-                case DesignNodeType.Choice:
+                case DesignModelType.Choice:
                     return "One of the subnodes will be randomly chosen for the output.";
-                case DesignNodeType.Sequential:
+                case DesignModelType.Sequential:
                     return "All of the subnodes will be included sequentially in the output.";
-                case DesignNodeType.Root:
+                case DesignModelType.VariableRoot:
                     return "Root node";
-                case DesignNodeType.Variable:
+                case DesignModelType.Variable:
                     return "A variable to be substituted into the output, using the [VARNAME] syntax.";
-                case DesignNodeType.VariableForm:
+                case DesignModelType.VariableForm:
                     return "A grammatical variant of the variable to be substituted into the output, using the [VARNAME|Variant] syntax.";
-                case DesignNodeType.ParagraphBreak:
+                case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
-                case DesignNodeType.Comment:
+                case DesignModelType.Comment:
                     return "A free form comment, excluded from the output.";
                 }
                 throw new ApplicationException ("Unknown nodde type " + nodeType);
@@ -48,19 +48,19 @@ namespace Skrivmaskin.Editor
         public string detailsToolTip {
             get {
                 switch (nodeType) {
-                case DesignNodeType.Text:
-                case DesignNodeType.Comment:
+                case DesignModelType.Text:
+                case DesignModelType.Comment:
                     return "Write text here.";
-                case DesignNodeType.Choice:
-                case DesignNodeType.Sequential:
+                case DesignModelType.Choice:
+                case DesignModelType.Sequential:
                     return "Insert subnodes.";
-                case DesignNodeType.Root:
+                case DesignModelType.VariableRoot:
                     return "Root node";
-                case DesignNodeType.Variable:
+                case DesignModelType.Variable:
                     return "Variable definition - used as a prompt for the user.";
-                case DesignNodeType.VariableForm:
+                case DesignModelType.VariableForm:
                     return "Suggestion for the value of this variant.";
-                case DesignNodeType.ParagraphBreak:
+                case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
                 }
                 throw new ApplicationException ("Unknown nodde type " + nodeType);
@@ -78,8 +78,8 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        private DesignNodeType nodeType;
-        public DesignNodeType NodeType {
+        private DesignModelType nodeType;
+        public DesignModelType NodeType {
             get { return nodeType; }
             set {
                 WillChangeValue ("Icon");
@@ -108,12 +108,12 @@ namespace Skrivmaskin.Editor
 
         [Export ("isNameEditable")]
         public bool isNameEditable {
-            get { return NodeType == DesignNodeType.Choice || NodeType == DesignNodeType.Sequential || NodeType == DesignNodeType.Variable || NodeType == DesignNodeType.VariableForm; }
+            get { return NodeType == DesignModelType.Choice || NodeType == DesignModelType.Sequential || NodeType == DesignModelType.Variable || NodeType == DesignModelType.VariableForm; }
         }
 
         [Export ("isDetailsEditable")]
         public bool isDetailsEditable {
-            get { return NodeType == DesignNodeType.Comment || NodeType == DesignNodeType.Text || NodeType == DesignNodeType.Variable || NodeType == DesignNodeType.VariableForm; }
+            get { return NodeType == DesignModelType.Comment || NodeType == DesignModelType.Text || NodeType == DesignModelType.Variable || NodeType == DesignModelType.VariableForm; }
         }
 
         [Export ("Icon")]
@@ -123,18 +123,18 @@ namespace Skrivmaskin.Editor
                     return NSImage.ImageNamed (NSImageName.StatusUnavailable);
                 } else {
                     switch (NodeType) {
-                    case DesignNodeType.Root:
+                    case DesignModelType.VariableRoot:
                         return NSImage.ImageNamed (NSImageName.Folder);
-                    case DesignNodeType.Variable:
-                    case DesignNodeType.VariableForm:
+                    case DesignModelType.Variable:
+                    case DesignModelType.VariableForm:
                         return NSImage.ImageNamed (NSImageName.UserGuest);
-                    case DesignNodeType.Text:
+                    case DesignModelType.Text:
                         return NSImage.ImageNamed (NSImageName.GoRightTemplate);
-                    case DesignNodeType.Comment:
+                    case DesignModelType.Comment:
                         return NSImage.ImageNamed (NSImageName.UserGuest);
-                    case DesignNodeType.Choice:
+                    case DesignModelType.Choice:
                         return NSImage.ImageNamed (NSImageName.StatusPartiallyAvailable);
-                    case DesignNodeType.Sequential:
+                    case DesignModelType.Sequential:
                         return NSImage.ImageNamed (NSImageName.StatusNone);
                     default:
                         return null;
@@ -191,7 +191,7 @@ namespace Skrivmaskin.Editor
         public DesignModel (string name)
         {
             isActive = true;
-            NodeType = DesignNodeType.Root;
+            NodeType = DesignModelType.VariableRoot;
             Name = name;
             Details = "";
         }
@@ -199,7 +199,7 @@ namespace Skrivmaskin.Editor
         public DesignModel (Variable variable)
         {
             isActive = true;
-            NodeType = DesignNodeType.Variable;
+            NodeType = DesignModelType.Variable;
             Name = variable.Name;
             Details = variable.Description;
         }
@@ -207,12 +207,12 @@ namespace Skrivmaskin.Editor
         public DesignModel (VariableForm form)
         {
             isActive = true;
-            NodeType = DesignNodeType.VariableForm;
+            NodeType = DesignModelType.VariableForm;
             Name = form.Name;
             Details = form.Suggestion;
         }
 
-        public DesignModel (DesignNodeType designNodeType, string name, string details)
+        public DesignModel (DesignModelType designNodeType, string name, string details)
         {
             isActive = true;
             NodeType = designNodeType;

@@ -1,9 +1,9 @@
 ﻿using System;
 namespace Skrivmaskin.Editor
 {
-    public enum DesignNodeType
+    public enum DesignModelType
     {
-        Root,
+        VariableRoot,
         Variable,
         VariableForm,
         Text,

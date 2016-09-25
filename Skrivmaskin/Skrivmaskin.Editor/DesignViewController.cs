@@ -67,7 +67,7 @@ namespace Skrivmaskin.Editor
             SetDesigns (array);
             var variables = new DesignModel ("Variables");
             AddDesign (variables);
-            var definition = new DesignModel (DesignNodeType.Sequential, "Definition", "");
+            var definition = new DesignModel (DesignModelType.Sequential, "Definition", "");
             AddDesign (definition);
         }
 
@@ -91,23 +91,23 @@ namespace Skrivmaskin.Editor
             switch (designNode.Type) {
             case NodeType.Choice:
                 children = (designNode as ChoiceNode).Choices;
-                design = new DesignModel (DesignNodeType.Choice, (designNode as ChoiceNode).ChoiceName, "");
+                design = new DesignModel (DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "");
                 break;
             case NodeType.Sequential:
                 children = (designNode as SequentialNode).Sequential;
-                design = new DesignModel (DesignNodeType.Sequential, (designNode as SequentialNode).SequentialName, "");
+                design = new DesignModel (DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
                 break;
             case NodeType.Comment:
                 children = new INode [0];
-                design = new DesignModel (DesignNodeType.Comment, (designNode as CommentNode).CommentName, (designNode as CommentNode).Value);
+                design = new DesignModel (DesignModelType.Comment, (designNode as CommentNode).CommentName, (designNode as CommentNode).Value);
                 break;
             case NodeType.ParagraphBreak:
                 children = new INode [0];
-                design = new DesignModel (DesignNodeType.ParagraphBreak, "Paragraph Break", "");
+                design = new DesignModel (DesignModelType.ParagraphBreak, "Paragraph Break", "");
                 break;
             case NodeType.Text:
                 children = new INode [0];
-                design = new DesignModel (DesignNodeType.Text, "", (designNode as TextNode).Text);
+                design = new DesignModel (DesignModelType.Text, "", (designNode as TextNode).Text);
                 break;
             default:
                 throw new ApplicationException ("Unrecognised design node type " + designNode.Type);

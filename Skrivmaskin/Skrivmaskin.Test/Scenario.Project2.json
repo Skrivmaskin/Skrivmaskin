@@ -71,7 +71,7 @@
           ]
       },
       {
-          "Text": "[COLOUR|Capitalized] [BREED|Plural] are so {cute|irritating|[COLOUR]}."
+          "Text": "{[COLOUR|Capitalized]|I {think|believe}} [BREED|Plural] are so {cute|irritating|[COLOUR]}."
       },
       {},
       {

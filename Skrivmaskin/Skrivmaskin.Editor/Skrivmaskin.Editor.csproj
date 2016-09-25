@@ -92,7 +92,7 @@
     <Compile Include="AppDelegate.designer.cs">
       <DependentUpon>AppDelegate.cs</DependentUpon>
     </Compile>
-    <Compile Include="DesignNodeType.cs" />
+    <Compile Include="DesignModelType.cs" />
     <Compile Include="SkrivmaskinVariablesTableViewDelegate.cs" />
     <Compile Include="SkrivmaskinVariablesTableViewDataSource.cs" />
     <Compile Include="DesignModel.cs" />
