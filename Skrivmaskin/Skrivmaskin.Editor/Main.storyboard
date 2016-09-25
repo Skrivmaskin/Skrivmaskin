@@ -728,28 +728,35 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="VCn-9S-OY8">
+                                                        <tableCellView id="MnT-Uy-5ti">
                                                             <rect key="frame" x="1" y="1" width="118" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="TMx-D3-mUP">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="118" height="17"/>
+                                                                <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="3t9-B7-9MM">
+                                                                    <rect key="frame" x="3" y="0.0" width="17" height="17"/>
+                                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                                                    <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="XCg-dZ-l6c"/>
+                                                                    <connections>
+                                                                        <binding destination="MnT-Uy-5ti" name="value" keyPath="objectValue.Icon" id="8eF-IC-ziV"/>
+                                                                    </connections>
+                                                                </imageView>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PZE-QC-QVB">
+                                                                    <rect key="frame" x="25" y="0.0" width="93" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="G4N-Jf-J5Q">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="CZh-f6-zdh">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                        <connections>
-                                                                            <binding destination="VCn-9S-OY8" name="editable" keyPath="objectValue.isNameEditable" id="5gm-47-Qoh"/>
-                                                                        </connections>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="VCn-9S-OY8" name="value" keyPath="objectValue.Name" id="b7Q-QV-mns"/>
+                                                                        <binding destination="MnT-Uy-5ti" name="value" keyPath="objectValue.Name" id="h5H-01-mbJ"/>
+                                                                        <binding destination="MnT-Uy-5ti" name="editable" keyPath="objectValue.isNameEditable" id="chY-VX-7RU"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <connections>
-                                                                <outlet property="textField" destination="TMx-D3-mUP" id="UnK-X2-Yss"/>
+                                                                <outlet property="imageView" destination="3t9-B7-9MM" id="R3F-Di-xmS"/>
+                                                                <outlet property="textField" destination="PZE-QC-QVB" id="0ZV-Xy-njT"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
@@ -767,28 +774,26 @@
                                                     </textFieldCell>
                                                     <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
-                                                        <tableCellView id="GiM-nL-DAY">
+                                                        <tableCellView id="5Kb-kr-VlJ">
                                                             <rect key="frame" x="122" y="1" width="288" height="17"/>
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
-                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="P2O-5h-tkS">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="288" height="17"/>
+                                                                <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8hS-bs-NXA">
+                                                                    <rect key="frame" x="1" y="0.0" width="287" height="17"/>
                                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="8NL-74-BHv">
+                                                                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" title="Table View Cell" id="cEv-yK-LJg">
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                                        <connections>
-                                                                            <binding destination="GiM-nL-DAY" name="editable" keyPath="objectValue.isDetailsEditable" id="Soi-Pl-6Nl"/>
-                                                                        </connections>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="GiM-nL-DAY" name="value" keyPath="objectValue.Details" id="nuD-eP-C45"/>
+                                                                        <binding destination="5Kb-kr-VlJ" name="value" keyPath="objectValue.Details" id="wMs-g1-pVD"/>
+                                                                        <binding destination="5Kb-kr-VlJ" name="editable" keyPath="objectValue.isDetailsEditable" id="Xye-xi-wci"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
                                                             <connections>
-                                                                <outlet property="textField" destination="P2O-5h-tkS" id="pRb-6L-phq"/>
+                                                                <outlet property="textField" destination="8hS-bs-NXA" id="5Ol-K2-YYZ"/>
                                                             </connections>
                                                         </tableCellView>
                                                     </prototypeCellViews>
@@ -1063,4 +1068,7 @@
             <point key="canvasLocation" x="75" y="1161"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="NSActionTemplate" width="14" height="14"/>
+    </resources>
 </document>
