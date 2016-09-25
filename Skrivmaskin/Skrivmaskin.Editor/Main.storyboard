@@ -738,6 +738,7 @@
                                                                     <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSActionTemplate" id="XCg-dZ-l6c"/>
                                                                     <connections>
                                                                         <binding destination="MnT-Uy-5ti" name="value" keyPath="objectValue.Icon" id="8eF-IC-ziV"/>
+                                                                        <binding destination="MnT-Uy-5ti" name="toolTip" keyPath="objectValue.nameToolTip" id="hb9-10-KYJ"/>
                                                                     </connections>
                                                                 </imageView>
                                                                 <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" fixedFrame="YES" allowsExpansionToolTips="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PZE-QC-QVB">
@@ -751,6 +752,7 @@
                                                                     <connections>
                                                                         <binding destination="MnT-Uy-5ti" name="value" keyPath="objectValue.Name" id="h5H-01-mbJ"/>
                                                                         <binding destination="MnT-Uy-5ti" name="editable" keyPath="objectValue.isNameEditable" id="chY-VX-7RU"/>
+                                                                        <binding destination="MnT-Uy-5ti" name="toolTip" keyPath="objectValue.nameToolTip" id="hCU-7a-1pP"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -789,6 +791,7 @@
                                                                     <connections>
                                                                         <binding destination="5Kb-kr-VlJ" name="value" keyPath="objectValue.Details" id="wMs-g1-pVD"/>
                                                                         <binding destination="5Kb-kr-VlJ" name="editable" keyPath="objectValue.isDetailsEditable" id="Xye-xi-wci"/>
+                                                                        <binding destination="5Kb-kr-VlJ" name="toolTip" keyPath="objectValue.detailsToolTip" id="uHS-84-9Wk"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>

@@ -19,6 +19,54 @@ namespace Skrivmaskin.Editor
             }
         }
 
+        [Export ("nameToolTip")]
+        public string nameToolTip {
+            get {
+                switch (nodeType) {
+                case DesignNodeType.Text:
+                    return "Text to be inserted into the output.";
+                case DesignNodeType.Choice:
+                    return "One of the subnodes will be randomly chosen for the output.";
+                case DesignNodeType.Sequential:
+                    return "All of the subnodes will be included sequentially in the output.";
+                case DesignNodeType.Root:
+                    return "Root node";
+                case DesignNodeType.Variable:
+                    return "A variable to be substituted into the output, using the [VARNAME] syntax.";
+                case DesignNodeType.VariableForm:
+                    return "A grammatical variant of the variable to be substituted into the output, using the [VARNAME|Variant] syntax.";
+                case DesignNodeType.ParagraphBreak:
+                    return "A paragraph break";
+                case DesignNodeType.Comment:
+                    return "A free form comment, excluded from the output.";
+                }
+                throw new ApplicationException ("Unknown nodde type " + nodeType);
+            }
+        }
+
+        [Export ("detailsToolTip")]
+        public string detailsToolTip {
+            get {
+                switch (nodeType) {
+                case DesignNodeType.Text:
+                case DesignNodeType.Comment:
+                    return "Write text here.";
+                case DesignNodeType.Choice:
+                case DesignNodeType.Sequential:
+                    return "Insert subnodes.";
+                case DesignNodeType.Root:
+                    return "Root node";
+                case DesignNodeType.Variable:
+                    return "Variable definition - used as a prompt for the user.";
+                case DesignNodeType.VariableForm:
+                    return "Suggestion for the value of this variant.";
+                case DesignNodeType.ParagraphBreak:
+                    return "A paragraph break";
+                }
+                throw new ApplicationException ("Unknown nodde type " + nodeType);
+            }
+        }
+
         private string details = "";
         [Export ("Details")]
         public string Details {
