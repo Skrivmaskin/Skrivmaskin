@@ -89,10 +89,6 @@
     <Compile Include="DesignViewController.designer.cs">
       <DependentUpon>DesignViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="RunViewController.cs" />
-    <Compile Include="RunViewController.designer.cs">
-      <DependentUpon>RunViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="AppDelegate.designer.cs">
       <DependentUpon>AppDelegate.cs</DependentUpon>
     </Compile>
@@ -101,6 +97,14 @@
     <Compile Include="SkrivmaskinVariablesTableViewDataSource.cs" />
     <Compile Include="DesignModel.cs" />
     <Compile Include="DesignOutlineView.cs" />
+    <Compile Include="SetVariablesViewController.cs" />
+    <Compile Include="SetVariablesViewController.designer.cs">
+      <DependentUpon>SetVariablesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ResultsViewController.cs" />
+    <Compile Include="ResultsViewController.designer.cs">
+      <DependentUpon>ResultsViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

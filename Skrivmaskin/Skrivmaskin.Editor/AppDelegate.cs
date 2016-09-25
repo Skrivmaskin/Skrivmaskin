@@ -65,19 +65,29 @@ namespace Skrivmaskin.Editor
                 controller.ShowWindow (this);
 
                 DesignViewController designViewController = null;
-                RunViewController runViewController = null;
+                SetVariablesViewController setVariablesViewController = null;
+                ResultsViewController resultsViewController = null;
+                NSViewController generateViewController = null;
 
                 // Load the model into the window
                 var viewController = controller.Window.ContentViewController as TabViewController;
                 foreach (var child in viewController.ChildViewControllers) {
                     if (child is DesignViewController) {
                         designViewController = child as DesignViewController;
+                    } else {
+                        generateViewController = child;
+                    }
+                }
+
+                foreach (var child in generateViewController.ChildViewControllers) {
+                    if (child is ResultsViewController) {
+                        resultsViewController = child as ResultsViewController;
                         break;
                     }
                 }
-                foreach (var child in viewController.ChildViewControllers) {
-                    if (child is RunViewController) {
-                        runViewController = child as RunViewController;
+                foreach (var child in generateViewController.ChildViewControllers) {
+                    if (child is SetVariablesViewController) {
+                        setVariablesViewController = child as SetVariablesViewController;
                         break;
                     }
                 }
@@ -87,7 +97,8 @@ namespace Skrivmaskin.Editor
                 var project = ProjectWriter.Read (fileInfo);
                 if (designViewController.CreateTree (project, out errorText)) {
                     //TODO recompile when there are edits made in the design view
-                    runViewController.SetCompiledProject (designViewController.CompiledProject);
+                    setVariablesViewController.SetCompiledProject (designViewController.CompiledProject);
+                    resultsViewController.SetCompiledProject (setVariablesViewController.VariableValues, designViewController.CompiledProject);
                 }
 
                 //viewController.SetLanguageFromPath (path);

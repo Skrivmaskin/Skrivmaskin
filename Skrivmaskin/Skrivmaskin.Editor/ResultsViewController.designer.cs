@@ -9,14 +9,11 @@ using System.CodeDom.Compiler;
 
 namespace Skrivmaskin.Editor
 {
-	[Register ("RunViewController")]
-	partial class RunViewController
+	[Register ("ResultsViewController")]
+	partial class ResultsViewController
 	{
 		[Outlet]
 		AppKit.NSTextView Results { get; set; }
-
-		[Outlet]
-		AppKit.NSTableView Variables { get; set; }
 
 		[Action ("GenerateClicked:")]
 		partial void GenerateClicked (Foundation.NSObject sender);
@@ -26,11 +23,6 @@ namespace Skrivmaskin.Editor
 			if (Results != null) {
 				Results.Dispose ();
 				Results = null;
-			}
-
-			if (Variables != null) {
-				Variables.Dispose ();
-				Variables = null;
 			}
 		}
 	}
