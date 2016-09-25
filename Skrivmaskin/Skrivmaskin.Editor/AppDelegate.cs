@@ -125,5 +125,21 @@ namespace Skrivmaskin.Editor
                 }
             }
         }
+
+        int UntitledWindowCount = 0;
+
+        [Export ("newDocument:")]
+        void NewDocument (NSObject sender)
+        {
+            // Get new window
+            var storyboard = NSStoryboard.FromName ("Main", null);
+            var controller = storyboard.InstantiateControllerWithIdentifier ("MainWindow") as NSWindowController;
+
+            // Display
+            controller.ShowWindow (this);
+
+            // Set the title
+            controller.Window.Title = (++UntitledWindowCount == 1) ? "untitled" : string.Format ("untitled {0}", UntitledWindowCount);
+        }
     }
 }
