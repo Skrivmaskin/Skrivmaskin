@@ -9,6 +9,7 @@ namespace Skrivmaskin.Editor
         Text,
         Comment,
         Choice,
-        Sequential
+        Sequential,
+        ParagraphBreak
     }
 }

@@ -7,13 +7,12 @@ using AppKit;
 using Skrivmaskin.Compiler;
 using Skrivmaskin.Lexing;
 using Skrivmaskin.Design;
+using System.Collections.Generic;
 
 namespace Skrivmaskin.Editor
 {
     public partial class DesignViewController : NSViewController
     {
-        public DesignNode Node { get; private set; }
-        private DesignNode lastCompiledNode { get; set; }
         private SkrivmaskinCompiler compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
 
         public DesignViewController (IntPtr handle) : base (handle)
@@ -22,13 +21,121 @@ namespace Skrivmaskin.Editor
 
         internal CompiledProject CompiledProject { get; private set; } = null;
 
+
+        private NSMutableArray designs = new NSMutableArray ();
+
+        [Export ("designModelArray")]
+        public NSArray Designs {
+            get { return designs; }
+        }
+
+
+        [Export ("addObject:")]
+        public void AddDesign (DesignModel design)
+        {
+            WillChangeValue ("designModelArray");
+            designs.Add (design);
+            DidChangeValue ("designModelArray");
+        }
+
+        [Export ("insertObject:inDesignModelArrayAtIndex:")]
+        public void InsertDesign (DesignModel design, nint index)
+        {
+            WillChangeValue ("designModelArray");
+            designs.Insert (design, index);
+            DidChangeValue ("designModelArray");
+        }
+
+        [Export ("removeObjectFromDesignModelArrayAtIndex:")]
+        public void RemoveDesign (nint index)
+        {
+            WillChangeValue ("designModelArray");
+            designs.RemoveObject (index);
+            DidChangeValue ("designModelArray");
+        }
+
+        [Export ("setDesignModelArray:")]
+        public void SetDesigns (NSMutableArray array)
+        {
+            WillChangeValue ("designModelArray");
+            designs = array;
+            DidChangeValue ("designModelArray");
+        }
+
+        public override void AwakeFromNib ()
+        {
+            base.AwakeFromNib ();
+            var array = new NSMutableArray ();
+            SetDesigns (array);
+            var variables = new DesignModel ("Variables");
+            AddDesign (variables);
+            var definition = new DesignModel ("Definition");
+            AddDesign (definition);
+        }
+
+        public bool CreateVariables (Project project, DesignModel variables, out string errorText)
+        {
+            foreach (var variable in project.VariableDefinitions) {
+                var model = new DesignModel (variable);
+                variables.AddDesign (model);
+                foreach (var form in variable.Forms) {
+                    model.AddDesign (new DesignModel (form));
+                }
+            }
+            errorText = "";
+            return true;
+        }
+
+        public bool CreateDefinition (INode designNode, DesignModel definition, out string errorText)
+        {
+            IEnumerable<INode> children;
+            DesignModel design;
+            switch (designNode.Type) {
+            case NodeType.Choice:
+                children = (designNode as ChoiceNode).Choices;
+                design = new DesignModel (DesignNodeType.Choice, (designNode as ChoiceNode).ChoiceName, "");
+                break;
+            case NodeType.Sequential:
+                children = (designNode as SequentialNode).Sequential;
+                design = new DesignModel (DesignNodeType.Sequential, (designNode as SequentialNode).SequentialName, "");
+                break;
+            case NodeType.Comment:
+                children = new INode [0];
+                design = new DesignModel (DesignNodeType.Comment, (designNode as CommentNode).CommentName, (designNode as CommentNode).Value);
+                break;
+            case NodeType.ParagraphBreak:
+                children = new INode [0];
+                design = new DesignModel (DesignNodeType.ParagraphBreak, "Paragraph Break", "");
+                break;
+            case NodeType.Text:
+                children = new INode [0];
+                design = new DesignModel (DesignNodeType.Text, "", (designNode as TextNode).Text);
+                break;
+            default:
+                throw new ApplicationException ("Unrecognised design node type " + designNode.Type);
+            }
+            definition.AddDesign (design);
+            foreach (var child in children) {
+                if (!CreateDefinition (child, design, out errorText))
+                    return false;
+            }
+            errorText = "";
+            return true;
+        }
+
         public bool CreateTree (Project project, out string errorText)
         {
-            DesignNode node;
-            if (DesignNode.CreateTree (project, out node, out errorText)) {
-                SetNode (node);
-                CompiledProject = compiler.Compile (project);
-                return true;
+            var array = new NSMutableArray ();
+            SetDesigns (array);
+            var variables = new DesignModel ("Variables");
+            AddDesign (variables);
+            var definition = new DesignModel ("Definition");
+            AddDesign (definition);
+            if (this.CreateVariables (project, variables, out errorText)) {
+                if (this.CreateDefinition (project.Definition, definition, out errorText)) {
+                    CompiledProject = compiler.Compile (project);
+                    return true;
+                }
             }
             return false;
         }
@@ -48,20 +155,9 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        internal void SetNode (DesignNode node)
-        {
-            Node = node;
-            var datasource = new SkrivmaskinOutlineViewDataSource (node);
-            SkrivmaskinOutlineView.DataSource = datasource;
-            SkrivmaskinOutlineView.Delegate = new SkrivmaskinOutlineViewDelegate (datasource);
-        }
-
         //TODO farm this out to threads??
         private void Compile ()
         {
-            if (lastCompiledNode != Node) {
-                
-            }
         }
     }
 }
