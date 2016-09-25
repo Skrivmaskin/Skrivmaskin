@@ -829,6 +829,9 @@
                             <constraint firstAttribute="trailing" secondItem="1kQ-0N-xAu" secondAttribute="trailing" constant="20" id="oyZ-D2-ciA"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="DesignOutlineView" destination="tRp-WS-pdL" id="Lvf-ee-z6H"/>
+                    </connections>
                 </viewController>
                 <customObject id="9CK-bW-ZXW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <treeController objectClassName="DesignModel" childrenKeyPath="designModelArray" countKeyPath="NumberOfDesigns" leafKeyPath="isLeaf" id="Nen-D7-Df0">

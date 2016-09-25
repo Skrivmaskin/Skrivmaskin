@@ -22,8 +22,8 @@ namespace Skrivmaskin.Editor
         internal CompiledProject CompiledProject { get; private set; } = null;
 
         private NSMutableArray designs = new NSMutableArray ();
-        [Export ("designModelArray")]
         public NSArray Designs {
+            [Export ("designModelArray")]
             get { return designs; }
         }
 

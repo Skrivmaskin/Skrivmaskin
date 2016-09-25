@@ -9,11 +9,18 @@ using System.CodeDom.Compiler;
 
 namespace Skrivmaskin.Editor
 {
-    [Register ("DesignViewController")]
-    partial class DesignViewController
-    {
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+	[Register ("DesignViewController")]
+	partial class DesignViewController
+	{
+		[Outlet]
+		Foundation.NSObject DesignOutlineView { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (DesignOutlineView != null) {
+				DesignOutlineView.Dispose ();
+				DesignOutlineView = null;
+			}
+		}
+	}
 }
