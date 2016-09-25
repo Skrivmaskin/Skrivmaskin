@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Skrivmaskin.Design
@@ -8,14 +9,15 @@ namespace Skrivmaskin.Design
     /// </summary>
     public sealed class TextNode : INode, IEquatable<TextNode>
     {
-        public TextNode () : this ("")
+        internal TextNode () : this ("", true)
         {
 
         }
 
-        public TextNode (string text)
+        public TextNode (string text, bool isActive)
         {
             Text = text;
+            IsActive = isActive;
         }
 
         /// <summary>
@@ -23,6 +25,13 @@ namespace Skrivmaskin.Design
         /// </summary>
         /// <value>The text.</value>
         public string Text { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:Skrivmaskin.Design.TextNode"/> is active.
+        /// </summary>
+        /// <value><c>true</c> if is active; otherwise, <c>false</c>.</value>
+        [DefaultValue (true)]
+        public bool IsActive { get; set; }
 
         [JsonIgnore]
         public NodeType Type {

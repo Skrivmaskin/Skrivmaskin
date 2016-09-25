@@ -23,11 +23,6 @@ namespace Skrivmaskin.Design
             {
                 // Load JObject from stream
                 JObject jObject = JObject.Load (reader);
-                if (jObject ["CommentName"] != null) {
-                    var commentNode = new CommentNode ();
-                    serializer.Populate (jObject.CreateReader (), commentNode);
-                    return commentNode;
-                }
                 if (jObject ["Choices"] != null) {
                     var choiceNode = new ChoiceNode ();
                     serializer.Populate (jObject.CreateReader (), choiceNode);
@@ -71,6 +66,7 @@ namespace Skrivmaskin.Design
         {
             var serializer = new JsonSerializer ();
             serializer.Formatting = Formatting.Indented;
+            serializer.DefaultValueHandling = DefaultValueHandling.Ignore;
             serializer.Converters.Add (new NodeConverter ());
             using (var stream = new FileStream (fileInfo.FullName, FileMode.Create, FileAccess.Write))
             using (var writer = new StreamWriter (stream))
@@ -84,6 +80,7 @@ namespace Skrivmaskin.Design
         {
             var serializer = new JsonSerializer ();
             serializer.Formatting = Formatting.Indented;
+            serializer.DefaultValueHandling = DefaultValueHandling.Ignore;
             serializer.Converters.Add (new NodeConverter ());
             using (var stream = new FileStream (fileInfo.FullName, FileMode.Open, FileAccess.Read))
             using (var reader = new StreamReader (stream))

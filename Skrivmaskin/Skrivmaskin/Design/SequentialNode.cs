@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Skrivmaskin.Design
@@ -7,16 +8,23 @@ namespace Skrivmaskin.Design
     /// <summary>
     /// Sequential node. Nodes below here are inserted sequentially.
     /// </summary>
-    public class SequentialNode : INode,IEquatable<SequentialNode>
+    public class SequentialNode : INode, IEquatable<SequentialNode>
     {
-        public SequentialNode () : this ("", new List<INode> ())
+        internal SequentialNode () : this ("", true, new List<INode> ())
         {
 
         }
 
-        public SequentialNode (string sequentialName, List<INode> sequential)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Skrivmaskin.Design.SequentialNode"/> class.
+        /// </summary>
+        /// <param name="sequentialName">Sequential name.</param>
+        /// <param name="isActive">If set to <c>true</c> is active.</param>
+        /// <param name="sequential">Sequential.</param>
+        public SequentialNode (string sequentialName, bool isActive, List<INode> sequential)
         {
             SequentialName = sequentialName;
+            IsActive = isActive;
             Sequential = sequential;
         }
 
@@ -25,6 +33,13 @@ namespace Skrivmaskin.Design
         /// </summary>
         /// <value>The name.</value>
         public string SequentialName { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:Skrivmaskin.Design.SequentialNode"/> is active.
+        /// </summary>
+        /// <value><c>true</c> if is active; otherwise, <c>false</c>.</value>
+        [DefaultValue (true)]
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets the subnodes.

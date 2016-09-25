@@ -40,8 +40,6 @@ namespace Skrivmaskin.Editor
                     return "A grammatical variant of the variable to be substituted into the output, using the [VARNAME|Variant] syntax.";
                 case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
-                case DesignModelType.Comment:
-                    return "A free form comment, excluded from the output.";
                 }
                 throw new ApplicationException ("Unknown nodde type " + nodeType);
             }
@@ -52,7 +50,6 @@ namespace Skrivmaskin.Editor
             get {
                 switch (nodeType) {
                 case DesignModelType.Text:
-                case DesignModelType.Comment:
                     return "Write text here.";
                 case DesignModelType.Choice:
                 case DesignModelType.Sequential:
@@ -117,7 +114,7 @@ namespace Skrivmaskin.Editor
 
         [Export ("isDetailsEditable")]
         public bool isDetailsEditable {
-            get { return NodeType == DesignModelType.Comment || NodeType == DesignModelType.Text || NodeType == DesignModelType.Variable || NodeType == DesignModelType.VariableForm; }
+            get { return NodeType == DesignModelType.Text || NodeType == DesignModelType.Variable || NodeType == DesignModelType.VariableForm; }
         }
 
         [Export ("Icon")]
@@ -134,8 +131,6 @@ namespace Skrivmaskin.Editor
                         return NSImage.ImageNamed (NSImageName.UserGuest);
                     case DesignModelType.Text:
                         return NSImage.ImageNamed (NSImageName.GoRightTemplate);
-                    case DesignModelType.Comment:
-                        return NSImage.ImageNamed (NSImageName.UserGuest);
                     case DesignModelType.Choice:
                         return NSImage.ImageNamed (NSImageName.StatusPartiallyAvailable);
                     case DesignModelType.Sequential:

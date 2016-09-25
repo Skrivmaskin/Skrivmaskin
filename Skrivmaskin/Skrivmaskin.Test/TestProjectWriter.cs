@@ -17,6 +17,7 @@ namespace Skrivmaskin.Test
             var jsonConverters = ProjectWriter.JsonConverters;
             var jsonSerializer = new JsonSerializer ();
             jsonSerializer.Formatting = Formatting.Indented;
+            jsonSerializer.DefaultValueHandling = DefaultValueHandling.Ignore;
             foreach (var converter in jsonConverters) {
                 jsonSerializer.Converters.Add (converter);
             }

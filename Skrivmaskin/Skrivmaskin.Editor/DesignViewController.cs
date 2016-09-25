@@ -59,23 +59,21 @@ namespace Skrivmaskin.Editor
         {
             switch (designModel.NodeType) {
             case DesignModelType.Text:
-                return new TextNode (designModel.Details);
-            case DesignModelType.Comment:
-                return new CommentNode (designModel.Name, designModel.Details);
+                return new TextNode (designModel.Details, designModel.IsActive);
             case DesignModelType.Choice:
                 var li = new List<INode> ();
                 for (int i = 0; i < designModel.NumberOfDesigns; i++) {
                     li.Add (CreateDesignNode (designModel.Designs.GetItem<DesignModel> ((nuint)i)));
                 }
-                return new ChoiceNode (designModel.Name, li);
+                return new ChoiceNode (designModel.Name, designModel.IsActive, li);
             case DesignModelType.Sequential:
                 var li2 = new List<INode> ();
                 for (int i = 0; i < designModel.NumberOfDesigns; i++) {
                     li2.Add (CreateDesignNode (designModel.Designs.GetItem<DesignModel> ((nuint)i)));
                 }
-                return new SequentialNode (designModel.Name, li2);
+                return new SequentialNode (designModel.Name, designModel.IsActive, li2);
             case DesignModelType.ParagraphBreak:
-                return new ParagraphBreakNode ();
+                return new ParagraphBreakNode (designModel.IsActive);
             default:
                 break;
             }
@@ -87,7 +85,7 @@ namespace Skrivmaskin.Editor
             DocumentEditedAction ();
         }
 
-        internal Project Project { get; private set; } = new Project (new List<Variable> (), new SequentialNode ());
+        internal Project Project { get; private set; } = new Project (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
         private CompiledProject compiledProject = null;
         private SetVariablesViewController setVariablesViewController = null;
         private ResultsViewController resultsViewController = null;
@@ -180,10 +178,6 @@ namespace Skrivmaskin.Editor
             case NodeType.Sequential:
                 children = (designNode as SequentialNode).Sequential;
                 design = new DesignModel (this, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
-                break;
-            case NodeType.Comment:
-                children = new INode [0];
-                design = new DesignModel (this, DesignModelType.Comment, (designNode as CommentNode).CommentName, (designNode as CommentNode).Value);
                 break;
             case NodeType.ParagraphBreak:
                 children = new INode [0];

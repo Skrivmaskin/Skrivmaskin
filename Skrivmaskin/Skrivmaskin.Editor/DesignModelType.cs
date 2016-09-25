@@ -7,7 +7,6 @@ namespace Skrivmaskin.Editor
         Variable,
         VariableForm,
         Text,
-        Comment,
         Choice,
         Sequential,
         ParagraphBreak

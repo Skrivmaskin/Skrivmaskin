@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Newtonsoft.Json;
 
 namespace Skrivmaskin.Design
@@ -9,14 +10,21 @@ namespace Skrivmaskin.Design
     /// </summary>
     public sealed class ChoiceNode : INode, IEquatable<ChoiceNode>
     {
-        public ChoiceNode () : this ("", new List<INode> ())
+        internal ChoiceNode () : this ("", true, new List<INode> ())
         {
 
         }
 
-        public ChoiceNode (string choiceName, List<INode> choices)
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:Skrivmaskin.Design.ChoiceNode"/> class.
+        /// </summary>
+        /// <param name="choiceName">Choice name.</param>
+        /// <param name="isActive">If set to <c>true</c> is active.</param>
+        /// <param name="choices">Choices.</param>
+        public ChoiceNode (string choiceName, bool isActive, List<INode> choices)
         {
             ChoiceName = choiceName;
+            IsActive = isActive;
             Choices = choices;
         }
 
@@ -25,6 +33,13 @@ namespace Skrivmaskin.Design
         /// </summary>
         /// <value>The name.</value>
         public string ChoiceName { get; set; }
+
+        /// <summary>
+        /// Gets or sets a value indicating whether this <see cref="T:Skrivmaskin.Design.ChoiceNode"/> is active.
+        /// </summary>
+        /// <value><c>true</c> if is active; otherwise, <c>false</c>.</value>
+        [DefaultValue(true)]
+        public bool IsActive { get; set; }
 
         /// <summary>
         /// Gets or sets the subnodes.

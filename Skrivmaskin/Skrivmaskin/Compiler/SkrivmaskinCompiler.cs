@@ -61,8 +61,6 @@ namespace Skrivmaskin.Compiler
                 result = parser.Compile (textNode);
                 transientCompiledNodes.Add (textNode, result);
                 return result;
-            case NodeType.Comment:
-                return new BlankCompiledNode ();
             case NodeType.Choice:
                 var choiceNode = node as ChoiceNode;
                 return new ChoiceCompiledNode (choiceNode.Choices.Select ((c) => CompileNode (transientCompiledNodes, c)).Where((c) => c.Type != CompiledNodeType.Blank).ToList (), choiceNode, 1, 1);
@@ -76,9 +74,9 @@ namespace Skrivmaskin.Compiler
                         compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
                         if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
                         if (sequentialNode.Sequential [i].Type != NodeType.ParagraphBreak &&
-                            sequentialNode.Sequential [i].Type != NodeType.Comment &&
+                            sequentialNode.Sequential [i].IsActive &&
                             sequentialNode.Sequential [i + 1].Type != NodeType.ParagraphBreak &&
-                            sequentialNode.Sequential [i + 1].Type != NodeType.Comment)
+                            sequentialNode.Sequential [i + 1].IsActive)
                             li.Add (new SentenceBreakCompiledNode ());
                     }
                     compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);

@@ -42,7 +42,6 @@
     <Compile Include="Design\TextNode.cs" />
     <Compile Include="Design\SequentialNode.cs" />
     <Compile Include="Design\ChoiceNode.cs" />
-    <Compile Include="Design\CommentNode.cs" />
     <Compile Include="Design\Variable.cs" />
     <Compile Include="Design\VariableForm.cs" />
     <Compile Include="Design\Project.cs" />

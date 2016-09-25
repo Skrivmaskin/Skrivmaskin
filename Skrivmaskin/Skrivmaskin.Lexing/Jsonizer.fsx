@@ -68,9 +68,9 @@ let transformAll name file =
     |> List.rev
     |> List.map
         (fun (a,li) ->
-            let sentenceChoices = new List<INode>(li |> Seq.map (fun text -> new TextNode(text) :> INode))
-            new ChoiceNode((match a with | InStycke(n) -> sprintf "STYCKE %d" n | _ -> ""), sentenceChoices) :> INode)
-    |> fun li -> new SequentialNode(name, (new List<INode>(li))) :> INode
+            let sentenceChoices = new List<INode>(li |> Seq.map (fun text -> new TextNode(text, true) :> INode))
+            new ChoiceNode((match a with | InStycke(n) -> sprintf "STYCKE %d" n | _ -> ""), true, sentenceChoices) :> INode)
+    |> fun li -> new SequentialNode(name, true, (new List<INode>(li))) :> INode
 let project =
     [
         "2016-08-23"
@@ -82,7 +82,7 @@ let project =
         (fun name ->
             transformAll name ("/Users/Oliver/Projects/Skrivmaskin/SIXT/MALLAR/Sixt/Delar/1a stycket/" + name + ".txt"))
     |> fun p ->
-        new ChoiceNode("1a stycket", (new List<INode>(p))) :> INode
+        new ChoiceNode("1a stycket", true, (new List<INode>(p))) :> INode
     |> fun p ->
         let variables = new List<Variable>()
         let markeForm = new VariableForm(Name="", Suggestion="London")
@@ -91,7 +91,7 @@ let project =
         variables.Add(new Variable(Name="P2", Description="Vår biluthyrning är belägen", Forms=(new List<VariableForm>(Seq.singleton p2Form))))
         let p3Form = new VariableForm(Name="", Suggestion="Volvo")
         variables.Add(new Variable(Name="P3", Description="Typ av bilar?", Forms=(new List<VariableForm>(Seq.singleton p3Form))))
-        new Project(ProjectName="Sixt", VariableDefinitions=variables, Definition=p)
+        new Project(variables, p)
 
 let fileInfo = new FileInfo("/Users/Oliver/Projects/Skrivmaskin/Json/1aStycket.json")
 ProjectWriter.Write (fileInfo, project)

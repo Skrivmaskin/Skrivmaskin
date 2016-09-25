@@ -294,7 +294,7 @@
             "ChoiceName": "STYCKE 18",
             "Choices": [
               {
-                "Text": "En hyrbil ger dig {frihet|stor frihet} och {fler möjligheter|möjligheten} att {lägga upp|planera} din {semester|resa|semesterresa} precis som du vill ha den."
+                "Text": "En hyrbil ger dig {frihet|stor frihet} och {fler möjligheter|möjligheten} att {lägga upp|planera} din {semester|resa|semesterresa} precis som du vill ha den. "
               },
               {
                 "Text": "När du bestämmer dig att hyra bil i [MÄRKE] kan du räkna med att få en toppmodern {bil|bilmodell} som motsvarar alla dina {krav|önskemål}."
@@ -880,7 +880,7 @@
             "ChoiceName": "STYCKE 11",
             "Choices": [
               {
-                "Text": "Kanske har du {särskilda|specifika} {önskemål|krav} då det gäller {komfort|säkerhet|körkomfort} och navigering?"
+                "Text": "Kanske har du {särskilda|specifika} {önskemål|krav} då det gäller {komfort|säkerhet|körkomfort} och navigering? "
               }
             ]
           },

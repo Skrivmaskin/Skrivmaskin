@@ -5,7 +5,6 @@ namespace Skrivmaskin.Design
     {
         Choice,
         Sequential,
-        Comment,
         ParagraphBreak,
         Text
     }
