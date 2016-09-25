@@ -19,6 +19,7 @@ namespace Skrivmaskin.Editor
         {
         }
 
+        internal Project Project { get; private set; } = new Project (new List<Variable> (), new SequentialNode ());
         internal CompiledProject CompiledProject { get; private set; } = null;
 
         private NSMutableArray designs = new NSMutableArray ();
@@ -122,6 +123,7 @@ namespace Skrivmaskin.Editor
 
         public bool CreateTree (Project project, out string errorText)
         {
+            Project = project; // no edits yet so no need to inform Apple about it
             var array = new NSMutableArray ();
             SetDesigns (array);
             var variables = new DesignModel ("Variables");

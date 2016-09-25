@@ -152,5 +152,70 @@ namespace Skrivmaskin.Editor
             // Set the title
             controller.Window.Title = (++UntitledWindowCount == 1) ? "untitled" : string.Format ("untitled {0}", UntitledWindowCount);
         }
+
+        /// <summary>
+        /// Saves the document being edited in the current window. If the document hasn't been saved
+        /// before, it presents a Save File Dialog and allows to specify the name and location of 
+        /// the file.
+        /// </summary>
+        public void SaveDocument (bool saveAs)
+        {
+            var window = NSApplication.SharedApplication.KeyWindow;
+
+            DesignViewController designViewController = null;
+            var viewController = window.ContentViewController as TabViewController;
+            foreach (var child in viewController.ChildViewControllers) {
+                if (child is DesignViewController) {
+                    designViewController = child as DesignViewController;
+                    break;
+                }
+            }
+
+            // Already saved?
+            if (!saveAs && window.RepresentedUrl != null) {
+                var path = window.RepresentedUrl.Path;
+
+                // Save changes to file
+                ProjectWriter.Write (new FileInfo (path), designViewController.Project);
+                window.DocumentEdited = false;
+            } else {
+                var dlg = new NSSavePanel ();
+                dlg.Title = "Save Document";
+                dlg.BeginSheet (window, (rslt) => {
+                    // File selected?
+                    if (rslt == 1) {
+                        var path = dlg.Url.Path;
+                        ProjectWriter.Write (new FileInfo (path), designViewController.Project);
+                        window.DocumentEdited = false;
+                        window.SetTitleWithRepresentedFilename (Path.GetFileName (path));
+                        window.RepresentedUrl = dlg.Url;
+
+                        // Add document to the Open Recent menu
+                        NSDocumentController.SharedDocumentController.NoteNewRecentDocumentURL (dlg.Url);
+                    }
+                });
+            }
+        }
+
+        /// <summary>
+        /// Allows the user to specify where to save the document.
+        /// </summary>
+        /// <param name="sender">The controller calling the method.</param>
+        [Action ("saveDocumentAs:")]
+        public void SaveDocumentAs (NSObject sender)
+        {
+            SaveDocument (true);
+        }
+
+        /// <summary>
+        /// Saves the document to its last location or allows the user to select a 
+        /// location if it has never been saved before.
+        /// </summary>
+        /// <param name="sender">The controller calling the method.</param>
+        [Action ("saveDocument:")]
+        public void SaveDocument (NSObject sender)
+        {
+            SaveDocument (false);
+        }
     }
 }
