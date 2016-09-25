@@ -739,9 +739,12 @@
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        <connections>
+                                                                            <binding destination="VCn-9S-OY8" name="editable" keyPath="objectValue.isNameEditable" id="5gm-47-Qoh"/>
+                                                                        </connections>
                                                                     </textFieldCell>
                                                                     <connections>
-                                                                        <binding destination="VCn-9S-OY8" name="value" keyPath="objectValue.Name" id="1aq-PI-Nft"/>
+                                                                        <binding destination="VCn-9S-OY8" name="value" keyPath="objectValue.Name" id="b7Q-QV-mns"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -775,6 +778,9 @@
                                                                         <font key="font" metaFont="system"/>
                                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                                         <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                                                        <connections>
+                                                                            <binding destination="GiM-nL-DAY" name="editable" keyPath="objectValue.isDetailsEditable" id="Soi-Pl-6Nl"/>
+                                                                        </connections>
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <binding destination="GiM-nL-DAY" name="value" keyPath="objectValue.Details" id="nuD-eP-C45"/>
