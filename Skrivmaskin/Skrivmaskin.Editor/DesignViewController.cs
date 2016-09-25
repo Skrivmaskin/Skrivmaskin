@@ -17,10 +17,92 @@ namespace Skrivmaskin.Editor
 
         public DesignViewController (IntPtr handle) : base (handle)
         {
+            this.AddObserver ("designModelArray", NSKeyValueObservingOptions.New, DocumentEdited);
+        }
+
+        bool loading = false;
+
+        internal void DocumentEditedAction ()
+        {
+            if (!loading) {
+                // Reread project from the outline view
+                Project = CreateProjectFromOutlineView ();
+                CompiledProject = compiler.Compile (Project); // has a caching layer so should be quick
+            }
+        }
+
+        Project CreateProjectFromOutlineView ()
+        {
+            var variablesNode = Designs.GetItem<DesignModel> ((nuint)0);
+            var definitionNode = Designs.GetItem<DesignModel> ((nuint)1);
+            var variables = new List<Variable> ();
+            for (int i = 0; i < variablesNode.NumberOfDesigns; i++) {
+                var variableNode = variablesNode.Designs.GetItem<DesignModel> ((nuint)i);
+                var variable = new Variable ();
+                variable.Name = variableNode.Name;
+                variable.Description = variableNode.Details;
+                variable.Forms = new List<VariableForm> ();
+                for (int j = 0; j < variableNode.NumberOfDesigns; j++) {
+                    var variableFormNode = variableNode.Designs.GetItem<DesignModel> ((nuint)j);
+                    var variableForm = new VariableForm ();
+                    variableForm.Name = variableFormNode.Name;
+                    variableForm.Suggestion = variableFormNode.Details;
+                    variable.Forms.Add (variableForm);
+                }
+                variables.Add (variable);
+            }
+            var root = CreateDesignNode (definitionNode);
+            return new Project (variables, root);
+        }
+
+        INode CreateDesignNode (DesignModel designModel)
+        {
+            switch (designModel.NodeType) {
+            case DesignModelType.Text:
+                return new TextNode (designModel.Details);
+            case DesignModelType.Comment:
+                return new CommentNode (designModel.Name, designModel.Details);
+            case DesignModelType.Choice:
+                var li = new List<INode> ();
+                for (int i = 0; i < designModel.NumberOfDesigns; i++) {
+                    li.Add (CreateDesignNode (designModel.Designs.GetItem<DesignModel> ((nuint)i)));
+                }
+                return new ChoiceNode (designModel.Name, li);
+            case DesignModelType.Sequential:
+                var li2 = new List<INode> ();
+                for (int i = 0; i < designModel.NumberOfDesigns; i++) {
+                    li2.Add (CreateDesignNode (designModel.Designs.GetItem<DesignModel> ((nuint)i)));
+                }
+                return new SequentialNode (designModel.Name, li2);
+            case DesignModelType.ParagraphBreak:
+                return new ParagraphBreakNode ();
+            default:
+                break;
+            }
+            throw new ApplicationException ("Unrecognised node type " + designModel.NodeType);
+        }
+
+        private void DocumentEdited (NSObservedChange sender)
+        {
+            DocumentEditedAction ();
         }
 
         internal Project Project { get; private set; } = new Project (new List<Variable> (), new SequentialNode ());
-        internal CompiledProject CompiledProject { get; private set; } = null;
+        private CompiledProject compiledProject = null;
+        private SetVariablesViewController setVariablesViewController = null;
+        private ResultsViewController resultsViewController = null;
+        private CompiledProject CompiledProject
+        {
+            get {
+                return compiledProject;}
+            set {
+                compiledProject = value;
+                if (setVariablesViewController != null) {
+                    setVariablesViewController.SetCompiledProject (compiledProject);
+                    resultsViewController.SetCompiledProject (setVariablesViewController.VariableValues, compiledProject);
+                }
+            }
+        }
 
         private NSMutableArray designs = new NSMutableArray ();
         public NSArray Designs {
@@ -63,21 +145,23 @@ namespace Skrivmaskin.Editor
         public override void AwakeFromNib ()
         {
             base.AwakeFromNib ();
+            loading = true;
             var array = new NSMutableArray ();
             SetDesigns (array);
-            var variables = new DesignModel ("Variables");
+            var variables = new DesignModel (this, "Variables");
             AddDesign (variables);
-            var definition = new DesignModel (DesignModelType.Sequential, "Definition", "");
+            var definition = new DesignModel (this, DesignModelType.Sequential, "Definition", "");
             AddDesign (definition);
+            loading = false;
         }
 
         public bool CreateVariables (Project project, DesignModel variables, out string errorText)
         {
             foreach (var variable in project.VariableDefinitions) {
-                var model = new DesignModel (variable);
+                var model = new DesignModel (this, variable);
                 variables.AddDesign (model);
                 foreach (var form in variable.Forms) {
-                    model.AddDesign (new DesignModel (form));
+                    model.AddDesign (new DesignModel (this, form));
                 }
             }
             errorText = "";
@@ -91,23 +175,23 @@ namespace Skrivmaskin.Editor
             switch (designNode.Type) {
             case NodeType.Choice:
                 children = (designNode as ChoiceNode).Choices;
-                design = new DesignModel (DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "");
+                design = new DesignModel (this, DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "");
                 break;
             case NodeType.Sequential:
                 children = (designNode as SequentialNode).Sequential;
-                design = new DesignModel (DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
+                design = new DesignModel (this, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
                 break;
             case NodeType.Comment:
                 children = new INode [0];
-                design = new DesignModel (DesignModelType.Comment, (designNode as CommentNode).CommentName, (designNode as CommentNode).Value);
+                design = new DesignModel (this, DesignModelType.Comment, (designNode as CommentNode).CommentName, (designNode as CommentNode).Value);
                 break;
             case NodeType.ParagraphBreak:
                 children = new INode [0];
-                design = new DesignModel (DesignModelType.ParagraphBreak, "Paragraph Break", "");
+                design = new DesignModel (this, DesignModelType.ParagraphBreak, "Paragraph Break", "");
                 break;
             case NodeType.Text:
                 children = new INode [0];
-                design = new DesignModel (DesignModelType.Text, "", (designNode as TextNode).Text);
+                design = new DesignModel (this, DesignModelType.Text, "", (designNode as TextNode).Text);
                 break;
             default:
                 throw new ApplicationException ("Unrecognised design node type " + designNode.Type);
@@ -121,19 +205,25 @@ namespace Skrivmaskin.Editor
             return true;
         }
 
-        public bool CreateTree (Project project, out string errorText)
+        public bool CreateTree (SetVariablesViewController setVariablesViewController, ResultsViewController resultsViewController, Project project)
         {
+            this.setVariablesViewController = setVariablesViewController;
+            this.resultsViewController = resultsViewController;
+            string errorText;
+            loading = true;
             Project = project; // no edits yet so no need to inform Apple about it
             var array = new NSMutableArray ();
             SetDesigns (array);
-            var variables = new DesignModel ("Variables");
+            var variables = new DesignModel (this, "Variables");
             AddDesign (variables);
             if (this.CreateVariables (project, variables, out errorText)) {
                 if (this.CreateDefinition (project.Definition, (d) => AddDesign (d), out errorText)) {
                     CompiledProject = compiler.Compile (project);
+                    loading = false;
                     return true;
                 }
             }
+            loading = false;
             return false;
         }
 

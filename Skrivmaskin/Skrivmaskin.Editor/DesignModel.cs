@@ -8,6 +8,8 @@ namespace Skrivmaskin.Editor
     [Register ("DesignModel")]
     public class DesignModel : NSObject
     {
+        private readonly DesignViewController controller;
+
         private string name = "";
         [Export ("Name")]
         public string Name {
@@ -16,6 +18,7 @@ namespace Skrivmaskin.Editor
                 WillChangeValue ("Name");
                 name = value;
                 DidChangeValue ("Name");
+                controller.DocumentEditedAction ();
             }
         }
 
@@ -75,6 +78,7 @@ namespace Skrivmaskin.Editor
                 WillChangeValue ("Details");
                 details = value;
                 DidChangeValue ("Details");
+                controller.DocumentEditedAction ();
             }
         }
 
@@ -188,32 +192,36 @@ namespace Skrivmaskin.Editor
             DidChangeValue ("designModelArray");
         }
 
-        public DesignModel (string name)
+        public DesignModel (DesignViewController controller, string name)
         {
+            this.controller = controller;
             isActive = true;
             NodeType = DesignModelType.VariableRoot;
             Name = name;
             Details = "";
         }
 
-        public DesignModel (Variable variable)
+        public DesignModel (DesignViewController controller, Variable variable)
         {
+            this.controller = controller;
             isActive = true;
             NodeType = DesignModelType.Variable;
             Name = variable.Name;
             Details = variable.Description;
         }
 
-        public DesignModel (VariableForm form)
+        public DesignModel (DesignViewController controller, VariableForm form)
         {
+            this.controller = controller;
             isActive = true;
             NodeType = DesignModelType.VariableForm;
             Name = form.Name;
             Details = form.Suggestion;
         }
 
-        public DesignModel (DesignModelType designNodeType, string name, string details)
+        public DesignModel (DesignViewController controller, DesignModelType designNodeType, string name, string details)
         {
+            this.controller = controller;
             isActive = true;
             NodeType = designNodeType;
             Name = name;

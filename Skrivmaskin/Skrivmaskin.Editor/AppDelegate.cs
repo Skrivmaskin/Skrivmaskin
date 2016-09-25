@@ -92,14 +92,9 @@ namespace Skrivmaskin.Editor
                     }
                 }
 
-                string errorText;
                 var fileInfo = new FileInfo (path);
                 var project = ProjectWriter.Read (fileInfo);
-                if (designViewController.CreateTree (project, out errorText)) {
-                    //TODO recompile when there are edits made in the design view
-                    setVariablesViewController.SetCompiledProject (designViewController.CompiledProject);
-                    resultsViewController.SetCompiledProject (setVariablesViewController.VariableValues, designViewController.CompiledProject);
-                }
+                designViewController.CreateTree (setVariablesViewController, resultsViewController, project);
 
                 //viewController.SetLanguageFromPath (path);
                 viewController.View.Window.SetTitleWithRepresentedFilename (Path.GetFileName (path));
