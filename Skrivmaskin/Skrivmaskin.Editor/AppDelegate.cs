@@ -181,6 +181,7 @@ namespace Skrivmaskin.Editor
             } else {
                 var dlg = new NSSavePanel ();
                 dlg.Title = "Save Document";
+                dlg.RequiredFileType = "json";
                 dlg.BeginSheet (window, (rslt) => {
                     // File selected?
                     if (rslt == 1) {
