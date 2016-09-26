@@ -84,8 +84,12 @@ namespace Skrivmaskin.Editor
             get { return nodeType; }
             set {
                 WillChangeValue ("Icon");
+                WillChangeValue ("isNameEditable");
+                WillChangeValue ("isDetailsEditable");
                 nodeType = value;
                 DidChangeValue ("Icon");
+                DidChangeValue ("isNameEditable");
+                DidChangeValue ("isDetailsEditable");
             }
         }
 
@@ -154,7 +158,6 @@ namespace Skrivmaskin.Editor
             get { return designs; }
         }
 
-
         [Export ("addObject:")]
         public void AddDesign (DesignModel design)
         {
@@ -193,7 +196,7 @@ namespace Skrivmaskin.Editor
             designs = array;
             DidChangeValue ("designModelArray");
             DidChangeValue ("isLeaf");
-         }//TODO all the other derived stuff
+        }
 
         public DesignModel (DesignViewController controller, string name)
         {
@@ -202,40 +205,6 @@ namespace Skrivmaskin.Editor
             NodeType = DesignModelType.VariableRoot;
             Name = name;
             Details = "";
-        }
-
-        public bool CannotConvertToChoice {
-            [Export ("CannotConvertToChoice")]
-            get {
-                return NodeType != DesignModelType.Sequential;
-            }
-        }
-
-        public bool CannotConvertToSequential {
-            [Export ("CannotConvertToSequential")]
-            get {
-                return NodeType != DesignModelType.Choice;
-            }
-        }
-
-        [Export ("convertToChoice")]
-        public void ConvertToChoice ()
-        {
-            WillChangeValue ("CannotConvertToSequential");
-            WillChangeValue ("CannotConvertToChoice");
-            NodeType = DesignModelType.Choice;
-            DidChangeValue ("CannotConvertToSequential");
-            DidChangeValue ("CannotConvertToChoice");
-        }
-
-        [Export ("convertToSequential")]
-        public void ConvertToSequential ()
-        {
-            WillChangeValue ("CannotConvertToSequential");
-            WillChangeValue ("CannotConvertToChoice");
-            NodeType = DesignModelType.Sequential;
-            DidChangeValue ("CannotConvertToSequential");
-            DidChangeValue ("CannotConvertToChoice");
         }
 
         public DesignModel (DesignViewController controller, Variable variable)
