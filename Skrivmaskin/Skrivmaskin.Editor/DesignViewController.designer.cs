@@ -20,12 +20,6 @@ namespace Skrivmaskin.Editor
 
 		[Action ("Add_NewVariable:")]
 		partial void Add_NewVariable (Foundation.NSObject sender);
-
-		[Action ("ConvertToChoice:")]
-		partial void ConvertToChoice (Foundation.NSObject sender);
-
-		[Action ("ConvertToSequential:")]
-		partial void ConvertToSequential (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

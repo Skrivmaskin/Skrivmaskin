@@ -17,17 +17,20 @@ namespace Skrivmaskin.Editor
 
         public DesignViewController (IntPtr handle) : base (handle)
         {
-            this.AddObserver ("designModelArray", NSKeyValueObservingOptions.New, DocumentEdited);
         }
 
         bool loading = false;
+
+        internal void SelectionChanged (NSObservedChange change)
+        {
+        }
 
         internal void DocumentEditedAction ()
         {
             if (!loading) {
                 // Reread project from the outline view
                 var project = CreateProjectFromOutlineView ();
-                if (!project.Equals(Project)) {
+                if (!project.Equals (Project)) {
                     NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
                     Project = project;
                     CompiledProject = compiler.Compile (Project); // has a caching layer so should be quick
@@ -93,10 +96,10 @@ namespace Skrivmaskin.Editor
         private CompiledProject compiledProject = null;
         private SetVariablesViewController setVariablesViewController = null;
         private ResultsViewController resultsViewController = null;
-        private CompiledProject CompiledProject
-        {
+        private CompiledProject CompiledProject {
             get {
-                return compiledProject;}
+                return compiledProject;
+            }
             set {
                 compiledProject = value;
                 if (setVariablesViewController != null) {
@@ -147,6 +150,8 @@ namespace Skrivmaskin.Editor
         public override void AwakeFromNib ()
         {
             base.AwakeFromNib ();
+            this.AddObserver ("designModelArray", NSKeyValueObservingOptions.New, DocumentEdited);
+            this.TreeController.AddObserver ("selectedObjects", NSKeyValueObservingOptions.New, SelectionChanged);
             loading = true;
             var array = new NSMutableArray ();
             SetDesigns (array);
@@ -196,7 +201,7 @@ namespace Skrivmaskin.Editor
             }
             addDefn (design);
             foreach (var child in children) {
-                if (!CreateDefinition (child, (d)=>design.AddDesign(d), out errorText))
+                if (!CreateDefinition (child, (d) => design.AddDesign (d), out errorText))
                     return false;
             }
             errorText = "";
@@ -290,51 +295,7 @@ namespace Skrivmaskin.Editor
             }
             var newVariable = new DesignModel (this, DesignModelType.Variable, "VARNAME" + attempt, "Description for this variable");
             variables.AddDesign (newVariable);
-            newVariable.AddDesign (new DesignModel (this, DesignModelType.VariableForm, "Variant", "Suggestion"));
+            newVariable.AddDesign (new DesignModel (this, DesignModelType.VariableForm, "", "Suggestion"));
         }
-
-        partial void ConvertToChoice (Foundation.NSObject sender)
-        {
-            var selection = TreeController.SelectedObjects;
-            if (selection.Length == 1) {
-                var selectedModel = (DesignModel)selection [0];
-                if (selectedModel.NodeType == DesignModelType.Sequential) {
-                    selectedModel.NodeType = DesignModelType.Choice;
-                }
-            }
-        }
-
-        partial void ConvertToSequential (Foundation.NSObject sender)
-        {
-            var selection = TreeController.SelectedObjects;
-            if (selection.Length == 1) {
-                var selectedModel = (DesignModel)selection [0];
-                if (selectedModel.NodeType == DesignModelType.Choice) {
-                    selectedModel.NodeType = DesignModelType.Sequential;
-                }
-            }
-        }
-
-        public bool HideConvertToChoice {
-            [Export ("hideConvertToChoice")]
-            get {
-                var selection = TreeController.SelectedObjects;
-                if (selection.Length != 1) return true;
-                var selectedModel = (DesignModel)selection [0];
-                if (selectedModel.NodeType == DesignModelType.Sequential) return false;
-                return true;
-            }
-        }
-    
-        public bool HideConvertToSequential {
-            [Export ("hideConvertToSequential")]
-            get {
-                var selection = TreeController.SelectedObjects;
-                if (selection.Length != 1) return true;
-                var selectedModel = (DesignModel)selection [0];
-                if (selectedModel.NodeType == DesignModelType.Choice) return false;
-                return true;
-            }
-        }
-}
+    }
 }
