@@ -79,18 +79,6 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        public void Clear ()
-        {
-            while (NumberOfDesigns > 0) {
-                var firstModel = Designs.GetItem<DesignModel> (0);
-                firstModel.Clear ();
-                firstModel.Parent = null;
-                RemoveDesign (0);
-            }
-        }
-
-        public DesignModel Parent { get; set; } = null;
-
         private DesignModelType nodeType;
         public DesignModelType NodeType {
             get { return nodeType; }
@@ -176,7 +164,6 @@ namespace Skrivmaskin.Editor
             WillChangeValue ("designModelArray");
             WillChangeValue ("isLeaf");
             designs.Add (design);
-            design.Parent = this;
             DidChangeValue ("designModelArray");
             DidChangeValue ("isLeaf");
         }
@@ -187,7 +174,6 @@ namespace Skrivmaskin.Editor
             WillChangeValue ("designModelArray");
             WillChangeValue ("isLeaf");
             designs.Insert (design, index);
-            design.Parent = this;
             DidChangeValue ("designModelArray");
             DidChangeValue ("isLeaf");
         }

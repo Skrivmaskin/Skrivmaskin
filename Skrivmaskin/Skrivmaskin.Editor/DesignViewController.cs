@@ -321,27 +321,12 @@ namespace Skrivmaskin.Editor
 
         partial void Delete_Item (NSObject sender)
         {
-            var model = TreeController.SelectedObjects [0] as DesignModel;
-            nint index = 0;
-            for (int i = 0; i < model.Parent.NumberOfDesigns; i++) {
-                if (model.Parent.Designs.GetItem<DesignModel> ((nuint)i) == model) {
-                    index = (nint)i;
-                    break;
-                }
-            }
-            model.Clear ();
-            var parent = model.Parent;
-            model.Parent = null;
-            parent.RemoveDesign (index);
-            DocumentEditedAction ();
         }
 
         public bool EnableDelete {
             [Export ("enableDelete")]
             get {
-                if (TreeController.SelectedObjects.Length != 1) return false;
-                var selected = (DesignModel)TreeController.SelectedObjects [0];
-                return (selected.Parent != null);
+                return false;
             }
         }
 

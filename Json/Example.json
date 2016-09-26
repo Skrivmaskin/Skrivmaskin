@@ -1,5 +1,4 @@
 {
-  "ProjectName": "Example",
   "VariableDefinitions": [
     {
       "Name": "BREED",
@@ -48,8 +47,8 @@
           "Suggestion": "Susie"
         },
         {
-            "Name": "Pronoun",
-            "Suggestion": "She"
+          "Name": "Pronoun",
+          "Suggestion": "She"
         }
       ]
     }
@@ -58,21 +57,25 @@
     "SequentialName": "Sentences",
     "Sequential": [
       {
-          "Text": "I {once had|used to have} a [COLOUR] [BREED] {who went by the name of|named} [NAME]."
+        "Text": "I {once had|used to have} a [COLOUR] [BREED] {who went by the name of|named} [NAME]."
       },
       {
-          "ChoiceName": "Second sentence",
-          "Choices": [
-            {
-              "Text": "That was {back|years ago} when I was {living|staying} in [CITY]."
-            },
-            {
-              "Text": "[NAME|Pronoun] would {run alongside me|drag behind me|shoot off ahead} while I {cycled|skateboarded|jogged} through the streets of [CITY]."
-            }
-          ]
+        "ChoiceName": "Second sentence",
+        "Choices": [
+          {
+            "Text": "That was {back|years ago} when I was {living|staying} in [CITY]."
+          },
+          {
+            "Text": "[NAME|Pronoun] would {run alongside me|drag behind me|shoot off ahead} while I {cycled|skateboarded|jogged} through the streets of [CITY]."
+          }
+        ]
       },
       {
-          "Text": "[COLOUR|Capitalized] [BREED|Plural] are so {cute|irritating|[COLOUR]}."
+        "Text": "[COLOUR|Capitalized] [BREED|Plural] are so {cute|irritating|[COLOUR]}."
+      },
+      {},
+      {
+        "Text": "Blah blah blah."
       }
     ]
   }
