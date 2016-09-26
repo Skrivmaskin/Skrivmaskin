@@ -259,11 +259,6 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        //TODO farm this out to threads??
-        private void Compile ()
-        {
-        }
-
         partial void Add_NewVariable (Foundation.NSObject sender)
         {
             var variables = Designs.GetItem<DesignModel> ((nuint)0);
