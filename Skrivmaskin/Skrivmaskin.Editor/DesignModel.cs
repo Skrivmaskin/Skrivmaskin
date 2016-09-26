@@ -79,6 +79,8 @@ namespace Skrivmaskin.Editor
             }
         }
 
+        public DesignModel Parent { get; set; } = null;
+
         private DesignModelType nodeType;
         public DesignModelType NodeType {
             get { return nodeType; }
@@ -164,6 +166,7 @@ namespace Skrivmaskin.Editor
             WillChangeValue ("designModelArray");
             WillChangeValue ("isLeaf");
             designs.Add (design);
+            design.Parent = this;
             DidChangeValue ("designModelArray");
             DidChangeValue ("isLeaf");
         }
@@ -174,6 +177,7 @@ namespace Skrivmaskin.Editor
             WillChangeValue ("designModelArray");
             WillChangeValue ("isLeaf");
             designs.Insert (design, index);
+            design.Parent = this;
             DidChangeValue ("designModelArray");
             DidChangeValue ("isLeaf");
         }

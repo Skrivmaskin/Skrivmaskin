@@ -23,6 +23,16 @@ namespace Skrivmaskin.Editor
 
         internal void SelectionChanged (NSObservedChange change)
         {
+            WillChangeValue ("hideConvertToChoice");
+            WillChangeValue ("hideConvertToSequential");
+            WillChangeValue ("enableDelete");
+            WillChangeValue ("enableAdd");
+            WillChangeValue ("enableAddVariant");
+            DidChangeValue ("hideConvertToChoice");
+            DidChangeValue ("hideConvertToSequential");
+            DidChangeValue ("enableDelete");
+            DidChangeValue ("enableAdd");
+            DidChangeValue ("enableAddVariant");
         }
 
         internal void DocumentEditedAction ()
@@ -296,6 +306,124 @@ namespace Skrivmaskin.Editor
             var newVariable = new DesignModel (this, DesignModelType.Variable, "VARNAME" + attempt, "Description for this variable");
             variables.AddDesign (newVariable);
             newVariable.AddDesign (new DesignModel (this, DesignModelType.VariableForm, "", "Suggestion"));
+        }
+
+        partial void Add_Choice (Foundation.NSObject sender)
+        {
+            var model = TreeController.SelectedObjects [0] as DesignModel;
+            model.AddDesign (new DesignModel (this, DesignModelType.Choice, "Choice", ""));
+        }
+
+        partial void Add_ParagraphBreak (Foundation.NSObject sender)
+        {
+            var model = TreeController.SelectedObjects [0] as DesignModel;
+            model.AddDesign (new DesignModel (this, DesignModelType.ParagraphBreak, "", ""));
+        }
+
+        partial void Add_Sequential (Foundation.NSObject sender)
+        {
+            var model = TreeController.SelectedObjects [0] as DesignModel;
+            model.AddDesign (new DesignModel (this, DesignModelType.Sequential, "Sequential", ""));
+        }
+
+        partial void Add_Text (Foundation.NSObject sender)
+        {
+            var model = TreeController.SelectedObjects [0] as DesignModel;
+            model.AddDesign (new DesignModel (this, DesignModelType.Text, "", "Insert text here."));
+        }
+
+        partial void Add_VariableVariant (Foundation.NSObject sender)
+        {
+            var model = TreeController.SelectedObjects [0] as DesignModel;
+            model.AddDesign (new DesignModel (this, DesignModelType.VariableForm, "FormName", "Suggestion"));
+        }
+
+        partial void Delete_Item (NSObject sender)
+        {
+            var model = TreeController.SelectedObjects [0] as DesignModel;
+            nint index = 0;
+            for (int i = 0; i < model.Parent.NumberOfDesigns; i++) {
+                if (model.Parent.Designs.GetItem<DesignModel> ((nuint)i) == model) {
+                    index = (nint)i;
+                    break;
+                }
+            }
+            model.Parent.RemoveDesign (index);
+        }
+
+        public bool EnableDelete {
+            [Export ("enableDelete")]
+            get {
+                if (TreeController.SelectedObjects.Length != 1) return false;
+                var selected = (DesignModel)TreeController.SelectedObjects [0];
+                return (selected.Parent != null);
+            }
+        }
+
+        public bool EnableAdd {
+            [Export ("enableAdd")]
+            get {
+                if (TreeController.SelectedObjects.Length != 1) return false;
+                var selected = (DesignModel)TreeController.SelectedObjects [0];
+                if (selected.NodeType == DesignModelType.Sequential || selected.NodeType == DesignModelType.Choice) return true;
+                return false;
+            }
+        }
+
+        public bool EnableAddVariant {
+            [Export ("enableAddVariant")]
+            get {
+                if (TreeController.SelectedObjects.Length != 1) return false;
+                var selected = (DesignModel)TreeController.SelectedObjects [0];
+                if (selected.NodeType == DesignModelType.Variable) return true;
+                return false;
+            }
+        }
+
+        public bool HideConvertToChoice {
+            [Export ("hideConvertToChoice")]
+            get {
+                if (TreeController.SelectedObjects.Length != 1) return true;
+                var selected = (DesignModel)TreeController.SelectedObjects [0];
+                if (selected.NodeType == DesignModelType.Sequential) return false;
+                return true;
+            }
+        }
+
+        public bool HideConvertToSequential {
+            [Export ("hideConvertToSequential")]
+            get {
+                if (TreeController.SelectedObjects.Length != 1) return true;
+                var selected = (DesignModel)TreeController.SelectedObjects [0];
+                if (selected.NodeType == DesignModelType.Choice) return false;
+                return true;
+            }
+        }
+
+        partial void ConvertToChoice (Foundation.NSObject sender)
+        {
+            if (TreeController.SelectedObjects.Length != 1) return;
+            var selected = (DesignModel)TreeController.SelectedObjects [0];
+            if (selected.NodeType == DesignModelType.Sequential) {
+                WillChangeValue ("hideConvertToChoice");
+                WillChangeValue ("hideConvertToSequential");
+                selected.NodeType = DesignModelType.Choice;
+                DidChangeValue ("hideConvertToChoice");
+                DidChangeValue ("hideConvertToSequential");
+            }
+        }
+
+        partial void ConvertToSequential (Foundation.NSObject sender)
+        {
+            if (TreeController.SelectedObjects.Length != 1) return;
+            var selected = (DesignModel)TreeController.SelectedObjects [0];
+            if (selected.NodeType == DesignModelType.Choice) {
+                WillChangeValue ("hideConvertToChoice");
+                WillChangeValue ("hideConvertToSequential");
+                selected.NodeType = DesignModelType.Sequential;
+                DidChangeValue ("hideConvertToChoice");
+                DidChangeValue ("hideConvertToSequential");
+            }
         }
     }
 }

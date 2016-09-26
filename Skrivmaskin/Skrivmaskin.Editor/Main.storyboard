@@ -847,25 +847,69 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <menu key="submenu" title="Add" id="Zof-dj-gga">
                                 <items>
-                                    <menuItem title="New Variable" id="t4p-3n-8rE">
+                                    <menuItem title="Text" id="5jw-ZN-Vck">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="Add_Text:" target="RQR-9K-tsF" id="mT4-wC-Jja"/>
+                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAdd" id="hIG-ad-hAH"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Choice" id="5KN-3g-VXZ">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="Add_Choice:" target="RQR-9K-tsF" id="P3F-KA-tZy"/>
+                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAdd" id="RgK-p5-jni"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Sequential" id="0eH-Si-l4v">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="Add_Sequential:" target="RQR-9K-tsF" id="flA-Tx-lKy"/>
+                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAdd" id="NrK-0S-doi"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Paragraph Break" id="xtX-qY-rg7">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="Add_ParagraphBreak:" target="RQR-9K-tsF" id="qsP-xj-nZB"/>
+                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAdd" id="CZv-dY-BtV"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Variable" id="t4p-3n-8rE">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="Add_NewVariable:" target="RQR-9K-tsF" id="1Xk-fg-LbF"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="Variable Variant" id="9rr-hs-Fr2">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="Add_VariableVariant:" target="RQR-9K-tsF" id="8DE-KT-mIp"/>
+                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAddVariant" id="nIQ-Lj-FU3"/>
+                                        </connections>
+                                    </menuItem>
                                 </items>
                             </menu>
+                        </menuItem>
+                        <menuItem title="Delete" id="ibJ-3u-Ib7">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="Delete_Item:" target="RQR-9K-tsF" id="w8e-h3-PAj"/>
+                                <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableDelete" id="sND-qO-Tye"/>
+                            </connections>
                         </menuItem>
                         <menuItem title="Convert To Choice" id="1fr-j8-hiw">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="ConvertToChoice:" target="RQR-9K-tsF" id="Tej-Db-aJH"/>
+                                <action selector="ConvertToChoice:" target="RQR-9K-tsF" id="L6w-2W-AJc"/>
+                                <binding destination="RQR-9K-tsF" name="hidden" keyPath="self.hideConvertToChoice" id="0iq-sG-75p"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Convert To Sequential" id="Ab4-Yd-Lal">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="ConvertToSequential:" target="RQR-9K-tsF" id="dim-EE-Fxq"/>
+                                <action selector="ConvertToSequential:" target="RQR-9K-tsF" id="xSx-WM-XLd"/>
+                                <binding destination="RQR-9K-tsF" name="hidden" keyPath="self.hideConvertToSequential" id="YEf-Gq-dx4"/>
                             </connections>
                         </menuItem>
                     </items>
