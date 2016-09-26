@@ -18,8 +18,31 @@ namespace Skrivmaskin.Editor
 
         public override void DidFinishLaunching (NSNotification notification)
         {
-            // Insert code here to initialize your application
-
+            var window = NSApplication.SharedApplication.KeyWindow;
+            if (window == null) return;
+            DesignViewController designViewController = null;
+            SetVariablesViewController setVariablesViewController = null;
+            ResultsViewController resultsViewController = null;
+            var viewController = window.ContentViewController as TabViewController;
+            foreach (var child in viewController.ChildViewControllers) {
+                if (child is DesignViewController) {
+                    designViewController = child as DesignViewController;
+                } else {
+                    foreach (var subchild in child.ChildViewControllers) {
+                        if (subchild is ResultsViewController) {
+                            resultsViewController = subchild as ResultsViewController;
+                            break;
+                        }
+                    }
+                    foreach (var subchild in child.ChildViewControllers) {
+                        if (subchild is SetVariablesViewController) {
+                            setVariablesViewController = subchild as SetVariablesViewController;
+                            break;
+                        }
+                    }
+                }
+            }
+            designViewController.SetUpControllerLinks (setVariablesViewController, resultsViewController);
         }
 
         public override void WillTerminate (NSNotification notification)
@@ -67,34 +90,30 @@ namespace Skrivmaskin.Editor
                 DesignViewController designViewController = null;
                 SetVariablesViewController setVariablesViewController = null;
                 ResultsViewController resultsViewController = null;
-                NSViewController generateViewController = null;
-
-                // Load the model into the window
                 var viewController = controller.Window.ContentViewController as TabViewController;
                 foreach (var child in viewController.ChildViewControllers) {
                     if (child is DesignViewController) {
                         designViewController = child as DesignViewController;
                     } else {
-                        generateViewController = child;
+                        foreach (var subchild in child.ChildViewControllers) {
+                            if (subchild is ResultsViewController) {
+                                resultsViewController = subchild as ResultsViewController;
+                                break;
+                            }
+                        }
+                        foreach (var subchild in child.ChildViewControllers) {
+                            if (subchild is SetVariablesViewController) {
+                                setVariablesViewController = subchild as SetVariablesViewController;
+                                break;
+                            }
+                        }
                     }
                 }
-
-                foreach (var child in generateViewController.ChildViewControllers) {
-                    if (child is ResultsViewController) {
-                        resultsViewController = child as ResultsViewController;
-                        break;
-                    }
-                }
-                foreach (var child in generateViewController.ChildViewControllers) {
-                    if (child is SetVariablesViewController) {
-                        setVariablesViewController = child as SetVariablesViewController;
-                        break;
-                    }
-                }
+                designViewController.SetUpControllerLinks (setVariablesViewController, resultsViewController);
 
                 var fileInfo = new FileInfo (path);
                 var project = ProjectWriter.Read (fileInfo);
-                designViewController.CreateTree (setVariablesViewController, resultsViewController, project);
+                designViewController.CreateTree (project);
 
                 //viewController.SetLanguageFromPath (path);
                 viewController.View.Window.SetTitleWithRepresentedFilename (Path.GetFileName (path));

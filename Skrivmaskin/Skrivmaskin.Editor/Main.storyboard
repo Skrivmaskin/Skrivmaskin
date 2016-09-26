@@ -708,7 +708,7 @@
                                     <rect key="frame" x="1" y="0.0" width="408" height="259"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="gBx-QD-ZY7" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="rRY-T5-DYR" id="tRp-WS-pdL" customClass="DesignOutlineView">
+                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="gBx-QD-ZY7" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="rRY-T5-DYR" id="tRp-WS-pdL" customClass="DesignOutlineView">
                                             <rect key="frame" x="0.0" y="0.0" width="412" height="236"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -758,6 +758,7 @@
                                                             </subviews>
                                                             <connections>
                                                                 <outlet property="imageView" destination="3t9-B7-9MM" id="R3F-Di-xmS"/>
+                                                                <outlet property="menu" destination="E7I-6N-QBA" id="Axm-CK-xYp"/>
                                                                 <outlet property="textField" destination="PZE-QC-QVB" id="0ZV-Xy-njT"/>
                                                             </connections>
                                                         </tableCellView>
@@ -834,6 +835,19 @@
                     </connections>
                 </viewController>
                 <customObject id="9CK-bW-ZXW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+                <menu id="E7I-6N-QBA">
+                    <items>
+                        <menuItem title="Item 1" id="vS4-3H-L01">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem title="Item 2" id="1fr-j8-hiw">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                        <menuItem title="Item 3" id="Ab4-Yd-Lal">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                        </menuItem>
+                    </items>
+                </menu>
                 <treeController objectClassName="DesignModel" childrenKeyPath="designModelArray" countKeyPath="NumberOfDesigns" leafKeyPath="isLeaf" id="Nen-D7-Df0">
                     <declaredKeys>
                         <string>Name</string>
@@ -883,7 +897,7 @@
                                     <rect key="frame" x="1" y="0.0" width="408" height="259"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Ho1-iI-GYg" viewBased="YES" id="VgY-cH-f0O">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="Ho1-iI-GYg" viewBased="YES" id="VgY-cH-f0O">
                                             <rect key="frame" x="0.0" y="0.0" width="451" height="236"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>

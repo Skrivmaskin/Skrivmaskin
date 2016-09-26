@@ -26,8 +26,12 @@ namespace Skrivmaskin.Editor
         {
             if (!loading) {
                 // Reread project from the outline view
-                Project = CreateProjectFromOutlineView ();
-                CompiledProject = compiler.Compile (Project); // has a caching layer so should be quick
+                var project = CreateProjectFromOutlineView ();
+                if (!project.Equals(Project)) {
+                    NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
+                    Project = project;
+                    CompiledProject = compiler.Compile (Project); // has a caching layer so should be quick
+                }
             }
         }
 
@@ -199,10 +203,8 @@ namespace Skrivmaskin.Editor
             return true;
         }
 
-        public bool CreateTree (SetVariablesViewController setVariablesViewController, ResultsViewController resultsViewController, Project project)
+        public bool CreateTree (Project project)
         {
-            this.setVariablesViewController = setVariablesViewController;
-            this.resultsViewController = resultsViewController;
             string errorText;
             loading = true;
             Project = project; // no edits yet so no need to inform Apple about it
@@ -224,6 +226,12 @@ namespace Skrivmaskin.Editor
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
+        }
+
+        internal void SetUpControllerLinks (SetVariablesViewController setVariablesViewController, ResultsViewController resultsViewController)
+        {
+            this.setVariablesViewController = setVariablesViewController;
+            this.resultsViewController = resultsViewController;
         }
 
         public override NSObject RepresentedObject {
