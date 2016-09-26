@@ -79,6 +79,16 @@ namespace Skrivmaskin.Editor
             }
         }
 
+        public void Clear ()
+        {
+            while (NumberOfDesigns > 0) {
+                var firstModel = Designs.GetItem<DesignModel> (0);
+                firstModel.Clear ();
+                firstModel.Parent = null;
+                RemoveDesign (0);
+            }
+        }
+
         public DesignModel Parent { get; set; } = null;
 
         private DesignModelType nodeType;

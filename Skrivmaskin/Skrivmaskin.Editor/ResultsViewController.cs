@@ -33,10 +33,10 @@ namespace Skrivmaskin.Editor
         private CompiledProject compiledProject = null;
         IReadOnlyDictionary<string, string> variableValues = null;
 
-        internal void SetCompiledProject (IReadOnlyDictionary<string,string> variableValues, CompiledProject c)
+        internal void SetCompiledProject (IReadOnlyDictionary<string,string> vv, CompiledProject c)
         {
             compiledProject = c;
-            this.variableValues = variableValues;
+            this.variableValues = vv;
         }
 
         internal CompiledProject GetCompiledProject ()

@@ -329,7 +329,11 @@ namespace Skrivmaskin.Editor
                     break;
                 }
             }
-            model.Parent.RemoveDesign (index);
+            model.Clear ();
+            var parent = model.Parent;
+            model.Parent = null;
+            parent.RemoveDesign (index);
+            DocumentEditedAction ();
         }
 
         public bool EnableDelete {
