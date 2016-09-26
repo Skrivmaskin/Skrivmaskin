@@ -266,20 +266,6 @@ namespace Skrivmaskin.Editor
 
         partial void Add_NewVariable (Foundation.NSObject sender)
         {
-            // Attempt to guess at the variable needed.
-            var selection = TreeController.SelectedObjects;
-            var candidates = new List<string> ();
-            if ((selection.Length == 1) && (((DesignModel)selection [0]).NodeType == DesignModelType.Text)) {
-                var model = (DesignModel)selection [0];
-                var textNode = new TextNode (model.Details, model.IsActive);
-                var compiledNode = compiler.GetCompiledNode (textNode);
-                if (!compiledNode.HasErrors) {
-                    foreach (var item in compiledNode.RequiredVariables) {
-                        //TODO stuff
-                    }
-                }
-            }
-
             var variables = Designs.GetItem<DesignModel> ((nuint)0);
             // we add a new variable with name VARNAME{N} where N is not already taken.
             var takenIds = new List<int> ();
