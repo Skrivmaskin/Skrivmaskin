@@ -228,10 +228,10 @@ namespace Skrivmaskin.Editor
             base.ViewDidLoad ();
         }
 
-        internal void SetUpControllerLinks (SetVariablesViewController setVariablesViewController, ResultsViewController resultsViewController)
+        internal void SetUpControllerLinks (SetVariablesViewController svvc, ResultsViewController rvc)
         {
-            this.setVariablesViewController = setVariablesViewController;
-            this.resultsViewController = resultsViewController;
+            this.setVariablesViewController = svvc;
+            this.resultsViewController = rvc;
         }
 
         public override NSObject RepresentedObject {
@@ -248,5 +248,93 @@ namespace Skrivmaskin.Editor
         private void Compile ()
         {
         }
-    }
+
+        partial void Add_NewVariable (Foundation.NSObject sender)
+        {
+            // Attempt to guess at the variable needed.
+            var selection = TreeController.SelectedObjects;
+            var candidates = new List<string> ();
+            if ((selection.Length == 1) && (((DesignModel)selection [0]).NodeType == DesignModelType.Text)) {
+                var model = (DesignModel)selection [0];
+                var textNode = new TextNode (model.Details, model.IsActive);
+                var compiledNode = compiler.GetCompiledNode (textNode);
+                if (!compiledNode.HasErrors) {
+                    foreach (var item in compiledNode.RequiredVariables) {
+                        //TODO stuff
+                    }
+                }
+            }
+
+            var variables = Designs.GetItem<DesignModel> ((nuint)0);
+            // we add a new variable with name VARNAME{N} where N is not already taken.
+            var takenIds = new List<int> ();
+            for (int i = 0; i < variables.NumberOfDesigns; i++) {
+                var variable = variables.Designs.GetItem<DesignModel> ((nuint)i);
+                var name = variable.Name;
+                if (name.StartsWith ("VARNAME", StringComparison.InvariantCultureIgnoreCase)) {
+                    var restOfName = name.Substring (7);
+                    int taken;
+                    if (Int32.TryParse (restOfName, out taken)) {
+                        takenIds.Add (taken);
+                    }
+                }
+            }
+            var attempt = 0;
+            takenIds.Sort ();
+            foreach (var item in takenIds) {
+                if (item == attempt) {
+                    ++attempt;
+                } else {
+                    break;
+                }
+            }
+            var newVariable = new DesignModel (this, DesignModelType.Variable, "VARNAME" + attempt, "Description for this variable");
+            variables.AddDesign (newVariable);
+            newVariable.AddDesign (new DesignModel (this, DesignModelType.VariableForm, "Variant", "Suggestion"));
+        }
+
+        partial void ConvertToChoice (Foundation.NSObject sender)
+        {
+            var selection = TreeController.SelectedObjects;
+            if (selection.Length == 1) {
+                var selectedModel = (DesignModel)selection [0];
+                if (selectedModel.NodeType == DesignModelType.Sequential) {
+                    selectedModel.NodeType = DesignModelType.Choice;
+                }
+            }
+        }
+
+        partial void ConvertToSequential (Foundation.NSObject sender)
+        {
+            var selection = TreeController.SelectedObjects;
+            if (selection.Length == 1) {
+                var selectedModel = (DesignModel)selection [0];
+                if (selectedModel.NodeType == DesignModelType.Choice) {
+                    selectedModel.NodeType = DesignModelType.Sequential;
+                }
+            }
+        }
+
+        public bool HideConvertToChoice {
+            [Export ("hideConvertToChoice")]
+            get {
+                var selection = TreeController.SelectedObjects;
+                if (selection.Length != 1) return true;
+                var selectedModel = (DesignModel)selection [0];
+                if (selectedModel.NodeType == DesignModelType.Sequential) return false;
+                return true;
+            }
+        }
+    
+        public bool HideConvertToSequential {
+            [Export ("hideConvertToSequential")]
+            get {
+                var selection = TreeController.SelectedObjects;
+                if (selection.Length != 1) return true;
+                var selectedModel = (DesignModel)selection [0];
+                if (selectedModel.NodeType == DesignModelType.Choice) return false;
+                return true;
+            }
+        }
+}
 }

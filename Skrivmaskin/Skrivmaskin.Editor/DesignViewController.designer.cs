@@ -14,12 +14,29 @@ namespace Skrivmaskin.Editor
 	{
 		[Outlet]
 		Foundation.NSObject DesignOutlineView { get; set; }
+
+		[Outlet]
+		AppKit.NSTreeController TreeController { get; set; }
+
+		[Action ("Add_NewVariable:")]
+		partial void Add_NewVariable (Foundation.NSObject sender);
+
+		[Action ("ConvertToChoice:")]
+		partial void ConvertToChoice (Foundation.NSObject sender);
+
+		[Action ("ConvertToSequential:")]
+		partial void ConvertToSequential (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
 			if (DesignOutlineView != null) {
 				DesignOutlineView.Dispose ();
 				DesignOutlineView = null;
+			}
+
+			if (TreeController != null) {
+				TreeController.Dispose ();
+				TreeController = null;
 			}
 		}
 	}

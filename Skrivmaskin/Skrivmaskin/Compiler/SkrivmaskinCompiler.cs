@@ -26,6 +26,11 @@ namespace Skrivmaskin.Compiler
             this.lexerSyntax = lexerSyntax;
         }
 
+        public ICompiledNode GetCompiledNode (TextNode textNode)
+        {
+            return compiledNodes [textNode];
+        }
+
         /// <summary>
         /// Compile the specified design time project.
         /// </summary>

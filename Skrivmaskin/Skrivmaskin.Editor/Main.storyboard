@@ -805,6 +805,7 @@
                                             </tableColumns>
                                             <connections>
                                                 <binding destination="Nen-D7-Df0" name="content" keyPath="arrangedObjects" id="BxM-Dl-jfi"/>
+                                                <binding destination="Nen-D7-Df0" name="selectionIndexPaths" keyPath="selectionIndexPaths" previousBinding="BxM-Dl-jfi" id="APe-s6-3kE"/>
                                             </connections>
                                         </outlineView>
                                     </subviews>
@@ -821,6 +822,9 @@
                                     <rect key="frame" x="0.0" y="0.0" width="412" height="23"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableHeaderView>
+                                <connections>
+                                    <outlet property="menu" destination="E7I-6N-QBA" id="J5D-IV-Rta"/>
+                                </connections>
                             </scrollView>
                         </subviews>
                         <constraints>
@@ -832,19 +836,38 @@
                     </view>
                     <connections>
                         <outlet property="DesignOutlineView" destination="tRp-WS-pdL" id="Lvf-ee-z6H"/>
+                        <outlet property="TreeController" destination="Nen-D7-Df0" id="tx5-8R-BcV"/>
                     </connections>
                 </viewController>
                 <customObject id="9CK-bW-ZXW" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
                 <menu id="E7I-6N-QBA">
                     <items>
-                        <menuItem title="Item 1" id="vS4-3H-L01">
+                        <menuItem title="Add" id="E2H-4A-nQV">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Add" id="Zof-dj-gga">
+                                <items>
+                                    <menuItem title="New Variable" id="t4p-3n-8rE">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="Add_NewVariable:" target="RQR-9K-tsF" id="1Xk-fg-LbF"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
                         </menuItem>
-                        <menuItem title="Item 2" id="1fr-j8-hiw">
+                        <menuItem title="Convert To Choice" id="1fr-j8-hiw">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="ConvertToChoice:" target="RQR-9K-tsF" id="Tej-Db-aJH"/>
+                                <binding destination="RQR-9K-tsF" name="hidden" keyPath="self.hideConvertToChoice" id="18A-ci-BBw"/>
+                            </connections>
                         </menuItem>
-                        <menuItem title="Item 3" id="Ab4-Yd-Lal">
+                        <menuItem title="Convert To Sequential" id="Ab4-Yd-Lal">
                             <modifierMask key="keyEquivalentModifierMask"/>
+                            <connections>
+                                <action selector="ConvertToSequential:" target="RQR-9K-tsF" id="dim-EE-Fxq"/>
+                                <binding destination="RQR-9K-tsF" name="hidden" keyPath="self.hideConvertToSequential" id="Msc-6t-0Mr"/>
+                            </connections>
                         </menuItem>
                     </items>
                 </menu>
