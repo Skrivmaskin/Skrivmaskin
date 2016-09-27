@@ -104,8 +104,6 @@ namespace Skrivmaskin.Editor
 
         internal Project Project { get; private set; } = new Project (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
         private CompiledProject compiledProject = null;
-        private SetVariablesViewController setVariablesViewController = null;
-        private ResultsViewController resultsViewController = null;
         private CompiledProject CompiledProject {
             get {
                 return compiledProject;
@@ -160,14 +158,22 @@ namespace Skrivmaskin.Editor
         public bool CreateVariables (Project project, DesignModel variables, out string errorText)
         {
             foreach (var variable in project.VariableDefinitions) {
-                var model = new DesignModel (this, variable);
+                var model = new DesignModel (variable);
                 variables.AddDesign (model);
                 foreach (var form in variable.Forms) {
-                    model.AddDesign (new DesignModel (this, form));
+                    model.AddDesign (new DesignModel (form));
                 }
             }
             errorText = "";
             return true;
+        }
+
+        SetVariablesViewController setVariablesViewController = null;
+        ResultsViewController resultsViewController = null;
+        internal void SetControllerLinks (SetVariablesViewController svvc, ResultsViewController rvc)
+        {
+            setVariablesViewController = svvc;
+            resultsViewController = rvc;
         }
 
         public bool CreateDefinition (INode designNode, bool root, Action<DesignModel> addDefn, out string errorText)
@@ -177,19 +183,19 @@ namespace Skrivmaskin.Editor
             switch (designNode.Type) {
             case NodeType.Choice:
                 children = (designNode as ChoiceNode).Choices;
-                design = new DesignModel (root, this, DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "");
+                design = new DesignModel (root, DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "");
                 break;
             case NodeType.Sequential:
                 children = (designNode as SequentialNode).Sequential;
-                design = new DesignModel (root, this, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
+                design = new DesignModel (root, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
                 break;
             case NodeType.ParagraphBreak:
                 children = new INode [0];
-                design = new DesignModel (root, this, DesignModelType.ParagraphBreak, "Paragraph Break", "");
+                design = new DesignModel (root, DesignModelType.ParagraphBreak, "Paragraph Break", "");
                 break;
             case NodeType.Text:
                 children = new INode [0];
-                design = new DesignModel (root, this, DesignModelType.Text, "", (designNode as TextNode).Text);
+                design = new DesignModel (root, DesignModelType.Text, "", (designNode as TextNode).Text);
                 break;
             default:
                 throw new ApplicationException ("Unrecognised design node type " + designNode.Type);
@@ -210,7 +216,7 @@ namespace Skrivmaskin.Editor
             Project = project; // no edits yet so no need to inform Apple about it
             var array = new NSMutableArray ();
             SetDesigns (array);
-            var variables = new DesignModel (this, "Variables");
+            var variables = new DesignModel ("Variables");
             AddDesign (variables);
             if (this.CreateVariables (project, variables, out errorText)) {
                 if (this.CreateDefinition (project.Definition, true, (d) => AddDesign (d), out errorText)) {
@@ -233,17 +239,11 @@ namespace Skrivmaskin.Editor
             loading = true;
             var array = new NSMutableArray ();
             SetDesigns (array);
-            var variables = new DesignModel (this, "Variables");
+            var variables = new DesignModel ("Variables");
             AddDesign (variables);
-            var definition = new DesignModel (true, this, DesignModelType.Sequential, "Definition", "");
+            var definition = new DesignModel (true, DesignModelType.Sequential, "Definition", "");
             AddDesign (definition);
             loading = false;
-        }
-
-        internal void SetUpControllerLinks (SetVariablesViewController svvc, ResultsViewController rvc)
-        {
-            this.setVariablesViewController = svvc;
-            this.resultsViewController = rvc;
         }
 
         public override NSObject RepresentedObject {
@@ -259,7 +259,7 @@ namespace Skrivmaskin.Editor
         partial void Add_ParagraphBreak (Foundation.NSObject sender)
         {
             var model = TreeController.SelectedObjects [0] as DesignModel;
-            model.AddDesign (new DesignModel (this, DesignModelType.ParagraphBreak, "", ""));
+            model.AddDesign (new DesignModel (DesignModelType.ParagraphBreak, "", ""));
         }
 
         partial void Delete_Item (NSObject sender)
@@ -291,9 +291,9 @@ namespace Skrivmaskin.Editor
                 var dialog2 = segue.DestinationController as NewVariableDialogController;
                 dialog2.DialogAccepted += (s, e) => {
                     var variables = Designs.GetItem<DesignModel> ((nuint)0);
-                    var variable = new DesignModel (this, new Variable () { Name = dialog2.NewVariableName, Description = dialog2.NewVariableDescription });
+                    var variable = new DesignModel (new Variable () { Name = dialog2.NewVariableName, Description = dialog2.NewVariableDescription });
                     variables.AddDesign (variable);
-                    var variableForm = new DesignModel (this, new VariableForm () { Name = "", Suggestion = dialog2.NewVariableSuggestion });
+                    var variableForm = new DesignModel (new VariableForm () { Name = "", Suggestion = dialog2.NewVariableSuggestion });
                     variable.AddDesign (variableForm);
                     DocumentEditedAction ();
                 };
@@ -303,7 +303,7 @@ namespace Skrivmaskin.Editor
                 var dialog3 = segue.DestinationController as RenameDialogController;
                 dialog3.RenameDialogTitle = "New Choice";
                 dialog3.DialogAccepted += (s, e) => {
-                    var newChoice = new DesignModel (this, DesignModelType.Choice, dialog3.NewNameValue, "");
+                    var newChoice = new DesignModel (DesignModelType.Choice, dialog3.NewNameValue, "");
                     selected.AddDesign (newChoice);
                     DocumentEditedAction ();
                 };
@@ -314,7 +314,7 @@ namespace Skrivmaskin.Editor
                 var dialog4 = segue.DestinationController as RenameDialogController;
                 dialog4.RenameDialogTitle = "New Sequential";
                 dialog4.DialogAccepted += (s, e) => {
-                    var newSequential = new DesignModel (this, DesignModelType.Sequential, dialog4.NewNameValue, "");
+                    var newSequential = new DesignModel (DesignModelType.Sequential, dialog4.NewNameValue, "");
                     selected.AddDesign (newSequential);
                     DocumentEditedAction ();
                 };
@@ -324,7 +324,7 @@ namespace Skrivmaskin.Editor
                 var dialog5 = segue.DestinationController as EditDialogController;
                 dialog5.EditTitleText = "New Text";
                 dialog5.DialogAccepted += (s, e) => {
-                    var newText = new DesignModel (this, DesignModelType.Text, "", dialog5.NewDetailsOutput);
+                    var newText = new DesignModel (DesignModelType.Text, "", dialog5.NewDetailsOutput);
                     selected.AddDesign (newText);
                     DocumentEditedAction ();
                 };
@@ -333,7 +333,7 @@ namespace Skrivmaskin.Editor
             case "NewVariableVariantDialog":
                 var dialog6 = segue.DestinationController as NewVariableVariantDialogController;
                 dialog6.DialogAccepted += (s, e) => {
-                    var newVariableForm = new DesignModel (this, new VariableForm () { Name = dialog6.NewVariableVariantNameText, Suggestion = dialog6.NewVariableVariantSuggestionText });
+                    var newVariableForm = new DesignModel (new VariableForm () { Name = dialog6.NewVariableVariantNameText, Suggestion = dialog6.NewVariableVariantSuggestionText });
                     selected.AddDesign (newVariableForm);
                     DocumentEditedAction ();
                 };

@@ -8,8 +8,6 @@ namespace Skrivmaskin.Editor
     [Register ("DesignModel")]
     public class DesignModel : NSObject
     {
-        private readonly DesignViewController controller;
-
         private string name = "";
         [Export ("Name")]
         public string Name {
@@ -199,9 +197,8 @@ namespace Skrivmaskin.Editor
             DidChangeValue ("isLeaf");
         }
 
-        public DesignModel (DesignViewController controller, string name)
+        public DesignModel (string name)
         {
-            this.controller = controller;
             isActive = true;
             NodeType = DesignModelType.VariableRoot;
             Name = name;
@@ -209,27 +206,24 @@ namespace Skrivmaskin.Editor
             _isRoot = true;
         }
 
-        public DesignModel (DesignViewController controller, Variable variable)
+        public DesignModel (Variable variable)
         {
-            this.controller = controller;
             isActive = true;
             NodeType = DesignModelType.Variable;
             Name = variable.Name;
             Details = variable.Description;
         }
 
-        public DesignModel (DesignViewController controller, VariableForm form)
+        public DesignModel (VariableForm form)
         {
-            this.controller = controller;
             isActive = true;
             NodeType = DesignModelType.VariableForm;
             Name = form.Name;
             Details = form.Suggestion;
         }
 
-        public DesignModel (bool root, DesignViewController controller, DesignModelType designNodeType, string name, string details)
+        public DesignModel (bool root, DesignModelType designNodeType, string name, string details)
         {
-            this.controller = controller;
             isActive = true;
             NodeType = designNodeType;
             Name = name;
@@ -237,8 +231,8 @@ namespace Skrivmaskin.Editor
             _isRoot = root;
         }
 
-        public DesignModel (DesignViewController controller, DesignModelType designNodeType, string name, string details)
-            : this (false, controller, designNodeType, name, details)
+        public DesignModel (DesignModelType designNodeType, string name, string details)
+            : this (false, designNodeType, name, details)
         {
         }
     }

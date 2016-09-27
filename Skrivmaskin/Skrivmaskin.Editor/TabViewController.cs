@@ -15,6 +15,39 @@ namespace Skrivmaskin.Editor
         {
         }
 
+        public override void AwakeFromNib ()
+        {
+            base.AwakeFromNib ();
+            SetControllerLinks ();
+        }
 
+        public override void ViewDidLoad ()
+        {
+            base.ViewDidLoad ();
+            SetControllerLinks ();
+        }
+
+        private void SetControllerLinks ()
+        {
+            SetVariablesViewController setVariablesViewController = null;
+            ResultsViewController resultsViewController = null;
+            DesignViewController designViewController = null;
+            foreach (var child in ChildViewControllers) {
+                if (child is DesignViewController) {
+                    designViewController = child as DesignViewController;
+                } else {
+                    foreach (var subchild in child.ChildViewControllers) {
+                        if (subchild is SetVariablesViewController) {
+                            setVariablesViewController = subchild as SetVariablesViewController;
+                        } else if (subchild is ResultsViewController) {
+                            resultsViewController = subchild as ResultsViewController;
+                        }
+                    }
+                }
+            }
+            if ((designViewController != null) && (setVariablesViewController != null) && (resultsViewController != null)) {
+                designViewController.SetControllerLinks (setVariablesViewController, resultsViewController);
+            }
+        }
     }
 }

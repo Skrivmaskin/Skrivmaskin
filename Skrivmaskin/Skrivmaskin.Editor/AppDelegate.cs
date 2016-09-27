@@ -16,35 +16,6 @@ namespace Skrivmaskin.Editor
         {
         }
 
-        public override void DidFinishLaunching (NSNotification notification)
-        {
-            var window = NSApplication.SharedApplication.KeyWindow;
-            if (window == null) return;
-            DesignViewController designViewController = null;
-            SetVariablesViewController setVariablesViewController = null;
-            ResultsViewController resultsViewController = null;
-            var viewController = window.ContentViewController as TabViewController;
-            foreach (var child in viewController.ChildViewControllers) {
-                if (child is DesignViewController) {
-                    designViewController = child as DesignViewController;
-                } else {
-                    foreach (var subchild in child.ChildViewControllers) {
-                        if (subchild is ResultsViewController) {
-                            resultsViewController = subchild as ResultsViewController;
-                            break;
-                        }
-                    }
-                    foreach (var subchild in child.ChildViewControllers) {
-                        if (subchild is SetVariablesViewController) {
-                            setVariablesViewController = subchild as SetVariablesViewController;
-                            break;
-                        }
-                    }
-                }
-            }
-            designViewController.SetUpControllerLinks (setVariablesViewController, resultsViewController);
-        }
-
         public override void WillTerminate (NSNotification notification)
         {
             // Insert code here to tear down your application
@@ -88,29 +59,13 @@ namespace Skrivmaskin.Editor
                 controller.ShowWindow (this);
 
                 DesignViewController designViewController = null;
-                SetVariablesViewController setVariablesViewController = null;
-                ResultsViewController resultsViewController = null;
                 var viewController = controller.Window.ContentViewController as TabViewController;
                 foreach (var child in viewController.ChildViewControllers) {
                     if (child is DesignViewController) {
                         designViewController = child as DesignViewController;
-                    } else {
-                        foreach (var subchild in child.ChildViewControllers) {
-                            if (subchild is ResultsViewController) {
-                                resultsViewController = subchild as ResultsViewController;
-                                break;
-                            }
-                        }
-                        foreach (var subchild in child.ChildViewControllers) {
-                            if (subchild is SetVariablesViewController) {
-                                setVariablesViewController = subchild as SetVariablesViewController;
-                                break;
-                            }
-                        }
+                        break;
                     }
                 }
-                designViewController.SetUpControllerLinks (setVariablesViewController, resultsViewController);
-
                 var fileInfo = new FileInfo (path);
                 var project = ProjectWriter.Read (fileInfo);
                 designViewController.CreateTree (project);
