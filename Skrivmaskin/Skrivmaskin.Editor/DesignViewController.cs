@@ -262,18 +262,6 @@ namespace Skrivmaskin.Editor
             model.AddDesign (new DesignModel (this, DesignModelType.ParagraphBreak, "", ""));
         }
 
-        partial void Add_Text (Foundation.NSObject sender)
-        {
-            var model = TreeController.SelectedObjects [0] as DesignModel;
-            model.AddDesign (new DesignModel (this, DesignModelType.Text, "", "Insert text here."));
-        }
-
-        partial void Add_VariableVariant (Foundation.NSObject sender)
-        {
-            var model = TreeController.SelectedObjects [0] as DesignModel;
-            model.AddDesign (new DesignModel (this, DesignModelType.VariableForm, "FormName", "Suggestion"));
-        }
-
         partial void Delete_Item (NSObject sender)
         {
             foreach (var indexPath in TreeController.SelectionIndexPaths) {

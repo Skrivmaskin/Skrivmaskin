@@ -21,12 +21,6 @@ namespace Skrivmaskin.Editor
 		[Action ("Add_ParagraphBreak:")]
 		partial void Add_ParagraphBreak (Foundation.NSObject sender);
 
-		[Action ("Add_Text:")]
-		partial void Add_Text (Foundation.NSObject sender);
-
-		[Action ("Add_VariableVariant:")]
-		partial void Add_VariableVariant (Foundation.NSObject sender);
-
 		[Action ("ConvertToChoice:")]
 		partial void ConvertToChoice (Foundation.NSObject sender);
 
@@ -35,7 +29,7 @@ namespace Skrivmaskin.Editor
 
 		[Action ("Delete_Item:")]
 		partial void Delete_Item (Foundation.NSObject sender);
-
+		
 		void ReleaseDesignerOutlets ()
 		{
 			if (DesignOutlineView != null) {

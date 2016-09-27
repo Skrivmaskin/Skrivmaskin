@@ -694,10 +694,10 @@
             </objects>
             <point key="canvasLocation" x="75" y="711"/>
         </scene>
-        <!--Rename Dialog Controller-->
+        <!--Set Name-->
         <scene sceneID="Oh0-VV-RQw">
             <objects>
-                <viewController showSeguePresentationStyle="single" id="T80-XL-Iqz" customClass="RenameDialogController" sceneMemberID="viewController">
+                <viewController title="Set Name" showSeguePresentationStyle="single" id="T80-XL-Iqz" customClass="RenameDialogController" sceneMemberID="viewController">
                     <view key="view" id="EpR-vZ-iEo">
                         <rect key="frame" x="0.0" y="0.0" width="394" height="124"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1062,10 +1062,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="747" y="711"/>
         </scene>
-        <!--New Variable Variant Dialog Controller-->
+        <!--Variable Variant-->
         <scene sceneID="JfN-rn-SgR">
             <objects>
-                <viewController id="e1V-Gl-edz" customClass="NewVariableVariantDialogController" sceneMemberID="viewController">
+                <viewController title="Variable Variant" id="e1V-Gl-edz" customClass="NewVariableVariantDialogController" sceneMemberID="viewController">
                     <view key="view" id="nXc-0m-VPL">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="155"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1218,10 +1218,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="1289" y="-75.5"/>
         </scene>
-        <!--Edit Dialog Controller-->
+        <!--Text-->
         <scene sceneID="vEj-hL-ttl">
             <objects>
-                <viewController id="CUe-gR-Ce5" customClass="EditDialogController" sceneMemberID="viewController">
+                <viewController title="Text" id="CUe-gR-Ce5" customClass="EditDialogController" sceneMemberID="viewController">
                     <view key="view" id="zhy-Vm-ON2">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="198"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1339,10 +1339,10 @@ Gw
             </objects>
             <point key="canvasLocation" x="1290" y="323"/>
         </scene>
-        <!--New Variable Dialog Controller-->
+        <!--Variable-->
         <scene sceneID="Qk0-eX-r0g">
             <objects>
-                <viewController id="xAB-2p-Lh5" customClass="NewVariableDialogController" sceneMemberID="viewController">
+                <viewController title="Variable" id="xAB-2p-Lh5" customClass="NewVariableDialogController" sceneMemberID="viewController">
                     <view key="view" id="pZm-2V-s7c">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="187"/>
                         <autoresizingMask key="autoresizingMask"/>
