@@ -380,9 +380,11 @@ namespace Skrivmaskin.Editor
             if (selected.NodeType == DesignModelType.Sequential) {
                 WillChangeValue ("hideConvertToChoice");
                 WillChangeValue ("hideConvertToSequential");
+                WillChangeValue ("designModelArray");
                 selected.NodeType = DesignModelType.Choice;
                 DidChangeValue ("hideConvertToChoice");
                 DidChangeValue ("hideConvertToSequential");
+                DidChangeValue ("designModelArray");
             }
         }
 
@@ -393,7 +395,9 @@ namespace Skrivmaskin.Editor
             if (selected.NodeType == DesignModelType.Choice) {
                 WillChangeValue ("hideConvertToChoice");
                 WillChangeValue ("hideConvertToSequential");
+                WillChangeValue ("designModelArray");
                 selected.NodeType = DesignModelType.Sequential;
+                DidChangeValue ("designModelArray");
                 DidChangeValue ("hideConvertToChoice");
                 DidChangeValue ("hideConvertToSequential");
             }
