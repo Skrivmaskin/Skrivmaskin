@@ -37,11 +37,14 @@ namespace Skrivmaskin.Generation
                 return string.Concat ((node as SequentialCompiledNode).Sequential.Select ((n) => GenerateText (n, variableSubstituter)));
             case CompiledNodeType.Choice:
                 var choices = (node as ChoiceCompiledNode).Choices;
+                if (choices.Count == 0) return "";
                 return GenerateText (choices [randomChooser.Choose (choices.Count)], variableSubstituter);
             case CompiledNodeType.SentenceBreak:
                 return generatorConfig.Spacing;
             case CompiledNodeType.ParagraphBreak:
                 return generatorConfig.ParagraphBreak;
+            case CompiledNodeType.Blank:
+                return "";
             default:
                 throw new ApplicationException ("Unrecognised to generate text when there were compiler errors " + node.GetType ());
             }

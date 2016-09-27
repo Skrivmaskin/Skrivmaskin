@@ -39,11 +39,6 @@ namespace Skrivmaskin.Editor
             this.variableValues = vv;
         }
 
-        internal CompiledProject GetCompiledProject ()
-        {
-            return compiledProject;
-        }
-
         readonly SkrivmaskinGenerator generator = new SkrivmaskinGenerator (new RandomChooser (), new SingleSpaceUnixGeneratorConfig ());
 
         public void Generate ()

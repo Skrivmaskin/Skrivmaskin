@@ -48,7 +48,7 @@ namespace Skrivmaskin.Compiler
         /// <value>The type.</value>
         public CompiledNodeType Type {
             get {
-                return CompiledNodeType.Choice;
+                return CompiledNodeType.Blank;
             }
         }
 
