@@ -283,6 +283,7 @@ namespace Skrivmaskin.Editor
                 dialog.RenameDialogTitle = "Rename " + selected.NodeType.ToString ();
                 dialog.DialogAccepted += (s, e) => {
                     selected.Name = dialog.NewNameValue;
+                    DocumentEditedAction ();
                 };
                 dialog.Presentor = this;
                 break;
@@ -292,7 +293,9 @@ namespace Skrivmaskin.Editor
                     var variables = Designs.GetItem<DesignModel> ((nuint)0);
                     var variable = new DesignModel (this, new Variable () { Name = dialog2.NewVariableName, Description = dialog2.NewVariableDescription });
                     variables.AddDesign (variable);
-                    variable.AddDesign (new DesignModel (this, new VariableForm () { Name = "", Suggestion = dialog2.NewVariableSuggestion }));
+                    var variableForm = new DesignModel (this, new VariableForm () { Name = "", Suggestion = dialog2.NewVariableSuggestion });
+                    variable.AddDesign (variableForm);
+                    DocumentEditedAction ();
                 };
                 dialog2.Presentor = this;
                 break;
@@ -300,7 +303,9 @@ namespace Skrivmaskin.Editor
                 var dialog3 = segue.DestinationController as RenameDialogController;
                 dialog3.RenameDialogTitle = "New Choice";
                 dialog3.DialogAccepted += (s, e) => {
-                    selected.AddDesign (new DesignModel (this, DesignModelType.Choice, dialog3.NewNameValue, ""));
+                    var newChoice = new DesignModel (this, DesignModelType.Choice, dialog3.NewNameValue, "");
+                    selected.AddDesign (newChoice);
+                    DocumentEditedAction ();
                 };
                 dialog3.Presentor = this;
 
@@ -309,7 +314,9 @@ namespace Skrivmaskin.Editor
                 var dialog4 = segue.DestinationController as RenameDialogController;
                 dialog4.RenameDialogTitle = "New Sequential";
                 dialog4.DialogAccepted += (s, e) => {
-                    selected.AddDesign (new DesignModel (this, DesignModelType.Sequential, dialog4.NewNameValue, ""));
+                    var newSequential = new DesignModel (this, DesignModelType.Sequential, dialog4.NewNameValue, "");
+                    selected.AddDesign (newSequential);
+                    DocumentEditedAction ();
                 };
                 dialog4.Presentor = this;
                 break;
@@ -317,14 +324,18 @@ namespace Skrivmaskin.Editor
                 var dialog5 = segue.DestinationController as EditDialogController;
                 dialog5.EditTitleText = "New Text";
                 dialog5.DialogAccepted += (s, e) => {
-                    selected.AddDesign (new DesignModel (this, DesignModelType.Text, "", dialog5.NewDetailsOutput));
+                    var newText = new DesignModel (this, DesignModelType.Text, "", dialog5.NewDetailsOutput);
+                    selected.AddDesign (newText);
+                    DocumentEditedAction ();
                 };
                 dialog5.Presentor = this;
                 break;
             case "NewVariableVariantDialog":
                 var dialog6 = segue.DestinationController as NewVariableVariantDialogController;
                 dialog6.DialogAccepted += (s, e) => {
-                    selected.AddDesign (new DesignModel (this, new VariableForm () { Name = dialog6.NewVariableVariantNameText, Suggestion = dialog6.NewVariableVariantSuggestionText }));
+                    var newVariableForm = new DesignModel (this, new VariableForm () { Name = dialog6.NewVariableVariantNameText, Suggestion = dialog6.NewVariableVariantSuggestionText });
+                    selected.AddDesign (newVariableForm);
+                    DocumentEditedAction ();
                 };
                 dialog6.Presentor = this;
                 break;

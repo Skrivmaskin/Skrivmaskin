@@ -18,7 +18,6 @@ namespace Skrivmaskin.Editor
                 WillChangeValue ("Name");
                 name = value;
                 DidChangeValue ("Name");
-                controller.DocumentEditedAction ();
             }
         }
 
@@ -75,7 +74,6 @@ namespace Skrivmaskin.Editor
                 WillChangeValue ("Details");
                 details = value;
                 DidChangeValue ("Details");
-                controller.DocumentEditedAction ();
             }
         }
 
