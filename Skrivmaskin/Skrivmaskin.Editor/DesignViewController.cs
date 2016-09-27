@@ -259,52 +259,10 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        partial void Add_NewVariable (Foundation.NSObject sender)
-        {
-            var variables = Designs.GetItem<DesignModel> ((nuint)0);
-            // we add a new variable with name VARNAME{N} where N is not already taken.
-            var takenIds = new List<int> ();
-            for (int i = 0; i < variables.NumberOfDesigns; i++) {
-                var variable = variables.Designs.GetItem<DesignModel> ((nuint)i);
-                var name = variable.Name;
-                if (name.StartsWith ("VARNAME", StringComparison.InvariantCultureIgnoreCase)) {
-                    var restOfName = name.Substring (7);
-                    int taken;
-                    if (Int32.TryParse (restOfName, out taken)) {
-                        takenIds.Add (taken);
-                    }
-                }
-            }
-            var attempt = 0;
-            takenIds.Sort ();
-            foreach (var item in takenIds) {
-                if (item == attempt) {
-                    ++attempt;
-                } else {
-                    break;
-                }
-            }
-            var newVariable = new DesignModel (this, DesignModelType.Variable, "VARNAME" + attempt, "Description for this variable");
-            variables.AddDesign (newVariable);
-            newVariable.AddDesign (new DesignModel (this, DesignModelType.VariableForm, "", "Suggestion"));
-        }
-
-        partial void Add_Choice (Foundation.NSObject sender)
-        {
-            var model = TreeController.SelectedObjects [0] as DesignModel;
-            model.AddDesign (new DesignModel (this, DesignModelType.Choice, "Choice", ""));
-        }
-
         partial void Add_ParagraphBreak (Foundation.NSObject sender)
         {
             var model = TreeController.SelectedObjects [0] as DesignModel;
             model.AddDesign (new DesignModel (this, DesignModelType.ParagraphBreak, "", ""));
-        }
-
-        partial void Add_Sequential (Foundation.NSObject sender)
-        {
-            var model = TreeController.SelectedObjects [0] as DesignModel;
-            model.AddDesign (new DesignModel (this, DesignModelType.Sequential, "Sequential", ""));
         }
 
         partial void Add_Text (Foundation.NSObject sender)
@@ -326,6 +284,68 @@ namespace Skrivmaskin.Editor
             }
         }
 
+        public override void PrepareForSegue (NSStoryboardSegue segue, NSObject sender)
+        {
+            base.PrepareForSegue (segue, sender);
+            DesignModel selected = null;
+            if (TreeController.SelectedObjects.Length == 1)
+                selected = (DesignModel)TreeController.SelectedObjects [0];
+
+            // Take action based on the segue name
+            switch (segue.Identifier) {
+            case "RenameDialog":
+                var dialog = segue.DestinationController as RenameDialogController;
+                dialog.RenameDialogTitle = "Rename " + selected.NodeType.ToString ();
+                dialog.DialogAccepted += (s, e) => {
+                    selected.Name = dialog.NewNameValue;
+                };
+                dialog.Presentor = this;
+                break;
+            case "NewVariableDialog":
+                var dialog2 = segue.DestinationController as NewVariableDialogController;
+                dialog2.DialogAccepted += (s, e) => {
+                    var variables = Designs.GetItem<DesignModel> ((nuint)0);
+                    var variable = new DesignModel (this, new Variable () { Name = dialog2.NewVariableName, Description = dialog2.NewVariableDescription });
+                    variables.AddDesign (variable);
+                    variable.AddDesign (new DesignModel (this, new VariableForm () { Name = "", Suggestion = dialog2.NewVariableSuggestion }));
+                };
+                dialog2.Presentor = this;
+                break;
+            case "NewChoiceDialog":
+                var dialog3 = segue.DestinationController as RenameDialogController;
+                dialog3.RenameDialogTitle = "New Choice";
+                dialog3.DialogAccepted += (s, e) => {
+                    selected.AddDesign (new DesignModel (this, DesignModelType.Choice, dialog3.NewNameValue, ""));
+                };
+                dialog3.Presentor = this;
+
+                break;
+            case "NewSequentialDialog":
+                var dialog4 = segue.DestinationController as RenameDialogController;
+                dialog4.RenameDialogTitle = "New Sequential";
+                dialog4.DialogAccepted += (s, e) => {
+                    selected.AddDesign (new DesignModel (this, DesignModelType.Sequential, dialog4.NewNameValue, ""));
+                };
+                dialog4.Presentor = this;
+                break;
+            case "NewTextDialog":
+                var dialog5 = segue.DestinationController as EditDialogController;
+                dialog5.EditTitleText = "New Text";
+                dialog5.DialogAccepted += (s, e) => {
+                    selected.AddDesign (new DesignModel (this, DesignModelType.Text, "", dialog5.NewDetailsOutput));
+                };
+                dialog5.Presentor = this;
+                break;
+            case "NewVariableVariantDialog":
+                var dialog6 = segue.DestinationController as NewVariableVariantDialogController;
+                dialog6.DialogAccepted += (s, e) => {
+                    selected.AddDesign (new DesignModel (this, new VariableForm () { Name = dialog6.NewVariableVariantNameText, Suggestion = dialog6.NewVariableVariantSuggestionText }));
+                };
+                dialog6.Presentor = this;
+                break;
+            }
+        }
+
         public bool EnableDelete {
             [Export ("enableDelete")]
             get {
@@ -335,6 +355,16 @@ namespace Skrivmaskin.Editor
 
         public bool EnableAdd {
             [Export ("enableAdd")]
+            get {
+                if (TreeController.SelectedObjects.Length != 1) return false;
+                var selected = (DesignModel)TreeController.SelectedObjects [0];
+                if (selected.NodeType == DesignModelType.Sequential || selected.NodeType == DesignModelType.Choice) return true;
+                return false;
+            }
+        }
+
+        public bool EnableRename {
+            [Export ("enableRename")]
             get {
                 if (TreeController.SelectedObjects.Length != 1) return false;
                 var selected = (DesignModel)TreeController.SelectedObjects [0];

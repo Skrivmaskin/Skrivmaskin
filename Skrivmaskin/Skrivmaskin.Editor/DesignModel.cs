@@ -84,12 +84,8 @@ namespace Skrivmaskin.Editor
             get { return nodeType; }
             set {
                 WillChangeValue ("Icon");
-                WillChangeValue ("isNameEditable");
-                WillChangeValue ("isDetailsEditable");
                 nodeType = value;
                 DidChangeValue ("Icon");
-                DidChangeValue ("isNameEditable");
-                DidChangeValue ("isDetailsEditable");
             }
         }
 
@@ -109,16 +105,6 @@ namespace Skrivmaskin.Editor
         [Export ("isLeaf")]
         public bool isLeaf {
             get { return designs.Count == 0; }
-        }
-
-        [Export ("isNameEditable")]
-        public bool isNameEditable {
-            get { return NodeType == DesignModelType.Choice || NodeType == DesignModelType.Sequential || NodeType == DesignModelType.Variable || (NodeType == DesignModelType.VariableForm && name != ""); }
-        }
-
-        [Export ("isDetailsEditable")]
-        public bool isDetailsEditable {
-            get { return NodeType == DesignModelType.Text || NodeType == DesignModelType.Variable || NodeType == DesignModelType.VariableForm; }
         }
 
         [Export ("Icon")]
@@ -165,6 +151,13 @@ namespace Skrivmaskin.Editor
             [Export ("isRoot")]
             get {
                 return _isRoot;
+            }
+        }
+
+        public bool isRenamable {
+            [Export ("isRenamable")]
+            get {
+                return (NodeType == DesignModelType.Choice || NodeType == DesignModelType.Sequential || NodeType == DesignModelType.Variable || NodeType == DesignModelType.VariableForm);
             }
         }
 
