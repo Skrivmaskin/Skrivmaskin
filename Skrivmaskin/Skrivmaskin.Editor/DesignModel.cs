@@ -113,7 +113,7 @@ namespace Skrivmaskin.Editor
 
         [Export ("isNameEditable")]
         public bool isNameEditable {
-            get { return NodeType == DesignModelType.Choice || NodeType == DesignModelType.Sequential || NodeType == DesignModelType.Variable || NodeType == DesignModelType.VariableForm; }
+            get { return NodeType == DesignModelType.Choice || NodeType == DesignModelType.Sequential || NodeType == DesignModelType.Variable || (NodeType == DesignModelType.VariableForm && name != ""); }
         }
 
         [Export ("isDetailsEditable")]
