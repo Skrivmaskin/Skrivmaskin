@@ -167,7 +167,7 @@ namespace Skrivmaskin.Editor
             SetDesigns (array);
             var variables = new DesignModel (this, "Variables");
             AddDesign (variables);
-            var definition = new DesignModel (this, DesignModelType.Sequential, "Definition", "");
+            var definition = new DesignModel (true, this, DesignModelType.Sequential, "Definition", "");
             AddDesign (definition);
             loading = false;
         }
@@ -185,33 +185,33 @@ namespace Skrivmaskin.Editor
             return true;
         }
 
-        public bool CreateDefinition (INode designNode, Action<DesignModel> addDefn, out string errorText)
+        public bool CreateDefinition (INode designNode, bool root, Action<DesignModel> addDefn, out string errorText)
         {
             IEnumerable<INode> children;
             DesignModel design;
             switch (designNode.Type) {
             case NodeType.Choice:
                 children = (designNode as ChoiceNode).Choices;
-                design = new DesignModel (this, DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "");
+                design = new DesignModel (root, this, DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "");
                 break;
             case NodeType.Sequential:
                 children = (designNode as SequentialNode).Sequential;
-                design = new DesignModel (this, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
+                design = new DesignModel (root, this, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
                 break;
             case NodeType.ParagraphBreak:
                 children = new INode [0];
-                design = new DesignModel (this, DesignModelType.ParagraphBreak, "Paragraph Break", "");
+                design = new DesignModel (root, this, DesignModelType.ParagraphBreak, "Paragraph Break", "");
                 break;
             case NodeType.Text:
                 children = new INode [0];
-                design = new DesignModel (this, DesignModelType.Text, "", (designNode as TextNode).Text);
+                design = new DesignModel (root, this, DesignModelType.Text, "", (designNode as TextNode).Text);
                 break;
             default:
                 throw new ApplicationException ("Unrecognised design node type " + designNode.Type);
             }
             addDefn (design);
             foreach (var child in children) {
-                if (!CreateDefinition (child, (d) => design.AddDesign (d), out errorText))
+                if (!CreateDefinition (child, false, (d) => design.AddDesign (d), out errorText))
                     return false;
             }
             errorText = "";
@@ -228,7 +228,7 @@ namespace Skrivmaskin.Editor
             var variables = new DesignModel (this, "Variables");
             AddDesign (variables);
             if (this.CreateVariables (project, variables, out errorText)) {
-                if (this.CreateDefinition (project.Definition, (d) => AddDesign (d), out errorText)) {
+                if (this.CreateDefinition (project.Definition, true, (d) => AddDesign (d), out errorText)) {
                     CompiledProject = compiler.Compile (project);
                     loading = false;
                     return true;
@@ -321,6 +321,9 @@ namespace Skrivmaskin.Editor
 
         partial void Delete_Item (NSObject sender)
         {
+            foreach (var indexPath in TreeController.SelectionIndexPaths) {
+                TreeController.RemoveObjectAtArrangedObjectIndexPath (indexPath);
+            }
         }
 
         public bool EnableDelete {

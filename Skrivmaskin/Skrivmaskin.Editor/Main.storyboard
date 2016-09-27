@@ -894,7 +894,11 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="Delete_Item:" target="RQR-9K-tsF" id="w8e-h3-PAj"/>
-                                <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableDelete" id="sND-qO-Tye"/>
+                                <binding destination="Nen-D7-Df0" name="enabled" keyPath="selection.self.isRoot" id="r5l-NR-ZKu">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </menuItem>
                         <menuItem title="Convert To Choice" id="1fr-j8-hiw">

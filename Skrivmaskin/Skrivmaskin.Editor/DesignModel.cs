@@ -139,6 +139,8 @@ namespace Skrivmaskin.Editor
                         return NSImage.ImageNamed (NSImageName.StatusPartiallyAvailable);
                     case DesignModelType.Sequential:
                         return NSImage.ImageNamed (NSImageName.StatusNone);
+                    case DesignModelType.ParagraphBreak:
+                        return NSImage.ImageNamed (NSImageName.QuickLookTemplate);
                     default:
                         return null;
                     }
@@ -156,6 +158,14 @@ namespace Skrivmaskin.Editor
         [Export ("designModelArray")]
         public NSArray Designs {
             get { return designs; }
+        }
+
+        private bool _isRoot;
+        public bool isRoot {
+            [Export ("isRoot")]
+            get {
+                return _isRoot;
+            }
         }
 
         [Export ("addObject:")]
@@ -205,6 +215,7 @@ namespace Skrivmaskin.Editor
             NodeType = DesignModelType.VariableRoot;
             Name = name;
             Details = "";
+            _isRoot = true;
         }
 
         public DesignModel (DesignViewController controller, Variable variable)
@@ -225,13 +236,19 @@ namespace Skrivmaskin.Editor
             Details = form.Suggestion;
         }
 
-        public DesignModel (DesignViewController controller, DesignModelType designNodeType, string name, string details)
+        public DesignModel (bool root, DesignViewController controller, DesignModelType designNodeType, string name, string details)
         {
             this.controller = controller;
             isActive = true;
             NodeType = designNodeType;
             Name = name;
             Details = details;
+            _isRoot = root;
+        }
+
+        public DesignModel (DesignViewController controller, DesignModelType designNodeType, string name, string details)
+            : this (false, controller, designNodeType, name, details)
+        {
         }
     }
 }
