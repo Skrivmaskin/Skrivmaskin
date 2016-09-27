@@ -157,21 +157,6 @@ namespace Skrivmaskin.Editor
             DidChangeValue ("designModelArray");
         }
 
-        public override void AwakeFromNib ()
-        {
-            base.AwakeFromNib ();
-            this.AddObserver ("designModelArray", NSKeyValueObservingOptions.New, DocumentEdited);
-            this.TreeController.AddObserver ("selectedObjects", NSKeyValueObservingOptions.New, SelectionChanged);
-            loading = true;
-            var array = new NSMutableArray ();
-            SetDesigns (array);
-            var variables = new DesignModel (this, "Variables");
-            AddDesign (variables);
-            var definition = new DesignModel (true, this, DesignModelType.Sequential, "Definition", "");
-            AddDesign (definition);
-            loading = false;
-        }
-
         public bool CreateVariables (Project project, DesignModel variables, out string errorText)
         {
             foreach (var variable in project.VariableDefinitions) {
@@ -241,6 +226,18 @@ namespace Skrivmaskin.Editor
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
+
+            this.AddObserver ("designModelArray", NSKeyValueObservingOptions.New, DocumentEdited);
+            this.TreeController.AddObserver ("selectedObjects", NSKeyValueObservingOptions.New, SelectionChanged);
+
+            loading = true;
+            var array = new NSMutableArray ();
+            SetDesigns (array);
+            var variables = new DesignModel (this, "Variables");
+            AddDesign (variables);
+            var definition = new DesignModel (true, this, DesignModelType.Sequential, "Definition", "");
+            AddDesign (definition);
+            loading = false;
         }
 
         internal void SetUpControllerLinks (SetVariablesViewController svvc, ResultsViewController rvc)
