@@ -394,7 +394,7 @@ namespace Skrivmaskin.Editor
                 dialog.showSuggestionEditField = false;
                 dialog.showActive = false;
                 break;
-}
+            }
 
             dialog.Presentor = this;
         }
