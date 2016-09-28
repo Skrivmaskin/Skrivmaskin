@@ -105,22 +105,11 @@
     <Compile Include="ResultsViewController.designer.cs">
       <DependentUpon>ResultsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="RenameDialogController.cs" />
-    <Compile Include="RenameDialogController.designer.cs">
-      <DependentUpon>RenameDialogController.cs</DependentUpon>
+    <Compile Include="GeneralPurposeDialogController.cs" />
+    <Compile Include="GeneralPurposeDialogController.designer.cs">
+      <DependentUpon>GeneralPurposeDialogController.cs</DependentUpon>
     </Compile>
-    <Compile Include="NewVariableDialogController.cs" />
-    <Compile Include="NewVariableDialogController.designer.cs">
-      <DependentUpon>NewVariableDialogController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="EditDialogController.cs" />
-    <Compile Include="EditDialogController.designer.cs">
-      <DependentUpon>EditDialogController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="NewVariableVariantDialogController.cs" />
-    <Compile Include="NewVariableVariantDialogController.designer.cs">
-      <DependentUpon>NewVariableVariantDialogController.cs</DependentUpon>
-    </Compile>
+    <Compile Include="DesignViewDialogSegues.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

@@ -157,6 +157,13 @@ namespace Skrivmaskin.Editor
             }
         }
 
+        public bool isEditable {
+            [Export ("isEditable")]
+            get {
+                return (NodeType == DesignModelType.Text);
+            }
+        }
+
         [Export ("addObject:")]
         public void AddDesign (DesignModel design)
         {

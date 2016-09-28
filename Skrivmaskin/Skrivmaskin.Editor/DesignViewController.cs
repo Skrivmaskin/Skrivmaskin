@@ -264,9 +264,6 @@ namespace Skrivmaskin.Editor
 
         partial void Delete_Item (NSObject sender)
         {
-            foreach (var indexPath in TreeController.SelectionIndexPaths) {
-                TreeController.RemoveObjectAtArrangedObjectIndexPath (indexPath);
-            }
         }
 
         public override void PrepareForSegue (NSStoryboardSegue segue, NSObject sender)
@@ -275,71 +272,131 @@ namespace Skrivmaskin.Editor
             DesignModel selected = null;
             if (TreeController.SelectedObjects.Length == 1)
                 selected = (DesignModel)TreeController.SelectedObjects [0];
+            var dialog = segue.DestinationController as GeneralPurposeDialogController;
+            if (dialog == null) return;
 
             // Take action based on the segue name
             switch (segue.Identifier) {
-            case "RenameDialog":
-                var dialog = segue.DestinationController as RenameDialogController;
-                dialog.RenameDialogTitle = "Rename " + selected.NodeType.ToString ();
+            case DesignViewDialogSegues.AddChoice:
+                dialog.DialogTitle = "Add New Choice";
+                dialog.DialogMessage = "Add a new node that will randomly choose between a number of options to insert into the output.";
+                dialog.NameLabelInput = "Name:";
                 dialog.DialogAccepted += (s, e) => {
-                    selected.Name = dialog.NewNameValue;
+                    selected.AddDesign (new DesignModel (DesignModelType.Choice, dialog.NameTextOutput, ""));
                     DocumentEditedAction ();
                 };
-                dialog.Presentor = this;
+                dialog.showNameEditField = true;
+                dialog.showDetailsEditField = false;
+                dialog.showSuggestionEditField = false;
+                dialog.showActive = true;
                 break;
-            case "NewVariableDialog":
-                var dialog2 = segue.DestinationController as NewVariableDialogController;
-                dialog2.DialogAccepted += (s, e) => {
-                    var variables = Designs.GetItem<DesignModel> ((nuint)0);
-                    var variable = new DesignModel (new Variable () { Name = dialog2.NewVariableName, Description = dialog2.NewVariableDescription });
-                    variables.AddDesign (variable);
-                    var variableForm = new DesignModel (new VariableForm () { Name = "", Suggestion = dialog2.NewVariableSuggestion });
-                    variable.AddDesign (variableForm);
+            case DesignViewDialogSegues.AddSequential:
+                dialog.DialogTitle = "Add New Sequential";
+                dialog.DialogMessage = "Add a new node that will include all of the elements in its sub tree sequentially.";
+                dialog.NameLabelInput = "Name:";
+                dialog.DialogAccepted += (s, e) => {
+                    selected.AddDesign (new DesignModel (DesignModelType.Sequential, dialog.NameTextOutput, ""));
                     DocumentEditedAction ();
                 };
-                dialog2.Presentor = this;
+                dialog.showNameEditField = true;
+                dialog.showDetailsEditField = false;
+                dialog.showSuggestionEditField = false;
+                dialog.showActive = true;
                 break;
-            case "NewChoiceDialog":
-                var dialog3 = segue.DestinationController as RenameDialogController;
-                dialog3.RenameDialogTitle = "New Choice";
-                dialog3.DialogAccepted += (s, e) => {
-                    var newChoice = new DesignModel (DesignModelType.Choice, dialog3.NewNameValue, "");
-                    selected.AddDesign (newChoice);
+            case DesignViewDialogSegues.AddText:
+                dialog.DialogTitle = "Add New Text";
+                dialog.DialogMessage = "Add a new node that will be parsed to generate a sentence or phrase.";
+                dialog.DetailsLabelInput = "Text:";
+                dialog.DialogAccepted += (s, e) => {
+                    selected.AddDesign (new DesignModel (DesignModelType.Text, "", dialog.DetailsTextOutput));
                     DocumentEditedAction ();
                 };
-                dialog3.Presentor = this;
+                dialog.showNameEditField = false;
+                dialog.showDetailsEditField = true;
+                dialog.showSuggestionEditField = false;
+                dialog.showActive = true;
+                break;
+            case DesignViewDialogSegues.AddVariable:
+                dialog.DialogTitle = "Add New Variable";
+                dialog.DialogMessage = "Add a new variable that can be used for a user replacement in the text.";
+                dialog.NameLabelInput = "Name:";
+                dialog.DetailsLabelInput = "Description:";
+                dialog.DialogAccepted += (s, e) => {
+                    var variable = new DesignModel (new Variable () { Name = dialog.NameTextOutput, Description = dialog.DetailsTextOutput });
+                    ((DesignModel)Designs.GetItem<DesignModel> ((nuint)0)).AddDesign (variable);
+                    variable.AddDesign (new DesignModel (new VariableForm () { Name = "", Suggestion = dialog.SuggestionTextOutput }));
+                    DocumentEditedAction ();
+                };
+                dialog.showNameEditField = true;
+                dialog.showDetailsEditField = true;
+                dialog.showSuggestionEditField = true;
+                dialog.showActive = false;
+                break;
+            case DesignViewDialogSegues.AddVariableVariant:
+                dialog.DialogTitle = "Add New Variable Variant";
+                dialog.DialogMessage = "Add a new variant for " + selected.Name;
+                dialog.NameLabelInput = "Name:";
+                dialog.DialogAccepted += (s, e) => {
+                    selected.AddDesign (new DesignModel (new VariableForm () { Name = dialog.NameTextOutput, Suggestion = dialog.SuggestionTextOutput }));
+                    DocumentEditedAction ();
+                };
+                dialog.showNameEditField = true;
+                dialog.showDetailsEditField = false;
+                dialog.showSuggestionEditField = true;
+                dialog.showActive = false;
+                break;
+            case DesignViewDialogSegues.Edit:
+                dialog.DialogTitle = "Edit " + selected.NodeType;
+                dialog.DialogMessage = "Edit this " + selected.NodeType + ".";
+                dialog.NameLabelInput = "Name:";
+                dialog.DetailsLabelInput = (selected.NodeType == DesignModelType.Text) ? "Text:" : "Description";
+                dialog.NameTextInput = selected.Name;
+                dialog.DetailsTextInput = selected.Details;
+                dialog.SuggestionTextInput = selected.Details;
+                dialog.DialogAccepted += (s, e) => {
+                    switch (selected.NodeType) {
+                    case DesignModelType.Text:
+                        selected.Details = dialog.DetailsTextOutput;
+                        break;
+                    case DesignModelType.Choice:
+                    case DesignModelType.Sequential:
+                        selected.Name = dialog.NameTextOutput;
+                        break;
+                    case DesignModelType.Variable:
+                        selected.Name = dialog.NameTextOutput;
+                        selected.Details = dialog.DetailsTextOutput;
+                        break;
+                    case DesignModelType.VariableForm:
+                        selected.Name = dialog.NameTextOutput;
+                        selected.Details = dialog.SuggestionTextOutput;
+                        break;
+                    default:
+                        break;
+                    }
+                    DocumentEditedAction ();
+                };
+                dialog.showNameEditField = (selected.NodeType == DesignModelType.Choice || selected.NodeType == DesignModelType.Sequential || selected.NodeType == DesignModelType.Variable || selected.NodeType == DesignModelType.VariableForm);
+                dialog.showDetailsEditField = (selected.NodeType == DesignModelType.Text || selected.NodeType == DesignModelType.Variable);
+                dialog.showSuggestionEditField = (selected.NodeType == DesignModelType.VariableForm);
+                dialog.showActive = (selected.NodeType != DesignModelType.Variable && selected.NodeType != DesignModelType.VariableForm);
+                break;
+            case DesignViewDialogSegues.Delete:
+                dialog.DialogTitle = "Delete " + selected.NodeType;
+                dialog.DialogMessage = "Are you sure? This will delete any sub nodes also.";
+                dialog.DialogAccepted += (s, e) => {
+                    foreach (var indexPath in TreeController.SelectionIndexPaths) {
+                        TreeController.RemoveObjectAtArrangedObjectIndexPath (indexPath);
+                    }
+                    DocumentEditedAction ();
+                };
+                dialog.showNameEditField =false;
+                dialog.showDetailsEditField = false;
+                dialog.showSuggestionEditField = false;
+                dialog.showActive = false;
+                break;
+}
 
-                break;
-            case "NewSequentialDialog":
-                var dialog4 = segue.DestinationController as RenameDialogController;
-                dialog4.RenameDialogTitle = "New Sequential";
-                dialog4.DialogAccepted += (s, e) => {
-                    var newSequential = new DesignModel (DesignModelType.Sequential, dialog4.NewNameValue, "");
-                    selected.AddDesign (newSequential);
-                    DocumentEditedAction ();
-                };
-                dialog4.Presentor = this;
-                break;
-            case "NewTextDialog":
-                var dialog5 = segue.DestinationController as EditDialogController;
-                dialog5.EditTitleText = "New Text";
-                dialog5.DialogAccepted += (s, e) => {
-                    var newText = new DesignModel (DesignModelType.Text, "", dialog5.NewDetailsOutput);
-                    selected.AddDesign (newText);
-                    DocumentEditedAction ();
-                };
-                dialog5.Presentor = this;
-                break;
-            case "NewVariableVariantDialog":
-                var dialog6 = segue.DestinationController as NewVariableVariantDialogController;
-                dialog6.DialogAccepted += (s, e) => {
-                    var newVariableForm = new DesignModel (new VariableForm () { Name = dialog6.NewVariableVariantNameText, Suggestion = dialog6.NewVariableVariantSuggestionText });
-                    selected.AddDesign (newVariableForm);
-                    DocumentEditedAction ();
-                };
-                dialog6.Presentor = this;
-                break;
-            }
+            dialog.Presentor = this;
         }
 
         public bool EnableDelete {
