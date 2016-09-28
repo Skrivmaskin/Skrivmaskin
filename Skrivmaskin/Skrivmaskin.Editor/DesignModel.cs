@@ -150,17 +150,10 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        public bool isRenamable {
-            [Export ("isRenamable")]
-            get {
-                return (NodeType == DesignModelType.Choice || NodeType == DesignModelType.Sequential || NodeType == DesignModelType.Variable || NodeType == DesignModelType.VariableForm);
-            }
-        }
-
         public bool isEditable {
             [Export ("isEditable")]
             get {
-                return (NodeType == DesignModelType.Text);
+                return (NodeType != DesignModelType.VariableRoot);
             }
         }
 
