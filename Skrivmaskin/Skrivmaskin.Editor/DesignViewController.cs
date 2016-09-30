@@ -23,16 +23,6 @@ namespace Skrivmaskin.Editor
 
         internal void SelectionChanged (NSObservedChange change)
         {
-            WillChangeValue ("hideConvertToChoice");
-            WillChangeValue ("hideConvertToSequential");
-            WillChangeValue ("enableDelete");
-            WillChangeValue ("enableAdd");
-            WillChangeValue ("enableAddVariant");
-            DidChangeValue ("hideConvertToChoice");
-            DidChangeValue ("hideConvertToSequential");
-            DidChangeValue ("enableDelete");
-            DidChangeValue ("enableAdd");
-            DidChangeValue ("enableAddVariant");
         }
 
         internal void DocumentEditedAction ()
@@ -262,10 +252,6 @@ namespace Skrivmaskin.Editor
             model.AddDesign (new DesignModel (DesignModelType.ParagraphBreak, "", ""));
         }
 
-        partial void Delete_Item (NSObject sender)
-        {
-        }
-
         public override void PrepareForSegue (NSStoryboardSegue segue, NSObject sender)
         {
             base.PrepareForSegue (segue, sender);
@@ -397,63 +383,6 @@ namespace Skrivmaskin.Editor
             }
 
             dialog.Presentor = this;
-        }
-
-        public bool EnableDelete {
-            [Export ("enableDelete")]
-            get {
-                return false;
-            }
-        }
-
-        public bool EnableAdd {
-            [Export ("enableAdd")]
-            get {
-                if (TreeController.SelectedObjects.Length != 1) return false;
-                var selected = (DesignModel)TreeController.SelectedObjects [0];
-                if (selected.NodeType == DesignModelType.Sequential || selected.NodeType == DesignModelType.Choice) return true;
-                return false;
-            }
-        }
-
-        public bool EnableRename {
-            [Export ("enableRename")]
-            get {
-                if (TreeController.SelectedObjects.Length != 1) return false;
-                var selected = (DesignModel)TreeController.SelectedObjects [0];
-                if (selected.NodeType == DesignModelType.Sequential || selected.NodeType == DesignModelType.Choice) return true;
-                return false;
-            }
-        }
-
-        public bool EnableAddVariant {
-            [Export ("enableAddVariant")]
-            get {
-                if (TreeController.SelectedObjects.Length != 1) return false;
-                var selected = (DesignModel)TreeController.SelectedObjects [0];
-                if (selected.NodeType == DesignModelType.Variable) return true;
-                return false;
-            }
-        }
-
-        public bool HideConvertToChoice {
-            [Export ("hideConvertToChoice")]
-            get {
-                if (TreeController.SelectedObjects.Length != 1) return true;
-                var selected = (DesignModel)TreeController.SelectedObjects [0];
-                if (selected.NodeType == DesignModelType.Sequential) return false;
-                return true;
-            }
-        }
-
-        public bool HideConvertToSequential {
-            [Export ("hideConvertToSequential")]
-            get {
-                if (TreeController.SelectedObjects.Length != 1) return true;
-                var selected = (DesignModel)TreeController.SelectedObjects [0];
-                if (selected.NodeType == DesignModelType.Choice) return false;
-                return true;
-            }
         }
 
         partial void ConvertToChoice (Foundation.NSObject sender)

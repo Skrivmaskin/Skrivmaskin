@@ -80,8 +80,12 @@ namespace Skrivmaskin.Editor
             get { return nodeType; }
             set {
                 WillChangeValue ("Icon");
+                WillChangeValue (nameof(enableConvertToChoice));
+                WillChangeValue (nameof(enableConvertToSequential));
                 nodeType = value;
                 DidChangeValue ("Icon");
+                DidChangeValue (nameof (enableConvertToChoice));
+                DidChangeValue (nameof (enableConvertToSequential));
             }
         }
 
@@ -98,9 +102,29 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        [Export ("isLeaf")]
         public bool isLeaf {
+            [Export ("isLeaf")]
             get { return designs.Count == 0; }
+        }
+
+        public bool enableAdd {
+            [Export ("enableAdd")]
+            get {
+                switch (NodeType) {
+                case DesignModelType.Choice:
+                case DesignModelType.Sequential:
+                    return true;
+                default:
+                    return false;
+                }
+            }
+        }
+
+        public bool enableAddVariant {
+            [Export ("enableAddVariant")]
+            get {
+                return (NodeType == DesignModelType.Variable);
+            }
         }
 
         [Export ("Icon")]
@@ -185,6 +209,20 @@ namespace Skrivmaskin.Editor
             designs.RemoveObject (index);
             DidChangeValue ("designModelArray");
             DidChangeValue ("isLeaf");
+        }
+
+        public bool enableConvertToChoice {
+            [Export ("enableConvertToChoice")]
+            get {
+                return NodeType == DesignModelType.Sequential;
+            }
+        }
+
+        public bool enableConvertToSequential {
+            [Export ("enableConvertToSequential")]
+            get {
+                return NodeType == DesignModelType.Choice;
+            }
         }
 
         [Export ("setDesignModelArray:")]

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
-        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -833,7 +832,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="ConvertToChoice" destination="1fr-j8-hiw" id="Q07-Le-vwU"/>
                         <outlet property="DesignOutlineView" destination="tRp-WS-pdL" id="Lvf-ee-z6H"/>
                         <outlet property="TreeController" destination="Nen-D7-Df0" id="tx5-8R-BcV"/>
                     </connections>
@@ -848,24 +846,21 @@
                                     <menuItem title="Text" id="5jw-ZN-Vck">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="Add_Text:" target="RQR-9K-tsF" id="mT4-wC-Jja"/>
-                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAdd" id="hIG-ad-hAH"/>
+                                            <binding destination="Nen-D7-Df0" name="enabled" keyPath="selection.self.enableAdd" id="p7h-e7-jSL"/>
                                             <segue destination="OJS-d7-kH0" kind="modal" identifier="AddText" id="fZe-Wy-ZoO"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Choice" id="5KN-3g-VXZ">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="Add_Choice:" target="RQR-9K-tsF" id="P3F-KA-tZy"/>
-                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAdd" id="RgK-p5-jni"/>
+                                            <binding destination="Nen-D7-Df0" name="enabled" keyPath="selection.self.enableAdd" id="0Ws-QJ-afz"/>
                                             <segue destination="OJS-d7-kH0" kind="modal" identifier="AddChoice" id="ZrB-ak-tqX"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Sequential" id="0eH-Si-l4v">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="Add_Sequential:" target="RQR-9K-tsF" id="flA-Tx-lKy"/>
-                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAdd" id="NrK-0S-doi"/>
+                                            <binding destination="Nen-D7-Df0" name="enabled" keyPath="selection.self.enableAdd" id="cbh-CX-gvx"/>
                                             <segue destination="OJS-d7-kH0" kind="modal" identifier="AddSequential" id="Cg0-K7-Oq2"/>
                                         </connections>
                                     </menuItem>
@@ -873,21 +868,19 @@
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
                                             <action selector="Add_ParagraphBreak:" target="RQR-9K-tsF" id="qsP-xj-nZB"/>
-                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAdd" id="CZv-dY-BtV"/>
+                                            <binding destination="Nen-D7-Df0" name="enabled" keyPath="selection.self.enableAdd" id="zfk-X0-VTM"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Variable" id="t4p-3n-8rE">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="Add_NewVariable:" target="RQR-9K-tsF" id="1Xk-fg-LbF"/>
                                             <segue destination="OJS-d7-kH0" kind="modal" identifier="AddVariable" id="Wgn-cb-zgq"/>
                                         </connections>
                                     </menuItem>
                                     <menuItem title="Variable Variant" id="9rr-hs-Fr2">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
-                                            <action selector="Add_VariableVariant:" target="RQR-9K-tsF" id="8DE-KT-mIp"/>
-                                            <binding destination="RQR-9K-tsF" name="enabled" keyPath="self.enableAddVariant" id="nIQ-Lj-FU3"/>
+                                            <binding destination="Nen-D7-Df0" name="enabled" keyPath="selection.self.enableAddVariant" id="4qb-u0-7Rl"/>
                                             <segue destination="OJS-d7-kH0" kind="modal" identifier="AddVariableVariant" id="5og-4R-Rma"/>
                                         </connections>
                                     </menuItem>
@@ -904,7 +897,6 @@
                         <menuItem title="Delete" id="ibJ-3u-Ib7">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
-                                <action selector="Delete_Item:" target="RQR-9K-tsF" id="w8e-h3-PAj"/>
                                 <binding destination="Nen-D7-Df0" name="enabled" keyPath="selection.self.isRoot" id="r5l-NR-ZKu">
                                     <dictionary key="options">
                                         <string key="NSValueTransformerName">NSNegateBoolean</string>
@@ -917,14 +909,22 @@
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="ConvertToChoice:" target="RQR-9K-tsF" id="L6w-2W-AJc"/>
-                                <binding destination="RQR-9K-tsF" name="hidden" keyPath="self.hideConvertToChoice" id="0iq-sG-75p"/>
+                                <binding destination="Nen-D7-Df0" name="hidden" keyPath="selection.self.enableConvertToChoice" id="3h7-YL-Aha">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </menuItem>
                         <menuItem title="Convert To Sequential" id="Ab4-Yd-Lal">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="ConvertToSequential:" target="RQR-9K-tsF" id="xSx-WM-XLd"/>
-                                <binding destination="RQR-9K-tsF" name="hidden" keyPath="self.hideConvertToSequential" id="YEf-Gq-dx4"/>
+                                <binding destination="Nen-D7-Df0" name="hidden" keyPath="selection.self.enableConvertToSequential" id="E5w-Ci-D5V">
+                                    <dictionary key="options">
+                                        <string key="NSValueTransformerName">NSNegateBoolean</string>
+                                    </dictionary>
+                                </binding>
                             </connections>
                         </menuItem>
                     </items>

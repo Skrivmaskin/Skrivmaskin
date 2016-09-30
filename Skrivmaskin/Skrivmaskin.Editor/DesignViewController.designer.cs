@@ -27,9 +27,6 @@ namespace Skrivmaskin.Editor
 		[Action ("ConvertToSequential:")]
 		partial void ConvertToSequential (Foundation.NSObject sender);
 
-		[Action ("Delete_Item:")]
-		partial void Delete_Item (Foundation.NSObject sender);
-		
 		void ReleaseDesignerOutlets ()
 		{
 			if (DesignOutlineView != null) {
