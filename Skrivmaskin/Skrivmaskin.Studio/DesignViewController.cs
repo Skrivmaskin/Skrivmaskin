@@ -141,6 +141,7 @@ dialog.DetailsTextInput = "Enter details.";
                 dialog.showActive = false;
                 dialog.showName = true;
                 dialog.showDetails = true;
+                dialog.showSuggestion = false;
                 dialog.NameTextInput = "";
                 dialog.detailsText = "Suggestion:";
                 dialog.DetailsTextInput = "Suggestion";
