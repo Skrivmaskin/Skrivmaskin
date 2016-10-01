@@ -1,28 +1,28 @@
-using System;
+﻿using System;
 using AppKit;
 using Foundation;
 using Skrivmaskin.Design;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
     [Register ("DesignModel")]
     public class DesignModel : NSObject
     {
-        private string name = "";
-        [Export ("Name")]
-        public string Name {
-            get { return name; }
+        private string _name = "";
+        public string name {
+            [Export (nameof (name))]
+            get { return _name; }
             set {
-                WillChangeValue ("Name");
-                name = value;
-                DidChangeValue ("Name");
+                WillChangeValue (nameof(name));
+                _name = value;
+                DidChangeValue (nameof (name));
             }
         }
 
-        [Export ("nameToolTip")]
         public string nameToolTip {
+            [Export (nameof (nameToolTip))]
             get {
-                switch (nodeType) {
+                switch (_modelType) {
                 case DesignModelType.Text:
                     return "Text to be inserted into the output.";
                 case DesignModelType.Choice:
@@ -38,14 +38,14 @@ namespace Skrivmaskin.Editor
                 case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
                 }
-                throw new ApplicationException ("Unknown nodde type " + nodeType);
+                throw new ApplicationException ("Unknown nodde type " + _modelType);
             }
         }
 
-        [Export ("detailsToolTip")]
         public string detailsToolTip {
+            [Export (nameof (detailsToolTip))]
             get {
-                switch (nodeType) {
+                switch (_modelType) {
                 case DesignModelType.Text:
                     return "Write text here.";
                 case DesignModelType.Choice:
@@ -60,57 +60,57 @@ namespace Skrivmaskin.Editor
                 case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
                 }
-                throw new ApplicationException ("Unknown nodde type " + nodeType);
+                throw new ApplicationException ("Unknown nodde type " + _modelType);
             }
         }
 
-        private string details = "";
-        [Export ("Details")]
-        public string Details {
-            get { return details; }
+        private string _details = "";
+        public string details {
+            [Export (nameof (details))]
+            get { return _details; }
             set {
-                WillChangeValue ("Details");
-                details = value;
-                DidChangeValue ("Details");
+                WillChangeValue (nameof(details));
+                _details = value;
+                DidChangeValue (nameof(details));
             }
         }
 
-        private DesignModelType nodeType;
-        public DesignModelType NodeType {
-            get { return nodeType; }
+        private DesignModelType _modelType;
+        public DesignModelType modelType {
+            get { return _modelType; }
             set {
-                WillChangeValue ("Icon");
-                WillChangeValue (nameof(enableConvertToChoice));
-                WillChangeValue (nameof(enableConvertToSequential));
-                nodeType = value;
-                DidChangeValue ("Icon");
+                WillChangeValue (nameof (icon));
+                WillChangeValue (nameof (enableConvertToChoice));
+                WillChangeValue (nameof (enableConvertToSequential));
+                _modelType = value;
+                DidChangeValue (nameof (icon));
                 DidChangeValue (nameof (enableConvertToChoice));
                 DidChangeValue (nameof (enableConvertToSequential));
             }
         }
 
-        private bool isActive = false;
-        [Export ("IsActive")]
-        public bool IsActive {
-            get { return isActive; }
+        private bool _isActive = false;
+        public bool isActive {
+            [Export (nameof(isActive))]
+            get { return _isActive; }
             set {
-                WillChangeValue ("Icon");
-                WillChangeValue ("IsActive");
-                isActive = value;
-                DidChangeValue ("Icon");
-                DidChangeValue ("IsActive");
+                WillChangeValue (nameof (icon));
+                WillChangeValue (nameof (isActive));
+                _isActive = value;
+                DidChangeValue (nameof (icon));
+                DidChangeValue (nameof (isActive));
             }
         }
 
         public bool isLeaf {
-            [Export ("isLeaf")]
+            [Export (nameof(isLeaf))]
             get { return designs.Count == 0; }
         }
 
         public bool enableAdd {
-            [Export ("enableAdd")]
+            [Export (nameof(enableAdd))]
             get {
-                switch (NodeType) {
+                switch (modelType) {
                 case DesignModelType.Choice:
                 case DesignModelType.Sequential:
                     return true;
@@ -120,20 +120,28 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        public bool enableAddVariant {
-            [Export ("enableAddVariant")]
+        public bool enableAddVariableVariant {
+            [Export (nameof (enableAddVariableVariant))]
             get {
-                return (NodeType == DesignModelType.Variable);
+                return (modelType == DesignModelType.Variable);
             }
         }
 
-        [Export ("Icon")]
-        public NSImage Icon {
+
+        public bool enableAddVariable {
+            [Export (nameof (enableAddVariable))]
+            get {
+                return (modelType == DesignModelType.VariableRoot);
+            }
+        }
+
+        public NSImage icon {
+            [Export (nameof (icon))]
             get {
                 if (!isActive) {
                     return NSImage.ImageNamed (NSImageName.StatusUnavailable);
                 } else {
-                    switch (NodeType) {
+                    switch (modelType) {
                     case DesignModelType.VariableRoot:
                         return NSImage.ImageNamed (NSImageName.Folder);
                     case DesignModelType.Variable:
@@ -154,30 +162,33 @@ namespace Skrivmaskin.Editor
             }
         }
 
-        [Export ("NumberOfDesigns")]
-        public nint NumberOfDesigns {
+        public nint numberOfDesigns {
+            [Export (nameof (numberOfDesigns))]
             get { return (nint)designs.Count; }
         }
 
         private NSMutableArray designs = new NSMutableArray ();
 
-        [Export ("designModelArray")]
         public NSArray Designs {
+            [Export ("designModelArray")]
             get { return designs; }
         }
 
         private bool _isRoot;
         public bool isRoot {
-            [Export ("isRoot")]
+            [Export (nameof(isRoot))]
             get {
                 return _isRoot;
+            }
+            private set {
+                _isRoot = value;
             }
         }
 
         public bool isEditable {
-            [Export ("isEditable")]
+            [Export (nameof (isEditable))]
             get {
-                return (NodeType != DesignModelType.VariableRoot);
+                return (modelType != DesignModelType.VariableRoot);
             }
         }
 
@@ -185,43 +196,43 @@ namespace Skrivmaskin.Editor
         public void AddDesign (DesignModel design)
         {
             WillChangeValue ("designModelArray");
-            WillChangeValue ("isLeaf");
+            WillChangeValue (nameof (isLeaf));
             designs.Add (design);
             DidChangeValue ("designModelArray");
-            DidChangeValue ("isLeaf");
+            DidChangeValue (nameof (isLeaf));
         }
 
         [Export ("insertObject:inDesignModelArrayAtIndex:")]
         public void InsertDesign (DesignModel design, nint index)
         {
             WillChangeValue ("designModelArray");
-            WillChangeValue ("isLeaf");
+            WillChangeValue (nameof (isLeaf));
             designs.Insert (design, index);
             DidChangeValue ("designModelArray");
-            DidChangeValue ("isLeaf");
+            DidChangeValue (nameof (isLeaf));
         }
 
         [Export ("removeObjectFromDesignModelArrayAtIndex:")]
         public void RemoveDesign (nint index)
         {
             WillChangeValue ("designModelArray");
-            WillChangeValue ("isLeaf");
+            WillChangeValue (nameof (isLeaf));
             designs.RemoveObject (index);
             DidChangeValue ("designModelArray");
-            DidChangeValue ("isLeaf");
+            DidChangeValue (nameof (isLeaf));
         }
 
         public bool enableConvertToChoice {
-            [Export ("enableConvertToChoice")]
+            [Export (nameof (enableConvertToChoice))]
             get {
-                return NodeType == DesignModelType.Sequential;
+                return modelType == DesignModelType.Sequential;
             }
         }
 
         public bool enableConvertToSequential {
-            [Export ("enableConvertToSequential")]
+            [Export (nameof (enableConvertToSequential))]
             get {
-                return NodeType == DesignModelType.Choice;
+                return modelType == DesignModelType.Choice;
             }
         }
 
@@ -229,49 +240,33 @@ namespace Skrivmaskin.Editor
         public void SetDesigns (NSMutableArray array)
         {
             WillChangeValue ("designModelArray");
-            WillChangeValue ("isLeaf");
+            WillChangeValue (nameof (isLeaf));
             designs = array;
             DidChangeValue ("designModelArray");
-            DidChangeValue ("isLeaf");
+            DidChangeValue (nameof (isLeaf));
         }
 
-        public DesignModel (string name)
+        public DesignModel (bool root, DesignModelType designModelType, string nm, string dt)
         {
             isActive = true;
-            NodeType = DesignModelType.VariableRoot;
-            Name = name;
-            Details = "";
-            _isRoot = true;
-        }
-
-        public DesignModel (Variable variable)
-        {
-            isActive = true;
-            NodeType = DesignModelType.Variable;
-            Name = variable.Name;
-            Details = variable.Description;
-        }
-
-        public DesignModel (VariableForm form)
-        {
-            isActive = true;
-            NodeType = DesignModelType.VariableForm;
-            Name = form.Name;
-            Details = form.Suggestion;
-        }
-
-        public DesignModel (bool root, DesignModelType designNodeType, string name, string details)
-        {
-            isActive = true;
-            NodeType = designNodeType;
-            Name = name;
-            Details = details;
-            _isRoot = root;
+            modelType = designModelType;
+            name = nm;
+            details = dt;
+            isRoot = root;
         }
 
         public DesignModel (DesignModelType designNodeType, string name, string details)
             : this (false, designNodeType, name, details)
         {
+        }
+
+        public DesignModel (IntPtr handle) : base (handle)
+        {
+            isActive = true;
+            modelType = DesignModelType.VariableRoot;
+            name = "";
+            details = "";
+            isRoot = false;
         }
     }
 }

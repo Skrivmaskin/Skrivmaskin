@@ -7,22 +7,19 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
 	[Register ("GeneralPurposeDialogController")]
 	partial class GeneralPurposeDialogController
 	{
 		[Outlet]
-		AppKit.NSButton Active_Checked { get; set; }
+		AppKit.NSTextField DetailsTextField { get; set; }
 
 		[Outlet]
-		AppKit.NSTextField DetailsText { get; set; }
+		AppKit.NSTextField NameTextField { get; set; }
 
 		[Outlet]
-		AppKit.NSTextField NameText { get; set; }
-
-		[Outlet]
-		AppKit.NSTextField SuggestionText { get; set; }
+		AppKit.NSTextField SuggestionTextField { get; set; }
 
 		[Action ("Cancel_Clicked:")]
 		partial void Cancel_Clicked (Foundation.NSObject sender);
@@ -32,24 +29,19 @@ namespace Skrivmaskin.Editor
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (Active_Checked != null) {
-				Active_Checked.Dispose ();
-				Active_Checked = null;
+			if (DetailsTextField != null) {
+				DetailsTextField.Dispose ();
+				DetailsTextField = null;
 			}
 
-			if (NameText != null) {
-				NameText.Dispose ();
-				NameText = null;
+			if (NameTextField != null) {
+				NameTextField.Dispose ();
+				NameTextField = null;
 			}
 
-			if (DetailsText != null) {
-				DetailsText.Dispose ();
-				DetailsText = null;
-			}
-
-			if (SuggestionText != null) {
-				SuggestionText.Dispose ();
-				SuggestionText = null;
+			if (SuggestionTextField != null) {
+				SuggestionTextField.Dispose ();
+				SuggestionTextField = null;
 			}
 		}
 	}

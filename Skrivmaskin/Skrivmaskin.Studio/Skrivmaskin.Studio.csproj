@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{45B71B7A-CF6F-4C6A-85D2-A1BDFA3880DF}</ProjectGuid>
+    <ProjectGuid>{A0E9F420-59C0-498F-92C3-F9D32FE6DACE}</ProjectGuid>
     <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Exe</OutputType>
-    <RootNamespace>Skrivmaskin.Editor</RootNamespace>
-    <AssemblyName>Skrivmaskin.Editor</AssemblyName>
+    <RootNamespace>Skrivmaskin.Studio</RootNamespace>
+    <AssemblyName>Skrivmaskin.Studio</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
     <UseXamMacFullFramework>true</UseXamMacFullFramework>
@@ -22,7 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <EnableCodeSigning>false</EnableCodeSigning>
     <CodeSigningKey>Mac Developer</CodeSigningKey>
-    <CreatePackage>true</CreatePackage>
+    <CreatePackage>false</CreatePackage>
     <EnablePackageSigning>false</EnablePackageSigning>
     <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <UseSGen>true</UseSGen>
@@ -30,8 +30,7 @@
     <HttpClientHandler>HttpClientHandler</HttpClientHandler>
     <TlsProvider>Default</TlsProvider>
     <LinkMode>None</LinkMode>
-    <XamMacArch></XamMacArch>
-    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+    <XamMacArch>x86_64</XamMacArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -81,22 +80,16 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="TabViewController.cs" />
-    <Compile Include="TabViewController.designer.cs">
-      <DependentUpon>TabViewController.cs</DependentUpon>
+    <Compile Include="DesignModel.cs" />
+    <Compile Include="DesignModelType.cs" />
+    <Compile Include="CentralViewController.cs" />
+    <Compile Include="CentralViewController.designer.cs">
+      <DependentUpon>CentralViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="DesignViewController.cs" />
     <Compile Include="DesignViewController.designer.cs">
       <DependentUpon>DesignViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="AppDelegate.designer.cs">
-      <DependentUpon>AppDelegate.cs</DependentUpon>
-    </Compile>
-    <Compile Include="DesignModelType.cs" />
-    <Compile Include="SkrivmaskinVariablesTableViewDelegate.cs" />
-    <Compile Include="SkrivmaskinVariablesTableViewDataSource.cs" />
-    <Compile Include="DesignModel.cs" />
-    <Compile Include="DesignOutlineView.cs" />
     <Compile Include="SetVariablesViewController.cs" />
     <Compile Include="SetVariablesViewController.designer.cs">
       <DependentUpon>SetVariablesViewController.cs</DependentUpon>
@@ -105,11 +98,17 @@
     <Compile Include="ResultsViewController.designer.cs">
       <DependentUpon>ResultsViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="VariablesTableViewDataSource.cs" />
+    <Compile Include="VariablesTableViewDelegate.cs" />
+    <Compile Include="DesignTreeController.cs" />
+    <Compile Include="DesignTreeController.designer.cs">
+      <DependentUpon>DesignTreeController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignViewDialogSegues.cs" />
     <Compile Include="GeneralPurposeDialogController.cs" />
     <Compile Include="GeneralPurposeDialogController.designer.cs">
       <DependentUpon>GeneralPurposeDialogController.cs</DependentUpon>
     </Compile>
-    <Compile Include="DesignViewDialogSegues.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
@@ -119,19 +118,6 @@
       <Project>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</Project>
       <Name>Skrivmaskin</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Skrivmaskin.Lexing\Skrivmaskin.Lexing.fsproj">
-      <Project>{0BE4711A-1F71-4E10-A1E5-FEE7195DF16E}</Project>
-      <Name>Skrivmaskin.Lexing</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties>
-        <Policies>
-          <DotNetNamingPolicy DirectoryNamespaceAssociation="Hierarchical" ResourceNamePolicy="FileFormatDefault" />
-        </Policies>
-      </Properties>
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>

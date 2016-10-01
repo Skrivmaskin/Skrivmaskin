@@ -1,19 +1,20 @@
-using System.IO;
+﻿using System.IO;
 using AppKit;
 using Foundation;
 using Skrivmaskin.Design;
-using Skrivmaskin.Generation;
-using Skrivmaskin.Services;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
     [Register ("AppDelegate")]
-    public partial class AppDelegate : NSApplicationDelegate
+    public class AppDelegate : NSApplicationDelegate
     {
-        public int NewWindowNumber { get; set; } = -1;
-
         public AppDelegate ()
         {
+        }
+
+        public override void DidFinishLaunching (NSNotification notification)
+        {
+            // Insert code here to initialize your application
         }
 
         public override void WillTerminate (NSNotification notification)
@@ -43,7 +44,7 @@ namespace Skrivmaskin.Editor
 
                 // Is the file already open?
                 for (int n = 0; n < NSApplication.SharedApplication.Windows.Length; ++n) {
-                    var content = NSApplication.SharedApplication.Windows [n].ContentViewController as TabViewController;
+                    var content = NSApplication.SharedApplication.Windows [n].ContentViewController as CentralViewController;
                     if (content != null && path == content.FilePath) {
                         // Bring window to front
                         NSApplication.SharedApplication.Windows [n].MakeKeyAndOrderFront (this);
@@ -59,7 +60,7 @@ namespace Skrivmaskin.Editor
                 controller.ShowWindow (this);
 
                 DesignViewController designViewController = null;
-                var viewController = controller.Window.ContentViewController as TabViewController;
+                var viewController = controller.Window.ContentViewController as CentralViewController;
                 foreach (var child in viewController.ChildViewControllers) {
                     if (child is DesignViewController) {
                         designViewController = child as DesignViewController;
@@ -132,7 +133,7 @@ namespace Skrivmaskin.Editor
             var window = NSApplication.SharedApplication.KeyWindow;
 
             DesignViewController designViewController = null;
-            var viewController = window.ContentViewController as TabViewController;
+            var viewController = window.ContentViewController as CentralViewController;
             foreach (var child in viewController.ChildViewControllers) {
                 if (child is DesignViewController) {
                     designViewController = child as DesignViewController;

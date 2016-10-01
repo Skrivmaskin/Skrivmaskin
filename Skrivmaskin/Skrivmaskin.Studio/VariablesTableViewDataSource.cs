@@ -6,16 +6,16 @@ using CoreGraphics;
 using Foundation;
 using Skrivmaskin.Compiler;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
     // Data sources walk a given data source and respond to questions from AppKit to generate
     // the data used in your Delegate. In this example, we walk a simple tree.
-    public class SkrivmaskinVariablesTableViewDataSource : NSTableViewDataSource
+    public class VariablesTableViewDataSource : NSTableViewDataSource
     {
         public List<ICompiledVariable> Variables = new List<ICompiledVariable> ();
         public Dictionary<string, string> VariableValues = new Dictionary<string, string> ();
 
-        public SkrivmaskinVariablesTableViewDataSource (IEnumerable<ICompiledVariable> variables)
+        public VariablesTableViewDataSource (IEnumerable<ICompiledVariable> variables)
         {
             foreach (var variable in variables) {
                 Variables.Add (variable);

@@ -7,13 +7,23 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
-	partial class AppDelegate
+	[Register ("ResultsViewController")]
+	partial class ResultsViewController
 	{
+		[Outlet]
+		AppKit.NSTextView Results { get; set; }
+
+		[Action ("Generate_Clicked:")]
+		partial void Generate_Clicked (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (Results != null) {
+				Results.Dispose ();
+				Results = null;
+			}
 		}
 	}
 }

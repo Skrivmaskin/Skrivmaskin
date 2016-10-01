@@ -7,7 +7,7 @@ using AppKit;
 using System.Collections.Generic;
 using Skrivmaskin.Compiler;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
 	public partial class SetVariablesViewController : NSViewController
 	{
@@ -18,15 +18,15 @@ namespace Skrivmaskin.Editor
         public IReadOnlyDictionary<string, string> VariableValues {
             get {
                 if (this.SetVariables.DataSource == null) return new Dictionary<string, string> ();
-                return ((SkrivmaskinVariablesTableViewDataSource)SetVariables.DataSource).VariableValues;
+                return ((VariablesTableViewDataSource)SetVariables.DataSource).VariableValues;
             }
         }
 
         internal void SetCompiledProject (CompiledProject c)
         {
-            var datasource = new SkrivmaskinVariablesTableViewDataSource (c.VariableDefinitions.Select ((kvp) => kvp.Value));
+            var datasource = new VariablesTableViewDataSource (c.VariableDefinitions.Select ((kvp) => kvp.Value));
             SetVariables.DataSource = datasource;
-            SetVariables.Delegate = new SkrivmaskinVariablesTableViewDelegate (datasource);
+            SetVariables.Delegate = new VariablesTableViewDelegate (datasource);
         }
 	}
 }

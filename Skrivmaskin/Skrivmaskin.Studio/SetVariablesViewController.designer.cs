@@ -7,22 +7,19 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
-	[Register ("ResultsViewController")]
-	partial class ResultsViewController
+	[Register ("SetVariablesViewController")]
+	partial class SetVariablesViewController
 	{
 		[Outlet]
-		AppKit.NSTextView Results { get; set; }
-
-		[Action ("GenerateClicked:")]
-		partial void GenerateClicked (Foundation.NSObject sender);
+		AppKit.NSTableView SetVariables { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (Results != null) {
-				Results.Dispose ();
-				Results = null;
+			if (SetVariables != null) {
+				SetVariables.Dispose ();
+				SetVariables = null;
 			}
 		}
 	}

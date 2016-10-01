@@ -5,17 +5,17 @@ using Foundation;
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
-    public class SkrivmaskinVariablesTableViewDelegate : NSTableViewDelegate
+    public class VariablesTableViewDelegate : NSTableViewDelegate
     {
         private const string CellIdentifier = "SkrivmaskinCell";
         private const string DescriptionIdentifier = "Description";
         private const string VariantIdentifier = "Variant";
         private const string ValueIdentifier = "Value";
 
-        private SkrivmaskinVariablesTableViewDataSource DataSource;
-        public SkrivmaskinVariablesTableViewDelegate (SkrivmaskinVariablesTableViewDataSource datasource)
+        private VariablesTableViewDataSource DataSource;
+        public VariablesTableViewDelegate (VariablesTableViewDataSource datasource)
         {
             this.DataSource = datasource;
         }

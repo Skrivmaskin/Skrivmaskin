@@ -1,5 +1,5 @@
 ﻿using System;
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
     public enum DesignModelType
     {

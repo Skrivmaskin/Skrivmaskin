@@ -7,20 +7,14 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
-	[Register ("SetVariablesViewController")]
-	partial class SetVariablesViewController
+	[Register ("DesignTreeController")]
+	partial class DesignTreeController
 	{
-		[Outlet]
-		AppKit.NSTableView SetVariables { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SetVariables != null) {
-				SetVariables.Dispose ();
-				SetVariables = null;
-			}
 		}
 	}
 }

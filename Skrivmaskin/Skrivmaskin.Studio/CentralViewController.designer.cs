@@ -7,14 +7,14 @@
 using Foundation;
 using System.CodeDom.Compiler;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
-    [Register ("TabViewController")]
-    partial class TabViewController
-    {
-        
-        void ReleaseDesignerOutlets ()
-        {
-        }
-    }
+	[Register ("CentralViewController")]
+	partial class CentralViewController
+	{
+		
+		void ReleaseDesignerOutlets ()
+		{
+		}
+	}
 }

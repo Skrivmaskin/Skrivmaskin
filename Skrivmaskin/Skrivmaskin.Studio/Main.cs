@@ -1,6 +1,6 @@
-using AppKit;
+﻿using AppKit;
 
-namespace Skrivmaskin.Editor
+namespace Skrivmaskin.Studio
 {
     static class MainClass
     {
