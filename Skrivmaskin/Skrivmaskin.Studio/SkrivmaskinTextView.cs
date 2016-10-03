@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using Skrivmaskin.Compiler;
 using Skrivmaskin.Lexing;
 using Skrivmaskin.Interfaces;
+using Skrivmaskin.Parsing;
 
 namespace Skrivmaskin.Studio
 {
@@ -32,6 +33,47 @@ namespace Skrivmaskin.Studio
         public SkrivmaskinTextView (IntPtr handle) : base (handle)
         {
             this.Delegate = new SkrivmaskinTextViewDelegate (this);
+        }
+        #endregion
+
+        #region Color setup
+        public static NSColor GetColor (SkrivmaskinParseTokens token)
+        {
+            switch (token) {
+            case SkrivmaskinParseTokens.ChoiceStart:
+            case SkrivmaskinParseTokens.ChoiceEnd:
+            case SkrivmaskinParseTokens.ChoiceDivide:
+                return NSColor.Green;
+            case SkrivmaskinParseTokens.Error:
+            case SkrivmaskinParseTokens.InvalidText:
+            case SkrivmaskinParseTokens.InvalidCharacter:
+                return NSColor.Red;
+            case SkrivmaskinParseTokens.VarEnd:
+            case SkrivmaskinParseTokens.VarName:
+            case SkrivmaskinParseTokens.VarStart:
+            case SkrivmaskinParseTokens.VarDivide:
+            case SkrivmaskinParseTokens.VarFormName:
+                return NSColor.Blue;
+            default:
+                return NSColor.Black;
+            }
+        }
+        #endregion
+
+        #region Overrides
+        /// <summary>
+        /// Look for special keys being pressed and does specific processing based on
+        /// the key.
+        /// </summary>
+        /// <param name="theEvent">The event.</param>
+        public override void KeyDown (NSEvent theEvent)
+        {
+            base.KeyDown (theEvent);
+            var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
+            var elements = compiledText.Elements;
+            foreach (var element in elements) {
+                LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter));
+            }
         }
         #endregion
 
