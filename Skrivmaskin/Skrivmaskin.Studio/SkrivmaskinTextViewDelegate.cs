@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using Foundation;
 using AppKit;
@@ -43,12 +44,10 @@ namespace Skrivmaskin.Studio
         /// the first item in the list). Pass -1 for no selected items.</param>
         public override string [] GetCompletions (NSTextView textView, string [] words, NSRange charRange, ref nint index)
         {
-            List<string> completions = new List<string> ();
-
-            // We only provide completion of variables. This means we only provide any completions if there has been a parse error.
-
-
-            // Return results.
+            var endString = TextView.LexerSyntax.VariableEndDelimiter.ToString ();
+            var completions = new List<string> ();
+            completions.Add ("");
+            completions.AddRange (TextView.CompiledProject.VariableDefinitions.Keys.Select ((n) => n + endString));
             return completions.ToArray ();
         }
 

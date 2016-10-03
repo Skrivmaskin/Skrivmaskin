@@ -33,6 +33,14 @@ namespace Skrivmaskin.Studio
         public SkrivmaskinTextView (IntPtr handle) : base (handle)
         {
             this.Delegate = new SkrivmaskinTextViewDelegate (this);
+            var variables = new List<Variable> ();
+            var helloForms = new List<VariableForm> ();
+            helloForms.Add (new VariableForm () { Name = "", Suggestion = "London" });
+            helloForms.Add (new VariableForm () { Name = "Variant", Suggestion = "Leeds" });
+            variables.Add (new Variable () { Name = "HELLO", Description = "Some variable", Forms = helloForms });
+            variables.Add (new Variable () { Name = "ABCDE", Description = "Some other variable", Forms = helloForms });
+            var fakeProject = new Project (variables, new TextNode ("Hello", true));
+            CompiledProject = compiler.Compile (fakeProject);
         }
         #endregion
 
@@ -68,11 +76,27 @@ namespace Skrivmaskin.Studio
         public override void KeyDown (NSEvent theEvent)
         {
             base.KeyDown (theEvent);
+            var c = theEvent.Characters [0];
+            var charCode = (int)theEvent.Characters [0];
+            var possibleComplete = ((charCode >= 65) && (charCode <= 90)) || ((charCode >= 97) && (charCode <= 122)) || ((charCode >= 48) && (charCode <= 57));
             var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
             var elements = compiledText.Elements;
+            SkrivmaskinParseTokens lastToken = SkrivmaskinParseTokens.Error;
             foreach (var element in elements) {
                 LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter));
+                lastToken = element.Token;
             }
+            if (possibleComplete && (CompiledProject != null) && (CompiledProject.VariableDefinitions.Count > 0) && (lastToken == SkrivmaskinParseTokens.VarName) || (lastToken == SkrivmaskinParseTokens.VarFormName)) Complete (this);
+        }
+
+        public override NSRange RangeForUserCompletion ()
+        {
+            var range = base.RangeForUserCompletion ();
+            // either the character before the range is a '[' or a '|'
+            var start = range.Location;
+            var characters = TextStorage.Value.ToCharArray();
+            while ((start > 0) && (characters [start - 1] != LexerSyntax.VariableStartDelimiter)) --start;
+            return new NSRange (start, range.Length + range.Location - start);
         }
         #endregion
 
