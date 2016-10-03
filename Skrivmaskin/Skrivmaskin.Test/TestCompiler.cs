@@ -85,6 +85,7 @@ namespace Skrivmaskin.Test
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (0, 11)));
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarStart, new SkrivmaskinParseRange (12, 12)));
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidCharacter, new SkrivmaskinParseRange (13, 13)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidText, new SkrivmaskinParseRange (14, 27)));
             Assert.IsNotNull (errorNode);
             var elements = errorNode.Elements.ToList ();
             Assert.AreEqual (expected.Count, elements.Count);
@@ -103,8 +104,43 @@ namespace Skrivmaskin.Test
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarStart, new SkrivmaskinParseRange (12, 12)));
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarName, new SkrivmaskinParseRange (13, 16)));
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidText, new SkrivmaskinParseRange (17, 25)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidText, new SkrivmaskinParseRange (26, 26)));
             Assert.IsNotNull (errorNode);
             var elements = errorNode.Elements.ToList ();
+            Assert.AreEqual (expected.Count, elements.Count);
+            for (int i = 0; i < elements.Count; i++) {
+                Assert.AreEqual (expected [i], elements [i]);
+            }
+        }
+
+        [Test]
+        public void TestSuccessTextElements ()
+        {
+            var compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
+            var successNode = compiler.CompileText ("Hello there, what is going on?") as SuccessCompiledNode;
+            var expected = new List<SkrivmaskinParseElement> ();
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (0, 29)));
+            Assert.IsNotNull (successNode);
+            var elements = successNode.Elements.ToList ();
+            Assert.AreEqual (expected.Count, elements.Count);
+            for (int i = 0; i < elements.Count; i++) {
+                Assert.AreEqual (expected [i], elements [i]);
+            }
+        }
+
+        [Test]
+        public void TestSuccessVariableElements ()
+        {
+            var compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
+            var successNode = compiler.CompileText ("Hello there, [QUESTION]?") as SuccessCompiledNode;
+            var expected = new List<SkrivmaskinParseElement> ();
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (0, 12)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarStart, new SkrivmaskinParseRange (13, 13)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarName, new SkrivmaskinParseRange (14, 21)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarEnd, new SkrivmaskinParseRange (22, 22)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (23, 23)));
+            Assert.IsNotNull (successNode);
+            var elements = successNode.Elements.ToList ();
             Assert.AreEqual (expected.Count, elements.Count);
             for (int i = 0; i < elements.Count; i++) {
                 Assert.AreEqual (expected [i], elements [i]);
