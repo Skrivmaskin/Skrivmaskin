@@ -58,18 +58,6 @@ namespace Skrivmaskin.Parsing
                 } else if (token.IsError ()) {
                     elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Error, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Length - 1)));
                 } else if (isKey) {
-                    // will provide a hint on how to interpret this token
-                    SkrivmaskinParseNodes? nextTerminalType;
-                    if (i + 1 < tokens.Count) {
-                        SkrivmaskinParseNodes ntt;
-                        if (Enum.TryParse<SkrivmaskinParseNodes> (token.Terminal.OutputTerminal.Name, out ntt)) {
-                            nextTerminalType = ntt;
-                        } else {
-                            nextTerminalType = null;
-                        }
-                    } else {
-                        nextTerminalType = null;
-                    }
                     if (inVariable) {
                         if (lexerSyntax.VariableFormDelimiter.ToString () == token.Text) {
                             elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarDivide, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
@@ -77,7 +65,7 @@ namespace Skrivmaskin.Parsing
                             inVariable = false;
                             elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarEnd, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
                         } else {
-                            throw new ApplicationException ("Cannot happen. Probably");
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidCharacter, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
                         }
                     } else {
                         if (lexerSyntax.VariableStartDelimiter.ToString () == token.Text) {
@@ -99,7 +87,14 @@ namespace Skrivmaskin.Parsing
                         switch (terminalType) {
                         case SkrivmaskinParseNodes.Text:
                         case SkrivmaskinParseNodes.Escape:
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Text.Length - 1)));
+                            if (inVariable)
+                            {
+                                elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidText, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Text.Length - 1)));
+                            }
+                            else
+                            {
+                                elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Text.Length - 1)));
+                            }
                             break;
                         case SkrivmaskinParseNodes.VarName:
                             elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarName, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Text.Length - 1)));

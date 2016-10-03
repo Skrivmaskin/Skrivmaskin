@@ -12,6 +12,8 @@ namespace Skrivmaskin.Parsing
         VarFormName,
         VarEnd,
         Text,
-        Error
+        Error,
+        InvalidCharacter,
+        InvalidText
     }
 }
