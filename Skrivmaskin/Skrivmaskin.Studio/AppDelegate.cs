@@ -90,7 +90,7 @@ namespace Skrivmaskin.Studio
         }
 
         [Export ("openDocument:")]
-        void OpenDialog (NSObject sender)
+        public void OpenDialog (NSObject sender)
         {
             var dlg = NSOpenPanel.OpenPanel;
             dlg.CanChooseFiles = true;
@@ -110,7 +110,7 @@ namespace Skrivmaskin.Studio
         int UntitledWindowCount = 0;
 
         [Export ("newDocument:")]
-        void NewDocument (NSObject sender)
+        public void NewDocument (NSObject sender)
         {
             // Get new window
             var storyboard = NSStoryboard.FromName ("Main", null);

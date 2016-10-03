@@ -43,7 +43,7 @@ namespace Skrivmaskin.Studio
             case SkrivmaskinParseTokens.ChoiceStart:
             case SkrivmaskinParseTokens.ChoiceEnd:
             case SkrivmaskinParseTokens.ChoiceDivide:
-                return NSColor.Green;
+                return NSColor.Orange;
             case SkrivmaskinParseTokens.Error:
             case SkrivmaskinParseTokens.InvalidText:
             case SkrivmaskinParseTokens.InvalidCharacter:
@@ -62,8 +62,7 @@ namespace Skrivmaskin.Studio
 
         #region Overrides
         /// <summary>
-        /// Look for special keys being pressed and does specific processing based on
-        /// the key.
+        /// Look for special keys being pressed and does specific processing based on the key.
         /// </summary>
         /// <param name="theEvent">The event.</param>
         public override void KeyDown (NSEvent theEvent)
