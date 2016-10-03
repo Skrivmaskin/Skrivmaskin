@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using Moq;
 using Skrivmaskin.Compiler;
 using Skrivmaskin.Design;
+using Skrivmaskin.Parsing;
 
 namespace Skrivmaskin.Test
 {
@@ -18,25 +19,25 @@ namespace Skrivmaskin.Test
         internal TextCompiledNode MakeSimpleText (string text)
         {
             var mockDesignNode = new Mock<INode> ();
-            return new TextCompiledNode (text, mockDesignNode.Object, 17, 27);
+            return new TextCompiledNode (text, mockDesignNode.Object);
         }
 
         internal VariableCompiledNode MakeSimpleVariable (string variableName)
         {
             var mockDesignNode = new Mock<INode> ();
-            return new VariableCompiledNode (variableName, mockDesignNode.Object, 17, 27);
+            return new VariableCompiledNode (variableName, mockDesignNode.Object);
         }
 
         internal ChoiceCompiledNode MakeChoice (params ICompiledNode [] compiledNodes)
         {
             var mockDesignNode = new Mock<INode> ();
-            return new ChoiceCompiledNode (compiledNodes.ToList (), mockDesignNode.Object, 17, 27);
+            return new ChoiceCompiledNode (compiledNodes.ToList (), mockDesignNode.Object);
         }
     
         internal SequentialCompiledNode MakeSequential (params ICompiledNode [] compiledNodes)
         {
             var mockDesignNode = new Mock<INode> ();
-            return new SequentialCompiledNode (compiledNodes.ToList (), mockDesignNode.Object, 17, 27);
+            return new SequentialCompiledNode (compiledNodes.ToList (), mockDesignNode.Object);
         }
     }
 }

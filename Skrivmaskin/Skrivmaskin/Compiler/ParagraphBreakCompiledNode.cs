@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Skrivmaskin.Design;
+using Skrivmaskin.Parsing;
 
 namespace Skrivmaskin.Compiler
 {
@@ -17,24 +18,6 @@ namespace Skrivmaskin.Compiler
         /// </remarks>
         /// <value>The location.</value>
         public INode Location { get; private set; }
-
-        /// <summary>
-        /// The start character in the line of this item.
-        /// </summary>
-        /// <remarks>
-        /// Will be null if this compiled tree is compiled for release.
-        /// </remarks>
-        /// <value>The start character.</value>
-        public int? StartCharacter { get; private set; }
-
-        /// <summary>
-        /// The end character in the line of this item.
-        /// </summary>
-        /// <remarks>
-        /// Will be null if this compiled tree is compiled for release.
-        /// </remarks>
-        /// <value>The end character.</value>
-        public int? EndCharacter { get; private set; }
 
         /// <summary>
         /// Gets the type.
@@ -62,8 +45,6 @@ namespace Skrivmaskin.Compiler
         internal ParagraphBreakCompiledNode ()
         {
             Location = null;
-            StartCharacter = null;
-            EndCharacter = null;
             HasErrors = false;
             RequiredVariables = new string [0];
         }

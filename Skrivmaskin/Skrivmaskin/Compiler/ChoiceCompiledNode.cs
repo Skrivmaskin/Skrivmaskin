@@ -2,6 +2,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using Skrivmaskin.Design;
+using Skrivmaskin.Parsing;
 
 namespace Skrivmaskin.Compiler
 {
@@ -18,24 +19,6 @@ namespace Skrivmaskin.Compiler
         /// </remarks>
         /// <value>The location.</value>
         public INode Location { get; private set; }
-
-        /// <summary>
-        /// The start character in the line of this item.
-        /// </summary>
-        /// <remarks>
-        /// Will be null if this compiled tree is compiled for release.
-        /// </remarks>
-        /// <value>The start character.</value>
-        public int? StartCharacter { get; private set; }
-
-        /// <summary>
-        /// The end character in the line of this item.
-        /// </summary>
-        /// <remarks>
-        /// Will be null if this compiled tree is compiled for release.
-        /// </remarks>
-        /// <value>The end character.</value>
-        public int? EndCharacter { get; private set; }
 
         /// <summary>
         /// Ths choices.
@@ -66,7 +49,7 @@ namespace Skrivmaskin.Compiler
         /// <value>The required variables.</value>
         public IEnumerable<string> RequiredVariables { get; private set; }
 
-        internal ChoiceCompiledNode (IReadOnlyList<ICompiledNode> childNodes, INode node, int? startCharacter, int? endCharacter)
+        internal ChoiceCompiledNode (IReadOnlyList<ICompiledNode> childNodes, INode node)
         {
             bool hasErrors = false;
             foreach (var item in childNodes) {
@@ -77,8 +60,6 @@ namespace Skrivmaskin.Compiler
             }
             Choices = childNodes;
             Location = node;
-            StartCharacter = startCharacter;
-            EndCharacter = endCharacter;
             HasErrors = hasErrors;
             var rv = new HashSet<string> ();
             foreach (var cn in childNodes) {

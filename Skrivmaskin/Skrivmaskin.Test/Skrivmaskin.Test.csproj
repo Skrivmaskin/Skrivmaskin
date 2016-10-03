@@ -53,6 +53,7 @@
     <Compile Include="TestCompilerBase.cs" />
     <Compile Include="TestGeneratorBase.cs" />
     <Compile Include="TestScenario.cs" />
+    <Compile Include="TestCompiler.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin\Skrivmaskin.csproj">

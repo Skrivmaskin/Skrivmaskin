@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Skrivmaskin.Parsing;
 using Skrivmaskin.Design;
 
 namespace Skrivmaskin.Compiler
@@ -26,24 +27,6 @@ namespace Skrivmaskin.Compiler
         /// </remarks>
         /// <value>The location.</value>
         INode Location { get; }
-
-        /// <summary>
-        /// The start character in the line of this item.
-        /// </summary>
-        /// <remarks>
-        /// Will be null if this compiled tree is compiled for release.
-        /// </remarks>
-        /// <value>The start character.</value>
-        int? StartCharacter { get; }
-
-        /// <summary>
-        /// The end character in the line of this item.
-        /// </summary>
-        /// <remarks>
-        /// Will be null if this compiled tree is compiled for release.
-        /// </remarks>
-        /// <value>The end character.</value>
-        int? EndCharacter { get; }
 
         /// <summary>
         /// Are there errors in or below this node?

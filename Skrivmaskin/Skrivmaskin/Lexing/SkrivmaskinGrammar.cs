@@ -13,23 +13,23 @@ namespace Skrivmaskin.Lexing
             this.GrammarComments = @"Basic grammar for single line Skrivmaskin input";
 
             // 1. Terminals
-            var Text = new SkrivmaskinTextTerminal (nameof(SkrivmaskinTokens.Text), lexerSyntax, true);
-            var Escape = new SkrivmaskinEscapeTerminal (nameof (SkrivmaskinTokens.Escape), lexerSyntax);
-            var VarName = new SkrivmaskinTextTerminal (nameof (SkrivmaskinTokens.VarName), lexerSyntax, false);
-            var VarForm = new SkrivmaskinTextTerminal (nameof (SkrivmaskinTokens.VarForm), lexerSyntax, false);
+            var Text = new SkrivmaskinTextTerminal (nameof(SkrivmaskinParseNodes.Text), lexerSyntax, true);
+            var Escape = new SkrivmaskinEscapeTerminal (nameof (SkrivmaskinParseNodes.Escape), lexerSyntax);
+            var VarName = new SkrivmaskinTextTerminal (nameof (SkrivmaskinParseNodes.VarName), lexerSyntax, false);
+            var VarForm = new SkrivmaskinTextTerminal (nameof (SkrivmaskinParseNodes.VarForm), lexerSyntax, false);
 
             // 2. Non-terminals
-            var CompoundText = new NonTerminal (nameof (SkrivmaskinTokens.CompoundText));
-            var Phrase = new NonTerminal (nameof (SkrivmaskinTokens.Phrase));
-            var SimpleVariable = new NonTerminal (nameof (SkrivmaskinTokens.SimpleVariable));
-            var CompoundVariable = new NonTerminal (nameof (SkrivmaskinTokens.CompoundVariable));
-            var Variable = new NonTerminal (nameof (SkrivmaskinTokens.Variable));
-            var Sentence = new NonTerminal (nameof (SkrivmaskinTokens.Sentence));
-            var SimpleChoice = new NonTerminal (nameof (SkrivmaskinTokens.SimpleChoice));
-            var MultiChoice = new NonTerminal (nameof (SkrivmaskinTokens.MultiChoice));
-            var Choice = new NonTerminal (nameof (SkrivmaskinTokens.Choice));
-            var OrOp = new NonTerminal (nameof (SkrivmaskinTokens.OrOp));
-            var Anything = new NonTerminal (nameof (SkrivmaskinTokens.Anything));
+            var CompoundText = new NonTerminal (nameof (SkrivmaskinParseNodes.CompoundText));
+            var Phrase = new NonTerminal (nameof (SkrivmaskinParseNodes.Phrase));
+            var SimpleVariable = new NonTerminal (nameof (SkrivmaskinParseNodes.SimpleVariable));
+            var CompoundVariable = new NonTerminal (nameof (SkrivmaskinParseNodes.CompoundVariable));
+            var Variable = new NonTerminal (nameof (SkrivmaskinParseNodes.Variable));
+            var Sentence = new NonTerminal (nameof (SkrivmaskinParseNodes.Sentence));
+            var SimpleChoice = new NonTerminal (nameof (SkrivmaskinParseNodes.SimpleChoice));
+            var MultiChoice = new NonTerminal (nameof (SkrivmaskinParseNodes.MultiChoice));
+            var Choice = new NonTerminal (nameof (SkrivmaskinParseNodes.Choice));
+            var OrOp = new NonTerminal (nameof (SkrivmaskinParseNodes.OrOp));
+            var Anything = new NonTerminal (nameof (SkrivmaskinParseNodes.Anything));
 
             // 3. BNF rules
             CompoundText.Rule = Text | Escape;

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using Skrivmaskin.Design;
+using Skrivmaskin.Parsing;
 
 namespace Skrivmaskin.Compiler
 {
     /// <summary>
     /// Compiled node representing a compiler error.
     /// </summary>
-    internal sealed class ErrorCompiledNode : ICompiledNode
+    internal sealed class ErrorCompiledNode : ICompiledNode, ICompiledText
     {
         /// <summary>
         /// The location in the design tree of this item.
@@ -18,23 +19,7 @@ namespace Skrivmaskin.Compiler
         /// <value>The location.</value>
         public INode Location { get; private set; }
 
-        /// <summary>
-        /// The start character in the line of this item.
-        /// </summary>
-        /// <remarks>
-        /// Will be null if this compiled tree is compiled for release.
-        /// </remarks>
-        /// <value>The start character.</value>
-        public int? StartCharacter { get; private set; }
-
-        /// <summary>
-        /// The end character in the line of this item.
-        /// </summary>
-        /// <remarks>
-        /// Will be null if this compiled tree is compiled for release.
-        /// </remarks>
-        /// <value>The end character.</value>
-        public int? EndCharacter { get; private set; }
+        public IEnumerable<SkrivmaskinParseElement> Elements { get; private set; }
 
         /// <summary>
         /// Gets the type.
@@ -52,6 +37,16 @@ namespace Skrivmaskin.Compiler
         /// <value><c>true</c> if has errors; otherwise, <c>false</c>.</value>
         public bool HasErrors { get { return true; } }
 
+        /// <summary>
+        /// Gets the child nodes.
+        /// </summary>
+        /// <value>The child nodes.</value>
+        public IReadOnlyList<ICompiledNode> ChildNodes { get; private set; }
+
+        /// <summary>
+        /// Gets the required variables.
+        /// </summary>
+        /// <value>The required variables.</value>
         public IEnumerable<string> RequiredVariables {
             get {
                 return new string [0];
@@ -59,11 +54,10 @@ namespace Skrivmaskin.Compiler
         }
 
         //TODO pass back info from Irony about the error
-        internal ErrorCompiledNode (INode node, int? startCharacter, int? endCharacter)
+        internal ErrorCompiledNode (INode node, IEnumerable<SkrivmaskinParseElement> elements)
         {
             Location = node;
-            StartCharacter = startCharacter;
-            EndCharacter = endCharacter;
+            Elements = elements;
         }
     }
 }

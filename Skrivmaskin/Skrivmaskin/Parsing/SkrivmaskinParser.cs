@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Irony.Parsing;
@@ -38,25 +39,101 @@ namespace Skrivmaskin.Parsing
         public ICompiledNode Compile (TextNode designNode)
         {
             var parseTree = ParseToTree (designNode.Text);
+            var elements = MakeElements (parseTree.Tokens);
             if (parseTree.HasErrors ()) {
-                //TODO Pass back some info about the errors
-                return new ErrorCompiledNode (designNode, 1, designNode.Text.Length);
+                return new ErrorCompiledNode (designNode, elements);
             }
-            return ConvertSentence (designNode, parseTree.Root);
+            return new SuccessCompiledNode (ConvertSentence (designNode, parseTree.Root), designNode, elements);
+        }
+
+        internal IEnumerable<SkrivmaskinParseElement> MakeElements (List<Token> tokens)
+        {
+            var elements = new List<SkrivmaskinParseElement> ();
+            var inVariable = false;
+            for (int i = 0; i < tokens.Count; i++) {
+                var token = tokens [i];
+                var isKey = token.KeyTerm != null;
+                if (token.Category == TokenCategory.Outline) {
+                    
+                } else if (token.IsError ()) {
+                    elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Error, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Length - 1)));
+                } else if (isKey) {
+                    // will provide a hint on how to interpret this token
+                    SkrivmaskinParseNodes? nextTerminalType;
+                    if (i + 1 < tokens.Count) {
+                        SkrivmaskinParseNodes ntt;
+                        if (Enum.TryParse<SkrivmaskinParseNodes> (token.Terminal.OutputTerminal.Name, out ntt)) {
+                            nextTerminalType = ntt;
+                        } else {
+                            nextTerminalType = null;
+                        }
+                    } else {
+                        nextTerminalType = null;
+                    }
+                    if (inVariable) {
+                        if (lexerSyntax.VariableFormDelimiter.ToString () == token.Text) {
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarDivide, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
+                        } else if (lexerSyntax.VariableEndDelimiter.ToString () == token.Text) {
+                            inVariable = false;
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarEnd, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
+                        } else {
+                            throw new ApplicationException ("Cannot happen. Probably");
+                        }
+                    } else {
+                        if (lexerSyntax.VariableStartDelimiter.ToString () == token.Text) {
+                            inVariable = true;
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarStart, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
+                        } else if (lexerSyntax.ChoiceStartDelimiter.ToString () == token.Text) {
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceStart, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
+                        } else if (lexerSyntax.ChoiceAlternativeDelimiter.ToString () == token.Text) {
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceDivide, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
+                        } else if (lexerSyntax.ChoiceEndDelimiter.ToString () == token.Text) {
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceEnd, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position)));
+                        } else {
+                            throw new ApplicationException ("Can't get here. I reckon");
+                        }
+                    }
+                } else {
+                    SkrivmaskinParseNodes terminalType;
+                    if (Enum.TryParse<SkrivmaskinParseNodes> (token.Terminal.OutputTerminal.Name, out terminalType)) {
+                        switch (terminalType) {
+                        case SkrivmaskinParseNodes.Text:
+                        case SkrivmaskinParseNodes.Escape:
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Text.Length - 1)));
+                            break;
+                        case SkrivmaskinParseNodes.VarName:
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarName, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Text.Length - 1)));
+                            break;
+                        case SkrivmaskinParseNodes.VarForm:
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarFormName, new SkrivmaskinParseRange (token.Location.Position, token.Location.Position + token.Text.Length - 1)));
+                            break;
+                        default:
+                            //TODO info about this failure - this is meant to be an assertion, but is effectively asserting that
+                            // Irony is well behaved...
+                            throw new ApplicationException ("Didn't match to a known terminal type");
+                        }
+                    } else {
+                        //TODO info about this failure - this is meant to be an assertion, but is effectively asserting that
+                        // Irony is well behaved...
+                        throw new ApplicationException ("Didn't match to a known terminal type");
+                    }
+                }
+            }
+            return elements;
         }
 
         private ICompiledNode ConvertSentence (INode designNode, ParseTreeNode node)
         {
-            SkrivmaskinTokens token;
+            SkrivmaskinParseNodes token;
             if (Enum.TryParse (node.Term.Name, out token)) {
                 switch (token) {
-                case SkrivmaskinTokens.Sentence:
+                case SkrivmaskinParseNodes.Sentence:
                     if (node.ChildNodes.Count == 0) {
-                        return new TextCompiledNode ("", designNode, 1, 1);
+                        return new TextCompiledNode ("", designNode);
                     } else if (node.ChildNodes.Count == 1) {
                         return ConvertAnything (designNode, node.ChildNodes [0]);
                     } else {
-                        return new SequentialCompiledNode (node.ChildNodes.Select ((ptn) => ConvertAnything (designNode, ptn)).ToList (), designNode, 1, node.Span.Length);
+                        return new SequentialCompiledNode (node.ChildNodes.Select ((ptn) => ConvertAnything (designNode, ptn)).ToList (), designNode);
                     }
                 default:
                     throw new ApplicationException (string.Format ("Unexpected token when expected a sentence: {0}", token));
@@ -67,19 +144,19 @@ namespace Skrivmaskin.Parsing
 
         private ICompiledNode ConvertAnything (INode designNode, ParseTreeNode node)
         {
-            SkrivmaskinTokens token;
+            SkrivmaskinParseNodes token;
             if (!Enum.TryParse (node.Term.Name, out token))
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
-            if (token != SkrivmaskinTokens.Anything)
+            if (token != SkrivmaskinParseNodes.Anything)
                 throw new ApplicationException (string.Format ("Unexpected token when expected an anything: {0}", token));
             if (node.ChildNodes.Count != 1) throw new ApplicationException (string.Format ("Unexpected number of child nodes {0}", node.ChildNodes.Count));
             if (Enum.TryParse (node.ChildNodes [0].Term.Name, out token)) {
                 switch (token) {
-                case SkrivmaskinTokens.Variable:
+                case SkrivmaskinParseNodes.Variable:
                     return ConvertVariable (designNode, node.ChildNodes [0]);
-                case SkrivmaskinTokens.Phrase:
+                case SkrivmaskinParseNodes.Phrase:
                     return ConvertPhrase (designNode, node.ChildNodes [0]);
-                case SkrivmaskinTokens.MultiChoice:
+                case SkrivmaskinParseNodes.MultiChoice:
                     return ConvertMultiChoice (designNode, node.ChildNodes [0]);
                 default:
                     throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
@@ -90,18 +167,18 @@ namespace Skrivmaskin.Parsing
 
         private ICompiledNode ConvertVariable (INode designNode, ParseTreeNode node)
         {
-            SkrivmaskinTokens token;
+            SkrivmaskinParseNodes token;
             if (node.ChildNodes.Count != 1) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
             node = node.ChildNodes [0];
             if (!Enum.TryParse (node.Term.Name, out token))
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
             switch (token) {
-            case SkrivmaskinTokens.SimpleVariable:
+            case SkrivmaskinParseNodes.SimpleVariable:
                 if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
-                return new VariableCompiledNode (node.ChildNodes [1].Token.Text, designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
-            case SkrivmaskinTokens.CompoundVariable:
+                return new VariableCompiledNode (node.ChildNodes [1].Token.Text, designNode);
+            case SkrivmaskinParseNodes.CompoundVariable:
                 if (node.ChildNodes.Count != 5) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
-                return new VariableCompiledNode (node.ChildNodes [1].Token.Text + lexerSyntax.VariableFormDelimiter.ToString () + node.ChildNodes [3].Token.Text, designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+                return new VariableCompiledNode (node.ChildNodes [1].Token.Text + lexerSyntax.VariableFormDelimiter.ToString () + node.ChildNodes [3].Token.Text, designNode);
             default:
                 throw new ApplicationException (string.Format ("Unexpected token when expected a variable type: {0}", token));
             }
@@ -109,26 +186,26 @@ namespace Skrivmaskin.Parsing
 
         private ICompiledNode ConvertPhrase (INode designNode, ParseTreeNode node)
         {
-            SkrivmaskinTokens token;
+            SkrivmaskinParseNodes token;
             if (!Enum.TryParse (node.Term.Name, out token))
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
-            if (token != SkrivmaskinTokens.Phrase)
+            if (token != SkrivmaskinParseNodes.Phrase)
                 throw new ApplicationException (string.Format ("Unexpected token when expected a phrase: {0}", token));
-            return new TextCompiledNode (string.Join ("", node.ChildNodes.Select ((cn) => ConvertText (cn))), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            return new TextCompiledNode (string.Join ("", node.ChildNodes.Select ((cn) => ConvertText (cn))), designNode);
 
         }
 
         private string ConvertText (ParseTreeNode node)
         {
-            SkrivmaskinTokens token;
+            SkrivmaskinParseNodes token;
             if (!Enum.TryParse (node.Term.Name, out token))
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
             switch (token) {
-            case SkrivmaskinTokens.Text:
+            case SkrivmaskinParseNodes.Text:
                 return node.Token.Text;
-            case SkrivmaskinTokens.Escape:
+            case SkrivmaskinParseNodes.Escape:
                 return node.Token.Text [1].ToString ();
-            case SkrivmaskinTokens.CompoundText:
+            case SkrivmaskinParseNodes.CompoundText:
                 return ConvertText (node.ChildNodes [0]);
             default:
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
@@ -139,14 +216,14 @@ namespace Skrivmaskin.Parsing
         {
             if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
             node = node.ChildNodes [1];
-            SkrivmaskinTokens token;
+            SkrivmaskinParseNodes token;
             if (!Enum.TryParse (node.Term.Name, out token))
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
             switch (token) {
-            case SkrivmaskinTokens.SimpleChoice:
+            case SkrivmaskinParseNodes.SimpleChoice:
                 return ConvertSimpleChoice (designNode, node);
-            case SkrivmaskinTokens.Choice:
-                return new ChoiceCompiledNode (node.ChildNodes.Select ((cn) => ConvertSimpleChoice (designNode, cn)).ToList(), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            case SkrivmaskinParseNodes.Choice:
+                return new ChoiceCompiledNode (node.ChildNodes.Select ((cn) => ConvertSimpleChoice (designNode, cn)).ToList(), designNode);
             default:
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
             }
@@ -154,9 +231,9 @@ namespace Skrivmaskin.Parsing
 
         private ICompiledNode ConvertSimpleChoice (INode designNode, ParseTreeNode node)
         {
-            if (node.ChildNodes.Count == 0) return new TextCompiledNode ("", designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            if (node.ChildNodes.Count == 0) return new TextCompiledNode ("", designNode);
             if (node.ChildNodes.Count == 1) return ConvertAnything (designNode, node.ChildNodes [0]);
-            return new SequentialCompiledNode (node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)).ToList (), designNode, node.Span.Location.Position + 1, node.Span.EndPosition);
+            return new SequentialCompiledNode (node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)).ToList (), designNode);
         }
     }
 }

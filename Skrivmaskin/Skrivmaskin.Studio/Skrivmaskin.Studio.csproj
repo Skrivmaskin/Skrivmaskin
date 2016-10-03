@@ -22,7 +22,7 @@
     <WarningLevel>4</WarningLevel>
     <EnableCodeSigning>false</EnableCodeSigning>
     <CodeSigningKey>Mac Developer</CodeSigningKey>
-    <CreatePackage>false</CreatePackage>
+    <CreatePackage>true</CreatePackage>
     <EnablePackageSigning>false</EnablePackageSigning>
     <IncludeMonoRuntime>false</IncludeMonoRuntime>
     <UseSGen>true</UseSGen>
@@ -108,6 +108,12 @@
     <Compile Include="GeneralPurposeDialogController.cs" />
     <Compile Include="GeneralPurposeDialogController.designer.cs">
       <DependentUpon>GeneralPurposeDialogController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SkrivmaskinTextView.cs" />
+    <Compile Include="SkrivmaskinTextViewDelegate.cs" />
+    <Compile Include="TestBedViewController.cs" />
+    <Compile Include="TestBedViewController.designer.cs">
+      <DependentUpon>TestBedViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

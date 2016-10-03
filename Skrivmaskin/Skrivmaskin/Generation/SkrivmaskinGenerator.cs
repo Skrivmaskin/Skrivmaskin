@@ -45,6 +45,8 @@ namespace Skrivmaskin.Generation
                 return generatorConfig.ParagraphBreak;
             case CompiledNodeType.Blank:
                 return "";
+            case CompiledNodeType.Success:
+                return GenerateText ((node as SuccessCompiledNode).Node, variableSubstituter);
             default:
                 throw new ApplicationException ("Unrecognised to generate text when there were compiler errors " + node.GetType ());
             }

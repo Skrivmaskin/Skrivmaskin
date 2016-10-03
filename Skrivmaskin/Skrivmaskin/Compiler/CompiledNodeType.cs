@@ -11,6 +11,7 @@ namespace Skrivmaskin.Compiler
         Sequential,
         Text,
         Error,
+        Success,
         Blank,
         SentenceBreak,
         ParagraphBreak

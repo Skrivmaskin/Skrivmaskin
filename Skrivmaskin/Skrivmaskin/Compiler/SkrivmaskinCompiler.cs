@@ -50,6 +50,17 @@ namespace Skrivmaskin.Compiler
             return new CompiledProject (variables, compiledNode);
         }
 
+        /// <summary>
+        /// Compile some text into a compiled node for the gui.
+        /// </summary>
+        /// <returns>The text.</returns>
+        /// <param name="text">Text.</param>
+        public ICompiledNode CompileText (string text)
+        {
+            var transientCompiledNodes = new Dictionary<TextNode, ICompiledNode> ();
+            return CompileNode (transientCompiledNodes, new TextNode (text, true));
+        }
+
         private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node)
         {
             // Text nodes are a special case here. The compiled node will come out as an error compiled node if there are errors.
@@ -68,7 +79,7 @@ namespace Skrivmaskin.Compiler
                 return result;
             case NodeType.Choice:
                 var choiceNode = node as ChoiceNode;
-                return new ChoiceCompiledNode (choiceNode.Choices.Select ((c) => CompileNode (transientCompiledNodes, c)).Where((c) => c.Type != CompiledNodeType.Blank).ToList (), choiceNode, 1, 1);
+                return new ChoiceCompiledNode (choiceNode.Choices.Select ((c) => CompileNode (transientCompiledNodes, c)).Where((c) => c.Type != CompiledNodeType.Blank).ToList (), choiceNode);
             case NodeType.Sequential:
                 var sequentialNode = node as SequentialNode;
                 if (sequentialNode.Sequential.Count > 0) {
@@ -87,7 +98,7 @@ namespace Skrivmaskin.Compiler
                     compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
                     if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
                     if (li.Count == 0) return new BlankCompiledNode ();
-                    return new SequentialCompiledNode (li, sequentialNode, 0, 0);
+                    return new SequentialCompiledNode (li, sequentialNode);
                 }
                 return new BlankCompiledNode ();
             case NodeType.ParagraphBreak:

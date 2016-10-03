@@ -18,11 +18,10 @@ namespace Skrivmaskin.Test
         {
             var inputText = "Hello world";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as TextCompiledNode;
+            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
             Assert.IsNotNull (compiledNode);
-            var cn = compiledNode as TextCompiledNode;
-            Assert.AreEqual (1, compiledNode.StartCharacter.Value);
-            Assert.AreEqual (11, compiledNode.EndCharacter.Value);
+            var cn = compiledNode.Node as TextCompiledNode;
+            Assert.IsNotNull (cn);
             Assert.AreEqual (designNode, compiledNode.Location);
             Assert.AreEqual (inputText, cn.Text);
         }
@@ -32,8 +31,10 @@ namespace Skrivmaskin.Test
         {
             var inputText = "[SimpleVariable]";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as VariableCompiledNode;
+            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
             Assert.IsNotNull (compiledNode);
+            var variableNode = compiledNode.Node as VariableCompiledNode;
+            Assert.IsNotNull (variableNode);
         }
 
         [Test]
@@ -41,8 +42,10 @@ namespace Skrivmaskin.Test
         {
             var inputText = "[Compound|Variable]";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as VariableCompiledNode;
+            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
             Assert.IsNotNull (compiledNode);
+            var variableNode = compiledNode.Node as VariableCompiledNode;
+            Assert.IsNotNull (variableNode);
         }
 
         [Test]
@@ -50,11 +53,10 @@ namespace Skrivmaskin.Test
         {
             var inputText = "{Hello|World} {World|Hello}";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode)as SequentialCompiledNode;
+            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
             Assert.IsNotNull (compiledNode);
-            Assert.AreEqual (1, compiledNode.StartCharacter);
-            Assert.AreEqual (27, compiledNode.EndCharacter);
-            var sq = compiledNode;
+            var sq = compiledNode.Node as SequentialCompiledNode;
+            Assert.IsNotNull (sq);
             Assert.AreEqual (3, sq.Sequential.Count);
             var cn = sq.Sequential [0] as ChoiceCompiledNode;
             Assert.IsNotNull (cn);
@@ -84,8 +86,10 @@ namespace Skrivmaskin.Test
         {
             var inputText = "När du ska hyra bil i [MÄRKE] gör du det snabbt och enkelt via oss på Sixt.";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as SequentialCompiledNode;
+            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
             Assert.IsNotNull (compiledNode);
+            var tn = compiledNode.Node as SequentialCompiledNode;
+            Assert.IsNotNull (tn);
         }
 
         [Test]
@@ -93,8 +97,10 @@ namespace Skrivmaskin.Test
         {
             var inputText = "[MÄRKE|MÄRKE_Variant]";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as VariableCompiledNode;
+            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
             Assert.IsNotNull (compiledNode);
+            var vn = compiledNode.Node as VariableCompiledNode;
+            Assert.IsNotNull (vn);
         }
     }
 }

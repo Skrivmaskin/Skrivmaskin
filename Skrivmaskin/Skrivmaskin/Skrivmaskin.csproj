@@ -65,7 +65,7 @@
     <Compile Include="Lexing\SpecialCharacters.cs" />
     <Compile Include="Parsing\SkrivmaskinParser.cs" />
     <Compile Include="Lexing\SkrivmaskinEscapeTerminal.cs" />
-    <Compile Include="Lexing\SkrivmaskinTokens.cs" />
+    <Compile Include="Lexing\SkrivmaskinParseNodes.cs" />
     <Compile Include="Generation\SkrivmaskinGenerator.cs" />
     <Compile Include="Interfaces\IGeneratorConfig.cs" />
     <Compile Include="Services\SingleSpaceUnixGeneratorConfig.cs" />
@@ -78,6 +78,11 @@
     <Compile Include="Compiler\ParagraphBreakCompiledNode.cs" />
     <Compile Include="Compiler\SentenceBreakCompiledNode.cs" />
     <Compile Include="Services\DictionaryBackedVariableSubstituter.cs" />
+    <Compile Include="Parsing\SkrivmaskinParseTokens.cs" />
+    <Compile Include="Parsing\SkrivmaskinParseRange.cs" />
+    <Compile Include="Parsing\SkrivmaskinParseElement.cs" />
+    <Compile Include="Compiler\SuccessCompiledNode.cs" />
+    <Compile Include="Compiler\ICompiledText.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

@@ -1,7 +1,7 @@
 using System;
 namespace Skrivmaskin.Lexing
 {
-    internal enum SkrivmaskinTokens
+    internal enum SkrivmaskinParseNodes
     {
         Text,
         Escape,
