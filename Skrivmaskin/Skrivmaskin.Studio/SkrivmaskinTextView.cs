@@ -60,6 +60,19 @@ namespace Skrivmaskin.Studio
         }
         #endregion
 
+        public SkrivmaskinParseTokens Highlight ()
+        {
+            if (CompiledProject == null) return SkrivmaskinParseTokens.Text;
+            var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
+            var elements = compiledText.Elements;
+            var lastToken = SkrivmaskinParseTokens.Error;
+            foreach (var element in elements) {
+                LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter));
+                lastToken = element.Token;
+            }
+            return lastToken;
+        }
+
         #region Overrides
         /// <summary>
         /// Look for special keys being pressed and does specific processing based on the key.
@@ -69,13 +82,7 @@ namespace Skrivmaskin.Studio
         {
             base.KeyDown (theEvent);
             var possibleComplete = Char.IsLetterOrDigit (theEvent.Characters [0]);
-            var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
-            var elements = compiledText.Elements;
-            var lastToken = SkrivmaskinParseTokens.Error;
-            foreach (var element in elements) {
-                LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter));
-                lastToken = element.Token;
-            }
+            var lastToken = Highlight ();
             if (possibleComplete && (CompiledProject != null) && (CompiledProject.VariableDefinitions.Count > 0) && (lastToken == SkrivmaskinParseTokens.VarName) || (lastToken == SkrivmaskinParseTokens.VarFormName)) Complete (this);
         }
 

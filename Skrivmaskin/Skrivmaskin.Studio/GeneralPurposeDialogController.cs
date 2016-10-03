@@ -21,6 +21,11 @@ namespace Skrivmaskin.Studio
             NameTextField.StringValue = NameTextInput;
             DetailsTextView.CompiledProject = CompiledProject;
             DetailsTextView.Value = DetailsTextInput;
+
+            if (CompiledProject != null) {
+                DetailsTextView.Highlight ();
+                DetailsTextView.SelectAll (this);
+            }
         }
 
         public CompiledProject CompiledProject { get; set; } = null;
