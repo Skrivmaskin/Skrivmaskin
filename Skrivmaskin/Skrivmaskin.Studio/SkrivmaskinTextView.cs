@@ -68,9 +68,7 @@ namespace Skrivmaskin.Studio
         public override void KeyDown (NSEvent theEvent)
         {
             base.KeyDown (theEvent);
-            var c = theEvent.Characters [0];
-            var charCode = (int)theEvent.Characters [0];
-            var possibleComplete = ((charCode >= 65) && (charCode <= 90)) || ((charCode >= 97) && (charCode <= 122)) || ((charCode >= 48) && (charCode <= 57));
+            var possibleComplete = Char.IsLetterOrDigit (theEvent.Characters [0]);
             var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
             var elements = compiledText.Elements;
             var lastToken = SkrivmaskinParseTokens.Error;

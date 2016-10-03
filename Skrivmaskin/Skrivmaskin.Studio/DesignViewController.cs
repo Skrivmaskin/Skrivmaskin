@@ -91,7 +91,7 @@ namespace Skrivmaskin.Studio
                 dialog.detailsText = "Text:";
                 dialog.showDetails = true;
                 dialog.showSuggestion = false;
-                dialog.DetailsTextInput = "Enter details.";
+                dialog.DetailsTextInput = "";
                 dialog.CompiledProject = CompiledProject;
                 dialog.DialogAccepted += (s, e) => {
                     AddChildModel (new DesignModel (DesignModelType.Text, "", dialog.DetailsTextOutput));
