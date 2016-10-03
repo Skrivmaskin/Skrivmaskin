@@ -32,6 +32,7 @@ namespace Skrivmaskin.Test
                 Assert.AreEqual (expected [i], elements [i]);
             }
         }
+
         [Test]
         public void TestErrorIncompleteVariableForm ()
         {
@@ -48,6 +49,26 @@ namespace Skrivmaskin.Test
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarName, new SkrivmaskinParseRange (12, 16)));
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarDivide, new SkrivmaskinParseRange (17, 17)));
             expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarFormName, new SkrivmaskinParseRange (18, 21)));
+            Assert.IsNotNull (errorNode);
+            var elements = errorNode.Elements.ToList ();
+            Assert.AreEqual (expected.Count, elements.Count);
+            for (int i = 0; i < elements.Count; i++) {
+                Assert.AreEqual (expected [i], elements [i]);
+            }
+        }
+
+
+        [Test]
+        public void TestErrorIncompleteChoice ()
+        {
+            var compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
+            var errorNode = compiler.CompileText ("Hello there {what is going on|how are yo") as ErrorCompiledNode;
+            var expected = new List<SkrivmaskinParseElement> ();
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (0, 11)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceStart, new SkrivmaskinParseRange (12, 12)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (13, 28)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceDivide, new SkrivmaskinParseRange (29, 29)));
+            expected.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (30, 39)));
             Assert.IsNotNull (errorNode);
             var elements = errorNode.Elements.ToList ();
             Assert.AreEqual (expected.Count, elements.Count);
