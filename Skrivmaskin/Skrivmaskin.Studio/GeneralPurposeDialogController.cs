@@ -4,6 +4,7 @@ using System;
 
 using Foundation;
 using AppKit;
+using Skrivmaskin.Compiler;
 
 namespace Skrivmaskin.Studio
 {
@@ -18,8 +19,11 @@ namespace Skrivmaskin.Studio
             base.ViewDidLoad ();
             Title = titleText;
             NameTextField.StringValue = NameTextInput;
-            DetailsTextField.StringValue = DetailsTextInput;
+            DetailsTextView.CompiledProject = CompiledProject;
+            DetailsTextView.Value = DetailsTextInput;
         }
+
+        public CompiledProject CompiledProject { get; set; } = null;
 
         private string _titleText = "";
         public string titleText {
@@ -73,7 +77,7 @@ namespace Skrivmaskin.Studio
 
         public string DetailsTextOutput {
             get {
-                return DetailsTextField.StringValue;
+                return DetailsTextView.Value;
             }
         }
 

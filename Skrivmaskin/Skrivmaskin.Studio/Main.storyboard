@@ -660,56 +660,6 @@
             </objects>
             <point key="canvasLocation" x="75" y="250"/>
         </scene>
-        <!--Test Bed-->
-        <scene sceneID="6l8-57-EIu">
-            <objects>
-                <viewController title="Test Bed" id="xZo-Sv-gOG" customClass="TestBedViewController" sceneMemberID="viewController">
-                    <view key="view" id="N0s-dC-7NN">
-                        <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                        <subviews>
-                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZeG-ht-go1">
-                                <rect key="frame" x="20" y="255" width="410" height="25"/>
-                                <clipView key="contentView" id="U5P-qr-cPn">
-                                    <rect key="frame" x="1" y="1" width="408" height="23"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <subviews>
-                                        <textView importsGraphics="NO" fieldEditor="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" quoteSubstitution="YES" dashSubstitution="YES" textReplacement="YES" spellingCorrection="YES" smartInsertDelete="YES" id="oEY-OX-QHV" customClass="SkrivmaskinTextView">
-                                            <rect key="frame" x="0.0" y="0.0" width="408" height="23"/>
-                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                            <size key="minSize" width="408" height="23"/>
-                                            <size key="maxSize" width="463" height="10000000"/>
-                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
-                                        </textView>
-                                    </subviews>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </clipView>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="25" id="mc4-PC-J0n"/>
-                                </constraints>
-                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" arrowsPosition="none" doubleValue="1" horizontal="YES" id="GWd-6r-bV6">
-                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                                <scroller key="verticalScroller" verticalHuggingPriority="750" arrowsPosition="none" doubleValue="1" horizontal="NO" id="Hdf-g3-QjG">
-                                    <rect key="frame" x="393" y="1" width="16" height="23"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                </scroller>
-                            </scrollView>
-                        </subviews>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="ZeG-ht-go1" secondAttribute="trailing" constant="20" id="gNo-Yd-nD4"/>
-                            <constraint firstItem="ZeG-ht-go1" firstAttribute="top" secondItem="N0s-dC-7NN" secondAttribute="top" constant="20" id="r2m-6J-mLX"/>
-                            <constraint firstItem="ZeG-ht-go1" firstAttribute="leading" secondItem="N0s-dC-7NN" secondAttribute="leading" constant="20" id="ubm-FS-An1"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <customObject id="K13-Fk-2QL" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
-                <userDefaultsController id="Gjy-Xj-l6P"/>
-            </objects>
-            <point key="canvasLocation" x="-525" y="706"/>
-        </scene>
         <!--Central-->
         <scene sceneID="w3o-q6-bja">
             <objects>
@@ -717,7 +667,6 @@
                     <tabViewItems>
                         <tabViewItem label="Design" identifier="" id="JIj-qk-QxE"/>
                         <tabViewItem label="Generate" id="GnB-9q-Xsu"/>
-                        <tabViewItem label="Test Bed" id="bkI-Kr-B4A"/>
                     </tabViewItems>
                     <tabView key="tabView" type="noTabsNoBorder" id="mDC-3z-gWq">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
@@ -728,7 +677,6 @@
                     <connections>
                         <segue destination="b8j-EH-cVW" kind="relationship" relationship="tabItems" id="dTI-Lx-Tlo"/>
                         <segue destination="CCV-QI-Zyg" kind="relationship" relationship="tabItems" id="4HA-Mk-GHL"/>
-                        <segue destination="xZo-Sv-gOG" kind="relationship" relationship="tabItems" id="FuX-QE-p5H"/>
                     </connections>
                 </tabViewController>
                 <customObject id="5us-n1-Ued" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -1135,19 +1083,42 @@ DQ
                                                     <binding destination="34o-xe-pSe" name="value" keyPath="self.detailsText" id="Ryj-Hm-99g"/>
                                                 </connections>
                                             </textField>
-                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ReD-TQ-6Fg">
+                                            <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUc-ZU-ZNy">
                                                 <rect key="frame" x="88" y="0.0" width="322" height="22"/>
+                                                <clipView key="contentView" id="Dmk-IE-tHD">
+                                                    <rect key="frame" x="1" y="1" width="320" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                    <subviews>
+                                                        <textView importsGraphics="NO" fieldEditor="YES" usesFontPanel="YES" findStyle="panel" continuousSpellChecking="YES" allowsUndo="YES" usesRuler="YES" allowsNonContiguousLayout="YES" spellingCorrection="YES" smartInsertDelete="YES" id="Xkh-fC-He9" customClass="SkrivmaskinTextView">
+                                                            <rect key="frame" x="0.0" y="0.0" width="320" height="20"/>
+                                                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                            <size key="minSize" width="320" height="20"/>
+                                                            <size key="maxSize" width="463" height="10000000"/>
+                                                            <color key="insertionPointColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                        </textView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </clipView>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="UMd-L2-J9d"/>
-                                                    <constraint firstAttribute="height" constant="22" id="mO2-8f-Kot"/>
+                                                    <constraint firstAttribute="height" constant="22" id="1yU-SA-X7j"/>
                                                 </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="nyE-mJ-LQn">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
+                                                <scroller key="horizontalScroller" hidden="YES" verticalHuggingPriority="750" doubleValue="1" horizontal="YES" id="FOQ-yQ-qgi">
+                                                    <rect key="frame" x="-100" y="-100" width="87" height="18"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </scroller>
+                                                <scroller key="verticalScroller" verticalHuggingPriority="750" doubleValue="1" horizontal="NO" id="e8D-1W-lcf">
+                                                    <rect key="frame" x="305" y="1" width="16" height="20"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </scroller>
+                                            </scrollView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="XUc-ZU-ZNy" secondAttribute="trailing" id="Fi1-mh-ftI"/>
+                                            <constraint firstAttribute="bottom" secondItem="XUc-ZU-ZNy" secondAttribute="bottom" id="SSo-7q-9i4"/>
+                                            <constraint firstItem="XUc-ZU-ZNy" firstAttribute="leading" secondItem="EOL-iS-iD6" secondAttribute="trailing" constant="8" id="Spy-5z-RHT"/>
+                                            <constraint firstItem="XUc-ZU-ZNy" firstAttribute="top" secondItem="DF6-mz-eNO" secondAttribute="top" id="Yq1-c4-5Jc"/>
+                                        </constraints>
                                         <visibilityPriorities>
                                             <integer value="1000"/>
                                             <integer value="1000"/>
@@ -1254,7 +1225,7 @@ DQ
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="DetailsTextField" destination="ReD-TQ-6Fg" id="Apn-hX-pf2"/>
+                        <outlet property="DetailsTextView" destination="Xkh-fC-He9" id="Vyv-Vf-RRm"/>
                         <outlet property="NameTextField" destination="Rnw-OQ-3Rq" id="a6h-Gp-WmY"/>
                         <outlet property="SuggestionTextField" destination="LNJ-Ll-htv" id="p1C-eB-1da"/>
                     </connections>

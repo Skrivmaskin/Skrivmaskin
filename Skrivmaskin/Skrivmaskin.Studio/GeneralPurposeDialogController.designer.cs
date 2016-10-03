@@ -13,7 +13,7 @@ namespace Skrivmaskin.Studio
 	partial class GeneralPurposeDialogController
 	{
 		[Outlet]
-		AppKit.NSTextField DetailsTextField { get; set; }
+		Skrivmaskin.Studio.SkrivmaskinTextView DetailsTextView { get; set; }
 
 		[Outlet]
 		AppKit.NSTextField NameTextField { get; set; }
@@ -29,11 +29,6 @@ namespace Skrivmaskin.Studio
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (DetailsTextField != null) {
-				DetailsTextField.Dispose ();
-				DetailsTextField = null;
-			}
-
 			if (NameTextField != null) {
 				NameTextField.Dispose ();
 				NameTextField = null;
@@ -42,6 +37,11 @@ namespace Skrivmaskin.Studio
 			if (SuggestionTextField != null) {
 				SuggestionTextField.Dispose ();
 				SuggestionTextField = null;
+			}
+
+			if (DetailsTextView != null) {
+				DetailsTextView.Dispose ();
+				DetailsTextView = null;
 			}
 		}
 	}

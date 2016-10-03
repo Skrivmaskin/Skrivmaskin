@@ -44,10 +44,11 @@ namespace Skrivmaskin.Studio
         /// the first item in the list). Pass -1 for no selected items.</param>
         public override string [] GetCompletions (NSTextView textView, string [] words, NSRange charRange, ref nint index)
         {
+            var startString = TextView.LexerSyntax.VariableStartDelimiter.ToString ();
             var endString = TextView.LexerSyntax.VariableEndDelimiter.ToString ();
             var completions = new List<string> ();
             completions.Add ("");
-            completions.AddRange (TextView.CompiledProject.VariableDefinitions.Keys.Select ((n) => n + endString));
+            completions.AddRange (TextView.CompiledProject.VariableDefinitions.Keys.Select ((n) => startString + n + endString));
             return completions.ToArray ();
         }
 

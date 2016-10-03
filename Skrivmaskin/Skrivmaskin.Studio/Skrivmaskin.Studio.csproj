@@ -111,10 +111,6 @@
     </Compile>
     <Compile Include="SkrivmaskinTextView.cs" />
     <Compile Include="SkrivmaskinTextViewDelegate.cs" />
-    <Compile Include="TestBedViewController.cs" />
-    <Compile Include="TestBedViewController.designer.cs">
-      <DependentUpon>TestBedViewController.cs</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

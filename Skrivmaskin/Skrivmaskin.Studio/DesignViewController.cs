@@ -76,6 +76,7 @@ namespace Skrivmaskin.Studio
                 dialog.showSuggestion = false;
                 dialog.NameTextInput = selected.name;
                 dialog.DetailsTextInput = selected.details;
+                if (selected.modelType == DesignModelType.Text) dialog.CompiledProject = CompiledProject;
                 dialog.DialogAccepted += (s, e) => {
                     selected.name = dialog.NameTextOutput;
                     selected.details = dialog.DetailsTextOutput;
@@ -91,6 +92,7 @@ namespace Skrivmaskin.Studio
                 dialog.showDetails = true;
                 dialog.showSuggestion = false;
                 dialog.DetailsTextInput = "Enter details.";
+                dialog.CompiledProject = CompiledProject;
                 dialog.DialogAccepted += (s, e) => {
                     AddChildModel (new DesignModel (DesignModelType.Text, "", dialog.DetailsTextOutput));
                 };
