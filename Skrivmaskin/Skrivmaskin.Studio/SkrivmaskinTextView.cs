@@ -37,13 +37,13 @@ namespace Skrivmaskin.Studio
         #endregion
 
         #region Color setup
-        public static NSColor GetColor (SkrivmaskinParseTokens token)
+        public static NSColor GetColor (SkrivmaskinParseTokens token, int choiceDepth)
         {
             switch (token) {
             case SkrivmaskinParseTokens.ChoiceStart:
             case SkrivmaskinParseTokens.ChoiceEnd:
             case SkrivmaskinParseTokens.ChoiceDivide:
-                return NSColor.Orange;
+                return NSColor.Purple;
             case SkrivmaskinParseTokens.Error:
             case SkrivmaskinParseTokens.InvalidText:
             case SkrivmaskinParseTokens.InvalidCharacter:
@@ -55,7 +55,7 @@ namespace Skrivmaskin.Studio
             case SkrivmaskinParseTokens.VarFormName:
                 return NSColor.Blue;
             default:
-                return NSColor.Black;
+                return (choiceDepth > 0) ? NSColor.Gray : NSColor.Black;
             }
         }
         #endregion
@@ -67,7 +67,7 @@ namespace Skrivmaskin.Studio
             var elements = compiledText.Elements;
             var lastToken = SkrivmaskinParseTokens.Error;
             foreach (var element in elements) {
-                LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1));
+                LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1));
                 lastToken = element.Token;
             }
             return lastToken;

@@ -52,35 +52,36 @@ namespace Skrivmaskin.Parsing
             var tokenizedLastCharIndex = -1;
             var elements = new List<SkrivmaskinParseElement> ();
             var inVariable = false;
+            int choiceDepth = 0;
             for (int i = 0; i < tokens.Count; i++) {
                 var token = tokens [i];
                 var isKey = token.KeyTerm != null;
                 if (token.Category == TokenCategory.Outline) {
                     
                 } else if (token.IsError ()) {
-                    elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Error, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Length - 1)));
+                    elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Error, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Length - 1)));
                 } else if (isKey) {
                     if (inVariable) {
                         if (lexerSyntax.VariableFormDelimiter.ToString () == token.Text) {
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarDivide, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarDivide, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         } else if (lexerSyntax.VariableEndDelimiter.ToString () == token.Text) {
                             inVariable = false;
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarEnd, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarEnd, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         } else {
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidCharacter, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidCharacter, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         }
                     } else {
                         if (lexerSyntax.VariableStartDelimiter.ToString () == token.Text) {
                             inVariable = true;
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarStart, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarStart, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         } else if (lexerSyntax.ChoiceStartDelimiter.ToString () == token.Text) {
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceStart, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceStart, choiceDepth++, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         } else if (lexerSyntax.ChoiceAlternativeDelimiter.ToString () == token.Text) {
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceDivide, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceDivide, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         } else if (lexerSyntax.ChoiceEndDelimiter.ToString () == token.Text) {
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceEnd, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceEnd, --choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         } else {
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidCharacter, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidCharacter, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         }
                     }
                 } else {
@@ -91,18 +92,18 @@ namespace Skrivmaskin.Parsing
                         case SkrivmaskinParseNodes.Escape:
                             if (inVariable)
                             {
-                                elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidText, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
+                                elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidText, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
                             }
                             else
                             {
-                                elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
+                                elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.Text, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
                             }
                             break;
                         case SkrivmaskinParseNodes.VarName:
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarName, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarName, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
                             break;
                         case SkrivmaskinParseNodes.VarForm:
-                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarFormName, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.VarFormName, choiceDepth, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
                             break;
                         default:
                             //TODO info about this failure - this is meant to be an assertion, but is effectively asserting that
@@ -117,7 +118,7 @@ namespace Skrivmaskin.Parsing
                 }
             }
             if (tokenizedLastCharIndex < lastCharIndex) {
-                elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidText, new SkrivmaskinParseRange (tokenizedLastCharIndex + 1, lastCharIndex)));
+                elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidText, choiceDepth, new SkrivmaskinParseRange (tokenizedLastCharIndex + 1, lastCharIndex)));
             }
             return elements;
         }
