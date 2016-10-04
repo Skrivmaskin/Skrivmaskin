@@ -82,6 +82,7 @@ namespace Skrivmaskin.Studio
         {
             base.KeyDown (theEvent);
             var possibleComplete = Char.IsLetterOrDigit (theEvent.Characters [0]);
+            //TODO Note, not ideal, because the user's position should be taken into account.
             var lastToken = Highlight ();
             if (possibleComplete && (CompiledProject != null) && (CompiledProject.VariableDefinitions.Count > 0) && (lastToken == SkrivmaskinParseTokens.VarName) || (lastToken == SkrivmaskinParseTokens.VarFormName)) Complete (this);
         }
