@@ -11,11 +11,8 @@ namespace Skrivmaskin.Studio
 {
 	partial class AppDelegate
 	{
-		[Action ("newDocument:")]
-		partial void newDocument (Foundation.NSObject sender);
-
-		[Action ("openDocument:")]
-		partial void openDocument (Foundation.NSObject sender);
+		[Action ("changeMode:")]
+		partial void changeMode (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

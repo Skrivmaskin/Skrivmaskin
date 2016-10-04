@@ -30,21 +30,18 @@ namespace Skrivmaskin.Studio
             Generate ();
         }
 
-        private CompiledProject compiledProject = null;
-        IReadOnlyDictionary<string, string> variableValues = null;
-
-        internal void SetCompiledProject (IReadOnlyDictionary<string, string> vv, CompiledProject c)
+        private CentralViewController parent = null;
+        internal void SetControllerLinks (CentralViewController cvc)
         {
-            compiledProject = c;
-            variableValues = vv;
+            parent = cvc;
         }
 
         readonly SkrivmaskinGenerator generator = new SkrivmaskinGenerator (new RandomChooser (), new SingleSpaceUnixGeneratorConfig ());
 
         public void Generate ()
         {
-            if (compiledProject != null) {
-                Results.Value = (generator.Generate (compiledProject, new DictionaryBackedVariableSubstituter (variableValues)));
+            if (parent.CompiledProject != null) {
+                Results.Value = (generator.Generate (parent.CompiledProject, new DictionaryBackedVariableSubstituter (parent.VariableValues)));
             } else {
                 Results.Value = "Nothing to generate";
             }

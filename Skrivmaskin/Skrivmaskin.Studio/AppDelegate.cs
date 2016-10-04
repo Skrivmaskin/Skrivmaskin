@@ -1,4 +1,4 @@
-﻿using System.IO;
+using System.IO;
 using AppKit;
 using Foundation;
 using Skrivmaskin.Design;
@@ -6,20 +6,23 @@ using Skrivmaskin.Design;
 namespace Skrivmaskin.Studio
 {
     [Register ("AppDelegate")]
-    public class AppDelegate : NSApplicationDelegate
+    public partial class AppDelegate : NSApplicationDelegate
     {
         public AppDelegate ()
         {
+            UserSettingsContext.RegisterDefaults ();
         }
 
         public override void DidFinishLaunching (NSNotification notification)
         {
             // Insert code here to initialize your application
+            UserSettingsContext.LoadDefaults ();
         }
 
         public override void WillTerminate (NSNotification notification)
         {
             // Insert code here to tear down your application
+            UserSettingsContext.SaveDefaults ();
         }
 
         public override bool OpenFile (NSApplication sender, string filename)
@@ -32,6 +35,26 @@ namespace Skrivmaskin.Studio
             } catch {
                 return false;
             }
+        }
+
+        private SkrivmaskinMode mode = SkrivmaskinMode.Design;
+        public string modeTitle {
+            [Export (nameof (modeTitle))]
+            get {
+                return (mode == SkrivmaskinMode.Design) ? "Generate Mode" : "Design Mode";
+            }
+        }
+
+        partial void changeMode (NSObject sender)
+        {
+            WillChangeValue (nameof (modeTitle));
+            mode = (mode == SkrivmaskinMode.Design) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design;
+            for (int n = 0; n < NSApplication.SharedApplication.Windows.Length; ++n) {
+                var content = NSApplication.SharedApplication.Windows [n].ContentViewController as CentralViewController;
+                if (content != null)
+                    content.SetMode (mode);
+            }
+            DidChangeValue (nameof (modeTitle));
         }
 
         private bool OpenFile (NSUrl url)
@@ -59,17 +82,11 @@ namespace Skrivmaskin.Studio
                 // Display
                 controller.ShowWindow (this);
 
-                DesignViewController designViewController = null;
+                // Load the data into the controllers.
                 var viewController = controller.Window.ContentViewController as CentralViewController;
-                foreach (var child in viewController.ChildViewControllers) {
-                    if (child is DesignViewController) {
-                        designViewController = child as DesignViewController;
-                        break;
-                    }
-                }
                 var fileInfo = new FileInfo (path);
                 var project = ProjectWriter.Read (fileInfo);
-                designViewController.CreateTree (project);
+                viewController.CreateTree (path, project);
 
                 //viewController.SetLanguageFromPath (path);
                 viewController.View.Window.SetTitleWithRepresentedFilename (Path.GetFileName (path));
@@ -77,6 +94,13 @@ namespace Skrivmaskin.Studio
 
                 // Add document to the Open Recent menu
                 NSDocumentController.SharedDocumentController.NoteNewRecentDocumentURL (url);
+
+                // Add document to the settings.
+                UserSettingsContext.Settings.FileOpened (path);
+
+                // Set the mode up in the controllers.
+                var mode = UserSettingsContext.Settings.PerFileModes [path];
+                viewController.SetMode (mode);
 
                 // Make as successful
                 good = true;
@@ -132,21 +156,14 @@ namespace Skrivmaskin.Studio
         {
             var window = NSApplication.SharedApplication.KeyWindow;
 
-            DesignViewController designViewController = null;
             var viewController = window.ContentViewController as CentralViewController;
-            foreach (var child in viewController.ChildViewControllers) {
-                if (child is DesignViewController) {
-                    designViewController = child as DesignViewController;
-                    break;
-                }
-            }
 
             // Already saved?
             if (!saveAs && window.RepresentedUrl != null) {
                 var path = window.RepresentedUrl.Path;
 
                 // Save changes to file
-                ProjectWriter.Write (new FileInfo (path), designViewController.Project);
+                ProjectWriter.Write (new FileInfo (path), viewController.Project);
                 window.DocumentEdited = false;
             } else {
                 var dlg = new NSSavePanel ();
@@ -156,7 +173,7 @@ namespace Skrivmaskin.Studio
                     // File selected?
                     if (rslt == 1) {
                         var path = dlg.Url.Path;
-                        ProjectWriter.Write (new FileInfo (path), designViewController.Project);
+                        ProjectWriter.Write (new FileInfo (path), viewController.Project);
                         window.DocumentEdited = false;
                         window.SetTitleWithRepresentedFilename (Path.GetFileName (path));
                         window.RepresentedUrl = dlg.Url;

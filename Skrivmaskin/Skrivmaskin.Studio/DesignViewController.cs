@@ -12,17 +12,20 @@ namespace Skrivmaskin.Studio
 {
     public partial class DesignViewController : NSViewController
     {
+        CentralViewController parent = null;
+
         public DesignViewController (IntPtr handle) : base (handle)
         {
+        }
+
+        public void SetControllerLinks (CentralViewController cvc)
+        {
+            parent = cvc;
         }
 
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-
-            Project = new Project (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
-            CreateTree (Project);
-            CompiledProject = compiler.Compile (Project);
         }
 
         #region Edits from the tree to a Project
@@ -31,10 +34,10 @@ namespace Skrivmaskin.Studio
             if (!loading) {
                 // Reread project from the outline view
                 var project = CreateProjectFromOutlineView ();
-                if (!project.Equals (Project)) {
+                if (!project.Equals (parent.Project)) {
                     NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
-                    Project = project;
-                    CompiledProject = compiler.Compile (Project); // has a caching layer so should be quick
+                    parent.Project = project;
+                    parent.CompiledProject = parent.Compiler.Compile (parent.Project); // has a caching layer so should be quick
                 }
             }
         }
@@ -76,7 +79,7 @@ namespace Skrivmaskin.Studio
                 dialog.showSuggestion = false;
                 dialog.NameTextInput = selected.name;
                 dialog.DetailsTextInput = selected.details;
-                if (selected.modelType == DesignModelType.Text) dialog.CompiledProject = CompiledProject;
+                if (selected.modelType == DesignModelType.Text) dialog.CompiledProject = parent.CompiledProject;
                 dialog.DialogAccepted += (s, e) => {
                     selected.name = dialog.NameTextOutput;
                     selected.details = dialog.DetailsTextOutput;
@@ -92,7 +95,7 @@ namespace Skrivmaskin.Studio
                 dialog.showDetails = true;
                 dialog.showSuggestion = false;
                 dialog.DetailsTextInput = "";
-                dialog.CompiledProject = CompiledProject;
+                dialog.CompiledProject = parent.CompiledProject;
                 dialog.DialogAccepted += (s, e) => {
                     AddChildModel (new DesignModel (DesignModelType.Text, "", dialog.DetailsTextOutput));
                 };
@@ -165,34 +168,6 @@ namespace Skrivmaskin.Studio
         {
             ((DesignModel)TreeController.SelectedObjects [0]).AddDesign (model);
             DocumentEditedAction ();
-        }
-        #endregion
-
-        #region Relationships with other ViewControllers
-        SetVariablesViewController setVariablesViewController = null;
-        ResultsViewController resultsViewController = null;
-        internal void SetControllerLinks (SetVariablesViewController svvc, ResultsViewController rvc)
-        {
-            setVariablesViewController = svvc;
-            resultsViewController = rvc;
-        }
-        #endregion
-
-        #region Design and Compiled projects
-        private SkrivmaskinCompiler compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
-        internal Project Project { get; private set; } = new Project (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
-        private CompiledProject compiledProject = null;
-        private CompiledProject CompiledProject {
-            get {
-                return compiledProject;
-            }
-            set {
-                compiledProject = value;
-                if (setVariablesViewController != null) {
-                    setVariablesViewController.SetCompiledProject (compiledProject);
-                    resultsViewController.SetCompiledProject (setVariablesViewController.VariableValues, compiledProject);
-                }
-            }
         }
         #endregion
 
@@ -288,26 +263,24 @@ namespace Skrivmaskin.Studio
             throw new ApplicationException ("Unrecognised node type " + designModel.modelType);
         }
 
-        bool loading = false;
+        private bool loading = false;
 
-        public bool CreateTree (Project project)
+        public void CreateTree ()
         {
             string errorText;
             loading = true;
-            Project = project; // no edits yet so no need to inform Apple about it
             var array = new NSMutableArray ();
             SetDesigns (array);
             var variables = new DesignModel (true, DesignModelType.VariableRoot, "Variables", "");
             AddDesign (variables);
-            if (this.CreateVariables (project, variables, out errorText)) {
-                if (this.CreateDefinition (project.Definition, true, (d) => AddDesign (d), out errorText)) {
-                    CompiledProject = compiler.Compile (project);
+            if (this.CreateVariables (parent.Project, variables, out errorText)) {
+                if (this.CreateDefinition (parent.Project.Definition, true, (d) => AddDesign (d), out errorText)) {
+                    parent.CompiledProject = parent.Compiler.Compile (parent.Project);
                     loading = false;
-                    return true;
+                    return;
                 }
             }
             loading = false;
-            return false;
         }
 
         public bool CreateVariables (Project project, DesignModel variables, out string errorText)

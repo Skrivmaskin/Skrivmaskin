@@ -4,35 +4,136 @@ using System;
 
 using Foundation;
 using AppKit;
+using System.Collections.Generic;
+using Skrivmaskin.Compiler;
+using Skrivmaskin.Lexing;
+using Skrivmaskin.Design;
 
 namespace Skrivmaskin.Studio
 {
 	public partial class CentralViewController : NSTabViewController
 	{
+        private const string Design = "Design";
+        private const string Generate = "Generate";
+
+        private readonly Dictionary<string, NSTabViewItem> tabViewItemRefs = new Dictionary<string, NSTabViewItem> ();
+        private bool inGenerateOnlyMode = false;
+        private bool discoveredTabs = false;
+
 		public CentralViewController (IntPtr handle) : base (handle)
 		{
 		}
 
+        public void DiscoverTabs()
+        {
+            if (!discoveredTabs) {
+                discoveredTabs = true;
+                for (nint i = 0; i < TabViewItems.Length; i++) {
+                    var tabViewItem = TabViewItems [i];
+                    tabViewItemRefs.Add (tabViewItem.Label, tabViewItem);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Enable Generate-only mode.
+        /// </summary>
+        internal void EnableGenerateOnlyMode ()
+        {
+            DiscoverTabs ();
+            if (!inGenerateOnlyMode) {
+                inGenerateOnlyMode = true;
+                SelectedTabViewItemIndex = 1;
+                RemoveTabViewItem (tabViewItemRefs [Design]);
+            }
+            StoreInAppSettings ();
+        }
+
+        /// <summary>
+        /// Disable Generate-only mode.
+        /// </summary>
+        internal void DisableGenerateOnlyMode ()
+        {
+            DiscoverTabs ();
+            if (inGenerateOnlyMode) {
+                inGenerateOnlyMode = false;
+                InsertTabViewItem (tabViewItemRefs [Design], 0);
+            }
+            StoreInAppSettings ();
+        }
+
+        /// <summary>
+        /// Store the user's preference for current file for Generate-only mode versus Design mode.
+        /// </summary>
+        private void StoreInAppSettings ()
+        {
+            if ((UserSettingsContext.Settings != null) && (FilePath != null))
+                UserSettingsContext.Settings.ModeSet (FilePath, mode);
+        }
+
+        private SkrivmaskinMode mode = SkrivmaskinMode.Design;
+        public void SetMode (SkrivmaskinMode mode)
+        {
+            this.mode = mode;
+            if (awake) {
+                if (mode == SkrivmaskinMode.Design) DisableGenerateOnlyMode ();
+                else EnableGenerateOnlyMode ();
+            }
+        }
+
+        #region Design and Compiled projects
+        internal SkrivmaskinCompiler Compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
+        internal Project Project { get; set; } = new Project (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
+        private CompiledProject compiledProject = null;
+        internal IReadOnlyDictionary<string, string> VariableValues {
+            get {
+                return setVariablesViewController.VariableValues;
+            }
+        }
+        internal CompiledProject CompiledProject {
+            get {
+                return compiledProject;
+            }
+            set {
+                compiledProject = value;
+                if (setVariablesViewController != null) {
+                    setVariablesViewController.SetCompiledProject ();
+                }
+            }
+        }
+        #endregion
+
+        DesignViewController designViewController = null;
+        SetVariablesViewController setVariablesViewController = null;
+        ResultsViewController resultsViewController = null;
+        private bool awake = false;
         public override void AwakeFromNib ()
         {
             base.AwakeFromNib ();
 
-            DesignViewController dvc = null;
-            SetVariablesViewController svvc = null;
-            ResultsViewController rvc = null;
             foreach (var child in ChildViewControllers) {
                 if (child is DesignViewController)
-                    dvc = (DesignViewController)child;
+                    designViewController = (DesignViewController)child;
                 else {
                     foreach (var subchild in child.ChildViewControllers) {
                         if (subchild is SetVariablesViewController)
-                            svvc = (SetVariablesViewController)subchild;
+                            setVariablesViewController = (SetVariablesViewController)subchild;
                         else if (subchild is ResultsViewController)
-                            rvc = (ResultsViewController)subchild;
+                            resultsViewController = (ResultsViewController)subchild;
                     }
                 }
             }
-            dvc.SetControllerLinks (svvc, rvc);
+            designViewController.SetControllerLinks (this);
+            setVariablesViewController.SetControllerLinks (this);
+            resultsViewController.SetControllerLinks (this);
+
+            Project = new Project (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
+            CreateTree (null, Project);
+
+            if (mode == SkrivmaskinMode.Design) DisableGenerateOnlyMode ();
+            else EnableGenerateOnlyMode ();
+
+            awake = true;
         }
 
         /// <summary>
@@ -40,5 +141,12 @@ namespace Skrivmaskin.Studio
         /// </summary>
         /// <value>The file path.</value>
         public string FilePath { get; set; } = null;
+
+        public void CreateTree (string path, Project project)
+        {
+            Project = project;
+            FilePath = path;
+            designViewController.CreateTree ();
+        }
     }
 }

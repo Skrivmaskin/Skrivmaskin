@@ -22,9 +22,15 @@ namespace Skrivmaskin.Studio
             }
         }
 
-        internal void SetCompiledProject (CompiledProject c)
+        private CentralViewController parent = null;
+        internal void SetControllerLinks (CentralViewController centralViewController)
         {
-            var datasource = new VariablesTableViewDataSource (c.VariableDefinitions.Select ((kvp) => kvp.Value));
+            this.parent = centralViewController;   
+        }
+
+        internal void SetCompiledProject ()
+        {
+            var datasource = new VariablesTableViewDataSource (parent.CompiledProject.VariableDefinitions.Select ((kvp) => kvp.Value));
             SetVariables.DataSource = datasource;
             SetVariables.Delegate = new VariablesTableViewDelegate (datasource);
         }
