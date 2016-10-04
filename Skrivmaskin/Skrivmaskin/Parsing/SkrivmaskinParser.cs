@@ -80,7 +80,7 @@ namespace Skrivmaskin.Parsing
                         } else if (lexerSyntax.ChoiceEndDelimiter.ToString () == token.Text) {
                             elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.ChoiceEnd, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         } else {
-                            throw new ApplicationException ("Can't get here. I reckon");
+                            elements.Add (new SkrivmaskinParseElement (SkrivmaskinParseTokens.InvalidCharacter, new SkrivmaskinParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         }
                     }
                 } else {

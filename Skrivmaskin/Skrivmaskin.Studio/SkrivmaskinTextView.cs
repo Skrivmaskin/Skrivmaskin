@@ -67,7 +67,7 @@ namespace Skrivmaskin.Studio
             var elements = compiledText.Elements;
             var lastToken = SkrivmaskinParseTokens.Error;
             foreach (var element in elements) {
-                LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter));
+                LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1));
                 lastToken = element.Token;
             }
             return lastToken;
