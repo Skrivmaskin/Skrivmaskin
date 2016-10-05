@@ -57,6 +57,12 @@ namespace Skrivmaskin.Studio
             DidChangeValue (nameof (modeTitle));
         }
 
+        partial void resetDefaults (NSObject sender)
+        {
+            UserSettingsContext.Settings.LastAccessDate.Clear ();
+            UserSettingsContext.Settings.PerFileModes.Clear ();
+        }
+
         private bool OpenFile (NSUrl url)
         {
             var good = false;

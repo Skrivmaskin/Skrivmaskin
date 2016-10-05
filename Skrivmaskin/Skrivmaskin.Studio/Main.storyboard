@@ -630,6 +630,12 @@
                                                 <binding destination="Voe-Tx-rLC" name="title" keyPath="modeTitle" id="ffF-Ai-4gV"/>
                                             </connections>
                                         </menuItem>
+                                        <menuItem title="Reset Defaults" id="hSd-CF-02I">
+                                            <modifierMask key="keyEquivalentModifierMask"/>
+                                            <connections>
+                                                <action selector="resetDefaults:" target="Voe-Tx-rLC" id="2vd-gt-UA9"/>
+                                            </connections>
+                                        </menuItem>
                                     </items>
                                 </menu>
                             </menuItem>

@@ -13,6 +13,9 @@ namespace Skrivmaskin.Studio
 	{
 		[Action ("changeMode:")]
 		partial void changeMode (Foundation.NSObject sender);
+
+		[Action ("resetDefaults:")]
+		partial void resetDefaults (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
