@@ -18,15 +18,11 @@ namespace Skrivmaskin.Studio
 
         // Keys.
         private const string kDefaultMode = "DefaultMode";
-        private const string kPerFileMode = "PerFileMode";
-        private const string kLastAccessDate = "LastAccessDate";
 
         public static void RegisterDefaults ()
         {
             var dict = new NSMutableDictionary ();
             dict [kDefaultMode] = designMode;
-            dict [kPerFileMode] = new NSDictionary ();
-            dict [kLastAccessDate] = new NSDictionary ();
             NSUserDefaults.StandardUserDefaults.RegisterDefaults (dict);
         }
 
@@ -36,36 +32,17 @@ namespace Skrivmaskin.Studio
         {
             var defaults = NSUserDefaults.StandardUserDefaults;
             NSNumber nsDefaultMode = (NSNumber)defaults [kDefaultMode];
-            NSDictionary nsPerFileMode = (NSDictionary)defaults [kPerFileMode];
-            NSDictionary nsLastAccessDate = (NSDictionary)defaults [kLastAccessDate];
             var defaultMode = (nsDefaultMode == generateOnlyMode) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design;
-            var perFileMode = new Dictionary<string, SkrivmaskinMode> ();
-            var lastAccessDate = new Dictionary<string, DateTime> ();
-            foreach (var key in nsPerFileMode.Keys) {
-                var mode = (((NSNumber)nsPerFileMode [key]) == generateOnlyMode) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design;
-                perFileMode.Add (((NSString)key).ToString (), mode);
-                var dateString = (NSString)nsLastAccessDate [key];
-                var date = DateTime.ParseExact (dateString.ToString (), "yyyyMMdd", null);
-                lastAccessDate.Add (((NSString)key).ToString (), date);
-            }
-            Settings = new UserSettings () { DefaultMode = defaultMode, PerFileModes = perFileMode, LastAccessDate = lastAccessDate };
+            Settings =
+                new UserSettings () {
+                    DefaultMode = defaultMode
+                };
         }
 
         public static void SaveDefaults ()
         {
             var defaults = NSUserDefaults.StandardUserDefaults;
             defaults [kDefaultMode] = (Settings.DefaultMode == SkrivmaskinMode.GenerateOnly) ? generateOnlyMode : designMode;
-            var perFileMode = new NSMutableDictionary ();
-            var lastAccessDate = new NSMutableDictionary ();
-            foreach (var kvp in Settings.PerFileModes) {
-                var key = (NSString)kvp.Key;
-                var mode = (kvp.Value == SkrivmaskinMode.GenerateOnly) ? generateOnlyMode : designMode;
-                var date = (NSString)(Settings.LastAccessDate [key].ToString ("yyyyMMdd"));
-                perFileMode.Add (key, mode);
-                lastAccessDate.Add (key, date);
-            }
-            defaults [kPerFileMode] = perFileMode;
-            defaults [kLastAccessDate] = lastAccessDate;
         }
     }
 }

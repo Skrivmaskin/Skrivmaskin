@@ -17,6 +17,7 @@ namespace Skrivmaskin.Studio
         {
             // Insert code here to initialize your application
             UserSettingsContext.LoadDefaults ();
+            Mode = UserSettingsContext.Settings.DefaultMode;
         }
 
         public override void WillTerminate (NSNotification notification)
@@ -41,26 +42,35 @@ namespace Skrivmaskin.Studio
         public string modeTitle {
             [Export (nameof (modeTitle))]
             get {
-                return (mode == SkrivmaskinMode.Design) ? "Generate Mode" : "Design Mode";
+                return (mode == SkrivmaskinMode.Design) ? "Enable Generate Mode" : "Disable Generate Mode";
             }
         }
 
-        partial void changeMode (NSObject sender)
+        public SkrivmaskinMode Mode {
+            get {
+                return mode;
+            }
+            set {
+                setMode (value);
+            }
+        }
+
+        private void setMode (SkrivmaskinMode newMode)
         {
             WillChangeValue (nameof (modeTitle));
-            mode = (mode == SkrivmaskinMode.Design) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design;
+            mode = newMode;
             for (int n = 0; n < NSApplication.SharedApplication.Windows.Length; ++n) {
                 var content = NSApplication.SharedApplication.Windows [n].ContentViewController as CentralViewController;
                 if (content != null)
                     content.SetMode (mode);
             }
+            if (UserSettingsContext.Settings != null) UserSettingsContext.Settings.DefaultMode = mode;
             DidChangeValue (nameof (modeTitle));
         }
 
-        partial void resetDefaults (NSObject sender)
+        partial void changeMode (NSObject sender)
         {
-            UserSettingsContext.Settings.LastAccessDate.Clear ();
-            UserSettingsContext.Settings.PerFileModes.Clear ();
+            setMode ((mode == SkrivmaskinMode.Design) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design);
         }
 
         private bool OpenFile (NSUrl url)
@@ -101,11 +111,7 @@ namespace Skrivmaskin.Studio
                 // Add document to the Open Recent menu
                 NSDocumentController.SharedDocumentController.NoteNewRecentDocumentURL (url);
 
-                // Add document to the settings.
-                UserSettingsContext.Settings.FileOpened (path);
-
                 // Set the mode up in the controllers.
-                var mode = UserSettingsContext.Settings.PerFileModes [path];
                 viewController.SetMode (mode);
 
                 // Make as successful

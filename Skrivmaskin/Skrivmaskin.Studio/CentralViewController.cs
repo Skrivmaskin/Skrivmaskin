@@ -46,7 +46,6 @@ namespace Skrivmaskin.Studio
                 SelectedTabViewItemIndex = 1;
                 RemoveTabViewItem (tabViewItemRefs [Design]);
             }
-            StoreInAppSettings ();
         }
 
         /// <summary>
@@ -59,16 +58,6 @@ namespace Skrivmaskin.Studio
                 inGenerateOnlyMode = false;
                 InsertTabViewItem (tabViewItemRefs [Design], 0);
             }
-            StoreInAppSettings ();
-        }
-
-        /// <summary>
-        /// Store the user's preference for current file for Generate-only mode versus Design mode.
-        /// </summary>
-        private void StoreInAppSettings ()
-        {
-            if ((UserSettingsContext.Settings != null) && (FilePath != null))
-                UserSettingsContext.Settings.ModeSet (FilePath, mode);
         }
 
         private SkrivmaskinMode mode = SkrivmaskinMode.Design;
