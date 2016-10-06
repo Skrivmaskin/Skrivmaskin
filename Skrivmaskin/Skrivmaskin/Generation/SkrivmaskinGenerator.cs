@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using Skrivmaskin.Compiler;
 using Skrivmaskin.Interfaces;
@@ -26,27 +27,48 @@ namespace Skrivmaskin.Generation
             this.generatorConfig = generatorConfig;
         }
 
-        private string GenerateText (ICompiledNode node, IVariableSubstituter variableSubstituter)
+        private IEnumerable<AnnotatedText> GenerateText (ICompiledNode node, IVariableSubstituter variableSubstituter)
         {
             switch (node.Type) {
             case CompiledNodeType.Text:
-                return (node as TextCompiledNode).Text;
+                yield return new AnnotatedText (node.Location, (node as TextCompiledNode).Text);
+                break;
             case CompiledNodeType.Variable:
-                return variableSubstituter.Substitute ((node as VariableCompiledNode).VariableFullName);
+                yield return new AnnotatedText (node.Location, variableSubstituter.Substitute ((node as VariableCompiledNode).VariableFullName));
+                break;
             case CompiledNodeType.Sequential:
-                return string.Concat ((node as SequentialCompiledNode).Sequential.Select ((n) => GenerateText (n, variableSubstituter)));
+                foreach (var n in (node as SequentialCompiledNode).Sequential) {
+                    foreach (var text in GenerateText (n, variableSubstituter)) {
+                        yield return text;
+                    }
+                }
+                break;
             case CompiledNodeType.Choice:
                 var choices = (node as ChoiceCompiledNode).Choices;
-                if (choices.Count == 0) return "";
-                return GenerateText (choices [randomChooser.Choose (choices.Count)], variableSubstituter);
+                if (choices.Count == 0) yield return AnnotatedText.Blank;
+                else {
+                    var n = randomChooser.Choose (choices.Count);
+                    var choice = choices [n];
+                    var li = GenerateText (choice, variableSubstituter);
+                    foreach (var text in li) {
+                        yield return text;
+                    }
+                }
+                break;
             case CompiledNodeType.SentenceBreak:
-                return generatorConfig.Spacing;
+                yield return new AnnotatedText (null, generatorConfig.Spacing);
+                break;
             case CompiledNodeType.ParagraphBreak:
-                return generatorConfig.ParagraphBreak;
+                yield return new AnnotatedText (null, generatorConfig.ParagraphBreak);
+                break;
             case CompiledNodeType.Blank:
-                return "";
+                yield return AnnotatedText.Blank;
+                break;
             case CompiledNodeType.Success:
-                return GenerateText ((node as SuccessCompiledNode).Node, variableSubstituter);
+                foreach (var text in GenerateText ((node as SuccessCompiledNode).Node, variableSubstituter)) {
+                    yield return text;
+                }
+                break;
             default:
                 throw new ApplicationException ("Unrecognised to generate text when there were compiler errors " + node.GetType ());
             }
@@ -89,38 +111,38 @@ namespace Skrivmaskin.Generation
         /// Generate the text for a given set of variable substitutions.
         /// </summary>
         /// <param name="variableSubstituer">Variable substituer.</param>
-        public string Generate (CompiledProject project, IVariableSubstituter variableSubstituer)
+        public AnnotatedOutput Generate (CompiledProject project, IVariableSubstituter variableSubstituer)
         {
             randomChooser.Begin ();
-            var result = GenerateText (project.Definition, variableSubstituer);
+            var result = GenerateText (project.Definition, variableSubstituer).ToList ();
             randomChooser.End ();
-            return result;
+            return new AnnotatedOutput (result);
         }
 
         /// <summary>
         /// Generate the text for a given set of variable substitutions, using the same random seed as before to get the same variable substitutions.
         /// </summary>
         /// <param name="variableSubstituter">Variable substituter.</param>
-        public string Regenerate (CompiledProject project, IVariableSubstituter variableSubstituter)
+        public AnnotatedOutput Regenerate (CompiledProject project, IVariableSubstituter variableSubstituter)
         {
             var lastSeed = LastSeed;
             if (lastSeed == null) throw new ApplicationException ("Unable to regenerate when we haven't run before");
             randomChooser.BeginWithSeed (lastSeed.Value);
-            var result = GenerateText (project.Definition, variableSubstituter);
+            var result = GenerateText (project.Definition, variableSubstituter).ToList ();
             randomChooser.End ();
-            return result;
+            return new AnnotatedOutput (result);
         }
 
         /// <summary>
         /// Generate the text for a given set of variable substitutions, using a given random seed.
         /// </summary>
         /// <param name="variableSubstituter">Variable substituter.</param>
-        public string GenerateWithSeed (CompiledProject project, IVariableSubstituter variableSubstituter, int seed)
+        public AnnotatedOutput GenerateWithSeed (CompiledProject project, IVariableSubstituter variableSubstituter, int seed)
         {
             randomChooser.BeginWithSeed (seed);
-            var result = GenerateText (project.Definition, variableSubstituter);
+            var result = GenerateText (project.Definition, variableSubstituter).ToList ();
             randomChooser.End ();
-            return result;
+            return new AnnotatedOutput (result);
         }
     }
 }

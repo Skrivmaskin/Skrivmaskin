@@ -41,11 +41,10 @@ namespace Skrivmaskin.Studio
         public void Generate ()
         {
             if (parent.CompiledProject != null) {
-                Results.Value = (generator.Generate (parent.CompiledProject, new DictionaryBackedVariableSubstituter (parent.VariableValues)));
+                Results.Value = (generator.Generate (parent.CompiledProject, new DictionaryBackedVariableSubstituter (parent.VariableValues))).ToString ();
             } else {
                 Results.Value = "Nothing to generate";
             }
         }
-
     }
 }

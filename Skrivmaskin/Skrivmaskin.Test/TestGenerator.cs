@@ -42,7 +42,7 @@ namespace Skrivmaskin.Test
             var project = MakeProject (null, definition);
             var seed = 42;
             var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
-            Assert.AreEqual (text, generatedText);
+            Assert.AreEqual (text, generatedText.ToString ());
         }
 
         [Test]
@@ -55,7 +55,7 @@ namespace Skrivmaskin.Test
             var project = MakeProject (null, definition);
             var seed = 42;
             var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
-            Assert.AreEqual (varValue, generatedText);
+            Assert.AreEqual (varValue, generatedText.ToString ());
             mockRandomChooser.SetupGet ((rc) => rc.LastSeed).Returns (42);
             Assert.IsTrue (generator.CanRegenerate (project));
             mockVariableSubstituter.Verify ((vs) => vs.Substitute (It.IsAny<string> ()), Times.Once ());
@@ -75,7 +75,7 @@ namespace Skrivmaskin.Test
             mockRandomChooser.Setup ((rc) => rc.Choose (4)).Returns (1);
             var seed = 42;
             var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
-            Assert.AreEqual (expectedText, generatedText);
+            Assert.AreEqual (expectedText, generatedText.ToString ());
             mockRandomChooser.Verify ((rc) => rc.Choose (It.IsAny<int> ()), Times.Once ());
         }
 
@@ -93,7 +93,7 @@ namespace Skrivmaskin.Test
             var project = MakeProject (null, definition);
             var seed = 42;
             var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
-            Assert.AreEqual (expectedText, generatedText);
+            Assert.AreEqual (expectedText, generatedText.ToString ());
             mockRandomChooser.Verify ((rc) => rc.Choose (It.IsAny<int> ()), Times.Never ());
         }
 

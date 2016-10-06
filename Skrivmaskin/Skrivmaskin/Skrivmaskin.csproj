@@ -83,6 +83,8 @@
     <Compile Include="Parsing\SkrivmaskinParseElement.cs" />
     <Compile Include="Compiler\SuccessCompiledNode.cs" />
     <Compile Include="Compiler\ICompiledText.cs" />
+    <Compile Include="Generation\AnnotatedText.cs" />
+    <Compile Include="Generation\AnnotatedOutput.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

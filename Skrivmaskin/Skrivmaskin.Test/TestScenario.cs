@@ -79,7 +79,7 @@ namespace Skrivmaskin.Test
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("MÄRKE")).Returns ("London");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P2")).Returns ("Covent Garden");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P3")).Returns ("Ford");
-                var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 65);
+                var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 65).ToString ();
                 var expectedText = "Är du på jakt efter en hyrbil i London? Mitt i centrum av London, beläget Covent Garden, ligger vårt kontor. Inte långt härifrån hittar du några av stadens mest kända sevärdheter. Läget är med andra ord svårslaget om du planerar att utforska staden med en egen bil. Eller kanske planerar du en resa med jobbet? Oavsett vad som för dig hit kan vi på Sixt erbjuda dig som vill hyra bil i London ett brett urval av bilar. Dessutom erbjuds du även möjligheten att lägga till rad tillvalstjänster på vår biluthyrning i London . Boka en hyrbil på London och upplev höga service som vi på Sixt alltid erbjuder våra kunder. Vilken slags bil passar bäst för dig_din_resa? På vår biluthyrning i London  hittar du Ford. Besök vår webb för att göra en reservation. Här kan du självklart även hantera dina olika tillvalstjänster tilläggsfunktioner. Om du ska hyra bil i London, och komforten är a och _o, erbjuder vi till exempel en rad tillvalsfunktioner som underlättar gör resa bekväm. Sixt är en av världens främsta biluthyrare och hos oss hittar du alltid en bilmodell fordonsmodell anpassad utifrån din krav. Vårt team på Sixt biluthyrning i London önskar dig välkommen!";
                 Assert.AreEqual (expectedText, generatedText);
             }
@@ -96,7 +96,7 @@ namespace Skrivmaskin.Test
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("MÄRKE")).Returns ("Leeds");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P2")).Returns ("Carlton");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P3")).Returns ("Honda");
-                var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 427);
+                var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 427).ToString ();
                 var expectedText = "Letar du efter en centralt belägen biluthyrning i Leeds? kontoret har ett perfekt läge vid..på kort avstånd från några av stadens mest kända turistmål. Läget är även perfekt för fortsatta resor i angränsande städer. Läget är även utmärkt för längre bilresor som fortsätter vidare utanför_ ill närliggande platser i regionen. Vårt_ team hjälper dig att snabbt komma igång med din resa. Vi_på_Sixt strävar alltid efter att ge dig som vill hyra bil i Leeds en lösning av bästa kvalitet. Boka din hyrbil i Leeds smidigt direkt på webben. resenärer som vill hyra bil i Leeds erbjuds alltid en rad prisvärda erbjudanden. Vår moderna flotta rymmer.. Om du har frågor om att  hyra bil i Leeds kan du självklart också höra av dig till oss direkt. Vi hjälper gärna till en hitta en hyrbil i Leeds som passar just dina behov. Du kan till exempel göra en rad tillvalstjänster. Kanske har du särskilda önskemål då det gäller komfort och navigering? Kolla in våra paket och sätt ihop en unikt för dig. flexibiliteten för dig som vill boka en hyrbil i Leeds är stor.";
                 Assert.AreEqual (expectedText, generatedText);
             }
@@ -117,7 +117,7 @@ namespace Skrivmaskin.Test
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("NAME|Pronoun")).Returns ("She");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("COLOUR")).Returns ("brown");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("COLOUR|Capitalized")).Returns ("Brown");
-                var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 17);
+                var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 17).ToString ();
                 var expectedText = "I used to have a brown terrier named Susie. She would run alongside me while I jogged through the streets of London. Brown terriers are so irritating.\n\nThe end.";
                 Assert.AreEqual (expectedText, generatedText);
             }
