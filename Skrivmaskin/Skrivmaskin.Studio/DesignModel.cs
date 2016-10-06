@@ -95,10 +95,52 @@ namespace Skrivmaskin.Studio
             get { return _isActive; }
             set {
                 WillChangeValue (nameof (icon));
-                WillChangeValue (nameof (isActive));
+                WillChangeValue (nameof (textColor));
+                WillChangeValue (nameof (enableConvertToChoice));
+                WillChangeValue (nameof (enableConvertToSequential));
                 _isActive = value;
                 DidChangeValue (nameof (icon));
-                DidChangeValue (nameof (isActive));
+                DidChangeValue (nameof (textColor));
+                DidChangeValue (nameof (enableConvertToChoice));
+                DidChangeValue (nameof (enableConvertToSequential));
+
+                // set children's parents for the GUI
+                for (nuint i = 0; i < designs.Count; i++) {
+                    var model = designs.GetItem<DesignModel> (i);
+                    model.isParentActive = isNodeActive;
+                }
+            }
+        }
+
+        private bool _isParentActive = true;
+        public bool isParentActive {
+            [Export (nameof (isParentActive))]
+            get {
+                return _isParentActive;
+            }
+            set {
+                WillChangeValue (nameof (icon));
+                WillChangeValue (nameof (textColor));
+                WillChangeValue (nameof (enableConvertToChoice));
+                WillChangeValue (nameof (enableConvertToSequential));
+                _isParentActive = value;
+                DidChangeValue (nameof (icon));
+                DidChangeValue (nameof (textColor));
+                DidChangeValue (nameof (isParentActive));
+                DidChangeValue (nameof (isNodeActive));
+
+                // set children's parents for the GUI
+                for (nuint i = 0; i < designs.Count; i++) {
+                    var model = designs.GetItem<DesignModel> (i);
+                    model.isParentActive = isNodeActive;
+                }
+            }
+        }
+
+        public bool isNodeActive {
+            [Export (nameof (isNodeActive))]
+            get {
+                return _isActive && _isParentActive;
             }
         }
 
@@ -138,27 +180,30 @@ namespace Skrivmaskin.Studio
         public NSImage icon {
             [Export (nameof (icon))]
             get {
-                if (!isActive) {
-                    return NSImage.ImageNamed (NSImageName.StatusUnavailable);
-                } else {
-                    switch (modelType) {
-                    case DesignModelType.VariableRoot:
-                        return NSImage.ImageNamed (NSImageName.Folder);
-                    case DesignModelType.Variable:
-                    case DesignModelType.VariableForm:
-                        return NSImage.ImageNamed (NSImageName.UserGuest);
-                    case DesignModelType.Text:
-                        return NSImage.ImageNamed (NSImageName.GoRightTemplate);
-                    case DesignModelType.Choice:
-                        return NSImage.ImageNamed (NSImageName.StatusPartiallyAvailable);
-                    case DesignModelType.Sequential:
-                        return NSImage.ImageNamed (NSImageName.StatusNone);
-                    case DesignModelType.ParagraphBreak:
-                        return NSImage.ImageNamed (NSImageName.QuickLookTemplate);
-                    default:
-                        return null;
-                    }
+                switch (modelType) {
+                case DesignModelType.VariableRoot:
+                    return NSImage.ImageNamed (NSImageName.Folder);
+                case DesignModelType.Variable:
+                case DesignModelType.VariableForm:
+                    return NSImage.ImageNamed (NSImageName.UserGuest);
+                case DesignModelType.Text:
+                    return NSImage.ImageNamed (NSImageName.GoRightTemplate);
+                case DesignModelType.Choice:
+                    return (isNodeActive ? NSImage.ImageNamed (NSImageName.StatusPartiallyAvailable) : NSImage.ImageNamed (NSImageName.RemoveTemplate));
+                case DesignModelType.Sequential:
+                    return (isNodeActive ? NSImage.ImageNamed (NSImageName.StatusNone) : NSImage.ImageNamed (NSImageName.RemoveTemplate));
+                case DesignModelType.ParagraphBreak:
+                    return NSImage.ImageNamed (NSImageName.QuickLookTemplate);
+                default:
+                    return null;
                 }
+            }
+        }
+
+        public NSColor textColor {
+            [Export (nameof (textColor))]
+            get {
+                return (isNodeActive ? NSColor.Black : NSColor.Gray);
             }
         }
 

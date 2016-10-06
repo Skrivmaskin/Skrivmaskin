@@ -35,7 +35,7 @@ namespace Skrivmaskin.Studio
             var defaultMode = (nsDefaultMode == generateOnlyMode) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design;
             Settings =
                 new UserSettings () {
-                    DefaultMode = defaultMode
+                DefaultMode = defaultMode
                 };
         }
 

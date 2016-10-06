@@ -73,16 +73,18 @@ namespace Skrivmaskin.Studio
                 var selected = (DesignModel)TreeController.SelectedObjects [0];
                 dialog.titleText = "Edit";
                 dialog.descriptionText = "Edit this " + selected.modelType + ".";
-                dialog.showActive = false;
-                dialog.showName = (selected.modelType != DesignModelType.Text);
-                dialog.showDetails = (selected.modelType != DesignModelType.Choice && selected.modelType != DesignModelType.Sequential);
+                dialog.showActive = (selected.modelType != DesignModelType.VariableForm && selected.modelType != DesignModelType.Variable);
+                dialog.showName = (selected.modelType != DesignModelType.Text && selected.modelType != DesignModelType.ParagraphBreak);
+                dialog.showDetails = (selected.modelType != DesignModelType.Choice && selected.modelType != DesignModelType.Sequential && selected.modelType != DesignModelType.ParagraphBreak);
                 dialog.showSuggestion = false;
                 dialog.NameTextInput = selected.name;
                 dialog.DetailsTextInput = selected.details;
+                dialog.IsActiveInput = selected.isActive;
                 if (selected.modelType == DesignModelType.Text) dialog.CompiledProject = parent.CompiledProject;
                 dialog.DialogAccepted += (s, e) => {
                     selected.name = dialog.NameTextOutput;
                     selected.details = dialog.DetailsTextOutput;
+                    selected.isActive = dialog.IsActiveOutput;
                     DocumentEditedAction ();
                 };
                 break;
@@ -95,6 +97,7 @@ namespace Skrivmaskin.Studio
                 dialog.showDetails = true;
                 dialog.showSuggestion = false;
                 dialog.DetailsTextInput = "";
+                dialog.IsActiveInput = true;
                 dialog.CompiledProject = parent.CompiledProject;
                 dialog.DialogAccepted += (s, e) => {
                     AddChildModel (new DesignModel (DesignModelType.Text, "", dialog.DetailsTextOutput));

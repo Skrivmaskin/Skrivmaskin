@@ -1,0 +1,50 @@
+{
+  "VariableDefinitions": [
+    {
+      "Name": "THINGWEHATE",
+      "Description": "Something that we hate. The subject of this article.",
+      "Forms": [
+        {
+          "Name": "",
+          "Suggestion": "immigrants"
+        },
+        {
+          "Name": "EXLAMATION",
+          "Suggestion": "IMMIGRANTS"
+        },
+        {
+          "Name": "Capitalised",
+          "Suggestion": "Immigrants"
+        }
+      ]
+    }
+  ],
+  "Definition": {
+    "SequentialName": "Sentences",
+    "Sequential": [
+      {
+        "ChoiceName": "Headline",
+        "Choices": [
+          {
+            "Text": "{WILL|COULD} [THINGWEHATE|EXLAMATION] GIVE {YOU|COMMON SENSE AND DECENCY} {CANCER|AIDS|IBOLA}?"
+          }
+        ]
+      },
+      {},
+      {
+        "SequentialName": "Paragraph 1",
+        "Sequential": []
+      },
+      {},
+      {
+        "SequentialName": "Paragraph 2",
+        "Sequential": []
+      },
+      {},
+      {
+        "SequentialName": "Paragraph 3",
+        "Sequential": []
+      }
+    ]
+  }
+}

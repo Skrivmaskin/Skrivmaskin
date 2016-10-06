@@ -63,6 +63,8 @@ namespace Skrivmaskin.Compiler
 
         private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node)
         {
+            if (!node.IsActive) return new BlankCompiledNode ();
+
             // Text nodes are a special case here. The compiled node will come out as an error compiled node if there are errors.
             ICompiledNode result;
             switch (node.Type) {
@@ -79,7 +81,7 @@ namespace Skrivmaskin.Compiler
                 return result;
             case NodeType.Choice:
                 var choiceNode = node as ChoiceNode;
-                return new ChoiceCompiledNode (choiceNode.Choices.Select ((c) => CompileNode (transientCompiledNodes, c)).Where((c) => c.Type != CompiledNodeType.Blank).ToList (), choiceNode);
+                return new ChoiceCompiledNode (choiceNode.Choices.Where ((c) => c.IsActive).Select ((c) => CompileNode (transientCompiledNodes, c)).Where ((c) => c.Type != CompiledNodeType.Blank).ToList (), choiceNode);
             case NodeType.Sequential:
                 var sequentialNode = node as SequentialNode;
                 if (sequentialNode.Sequential.Count > 0) {

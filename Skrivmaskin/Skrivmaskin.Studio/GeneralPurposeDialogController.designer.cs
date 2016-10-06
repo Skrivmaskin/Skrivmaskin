@@ -16,6 +16,9 @@ namespace Skrivmaskin.Studio
 		Skrivmaskin.Studio.SkrivmaskinTextView DetailsTextView { get; set; }
 
 		[Outlet]
+		AppKit.NSButton IsActive { get; set; }
+
+		[Outlet]
 		AppKit.NSTextField NameTextField { get; set; }
 
 		[Outlet]
@@ -29,6 +32,11 @@ namespace Skrivmaskin.Studio
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (DetailsTextView != null) {
+				DetailsTextView.Dispose ();
+				DetailsTextView = null;
+			}
+
 			if (NameTextField != null) {
 				NameTextField.Dispose ();
 				NameTextField = null;
@@ -39,9 +47,9 @@ namespace Skrivmaskin.Studio
 				SuggestionTextField = null;
 			}
 
-			if (DetailsTextView != null) {
-				DetailsTextView.Dispose ();
-				DetailsTextView = null;
+			if (IsActive != null) {
+				IsActive.Dispose ();
+				IsActive = null;
 			}
 		}
 	}

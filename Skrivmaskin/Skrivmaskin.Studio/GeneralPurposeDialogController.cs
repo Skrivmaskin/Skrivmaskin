@@ -21,10 +21,18 @@ namespace Skrivmaskin.Studio
             NameTextField.StringValue = NameTextInput;
             DetailsTextView.CompiledProject = CompiledProject;
             DetailsTextView.Value = DetailsTextInput;
-
+            IsActive.State = (IsActiveInput ? NSCellStateValue.On : NSCellStateValue.Off);
             if (CompiledProject != null) {
                 DetailsTextView.Highlight ();
                 DetailsTextView.SelectAll (this);
+            }
+        }
+
+        public bool IsActiveInput { get; set; }
+
+        public bool IsActiveOutput {
+            get {
+                return IsActive.State == NSCellStateValue.On;
             }
         }
 

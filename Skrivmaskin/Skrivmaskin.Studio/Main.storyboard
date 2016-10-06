@@ -753,6 +753,7 @@
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <binding destination="zgs-6B-8Mw" name="value" keyPath="objectValue.name" id="G2T-kW-Eu0"/>
+                                                                        <binding destination="zgs-6B-8Mw" name="textColor" keyPath="objectValue.textColor" id="2nD-Oo-fZK"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -790,6 +791,7 @@
                                                                     </textFieldCell>
                                                                     <connections>
                                                                         <binding destination="myr-0f-Tha" name="value" keyPath="objectValue.details" id="Uq4-ry-12H"/>
+                                                                        <binding destination="myr-0f-Tha" name="textColor" keyPath="objectValue.textColor" id="EVO-RB-JoK"/>
                                                                     </connections>
                                                                 </textField>
                                                             </subviews>
@@ -840,6 +842,7 @@
                         <string>details</string>
                         <string>icon</string>
                         <string>isLeaf</string>
+                        <string>textColor</string>
                     </declaredKeys>
                     <connections>
                         <binding destination="b8j-EH-cVW" name="contentArray" keyPath="designModelArray" id="Npv-Ac-T0X"/>
@@ -1250,6 +1253,7 @@ DQ
                     </view>
                     <connections>
                         <outlet property="DetailsTextView" destination="Xkh-fC-He9" id="Vyv-Vf-RRm"/>
+                        <outlet property="IsActive" destination="bdm-aQ-Vot" id="WQQ-Tj-Kaj"/>
                         <outlet property="NameTextField" destination="Rnw-OQ-3Rq" id="a6h-Gp-WmY"/>
                         <outlet property="SuggestionTextField" destination="LNJ-Ll-htv" id="p1C-eB-1da"/>
                     </connections>
