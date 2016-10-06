@@ -291,23 +291,25 @@ namespace Skrivmaskin.Studio
             DidChangeValue (nameof (isLeaf));
         }
 
-        public DesignModel (bool root, DesignModelType designModelType, string nm, string dt)
+        public DesignModel (bool root, DesignModelType designModelType, string nm, string dt, bool ia, bool ipa)
         {
-            isActive = true;
             modelType = designModelType;
             name = nm;
             details = dt;
             isRoot = root;
+            isActive = ia;
+            isParentActive = ipa;
         }
 
-        public DesignModel (DesignModelType designNodeType, string name, string details)
-            : this (false, designNodeType, name, details)
+        public DesignModel (DesignModelType designNodeType, string name, string details, bool isActive, bool isParentActive)
+            : this (false, designNodeType, name, details, isActive, isParentActive)
         {
         }
 
         public DesignModel (IntPtr handle) : base (handle)
         {
             isActive = true;
+            isParentActive = true;
             modelType = DesignModelType.VariableRoot;
             name = "";
             details = "";

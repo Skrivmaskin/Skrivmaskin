@@ -91,7 +91,7 @@ namespace Skrivmaskin.Studio
             case DesignViewDialogSegues.AddText:
                 dialog.titleText = "Add Text";
                 dialog.descriptionText = "Add new text.";
-                dialog.showActive = false;
+                dialog.showActive = true;
                 dialog.showName = false;
                 dialog.detailsText = "Text:";
                 dialog.showDetails = true;
@@ -100,31 +100,33 @@ namespace Skrivmaskin.Studio
                 dialog.IsActiveInput = true;
                 dialog.CompiledProject = parent.CompiledProject;
                 dialog.DialogAccepted += (s, e) => {
-                    AddChildModel (new DesignModel (DesignModelType.Text, "", dialog.DetailsTextOutput));
+                    AddChildModel (DesignModelType.Text, "", dialog.DetailsTextOutput, dialog.IsActiveOutput);
                 };
                 break;
             case DesignViewDialogSegues.AddChoice:
                 dialog.titleText = "Add Choice";
                 dialog.descriptionText = "Add new choice.";
-                dialog.showActive = false;
+                dialog.showActive = true;
                 dialog.showName = true;
                 dialog.showDetails = false;
                 dialog.showSuggestion = false;
                 dialog.NameTextInput = "Choice";
+                dialog.IsActiveInput = true;
                 dialog.DialogAccepted += (s, e) => {
-                    AddChildModel (new DesignModel (DesignModelType.Choice, dialog.NameTextOutput, ""));
+                    AddChildModel (DesignModelType.Choice, dialog.NameTextOutput, "", dialog.IsActiveOutput);
                 };
                 break;
             case DesignViewDialogSegues.AddSequential:
                 dialog.titleText = "Add Sequential";
                 dialog.descriptionText = "Add new sequential.";
-                dialog.showActive = false;
+                dialog.showActive = true;
                 dialog.showName = true;
                 dialog.showDetails = false;
                 dialog.showSuggestion = false;
                 dialog.NameTextInput = "Sequential";
+                dialog.IsActiveInput = true;
                 dialog.DialogAccepted += (s, e) => {
-                    AddChildModel (new DesignModel (DesignModelType.Sequential, dialog.NameTextOutput, ""));
+                    AddChildModel (DesignModelType.Sequential, dialog.NameTextOutput, "", dialog.IsActiveOutput);
                 };
                 break;
             case DesignViewDialogSegues.AddVariable:
@@ -138,9 +140,9 @@ namespace Skrivmaskin.Studio
                 dialog.detailsText = "Description:";
                 dialog.DetailsTextInput = "Description for this variable";
                 dialog.DialogAccepted += (s, e) => {
-                    var variable = new DesignModel (DesignModelType.Variable, dialog.NameTextOutput, dialog.DetailsTextOutput);
-                    variable.AddDesign (new DesignModel (DesignModelType.VariableForm, "", dialog.SuggestionTextOutput));
-                    AddChildModel (variable);
+                    var variable = new DesignModel (DesignModelType.Variable, dialog.NameTextOutput, dialog.DetailsTextOutput, true, true);
+                    variable.AddDesign (new DesignModel (DesignModelType.VariableForm, "", dialog.SuggestionTextOutput, true, true));
+                    AddChild (variable);
                 };
                 break;
             case DesignViewDialogSegues.AddVariableVariant:
@@ -154,7 +156,7 @@ namespace Skrivmaskin.Studio
                 dialog.detailsText = "Suggestion:";
                 dialog.DetailsTextInput = "Suggestion";
                 dialog.DialogAccepted += (s, e) => {
-                    AddChildModel (new DesignModel (DesignModelType.VariableForm, dialog.NameTextOutput, dialog.DetailsTextOutput));
+                    AddChildModel (DesignModelType.VariableForm, dialog.NameTextOutput, dialog.DetailsTextOutput, true);
                 };
                 break;
             default:
@@ -164,12 +166,21 @@ namespace Skrivmaskin.Studio
 
         partial void Add_ParagraphBreak (Foundation.NSObject sender)
         {
-            AddChildModel (new DesignModel (DesignModelType.ParagraphBreak, "", ""));
+            AddChildModel (DesignModelType.ParagraphBreak, "", "", true);
         }
 
-        private void AddChildModel (DesignModel model)
+        private void AddChildModel (DesignModelType modelType, string name, string details, bool isActive)
         {
-            ((DesignModel)TreeController.SelectedObjects [0]).AddDesign (model);
+            var selected = ((DesignModel)TreeController.SelectedObjects [0]);
+            var model = new DesignModel (modelType, name, details, isActive, selected.isNodeActive);
+            selected.AddDesign (model);
+            DocumentEditedAction ();
+        }
+
+        private void AddChild (DesignModel model)
+        {
+            var selected = ((DesignModel)TreeController.SelectedObjects [0]);
+            selected.AddDesign (model);
             DocumentEditedAction ();
         }
         #endregion
@@ -274,10 +285,10 @@ namespace Skrivmaskin.Studio
             loading = true;
             var array = new NSMutableArray ();
             SetDesigns (array);
-            var variables = new DesignModel (true, DesignModelType.VariableRoot, "Variables", "");
+            var variables = new DesignModel (true, DesignModelType.VariableRoot, "Variables", "", true, true);
             AddDesign (variables);
             if (this.CreateVariables (parent.Project, variables, out errorText)) {
-                if (this.CreateDefinition (parent.Project.Definition, true, (d) => AddDesign (d), out errorText)) {
+                if (this.CreateDefinition (parent.Project.Definition, true, (d) => AddDesign (d), true, out errorText)) {
                     parent.CompiledProject = parent.Compiler.Compile (parent.Project);
                     loading = false;
                     return;
@@ -289,43 +300,43 @@ namespace Skrivmaskin.Studio
         public bool CreateVariables (Project project, DesignModel variables, out string errorText)
         {
             foreach (var variable in project.VariableDefinitions) {
-                var model = new DesignModel (DesignModelType.Variable, variable.Name, variable.Description);
+                var model = new DesignModel (DesignModelType.Variable, variable.Name, variable.Description, true, true);
                 variables.AddDesign (model);
                 foreach (var form in variable.Forms) {
-                    model.AddDesign (new DesignModel (DesignModelType.VariableForm, form.Name, form.Suggestion));
+                    model.AddDesign (new DesignModel (DesignModelType.VariableForm, form.Name, form.Suggestion, true, true));
                 }
             }
             errorText = "";
             return true;
         }
 
-        public bool CreateDefinition (INode designNode, bool root, Action<DesignModel> addDefn, out string errorText)
+        public bool CreateDefinition (INode designNode, bool root, Action<DesignModel> addDefn, bool isParentActive, out string errorText)
         {
             IEnumerable<INode> children;
             DesignModel design;
             switch (designNode.Type) {
             case NodeType.Choice:
                 children = (designNode as ChoiceNode).Choices;
-                design = new DesignModel (root, DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "");
+                design = new DesignModel (root, DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "", designNode.IsActive, isParentActive);
                 break;
             case NodeType.Sequential:
                 children = (designNode as SequentialNode).Sequential;
-                design = new DesignModel (root, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "");
+                design = new DesignModel (root, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "", designNode.IsActive, isParentActive);
                 break;
             case NodeType.ParagraphBreak:
                 children = new INode [0];
-                design = new DesignModel (root, DesignModelType.ParagraphBreak, "Paragraph Break", "");
+                design = new DesignModel (root, DesignModelType.ParagraphBreak, "Paragraph Break", "", designNode.IsActive, isParentActive);
                 break;
             case NodeType.Text:
                 children = new INode [0];
-                design = new DesignModel (root, DesignModelType.Text, "", (designNode as TextNode).Text);
+                design = new DesignModel (root, DesignModelType.Text, "", (designNode as TextNode).Text, designNode.IsActive, isParentActive);
                 break;
             default:
                 throw new ApplicationException ("Unrecognised design node type " + designNode.Type);
             }
             addDefn (design);
             foreach (var child in children) {
-                if (!CreateDefinition (child, false, (d) => design.AddDesign (d), out errorText))
+                if (!CreateDefinition (child, false, (d) => design.AddDesign (d), design.isNodeActive, out errorText))
                     return false;
             }
             errorText = "";
