@@ -5,6 +5,7 @@ using NUnit.Framework;
 using Skrivmaskin.Compiler;
 using Skrivmaskin.Lexing;
 using Skrivmaskin.Parsing;
+using Skrivmaskin.Design;
 
 namespace Skrivmaskin.Test
 {
@@ -157,6 +158,46 @@ namespace Skrivmaskin.Test
             for (int i = 0; i < elements.Count; i++) {
                 Assert.AreEqual (expected [i], elements [i]);
             }
+        }
+
+        [Test]
+        public void TestInactiveParagraphBreak ()
+        {
+            var compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
+            var project = new Project (new List<Variable> (), new ParagraphBreakNode () { IsActive = false });
+            var compiledProject = compiler.Compile (project);
+            Assert.AreEqual (CompiledNodeType.Blank, compiledProject.Definition.Type);
+        }
+
+        [Test]
+        public void TestInactiveText ()
+        {
+            var compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
+            var project = new Project (new List<Variable> (), new TextNode () { Text = "Hello world", IsActive = false });
+            var compiledProject = compiler.Compile (project);
+            Assert.AreEqual (CompiledNodeType.Blank, compiledProject.Definition.Type);
+        }
+
+        [Test]
+        public void TextInactiveChoice ()
+        {
+            var compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
+            var text1 = new TextNode ("ABC", true);
+            var text2 = new TextNode ("DEF", true);
+            var project = new Project (new List<Variable> (), new ChoiceNode ("Some choice", false, new List<INode> (new INode [] { text1, text2 })));
+            var compiledProject = compiler.Compile (project);
+            Assert.AreEqual (CompiledNodeType.Blank, compiledProject.Definition.Type);
+        }
+
+        [Test]
+        public void TextInactiveSequential ()
+        {
+            var compiler = new SkrivmaskinCompiler (new DefaultLexerSyntax ());
+            var text1 = new TextNode ("ABC", true);
+            var text2 = new TextNode ("DEF", true);
+            var project = new Project (new List<Variable> (), new SequentialNode ("Some sequential", false, new List<INode> (new INode [] { text1, text2 })));
+            var compiledProject = compiler.Compile (project);
+            Assert.AreEqual (CompiledNodeType.Blank, compiledProject.Definition.Type);
         }
     }
 }
