@@ -175,6 +175,10 @@ namespace Skrivmaskin.Studio
             var selected = ((DesignModel)TreeController.SelectedObjects [0]);
             var model = new DesignModel (modelType, name, details, isActive, selected.isNodeActive);
             selected.AddDesign (model);
+            var selectionIndexPath = TreeController.SelectionIndexPaths [0];
+            var newIndexPath = selectionIndexPath.IndexPathByAddingIndex ((nuint)(selected.numberOfDesigns - 1));
+            TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
+            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { newIndexPath });
             DocumentEditedAction ();
         }
 

@@ -40,7 +40,7 @@ namespace Skrivmaskin.Generation
         }
 
         /// <summary>
-        /// Gets the index of the design node for character.
+        /// Gets the design node for a given character index in the output.
         /// </summary>
         /// <remarks>
         /// Returns null if the index does not match to a node.
