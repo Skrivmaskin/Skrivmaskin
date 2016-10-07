@@ -36,9 +36,14 @@ namespace Skrivmaskin.Studio
             }
         }
 
+        partial void Regenerate_Clicked (NSObject sender)
+        {
+            Generate (true);
+        }
+
         partial void Generate_Clicked (Foundation.NSObject sender)
         {
-            Generate ();
+            Generate (false);
         }
 
         private CentralViewController parent = null;
@@ -47,15 +52,29 @@ namespace Skrivmaskin.Studio
             parent = cvc;
         }
 
+        public bool canRegenerate {
+            [Export (nameof (canRegenerate))]
+            get {
+                return (parent != null && parent.CompiledProject != null && generator.CanGenerate (parent.CompiledProject));
+            }
+        }
+
         readonly SkrivmaskinGenerator generator = new SkrivmaskinGenerator (new RandomChooser (), new SingleSpaceUnixGeneratorConfig ());
 
-        public void Generate ()
+        public void Generate (bool isRegen)
         {
+            WillChangeValue (nameof (canRegenerate));
             if (parent.CompiledProject != null) {
-                ResultsView.Output = (generator.Generate (parent.CompiledProject, new DictionaryBackedVariableSubstituter (parent.VariableValues)));
+                if (isRegen) {
+                    ResultsView.Output = (generator.Regenerate (parent.CompiledProject, new DictionaryBackedVariableSubstituter (parent.VariableValues)));
+                } else {
+                    ResultsView.Output = (generator.Generate (parent.CompiledProject, new DictionaryBackedVariableSubstituter (parent.VariableValues)));
+                }
+
             } else {
                 ResultsView.Output = null;
             }
+            DidChangeValue (nameof (canRegenerate));
         }
     }
 }

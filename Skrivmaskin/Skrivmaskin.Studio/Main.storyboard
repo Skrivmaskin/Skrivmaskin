@@ -1466,14 +1466,32 @@ DQ
                                     <autoresizingMask key="autoresizingMask"/>
                                 </scroller>
                             </scrollView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="k2P-fU-B90">
+                                <rect key="frame" x="110" y="252" width="110" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="3M5-UI-nAQ"/>
+                                    <constraint firstAttribute="width" constant="98" id="R0m-PY-Z6Y"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Regenerate" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="IfE-0y-2jo">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="Regenerate_Clicked:" target="7Vi-1V-Iov" id="vTr-Ja-XLa"/>
+                                    <binding destination="7Vi-1V-Iov" name="enabled" keyPath="self.canRegenerate" id="Egg-ql-gaS"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="k2P-fU-B90" firstAttribute="top" secondItem="Us7-o7-mkk" secondAttribute="top" constant="20" id="7rS-5B-IFA"/>
                             <constraint firstItem="7aY-p4-zXi" firstAttribute="top" secondItem="yCJ-aU-RFl" secondAttribute="bottom" constant="20" id="DrX-Rb-of8"/>
                             <constraint firstItem="yCJ-aU-RFl" firstAttribute="top" secondItem="Us7-o7-mkk" secondAttribute="top" constant="20" id="ZlE-fU-hGT"/>
+                            <constraint firstItem="k2P-fU-B90" firstAttribute="leading" secondItem="yCJ-aU-RFl" secondAttribute="trailing" constant="12" id="c8d-dn-FUo"/>
                             <constraint firstItem="7aY-p4-zXi" firstAttribute="top" secondItem="yCJ-aU-RFl" secondAttribute="bottom" constant="20" id="e0f-ne-d3J"/>
                             <constraint firstAttribute="bottom" secondItem="7aY-p4-zXi" secondAttribute="bottom" constant="20" id="pNR-Xv-jNT"/>
                             <constraint firstItem="yCJ-aU-RFl" firstAttribute="leading" secondItem="Us7-o7-mkk" secondAttribute="leading" constant="20" id="qKI-d7-7wl"/>
                             <constraint firstAttribute="trailing" secondItem="7aY-p4-zXi" secondAttribute="trailing" constant="20" id="qnQ-lM-liE"/>
+                            <constraint firstItem="7aY-p4-zXi" firstAttribute="top" secondItem="k2P-fU-B90" secondAttribute="bottom" constant="20" id="urB-Ca-qnr"/>
                             <constraint firstItem="7aY-p4-zXi" firstAttribute="leading" secondItem="Us7-o7-mkk" secondAttribute="leading" constant="20" id="z5Z-Bl-wf9"/>
                         </constraints>
                     </view>

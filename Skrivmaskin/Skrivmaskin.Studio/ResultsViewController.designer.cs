@@ -17,6 +17,9 @@ namespace Skrivmaskin.Studio
 
 		[Action ("Generate_Clicked:")]
 		partial void Generate_Clicked (Foundation.NSObject sender);
+
+		[Action ("Regenerate_Clicked:")]
+		partial void Regenerate_Clicked (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
