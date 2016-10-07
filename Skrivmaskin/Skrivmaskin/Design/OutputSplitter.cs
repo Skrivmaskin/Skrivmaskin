@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Collections.Generic;
 
 namespace Skrivmaskin.Design
@@ -17,6 +18,15 @@ namespace Skrivmaskin.Design
         {
             var sequential = new List<INode> ();
             var sequentialNode = new SequentialNode ("Sentences", true, sequential);
+            var paragraphs = sampleOutput.Split (new char [] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var sentenceSplitRegex = new Regex (@"\s*([^\.^\?^!]+[\.\?!]+)[\s$]+");
+            for (int i = 0; i < paragraphs.Length; i++) {
+                foreach (var text in sentenceSplitRegex.Split (paragraphs [i])) {
+                    if (!String.IsNullOrWhiteSpace (text))
+                        sequential.Add (new TextNode (text, true));
+                }
+                if (i < paragraphs.Length - 1) sequential.Add (new ParagraphBreakNode (true));
+            }
             return new Project (new List<Variable> (), sequentialNode);
         }
     }
