@@ -13,16 +13,16 @@ namespace Skrivmaskin.Studio
 	partial class ResultsViewController
 	{
 		[Outlet]
-		AppKit.NSTextView Results { get; set; }
+		Skrivmaskin.Studio.SkrivmaskinResultsTextView ResultsView { get; set; }
 
 		[Action ("Generate_Clicked:")]
 		partial void Generate_Clicked (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (Results != null) {
-				Results.Dispose ();
-				Results = null;
+			if (ResultsView != null) {
+				ResultsView.Dispose ();
+				ResultsView = null;
 			}
 		}
 	}

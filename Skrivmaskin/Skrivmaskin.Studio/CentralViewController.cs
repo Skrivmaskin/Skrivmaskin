@@ -35,6 +35,13 @@ namespace Skrivmaskin.Studio
             }
         }
 
+        //TODO can't keep using magic numbers here - get these numbers in a sensible way or else!
+        internal void NavigateAndSelectDesignNode (INode designNode)
+        {
+            if (designViewController.SelectDesignNode (designNode))
+                SelectedTabViewItemIndex = 0;
+        }
+
         /// <summary>
         /// Enable Generate-only mode.
         /// </summary>

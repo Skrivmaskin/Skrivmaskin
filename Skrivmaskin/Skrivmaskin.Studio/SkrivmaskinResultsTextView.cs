@@ -7,6 +7,7 @@ using Skrivmaskin.Compiler;
 using Skrivmaskin.Lexing;
 using Skrivmaskin.Interfaces;
 using Skrivmaskin.Parsing;
+using Skrivmaskin.Generation;
 
 namespace Skrivmaskin.Studio
 {
@@ -31,9 +32,20 @@ namespace Skrivmaskin.Studio
         }
         #endregion
 
+        private AnnotatedOutput output = null;
+        internal AnnotatedOutput Output {
+            get { return output; }
+            set {
+                output = value;
+                if (value != null) {
+                    Value = value.ToString ();
+                } else {
+                    Value = "Nothing to generate.";
+                }
+            }
+        }
+
         #region Events
-
-
         /// <summary>
         /// Occurs when source cell clicked. 
         /// </summary>
@@ -119,29 +131,29 @@ namespace Skrivmaskin.Studio
         {
             SourceTypingAttributesChanged?.Invoke (sender, e);
         }
+
+        public event Action<INode> ModifiedClick;
         #endregion
 
         public override void MouseDown (NSEvent theEvent)
         {
-            var altPressed = (theEvent.ModifierFlags & NSEventModifierMask.AlternateKeyMask) == NSEventModifierMask.AlternateKeyMask;
-            // check if we're in GenerateOnly
-            if (!altPressed) base.MouseDown (theEvent);
-            else {
-                var point = ConvertPointFromView (theEvent.LocationInWindow, null);
-                var charIndex = CharacterIndex (point);
-                // find the annotated text
-                // get the design node
-                // if null, base.MouseDown
-                // otherwise:
-                // raise an event, passing the design node back
-                // this will allow the CentralViewController to change tab back to design
-                // and find the appropriate selected index path
-                // and tell the tree about it
-                // then it's job jobbed innit?
-                // don't forget to disable editing in the text view and change its source from a binding to programmatic I guess?
-                // unless don't bother?
+            if (UserSettingsContext.Settings.DefaultMode == SkrivmaskinMode.GenerateOnly || Output == null) {
                 base.MouseDown (theEvent);
+                return;
             }
+            var altPressed = (theEvent.ModifierFlags & NSEventModifierMask.AlternateKeyMask) == NSEventModifierMask.AlternateKeyMask;
+            if (!altPressed) {
+                base.MouseDown (theEvent);
+                return;
+            }
+            var point = ConvertPointFromView (theEvent.LocationInWindow, null);
+            var charIndex = CharacterIndex (point);
+            var designNode = Output.GetDesignNodeForCharacterIndex ((int)charIndex);
+            if (designNode == null) {
+                base.MouseDown (theEvent);
+                return;
+            }
+            ModifiedClick?.Invoke (designNode);
         }
     }
 }

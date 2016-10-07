@@ -8,6 +8,7 @@ using Skrivmaskin.Generation;
 using Skrivmaskin.Services;
 using System.Collections.Generic;
 using Skrivmaskin.Compiler;
+using Skrivmaskin.Design;
 
 namespace Skrivmaskin.Studio
 {
@@ -22,7 +23,17 @@ namespace Skrivmaskin.Studio
             base.ViewDidLoad ();
 
             // Set the initial value for the label
-            Results.Value = "No results generated yet.";
+            ResultsView.Output = null;
+
+            // Listen to modified clicks from the user.
+            ResultsView.ModifiedClick += OnModifiedClick;
+        }
+
+        void OnModifiedClick (INode designNode)
+        {
+            if (parent != null) {
+                parent.NavigateAndSelectDesignNode (designNode);
+            }
         }
 
         partial void Generate_Clicked (Foundation.NSObject sender)
@@ -41,9 +52,9 @@ namespace Skrivmaskin.Studio
         public void Generate ()
         {
             if (parent.CompiledProject != null) {
-                Results.Value = (generator.Generate (parent.CompiledProject, new DictionaryBackedVariableSubstituter (parent.VariableValues))).ToString ();
+                ResultsView.Output = (generator.Generate (parent.CompiledProject, new DictionaryBackedVariableSubstituter (parent.VariableValues)));
             } else {
-                Results.Value = "Nothing to generate";
+                ResultsView.Output = null;
             }
         }
     }

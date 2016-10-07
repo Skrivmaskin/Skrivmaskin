@@ -1478,7 +1478,7 @@ DQ
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="Results" destination="mX0-X3-eh8" id="XgD-6l-991"/>
+                        <outlet property="ResultsView" destination="mX0-X3-eh8" id="zKz-G5-lQd"/>
                     </connections>
                 </viewController>
                 <customObject id="nRg-tM-f9d" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

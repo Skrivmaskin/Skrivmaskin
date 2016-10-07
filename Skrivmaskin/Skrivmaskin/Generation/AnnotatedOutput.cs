@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using System.Text;
+using Skrivmaskin.Design;
 
 namespace Skrivmaskin.Generation
 {
@@ -36,6 +37,25 @@ namespace Skrivmaskin.Generation
                 builder.Append (text.Text);
             }
             return builder.ToString ();
+        }
+
+        /// <summary>
+        /// Gets the index of the design node for character.
+        /// </summary>
+        /// <remarks>
+        /// Returns null if the index does not match to a node.
+        /// </remarks>
+        /// <returns>The design node for character index.</returns>
+        /// <param name="characterIndex">Character index.</param>
+        public INode GetDesignNodeForCharacterIndex (int characterIndex)
+        {
+            int currentCharacterIndex = 0;
+            foreach (var text in Text) {
+                currentCharacterIndex += text.Text.Length;
+                if (currentCharacterIndex >= characterIndex)
+                    return text.DesignNode;
+            }
+            return null;
         }
     }
 }

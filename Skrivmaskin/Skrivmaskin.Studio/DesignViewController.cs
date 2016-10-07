@@ -41,6 +41,7 @@ namespace Skrivmaskin.Studio
                 }
             }
         }
+
         #endregion
 
         #region Seque to dialog
@@ -344,5 +345,17 @@ namespace Skrivmaskin.Studio
         }
 
         #endregion
+
+        internal bool SelectDesignNode (INode designNode)
+        {
+            //TODO LOADS
+            // find the damn thing
+            // make a selected index path
+            // bung it in the tree controller
+            // yikes
+            // might it be worth holding a dictionary or something?
+            // can always bail if I can't get ahold of it?
+            return true;
+        }
 	}
 }
