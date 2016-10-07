@@ -55,6 +55,7 @@
     <Compile Include="TestScenario.cs" />
     <Compile Include="TestCompiler.cs" />
     <Compile Include="TestIssueDiagnosis.cs" />
+    <Compile Include="TestOutputSplitter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Skrivmaskin\Skrivmaskin.csproj">

@@ -18,13 +18,6 @@ let output = "Hello. My name is Oliver...    What do you want to do today? Amazi
 let project = OutputSplitter.Split(output)
 let sn = project.Definition :?> SequentialNode
 sn.Sequential
-|> Seq.map
-    (fun s ->
-        match (box s) with
-        | :? TextNode as tn -> tn.Text
-        | :? ParagraphBreakNode as pn -> "<paragraph break>"
-        | _ -> failwith "")
-|> Seq.iter (printfn "%s")
 
        
 

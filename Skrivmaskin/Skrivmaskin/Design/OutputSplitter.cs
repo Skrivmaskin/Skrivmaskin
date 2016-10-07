@@ -17,14 +17,26 @@ namespace Skrivmaskin.Design
         public static Project Split (string sampleOutput)
         {
             var sequential = new List<INode> ();
-            var sequentialNode = new SequentialNode ("Sentences", true, sequential);
             var paragraphs = sampleOutput.Split (new char [] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+            var sequentialNode = new SequentialNode ((paragraphs.Length > 1) ? "Paragraphs" : "Sentences", true, sequential);
+            if (paragraphs.Length == 0)
+                return new Project (new List<Variable> (), sequentialNode);
             var sentenceSplitRegex = new Regex (@"\s*([^\.^\?^!]+[\.\?!]+)[\s$]+");
-            for (int i = 0; i < paragraphs.Length; i++) {
-                foreach (var text in sentenceSplitRegex.Split (paragraphs [i])) {
+            if (paragraphs.Length == 1) {
+                foreach (var text in sentenceSplitRegex.Split (paragraphs [0])) {
                     if (!String.IsNullOrWhiteSpace (text))
                         sequential.Add (new TextNode (text, true));
                 }
+                return new Project (new List<Variable> (), sequentialNode);
+            }
+            for (int i = 0; i < paragraphs.Length; i++) {
+                var sentences = new List<INode> ();
+                var paragraph = new SequentialNode (("Sentences " + (i + 1)), true, sentences);
+                foreach (var text in sentenceSplitRegex.Split (paragraphs [i])) {
+                    if (!String.IsNullOrWhiteSpace (text))
+                        sentences.Add (new TextNode (text, true));
+                }
+                sequential.Add (paragraph);
                 if (i < paragraphs.Length - 1) sequential.Add (new ParagraphBreakNode (true));
             }
             return new Project (new List<Variable> (), sequentialNode);
