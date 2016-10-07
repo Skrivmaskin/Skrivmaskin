@@ -350,16 +350,42 @@ namespace Skrivmaskin.Studio
 
         #endregion
 
+        private bool FindAndSelectDesignNode (INode designNode, INode reachedNode, ref NSIndexPath indexPath)
+        {
+            if (designNode == reachedNode) return true;
+            IEnumerable<INode> children;
+            switch (reachedNode.Type) {
+            case NodeType.Choice:
+                children = ((ChoiceNode)reachedNode).Choices;
+                break;
+            case NodeType.Sequential:
+                children = ((SequentialNode)reachedNode).Sequential;
+                break;
+            default:
+                children = new INode [0];
+                break;
+            }
+            nuint i = 0;
+            foreach (var childNode in children) {
+                NSIndexPath innerIndexPath = indexPath.IndexPathByAddingIndex (i);
+                if (FindAndSelectDesignNode (designNode, childNode, ref innerIndexPath)) {
+                    indexPath = innerIndexPath;
+                    return true;
+                }
+                ++i;
+            }
+            return false;
+        }
+
         internal bool SelectDesignNode (INode designNode)
         {
-            //TODO LOADS
-            // find the damn thing
-            // make a selected index path
-            // bung it in the tree controller
-            // yikes
-            // might it be worth holding a dictionary or something?
-            // can always bail if I can't get ahold of it?
-            return true;
+            var indexPath = (new NSIndexPath ()).IndexPathByAddingIndex (1);
+            var retVal = FindAndSelectDesignNode (designNode, parent.Project.Definition, ref indexPath);
+            if (retVal) {
+                TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
+                TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { indexPath });
+            }
+            return retVal;
         }
 	}
 }
