@@ -13,7 +13,7 @@ namespace Skrivmaskin.Studio
             [Export (nameof (name))]
             get { return _name; }
             set {
-                WillChangeValue (nameof(name));
+                WillChangeValue (nameof (name));
                 _name = value;
                 DidChangeValue (nameof (name));
             }
@@ -69,9 +69,9 @@ namespace Skrivmaskin.Studio
             [Export (nameof (details))]
             get { return _details; }
             set {
-                WillChangeValue (nameof(details));
+                WillChangeValue (nameof (details));
                 _details = value;
-                DidChangeValue (nameof(details));
+                DidChangeValue (nameof (details));
             }
         }
 
@@ -89,9 +89,35 @@ namespace Skrivmaskin.Studio
             }
         }
 
+        private bool _canMoveUp = false;
+        public bool canMoveUp {
+            [Export (nameof (canMoveUp))]
+            get {
+                return _canMoveUp;
+            }
+            set {
+                WillChangeValue (nameof (canMoveUp));
+                _canMoveUp = value;
+                DidChangeValue (nameof (canMoveUp));
+            }
+        }
+
+        private bool _canMoveDown = false;
+        public bool canMoveDown {
+            [Export (nameof (canMoveDown))]
+            get {
+                return _canMoveDown;
+            }
+            set {
+                WillChangeValue (nameof (canMoveDown));
+                _canMoveDown = value;
+                DidChangeValue (nameof (canMoveDown));
+            }
+        }
+
         private bool _isActive = false;
         public bool isActive {
-            [Export (nameof(isActive))]
+            [Export (nameof (isActive))]
             get { return _isActive; }
             set {
                 WillChangeValue (nameof (icon));
@@ -145,12 +171,12 @@ namespace Skrivmaskin.Studio
         }
 
         public bool isLeaf {
-            [Export (nameof(isLeaf))]
+            [Export (nameof (isLeaf))]
             get { return designs.Count == 0; }
         }
 
         public bool enableAdd {
-            [Export (nameof(enableAdd))]
+            [Export (nameof (enableAdd))]
             get {
                 switch (modelType) {
                 case DesignModelType.Choice:
@@ -221,7 +247,7 @@ namespace Skrivmaskin.Studio
 
         private bool _isRoot;
         public bool isRoot {
-            [Export (nameof(isRoot))]
+            [Export (nameof (isRoot))]
             get {
                 return _isRoot;
             }
@@ -245,6 +271,32 @@ namespace Skrivmaskin.Studio
             designs.Add (design);
             DidChangeValue ("designModelArray");
             DidChangeValue (nameof (isLeaf));
+            switch (design.modelType) {
+            case DesignModelType.Text:
+            case DesignModelType.Choice:
+            case DesignModelType.Sequential:
+            case DesignModelType.ParagraphBreak:
+                if (designs.Count == 1) {
+                    design.canMoveUp = false;
+                    design.canMoveDown = false;
+                } else {
+                    design.canMoveUp = true;
+                    design.canMoveDown = true;
+                    var f = designs.GetItem<DesignModel> (0);
+                    f.canMoveUp = false;
+                    f.canMoveDown = true;
+                    var l = designs.GetItem<DesignModel> (designs.Count - 1);
+                    l.canMoveUp = true;
+                    l.canMoveDown = false;
+                    var sf = designs.GetItem<DesignModel> (1);
+                    sf.canMoveUp = true;
+                    var sl = designs.GetItem<DesignModel> (designs.Count - 2);
+                    sl.canMoveDown = true;
+                }
+                break;
+            default:
+                break;
+            }
         }
 
         [Export ("insertObject:inDesignModelArrayAtIndex:")]
@@ -255,6 +307,32 @@ namespace Skrivmaskin.Studio
             designs.Insert (design, index);
             DidChangeValue ("designModelArray");
             DidChangeValue (nameof (isLeaf));
+            switch (design.modelType) {
+            case DesignModelType.Text:
+            case DesignModelType.Choice:
+            case DesignModelType.Sequential:
+            case DesignModelType.ParagraphBreak:
+                if (designs.Count == 1) {
+                    design.canMoveUp = false;
+                    design.canMoveDown = false;
+                } else {
+                    design.canMoveUp = true;
+                    design.canMoveDown = true;
+                    var f = designs.GetItem<DesignModel> (0);
+                    f.canMoveUp = false;
+                    f.canMoveDown = true;
+                    var l = designs.GetItem<DesignModel> (designs.Count - 1);
+                    l.canMoveUp = true;
+                    l.canMoveDown = false;
+                    var sf = designs.GetItem<DesignModel> (1);
+                    sf.canMoveUp = true;
+                    var sl = designs.GetItem<DesignModel> (designs.Count - 2);
+                    sl.canMoveDown = true;
+                }
+                break;
+            default:
+                break;
+            }
         }
 
         [Export ("removeObjectFromDesignModelArrayAtIndex:")]
@@ -265,6 +343,10 @@ namespace Skrivmaskin.Studio
             designs.RemoveObject (index);
             DidChangeValue ("designModelArray");
             DidChangeValue (nameof (isLeaf));
+            if (designs.Count > 0) {
+                designs.GetItem<DesignModel> (0).canMoveUp = false;
+                designs.GetItem<DesignModel> (designs.Count - 1).canMoveDown = false;
+            }
         }
 
         public bool enableConvertToChoice {

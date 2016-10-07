@@ -900,6 +900,27 @@
                                 </items>
                             </menu>
                         </menuItem>
+                        <menuItem title="Move" id="qYs-gc-1pT">
+                            <modifierMask key="keyEquivalentModifierMask"/>
+                            <menu key="submenu" title="Move" id="GeK-Bw-WWY">
+                                <items>
+                                    <menuItem title="Up" id="Deh-ng-Qiy">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="MoveUp_Clicked:" target="b8j-EH-cVW" id="Lhn-AT-aGe"/>
+                                            <binding destination="n3f-aZ-4pA" name="enabled" keyPath="selection.canMoveUp" id="9Wi-K0-vkp"/>
+                                        </connections>
+                                    </menuItem>
+                                    <menuItem title="Down" id="uVf-ti-wUJ">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <action selector="MoveDown_Clicked:" target="b8j-EH-cVW" id="RFx-nN-liS"/>
+                                            <binding destination="n3f-aZ-4pA" name="enabled" keyPath="selection.canMoveDown" id="Nbn-9m-r7m"/>
+                                        </connections>
+                                    </menuItem>
+                                </items>
+                            </menu>
+                        </menuItem>
                         <menuItem title="Edit" id="uGk-DZ-jvz">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>

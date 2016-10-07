@@ -17,6 +17,12 @@ namespace Skrivmaskin.Studio
 
 		[Action ("Add_ParagraphBreak:")]
 		partial void Add_ParagraphBreak (Foundation.NSObject sender);
+
+		[Action ("MoveDown_Clicked:")]
+		partial void MoveDown_Clicked (Foundation.NSObject sender);
+
+		[Action ("MoveUp_Clicked:")]
+		partial void MoveUp_Clicked (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

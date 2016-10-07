@@ -190,6 +190,40 @@ namespace Skrivmaskin.Studio
         }
         #endregion
 
+        #region Move Up/Down
+        partial void MoveUp_Clicked (NSObject sender)
+        {
+            // Find parent, remove at index, add at (index - 1), select.
+            var selectionIndexPath = TreeController.SelectionIndexPaths [0];
+            var childModel = (DesignModel)TreeController.SelectedObjects [0];
+            var lastIndex = selectionIndexPath.IndexAtPosition (selectionIndexPath.Length - 1);
+            var parentIndexPath = selectionIndexPath.IndexPathByRemovingLastIndex();
+            TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { selectionIndexPath });
+            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
+            var parentNode = (DesignModel)TreeController.SelectedObjects [0];
+            parentNode.RemoveDesign ((nint)lastIndex);
+            parentNode.InsertDesign (childModel, (nint)(lastIndex - 1));
+            TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
+            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex - 1) });
+        }
+
+        partial void MoveDown_Clicked (NSObject sender)
+        {
+            // Find parent, remove at index, add at (index + 1), select.
+            var selectionIndexPath = TreeController.SelectionIndexPaths [0];
+            var childModel = (DesignModel)TreeController.SelectedObjects [0];
+            var lastIndex = selectionIndexPath.IndexAtPosition (selectionIndexPath.Length - 1);
+            var parentIndexPath = selectionIndexPath.IndexPathByRemovingLastIndex ();
+            TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { selectionIndexPath });
+            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
+            var parentNode = (DesignModel)TreeController.SelectedObjects [0];
+            parentNode.RemoveDesign ((nint)lastIndex);
+            parentNode.InsertDesign (childModel, (nint)(lastIndex + 1));
+            TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
+            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex + 1) });
+        }
+        #endregion
+
         private NSMutableArray designs = new NSMutableArray ();
         public NSArray Designs {
             [Export ("designModelArray")]
