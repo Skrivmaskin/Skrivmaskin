@@ -663,10 +663,10 @@
             "ChoiceName": "STYCKE 12",
             "Choices": [
               {
-                "Text": "{Här|på webben|i webbokningen|här på webben} kan du självklart även hantera dina olika {tillval|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner}."
+                "Text": "{Här|på webben|i webbokningen|här på webben} kan du självklart även hantera dina olika {tillval|tillvalstjänster} {extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner}."
               },
               {
-                "Text": "{Självklart|naturligtvis|givetvis} kan du även hantera dina olika {tillval|tillvalstjänster} {|extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} på {på webben|i webbokningen|här på webben|på vår webbsida|på vår hemsida}."
+                "Text": "{Självklart|naturligtvis|givetvis} kan du även hantera dina olika {tillval|tillvalstjänster} {extrafunktioner|tilläggsfunktioner|tillvalsfunktioner|tilläggsfunktioner} på {på webben|i webbokningen|här på webben|på vår webbsida|på vår hemsida}."
               }
             ]
           },
