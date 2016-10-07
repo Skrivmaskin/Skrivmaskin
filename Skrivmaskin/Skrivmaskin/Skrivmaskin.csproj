@@ -85,6 +85,7 @@
     <Compile Include="Compiler\ICompiledText.cs" />
     <Compile Include="Generation\AnnotatedText.cs" />
     <Compile Include="Generation\AnnotatedOutput.cs" />
+    <Compile Include="Design\OutputSplitter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

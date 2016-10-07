@@ -205,6 +205,7 @@ namespace Skrivmaskin.Studio
             parentNode.InsertDesign (childModel, (nint)(lastIndex - 1));
             TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
             TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex - 1) });
+            DocumentEditedAction ();
         }
 
         partial void MoveDown_Clicked (NSObject sender)
@@ -221,6 +222,7 @@ namespace Skrivmaskin.Studio
             parentNode.InsertDesign (childModel, (nint)(lastIndex + 1));
             TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
             TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex + 1) });
+            DocumentEditedAction ();
         }
         #endregion
 
