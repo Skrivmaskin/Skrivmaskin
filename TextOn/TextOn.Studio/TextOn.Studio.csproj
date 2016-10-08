@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A0E9F420-59C0-498F-92C3-F9D32FE6DACE}</ProjectGuid>
+    <ProjectTypeGuids>{A3F8F2AB-B479-4A4A-A458-A89E7DC349F1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>TextOn.Studio</RootNamespace>
+    <AssemblyName>TextOn.Studio</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <MonoMacResourcePrefix>Resources</MonoMacResourcePrefix>
+    <UseXamMacFullFramework>true</UseXamMacFullFramework>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <EnableCodeSigning>false</EnableCodeSigning>
+    <CodeSigningKey>Mac Developer</CodeSigningKey>
+    <CreatePackage>true</CreatePackage>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <IncludeMonoRuntime>false</IncludeMonoRuntime>
+    <UseSGen>true</UseSGen>
+    <UseRefCounting>true</UseRefCounting>
+    <HttpClientHandler>HttpClientHandler</HttpClientHandler>
+    <TlsProvider>Default</TlsProvider>
+    <LinkMode>None</LinkMode>
+    <XamMacArch>x86_64</XamMacArch>
+    <PackageSigningKey>3rd Party Mac Developer Installer</PackageSigningKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <EnableCodeSigning>true</EnableCodeSigning>
+    <CodeSigningKey>Developer ID Application</CodeSigningKey>
+    <CreatePackage>true</CreatePackage>
+    <EnablePackageSigning>false</EnablePackageSigning>
+    <IncludeMonoRuntime>true</IncludeMonoRuntime>
+    <UseSGen>true</UseSGen>
+    <UseRefCounting>true</UseRefCounting>
+    <LinkMode>None</LinkMode>
+    <HttpClientHandler>HttpClientHandler</HttpClientHandler>
+    <TlsProvider>Default</TlsProvider>
+    <XamMacArch></XamMacArch>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.Mac" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-128%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-16.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-16%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-256.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-256%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-32.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-32%402x.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\AppIcon-512%402x.png" />
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="DesignModel.cs" />
+    <Compile Include="DesignModelType.cs" />
+    <Compile Include="CentralViewController.cs" />
+    <Compile Include="CentralViewController.designer.cs">
+      <DependentUpon>CentralViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignViewController.cs" />
+    <Compile Include="DesignViewController.designer.cs">
+      <DependentUpon>DesignViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SetVariablesViewController.cs" />
+    <Compile Include="SetVariablesViewController.designer.cs">
+      <DependentUpon>SetVariablesViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ResultsViewController.cs" />
+    <Compile Include="ResultsViewController.designer.cs">
+      <DependentUpon>ResultsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="VariablesTableViewDataSource.cs" />
+    <Compile Include="VariablesTableViewDelegate.cs" />
+    <Compile Include="DesignTreeController.cs" />
+    <Compile Include="DesignTreeController.designer.cs">
+      <DependentUpon>DesignTreeController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignViewDialogSegues.cs" />
+    <Compile Include="GeneralPurposeDialogController.cs" />
+    <Compile Include="GeneralPurposeDialogController.designer.cs">
+      <DependentUpon>GeneralPurposeDialogController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextOnTextView.cs" />
+    <Compile Include="TextOnTextViewDelegate.cs" />
+    <Compile Include="UserSettingsContext.cs" />
+    <Compile Include="UserSettings.cs" />
+    <Compile Include="TextOnMode.cs" />
+    <Compile Include="AppDelegate.designer.cs">
+      <DependentUpon>AppDelegate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextOnResultsTextView.cs" />
+    <Compile Include="TextOnResultsTextViewDelegate.cs" />
+    <Compile Include="CreateTemplateViewController.cs" />
+    <Compile Include="CreateTemplateViewController.designer.cs">
+      <DependentUpon>CreateTemplateViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TextOnWindowController.cs" />
+    <Compile Include="TextOnWindowController.designer.cs">
+      <DependentUpon>TextOnWindowController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignOutlineView.cs" />
+    <Compile Include="DesignOutlineViewDataSource.cs" />
+    <Compile Include="DesignOutlineViewDelegate.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="Main.storyboard" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TextOn\TextOn.csproj">
+      <Project>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</Project>
+      <Name>TextOn</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="Hierarchical" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>

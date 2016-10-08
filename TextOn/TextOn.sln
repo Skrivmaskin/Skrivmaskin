@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextOn.Test", "TextOn.Test\TextOn.Test.csproj", "{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextOn", "TextOn\TextOn.csproj", "{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TextOn.Studio", "TextOn.Studio\TextOn.Studio.csproj", "{A0E9F420-59C0-498F-92C3-F9D32FE6DACE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F0E038C-0B33-4A23-A94D-6D03D331CAA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A0E9F420-59C0-498F-92C3-F9D32FE6DACE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A0E9F420-59C0-498F-92C3-F9D32FE6DACE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A0E9F420-59C0-498F-92C3-F9D32FE6DACE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A0E9F420-59C0-498F-92C3-F9D32FE6DACE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

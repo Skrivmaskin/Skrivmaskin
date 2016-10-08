@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>TextOn</RootNamespace>
+    <AssemblyName>TextOn</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Irony">
+      <HintPath>..\packages\Irony.0.9.1\lib\net40\Irony.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Compiler\CompiledTemplate.cs" />
+    <Compile Include="Design\INode.cs" />
+    <Compile Include="Design\TextNode.cs" />
+    <Compile Include="Design\SequentialNode.cs" />
+    <Compile Include="Design\ChoiceNode.cs" />
+    <Compile Include="Design\Variable.cs" />
+    <Compile Include="Design\VariableForm.cs" />
+    <Compile Include="Design\TextOnTemplate.cs" />
+    <Compile Include="Design\TemplateWriter.cs" />
+    <Compile Include="Design\ParagraphBreakNode.cs" />
+    <Compile Include="Compiler\ICompiledNode.cs" />
+    <Compile Include="Compiler\CompiledVariable.cs" />
+    <Compile Include="Compiler\VariableCompiledNode.cs" />
+    <Compile Include="Compiler\TextCompiledNode.cs" />
+    <Compile Include="Compiler\SequentialCompiledNode.cs" />
+    <Compile Include="Compiler\ChoiceCompiledNode.cs" />
+    <Compile Include="Interfaces\IDialogService.cs" />
+    <Compile Include="Interfaces\IVariableSubstituter.cs" />
+    <Compile Include="Interfaces\IRandomChooser.cs" />
+    <Compile Include="Services\CachingDialogBasedVariableSubstituter.cs" />
+    <Compile Include="Services\RandomChooser.cs" />
+    <Compile Include="Interfaces\ILexerSyntax.cs" />
+    <Compile Include="Lexing\DefaultLexerSyntax.cs" />
+    <Compile Include="Lexing\TextOnGrammar.cs" />
+    <Compile Include="Lexing\TextOnTextTerminal.cs" />
+    <Compile Include="Lexing\SpecialCharacters.cs" />
+    <Compile Include="Parsing\TextOnParser.cs" />
+    <Compile Include="Lexing\TextOnEscapeTerminal.cs" />
+    <Compile Include="Lexing\TextOnParseNodes.cs" />
+    <Compile Include="Generation\TextOnGenerator.cs" />
+    <Compile Include="Interfaces\IGeneratorConfig.cs" />
+    <Compile Include="Services\SingleSpaceUnixGeneratorConfig.cs" />
+    <Compile Include="Compiler\ICompiledVariable.cs" />
+    <Compile Include="Compiler\CompiledNodeType.cs" />
+    <Compile Include="Compiler\ErrorCompiledNode.cs" />
+    <Compile Include="Compiler\TextOnCompiler.cs" />
+    <Compile Include="Design\NodeType.cs" />
+    <Compile Include="Compiler\BlankCompiledNode.cs" />
+    <Compile Include="Compiler\ParagraphBreakCompiledNode.cs" />
+    <Compile Include="Compiler\SentenceBreakCompiledNode.cs" />
+    <Compile Include="Services\DictionaryBackedVariableSubstituter.cs" />
+    <Compile Include="Parsing\TextOnParseTokens.cs" />
+    <Compile Include="Parsing\TextOnParseRange.cs" />
+    <Compile Include="Parsing\TextOnParseElement.cs" />
+    <Compile Include="Compiler\SuccessCompiledNode.cs" />
+    <Compile Include="Compiler\ICompiledText.cs" />
+    <Compile Include="Generation\AnnotatedText.cs" />
+    <Compile Include="Generation\AnnotatedOutput.cs" />
+    <Compile Include="Design\OutputSplitter.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Compiler\" />
+    <Folder Include="Design\" />
+    <Folder Include="Interfaces\" />
+    <Folder Include="Services\" />
+    <Folder Include="Lexing\" />
+    <Folder Include="Parsing\" />
+    <Folder Include="Generation\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="Hierarchical" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
+</Project>
