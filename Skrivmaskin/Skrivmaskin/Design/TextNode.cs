@@ -51,5 +51,10 @@ namespace Skrivmaskin.Design
             if (o == null) return false;
             return this.Equals (o);
         }
+
+        public override string ToString ()
+        {
+            return string.Format ("[TextNode: Text={0}, IsActive={1}]", Text, IsActive);
+        }
     }
 }

@@ -37,5 +37,10 @@ namespace Skrivmaskin.Design
 
         [JsonIgnore]
         public NodeType Type { get { return NodeType.ParagraphBreak; } }
+
+        public override string ToString ()
+        {
+            return string.Format ("[ParagraphBreakNode: IsActive={0}]", IsActive);
+        }
     }
 }

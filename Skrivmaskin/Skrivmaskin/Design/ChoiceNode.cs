@@ -70,5 +70,10 @@ namespace Skrivmaskin.Design
             }
             return true;
         }
+
+        public override string ToString ()
+        {
+            return string.Format ("[ChoiceNode: ChoiceName={0}, IsActive={1}, Choices={2}]", ChoiceName, IsActive, Choices);
+        }
     }
 }

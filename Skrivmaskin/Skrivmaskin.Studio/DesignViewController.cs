@@ -64,7 +64,8 @@ namespace Skrivmaskin.Studio
                 var dlg = segue.DestinationController as CreateTemplateViewController;
                 dlg.Presentor = this;
                 dlg.DialogAccepted += (s, e) => {
-                    parent.CreateTree (null, OutputSplitter.Split (dlg.SampleText));
+                    var project = new Project (new List<Variable> (), OutputSplitter.Split (dlg.SampleText));
+                    parent.CreateTree (null, project);
                 };
                 return;
             }

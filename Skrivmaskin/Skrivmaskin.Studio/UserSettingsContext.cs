@@ -13,8 +13,8 @@ namespace Skrivmaskin.Studio
     public static class UserSettingsContext
     {
         // Modes.
-        private static readonly NSNumber generateOnlyMode = NSNumber.FromBoolean (true);
-        private static readonly NSNumber designMode = NSNumber.FromBoolean (false);
+//        private static readonly NSNumber generateOnlyMode = NSNumber.FromBoolean (true);
+//        private static readonly NSNumber designMode = NSNumber.FromBoolean (false);
 
         // Keys.
         private const string kDefaultMode = "DefaultMode";

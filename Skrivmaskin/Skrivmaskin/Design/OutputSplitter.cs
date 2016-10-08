@@ -14,20 +14,20 @@ namespace Skrivmaskin.Design
         /// and paragraph break nodes.
         /// </summary>
         /// <param name="sampleOutput">Sample output.</param>
-        public static Project Split (string sampleOutput)
+        public static INode Split (string sampleOutput)
         {
             var sequential = new List<INode> ();
             var paragraphs = sampleOutput.Split (new char [] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
             var sequentialNode = new SequentialNode ((paragraphs.Length > 1) ? "Paragraphs" : "Sentences", true, sequential);
             if (paragraphs.Length == 0)
-                return new Project (new List<Variable> (), sequentialNode);
+                return sequentialNode;
             var sentenceSplitRegex = new Regex (@"\s*([^\.^\?^!]+[\.\?!]+)[\s$]+");
             if (paragraphs.Length == 1) {
                 foreach (var text in sentenceSplitRegex.Split (paragraphs [0])) {
                     if (!String.IsNullOrWhiteSpace (text))
                         sequential.Add (new TextNode (text, true));
                 }
-                return new Project (new List<Variable> (), sequentialNode);
+                return sequentialNode;
             }
             for (int i = 0; i < paragraphs.Length; i++) {
                 var sentences = new List<INode> ();
@@ -39,7 +39,7 @@ namespace Skrivmaskin.Design
                 sequential.Add (paragraph);
                 if (i < paragraphs.Length - 1) sequential.Add (new ParagraphBreakNode (true));
             }
-            return new Project (new List<Variable> (), sequentialNode);
+            return sequentialNode;
         }
     }
 }

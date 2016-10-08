@@ -10,10 +10,7 @@ namespace Skrivmaskin.Test
         [Test]
         public void TestEmpty ()
         {
-            var project = OutputSplitter.Split ("");
-            Assert.IsNotNull (project);
-            Assert.IsEmpty (project.VariableDefinitions);
-            var sequentialNode = project.Definition as SequentialNode;
+            var sequentialNode = OutputSplitter.Split ("") as SequentialNode;
             Assert.IsNotNull (sequentialNode);
             Assert.AreEqual ("Sentences", sequentialNode.SequentialName);
             Assert.IsEmpty (sequentialNode.Sequential);
@@ -31,10 +28,28 @@ namespace Skrivmaskin.Test
                 "Let's do it then.",
                 "OK?"
             };
-            var project = OutputSplitter.Split (output);
-            Assert.IsNotNull (project);
-            Assert.IsEmpty (project.VariableDefinitions);
-            var sequentialNode = project.Definition as SequentialNode;
+            var sequentialNode = OutputSplitter.Split (output) as SequentialNode;
+            Assert.IsNotNull (sequentialNode);
+            Assert.AreEqual ("Sentences", sequentialNode.SequentialName);
+            Assert.AreEqual (expected.Length, sequentialNode.Sequential.Count);
+            for (int i = 0; i < expected.Length; i++) {
+                var textNode = sequentialNode.Sequential [i] as TextNode;
+                Assert.IsNotNull (textNode);
+                Assert.AreEqual (expected [i], textNode.Text);
+            }
+        }
+
+
+        [Test]
+        public void TestSingleParagraphEllipsis ()
+        {
+            var output = "Some output. Here it is... I'm seriously!";
+            var expected = new string []{
+                "Some output.",
+                "Here it is...",
+                "I'm seriously!"
+            };
+            var sequentialNode = OutputSplitter.Split (output) as SequentialNode;
             Assert.IsNotNull (sequentialNode);
             Assert.AreEqual ("Sentences", sequentialNode.SequentialName);
             Assert.AreEqual (expected.Length, sequentialNode.Sequential.Count);
@@ -64,10 +79,7 @@ namespace Skrivmaskin.Test
             var expected3 = new string []{
                 "And this is the third paragraph..."
             };
-            var project = OutputSplitter.Split (output);
-            Assert.IsNotNull (project);
-            Assert.IsEmpty (project.VariableDefinitions);
-            var sequentialNode = project.Definition as SequentialNode;
+            var sequentialNode = OutputSplitter.Split (output) as SequentialNode;
             Assert.IsNotNull (sequentialNode);
             Assert.AreEqual ("Paragraphs", sequentialNode.SequentialName);
             Assert.AreEqual (5, sequentialNode.Sequential.Count);

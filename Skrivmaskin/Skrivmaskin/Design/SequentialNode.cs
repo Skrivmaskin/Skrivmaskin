@@ -70,5 +70,10 @@ namespace Skrivmaskin.Design
             if (o == null) return false;
             return this.Equals (o);
         }
+
+        public override string ToString ()
+        {
+            return string.Format ("[SequentialNode: SequentialName={0}, IsActive={1}, Sequential={2}]", SequentialName, IsActive, Sequential);
+        }
     }
 }
