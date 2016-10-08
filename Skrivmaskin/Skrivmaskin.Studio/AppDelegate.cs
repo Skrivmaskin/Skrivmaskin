@@ -157,9 +157,6 @@ namespace Skrivmaskin.Studio
 
             // Set the title
             controller.Window.Title = (++UntitledWindowCount == 1) ? "untitled" : string.Format ("untitled {0}", UntitledWindowCount);
-
-            // Manual segue to generate starting project from output.
-            // ...
         }
 
         /// <summary>

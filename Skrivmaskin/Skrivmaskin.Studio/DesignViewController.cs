@@ -28,6 +28,14 @@ namespace Skrivmaskin.Studio
             base.ViewDidLoad ();
         }
 
+        public override void ViewDidAppear ()
+        {
+            base.ViewDidAppear ();
+
+            if ((UserSettingsContext.Settings != null) && (UserSettingsContext.Settings.DefaultMode == SkrivmaskinMode.Design) && !parent.TreeCreated)
+                PerformSegue ("CreateTemplate", this);
+        }
+
         #region Edits from the tree to a Project
         void DocumentEditedAction ()
         {
@@ -48,6 +56,15 @@ namespace Skrivmaskin.Studio
         public override void PrepareForSegue (NSStoryboardSegue segue, NSObject sender)
         {
             base.PrepareForSegue (segue, sender);
+
+            if (segue.DestinationController is CreateTemplateViewController) {
+                var dlg = segue.DestinationController as CreateTemplateViewController;
+                dlg.Presentor = this;
+                dlg.DialogAccepted += (s, e) => {
+                    parent.CreateTree (null, OutputSplitter.Split (dlg.SampleText));
+                };
+                return;
+            }
 
             // All the segues I care about are dialog ones.
             var dialog = segue.DestinationController as GeneralPurposeDialogController;
