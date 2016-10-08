@@ -32,8 +32,11 @@ namespace Skrivmaskin.Studio
         {
             base.ViewDidAppear ();
 
-            if (!parent.inGenerateOnlyMode && !parent.TreeCreated)
+            var windowController = NSApplication.SharedApplication.KeyWindow.WindowController as SkrivmaskinWindowController;
+            if (!parent.inGenerateOnlyMode && windowController.IsInNew) {
+                windowController.IsInNew = false;
                 PerformSegue ("CreateTemplate", this);
+            }
         }
 
         #region Edits from the tree to a Project

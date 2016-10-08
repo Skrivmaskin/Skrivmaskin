@@ -125,6 +125,10 @@
     <Compile Include="CreateTemplateViewController.designer.cs">
       <DependentUpon>CreateTemplateViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SkrivmaskinWindowController.cs" />
+    <Compile Include="SkrivmaskinWindowController.designer.cs">
+      <DependentUpon>SkrivmaskinWindowController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

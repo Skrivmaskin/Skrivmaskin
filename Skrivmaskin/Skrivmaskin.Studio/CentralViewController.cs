@@ -125,7 +125,6 @@ namespace Skrivmaskin.Studio
 
             Project = new Project (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
             CreateTree (null, Project);
-            TreeCreated = false;
 
             if (mode == SkrivmaskinMode.Design) DisableGenerateOnlyMode ();
             else EnableGenerateOnlyMode ();
@@ -139,11 +138,8 @@ namespace Skrivmaskin.Studio
         /// <value>The file path.</value>
         public string FilePath { get; set; } = null;
 
-        internal bool TreeCreated = false;
-
         public void CreateTree (string path, Project project)
         {
-            TreeCreated = true;
             Project = project;
             FilePath = path;
             designViewController.CreateTree ();

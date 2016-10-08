@@ -150,7 +150,8 @@ namespace Skrivmaskin.Studio
         {
             // Get new window
             var storyboard = NSStoryboard.FromName ("Main", null);
-            var controller = storyboard.InstantiateControllerWithIdentifier ("MainWindow") as NSWindowController;
+            var controller = storyboard.InstantiateControllerWithIdentifier ("MainWindow") as SkrivmaskinWindowController;
+            controller.IsInNew = true;
 
             // Display
             controller.ShowWindow (this);
