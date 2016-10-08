@@ -5,12 +5,12 @@ using System.Collections.Generic;
 namespace TextOn.Design
 {
     /// <summary>
-    /// Split some sample output into sentences and paragraphs to produce an outline of a design project, ready for editing.
+    /// Split some sample output into sentences and paragraphs to produce an outline of a design template, ready for editing.
     /// </summary>
     public static class OutputSplitter
     {
         /// <summary>
-        /// Given some sample output, split into a new Project with no variables and a sequential node containing text nodes representing each sentence,
+        /// Given some sample output, split into a new sequential node containing text nodes representing each sentence,
         /// and paragraph break nodes.
         /// </summary>
         /// <param name="sampleOutput">Sample output.</param>

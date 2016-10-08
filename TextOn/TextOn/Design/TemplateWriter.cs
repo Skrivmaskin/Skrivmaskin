@@ -62,7 +62,7 @@ namespace TextOn.Design
         /// <summary>
         /// Serialize with JSON.
         /// </summary>
-        public static void Write (FileInfo fileInfo, TextOnTemplate project)
+        public static void Write (FileInfo fileInfo, TextOnTemplate template)
         {
             var serializer = new JsonSerializer ();
             serializer.Formatting = Formatting.Indented;
@@ -70,7 +70,7 @@ namespace TextOn.Design
             serializer.Converters.Add (new NodeConverter ());
             using (var stream = new FileStream (fileInfo.FullName, FileMode.Create, FileAccess.Write))
             using (var writer = new StreamWriter (stream))
-                serializer.Serialize (writer, project);
+                serializer.Serialize (writer, template);
         }
 
         /// <summary>

@@ -138,9 +138,9 @@ namespace TextOn.Studio
         /// <value>The file path.</value>
         public string FilePath { get; set; } = null;
 
-        public void CreateTree (string path, TextOnTemplate project)
+        public void CreateTree (string path, TextOnTemplate template)
         {
-            Template = project;
+            Template = template;
             FilePath = path;
             designViewController.CreateTree ();
         }

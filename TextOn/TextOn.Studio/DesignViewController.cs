@@ -41,15 +41,15 @@ namespace TextOn.Studio
             }
         }
 
-        #region Edits from the tree to a Project
+        #region Edits from the tree to a TextOnTemplate
         void DocumentEditedAction ()
         {
             if (!loading) {
                 // Reread project from the outline view
-                var project = CreateProjectFromOutlineView ();
-                if (!project.Equals (parent.Template)) {
+                var template = CreateTemplateFromOutlineView ();
+                if (!template.Equals (parent.Template)) {
                     NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
-                    parent.Template = project;
+                    parent.Template = template;
                     parent.CompiledTemplate = parent.Compiler.Compile (parent.Template); // has a caching layer so should be quick
                 }
             }
@@ -68,7 +68,7 @@ namespace TextOn.Studio
                 switch (segue.Identifier) {
                 case DesignViewDialogSegues.CreateTemplate:
                     dlg.TitleText = "Create Template";
-                    dlg.DescriptionText = "Paste sample text below to create a new project outline.";
+                    dlg.DescriptionText = "Paste sample text below to create a new template outline.";
                     dlg.DialogAccepted += (s, e) => {
                         var project = new TextOnTemplate (new List<Variable> (), OutputSplitter.Split (dlg.SampleText));
                         parent.CreateTree (null, project);
@@ -310,7 +310,7 @@ namespace TextOn.Studio
         /// Following an edit, recurse through the view and generate the design time project.
         /// </summary>
         /// <returns>The project from outline view.</returns>
-        TextOnTemplate CreateProjectFromOutlineView ()
+        TextOnTemplate CreateTemplateFromOutlineView ()
         {
             var variablesNode = Designs.GetItem<DesignModel> ((nuint)0);
             var definitionNode = Designs.GetItem<DesignModel> ((nuint)1);
