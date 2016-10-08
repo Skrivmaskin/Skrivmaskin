@@ -34,14 +34,14 @@ namespace TextOn.Studio
 				TextView = null;
 			}
 
-			if (TitleLabel != null) {
-				TitleLabel.Dispose ();
-				TitleLabel = null;
-			}
-
 			if (DescriptionLabel != null) {
 				DescriptionLabel.Dispose ();
 				DescriptionLabel = null;
+			}
+
+			if (TitleLabel != null) {
+				TitleLabel.Dispose ();
+				TitleLabel = null;
 			}
 		}
 	}
