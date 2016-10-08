@@ -11,9 +11,6 @@ namespace Skrivmaskin.Studio
 {
 	partial class AppDelegate
 	{
-		[Action ("changeMode:")]
-		partial void changeMode (Foundation.NSObject sender);
-
 		void ReleaseDesignerOutlets ()
 		{
 		}

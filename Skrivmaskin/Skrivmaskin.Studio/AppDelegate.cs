@@ -68,10 +68,10 @@ namespace Skrivmaskin.Studio
             DidChangeValue (nameof (modeTitle));
         }
 
-        partial void changeMode (NSObject sender)
-        {
-            setMode ((mode == SkrivmaskinMode.Design) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design);
-        }
+//        partial void changeMode (NSObject sender)
+//        {
+//            setMode ((mode == SkrivmaskinMode.Design) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design);
+//        }
 
         private bool OpenFile (NSUrl url)
         {

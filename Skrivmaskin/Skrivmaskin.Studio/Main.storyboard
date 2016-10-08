@@ -619,20 +619,6 @@
                                     </items>
                                 </menu>
                             </menuItem>
-                            <menuItem title="Settings" id="j1X-ze-6Vb">
-                                <modifierMask key="keyEquivalentModifierMask"/>
-                                <menu key="submenu" title="Settings" id="FOt-ZG-fgV">
-                                    <items>
-                                        <menuItem title="Generate Mode" id="6V2-od-oJC">
-                                            <modifierMask key="keyEquivalentModifierMask"/>
-                                            <connections>
-                                                <action selector="changeMode:" target="Voe-Tx-rLC" id="xeO-Xp-ny9"/>
-                                                <binding destination="Voe-Tx-rLC" name="title" keyPath="modeTitle" id="ffF-Ai-4gV"/>
-                                            </connections>
-                                        </menuItem>
-                                    </items>
-                                </menu>
-                            </menuItem>
                             <menuItem title="Help" id="wpr-3q-Mcd">
                                 <modifierMask key="keyEquivalentModifierMask"/>
                                 <menu key="submenu" title="Help" systemMenu="help" id="F2S-fz-NVQ">
