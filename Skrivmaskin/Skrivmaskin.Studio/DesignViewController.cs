@@ -63,10 +63,24 @@ namespace Skrivmaskin.Studio
             if (segue.DestinationController is CreateTemplateViewController) {
                 var dlg = segue.DestinationController as CreateTemplateViewController;
                 dlg.Presentor = this;
-                dlg.DialogAccepted += (s, e) => {
-                    var project = new Project (new List<Variable> (), OutputSplitter.Split (dlg.SampleText));
-                    parent.CreateTree (null, project);
-                };
+                switch (segue.Identifier) {
+                case DesignViewDialogSegues.CreateTemplate:
+                    dlg.DialogAccepted += (s, e) => {
+                        var project = new Project (new List<Variable> (), OutputSplitter.Split (dlg.SampleText));
+                        parent.CreateTree (null, project);
+                    };
+                    break;
+                case DesignViewDialogSegues.AddFromSample:
+                    dlg.DialogAccepted += (s, e) => {
+                        var designNode = OutputSplitter.Split (dlg.SampleText);
+                        var selected = (DesignModel)TreeController.SelectedObjects [0];
+                        string errorText;
+                        CreateDefinition (designNode, false, (n) => AddChild (n), selected.isNodeActive, out errorText);
+                    };
+                    break;
+                default:
+                    break;
+                }
                 return;
             }
 

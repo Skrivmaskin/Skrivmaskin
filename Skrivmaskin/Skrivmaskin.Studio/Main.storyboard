@@ -998,6 +998,13 @@ Gw
                                             <binding destination="n3f-aZ-4pA" name="enabled" keyPath="selection.enableAdd" id="vUp-Ej-hn4"/>
                                         </connections>
                                     </menuItem>
+                                    <menuItem title="From Sample..." id="FA0-IB-FUt">
+                                        <modifierMask key="keyEquivalentModifierMask"/>
+                                        <connections>
+                                            <binding destination="n3f-aZ-4pA" name="enabled" keyPath="selection.enableAdd" id="qdK-lP-PLP"/>
+                                            <segue destination="mUe-1O-a1D" kind="modal" identifier="AddFromSample" id="Ala-Pz-dYp"/>
+                                        </connections>
+                                    </menuItem>
                                     <menuItem title="Variable" id="HFd-Yh-TbF">
                                         <modifierMask key="keyEquivalentModifierMask"/>
                                         <connections>
@@ -1645,5 +1652,6 @@ DQ
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="LHX-HJ-eKj"/>
+        <segue reference="Ala-Pz-dYp"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -10,5 +10,8 @@ namespace Skrivmaskin.Studio
         public const string AddSequential = "AddSequential";
         public const string Edit = "Edit";
         public const string Delete = "Delete";
+
+        public const string CreateTemplate = "CreateTemplate";
+        public const string AddFromSample = "AddFromSample";
     }
 }
