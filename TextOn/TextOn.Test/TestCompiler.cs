@@ -164,8 +164,8 @@ namespace TextOn.Test
         public void TestInactiveParagraphBreak ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var project = new TextOnTemplate (new List<Variable> (), new ParagraphBreakNode () { IsActive = false });
-            var compiledTemplate = compiler.Compile (project);
+            var template = new TextOnTemplate (new List<Variable> (), new ParagraphBreakNode () { IsActive = false });
+            var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
 
@@ -173,8 +173,8 @@ namespace TextOn.Test
         public void TestInactiveText ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var project = new TextOnTemplate (new List<Variable> (), new TextNode () { Text = "Hello world", IsActive = false });
-            var compiledTemplate = compiler.Compile (project);
+            var template = new TextOnTemplate (new List<Variable> (), new TextNode () { Text = "Hello world", IsActive = false });
+            var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
 
@@ -184,8 +184,8 @@ namespace TextOn.Test
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
             var text1 = new TextNode ("ABC", true);
             var text2 = new TextNode ("DEF", true);
-            var project = new TextOnTemplate (new List<Variable> (), new ChoiceNode ("Some choice", false, new List<INode> (new INode [] { text1, text2 })));
-            var compiledTemplate = compiler.Compile (project);
+            var template = new TextOnTemplate (new List<Variable> (), new ChoiceNode ("Some choice", false, new List<INode> (new INode [] { text1, text2 })));
+            var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
 
@@ -195,8 +195,8 @@ namespace TextOn.Test
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
             var text1 = new TextNode ("ABC", true);
             var text2 = new TextNode ("DEF", true);
-            var project = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Some sequential", false, new List<INode> (new INode [] { text1, text2 })));
-            var compiledTemplate = compiler.Compile (project);
+            var template = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Some sequential", false, new List<INode> (new INode [] { text1, text2 })));
+            var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
     }
