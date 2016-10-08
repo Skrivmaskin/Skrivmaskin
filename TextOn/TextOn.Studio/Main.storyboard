@@ -1108,10 +1108,10 @@ Gw
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OaO-HE-O96">
-                                <rect key="frame" x="18" y="179" width="486" height="74"/>
+                                <rect key="frame" x="18" y="179" width="413" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="74" id="1wg-mc-LHv"/>
-                                    <constraint firstAttribute="width" constant="482" id="682-yy-p6X"/>
+                                    <constraint firstAttribute="width" constant="409" id="Fpo-w8-cSn"/>
                                 </constraints>
                                 <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Multiline Label" id="EzG-ul-UHS">
                                     <font key="font" metaFont="system"/>
@@ -1370,13 +1370,26 @@ DQ
                                     </binding>
                                 </connections>
                             </button>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xzc-Yf-FSR">
+                                <rect key="frame" x="438" y="184" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="dcE-3v-aIC"/>
+                                    <constraint firstAttribute="width" constant="64" id="uAH-bQ-cUp"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="d0p-KG-kVa"/>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="bdm-aQ-Vot" secondAttribute="trailing" constant="20" id="1k2-ND-LDh"/>
                             <constraint firstAttribute="bottom" secondItem="LYG-rB-a0A" secondAttribute="bottom" constant="20" id="750-H3-web"/>
                             <constraint firstItem="OaO-HE-O96" firstAttribute="leading" secondItem="Hl3-FR-Kzq" secondAttribute="leading" constant="20" id="7D4-aA-rYo"/>
+                            <constraint firstItem="Xzc-Yf-FSR" firstAttribute="leading" secondItem="OaO-HE-O96" secondAttribute="trailing" constant="9" id="CXw-ek-pxq"/>
                             <constraint firstItem="rCY-HS-fRF" firstAttribute="top" secondItem="OaO-HE-O96" secondAttribute="bottom" constant="8" id="DuG-Sh-pvY"/>
+                            <constraint firstItem="rCY-HS-fRF" firstAttribute="top" secondItem="Xzc-Yf-FSR" secondAttribute="bottom" constant="13" id="FEw-2r-SDh"/>
                             <constraint firstAttribute="bottom" secondItem="BLP-rp-IW3" secondAttribute="bottom" constant="20" id="G2A-vy-x7d"/>
+                            <constraint firstAttribute="trailing" secondItem="Xzc-Yf-FSR" secondAttribute="trailing" constant="20" id="K6a-ZH-kfH"/>
+                            <constraint firstItem="Xzc-Yf-FSR" firstAttribute="leading" secondItem="OaO-HE-O96" secondAttribute="trailing" constant="9" id="M9L-Ki-UHj"/>
+                            <constraint firstItem="Xzc-Yf-FSR" firstAttribute="top" secondItem="bdm-aQ-Vot" secondAttribute="bottom" constant="23" id="MJY-mD-RP3"/>
                             <constraint firstItem="OaO-HE-O96" firstAttribute="top" secondItem="NAn-js-Zrl" secondAttribute="bottom" constant="8" id="NgY-bO-4D0"/>
                             <constraint firstItem="BLP-rp-IW3" firstAttribute="leading" secondItem="LYG-rB-a0A" secondAttribute="trailing" constant="12" id="Pny-q6-t5h"/>
                             <constraint firstItem="rCY-HS-fRF" firstAttribute="leading" secondItem="Hl3-FR-Kzq" secondAttribute="leading" constant="20" id="VAl-ZF-Z3Y"/>
@@ -1394,7 +1407,6 @@ DQ
                             <constraint firstItem="BLP-rp-IW3" firstAttribute="top" secondItem="rCY-HS-fRF" secondAttribute="bottom" constant="20" id="tXz-qU-zcf"/>
                             <constraint firstItem="bdm-aQ-Vot" firstAttribute="leading" secondItem="NAn-js-Zrl" secondAttribute="trailing" constant="8" id="ufd-Oh-GiQ"/>
                             <constraint firstItem="LYG-rB-a0A" firstAttribute="top" secondItem="rCY-HS-fRF" secondAttribute="bottom" constant="20" id="vBB-so-GUs"/>
-                            <constraint firstAttribute="trailing" secondItem="OaO-HE-O96" secondAttribute="trailing" constant="20" id="vjE-jB-LJm"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1684,6 +1696,7 @@ DQ
         </scene>
     </scenes>
     <resources>
+        <image name="AppIcon" width="128" height="128"/>
         <image name="NSActionTemplate" width="14" height="14"/>
     </resources>
     <inferredMetricsTieBreakers>
