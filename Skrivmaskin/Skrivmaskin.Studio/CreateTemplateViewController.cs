@@ -13,6 +13,19 @@ namespace Skrivmaskin.Studio
 		{
 		}
 
+        public override void ViewDidLoad ()
+        {
+            base.ViewDidLoad ();
+
+            Title = TitleText;
+            TitleLabel.StringValue = TitleText;
+            DescriptionLabel.StringValue = DescriptionText;
+        }
+
+        public string TitleText { get; set; }
+
+        public string DescriptionText { get; set; }
+
         public string SampleText {
             get {
                 return TextView.Value;

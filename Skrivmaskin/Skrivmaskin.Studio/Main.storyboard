@@ -781,7 +781,9 @@ Gw
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="DescriptionLabel" destination="pR0-2N-7OF" id="Yxj-rJ-eN7"/>
                         <outlet property="TextView" destination="chn-hC-vp5" id="h7a-zv-nfT"/>
+                        <outlet property="TitleLabel" destination="Pbo-Pe-lLM" id="rOf-7n-jYa"/>
                     </connections>
                 </viewController>
                 <customObject id="M7A-A7-Fbb" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -825,7 +827,7 @@ Gw
                                     <rect key="frame" x="1" y="0.0" width="408" height="259"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="tBP-S7-PdT" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="gng-6m-Gnh" id="bEw-Ph-O21">
+                                        <outlineView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="lastColumnOnly" alternatingRowBackgroundColors="YES" multipleSelection="NO" emptySelection="NO" autosaveColumns="NO" rowSizeStyle="automatic" headerView="tBP-S7-PdT" viewBased="YES" indentationPerLevel="16" autoresizesOutlineColumn="YES" outlineTableColumn="gng-6m-Gnh" id="bEw-Ph-O21" customClass="DesignOutlineView">
                                             <rect key="frame" x="0.0" y="0.0" width="408" height="236"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>
@@ -946,6 +948,7 @@ Gw
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="OutlineView" destination="bEw-Ph-O21" id="j98-zM-6eS"/>
                         <outlet property="TreeController" destination="n3f-aZ-4pA" id="ncS-Dq-rIs"/>
                         <segue destination="mUe-1O-a1D" kind="modal" identifier="CreateTemplate" id="QID-OL-Zan"/>
                     </connections>

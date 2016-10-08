@@ -13,6 +13,9 @@ namespace Skrivmaskin.Studio
 	partial class DesignViewController
 	{
 		[Outlet]
+		Skrivmaskin.Studio.DesignOutlineView OutlineView { get; set; }
+
+		[Outlet]
 		Skrivmaskin.Studio.DesignTreeController TreeController { get; set; }
 
 		[Action ("Add_ParagraphBreak:")]
@@ -29,6 +32,11 @@ namespace Skrivmaskin.Studio
 			if (TreeController != null) {
 				TreeController.Dispose ();
 				TreeController = null;
+			}
+
+			if (OutlineView != null) {
+				OutlineView.Dispose ();
+				OutlineView = null;
 			}
 		}
 	}

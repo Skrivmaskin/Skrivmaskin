@@ -13,7 +13,13 @@ namespace Skrivmaskin.Studio
 	partial class CreateTemplateViewController
 	{
 		[Outlet]
+		AppKit.NSTextField DescriptionLabel { get; set; }
+
+		[Outlet]
 		AppKit.NSTextView TextView { get; set; }
+
+		[Outlet]
+		AppKit.NSTextField TitleLabel { get; set; }
 
 		[Action ("Cancel_Clicked:")]
 		partial void Cancel_Clicked (Foundation.NSObject sender);
@@ -26,6 +32,16 @@ namespace Skrivmaskin.Studio
 			if (TextView != null) {
 				TextView.Dispose ();
 				TextView = null;
+			}
+
+			if (TitleLabel != null) {
+				TitleLabel.Dispose ();
+				TitleLabel = null;
+			}
+
+			if (DescriptionLabel != null) {
+				DescriptionLabel.Dispose ();
+				DescriptionLabel = null;
 			}
 		}
 	}

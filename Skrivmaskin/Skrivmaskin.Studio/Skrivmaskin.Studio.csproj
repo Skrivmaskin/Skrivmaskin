@@ -129,6 +129,9 @@
     <Compile Include="SkrivmaskinWindowController.designer.cs">
       <DependentUpon>SkrivmaskinWindowController.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesignOutlineView.cs" />
+    <Compile Include="DesignOutlineViewDataSource.cs" />
+    <Compile Include="DesignOutlineViewDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

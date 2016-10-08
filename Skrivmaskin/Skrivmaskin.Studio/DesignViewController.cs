@@ -32,10 +32,12 @@ namespace Skrivmaskin.Studio
         {
             base.ViewDidAppear ();
 
+            OutlineView.TreeController = TreeController;
+
             var windowController = NSApplication.SharedApplication.KeyWindow.WindowController as SkrivmaskinWindowController;
             if (!parent.inGenerateOnlyMode && windowController.IsInNew) {
                 windowController.IsInNew = false;
-                PerformSegue ("CreateTemplate", this);
+                PerformSegue (DesignViewDialogSegues.CreateTemplate, this);
             }
         }
 
@@ -65,12 +67,16 @@ namespace Skrivmaskin.Studio
                 dlg.Presentor = this;
                 switch (segue.Identifier) {
                 case DesignViewDialogSegues.CreateTemplate:
+                    dlg.TitleText = "Create Template";
+                    dlg.DescriptionText = "Paste sample text below to create a new project outline.";
                     dlg.DialogAccepted += (s, e) => {
                         var project = new Project (new List<Variable> (), OutputSplitter.Split (dlg.SampleText));
                         parent.CreateTree (null, project);
                     };
                     break;
                 case DesignViewDialogSegues.AddFromSample:
+                    dlg.TitleText = "Add From Sample";
+                    dlg.DescriptionText = "Paste sample text below to add the outline for a new subtree.";
                     dlg.DialogAccepted += (s, e) => {
                         var designNode = OutputSplitter.Split (dlg.SampleText);
                         var selected = (DesignModel)TreeController.SelectedObjects [0];
