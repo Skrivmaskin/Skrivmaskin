@@ -17,15 +17,28 @@ namespace Skrivmaskin.Studio
         {
             base.ViewDidLoad ();
 
+            // Set up the view with useful titles and description.
             Title = TitleText;
             TitleLabel.StringValue = TitleText;
             DescriptionLabel.StringValue = DescriptionText;
         }
 
+        /// <summary>
+        /// Gets or sets the title text.
+        /// </summary>
+        /// <value>The title text.</value>
         public string TitleText { get; set; }
 
+        /// <summary>
+        /// Gets or sets the description text.
+        /// </summary>
+        /// <value>The description text.</value>
         public string DescriptionText { get; set; }
 
+        /// <summary>
+        /// Gets the user's sample text to insert into the template.
+        /// </summary>
+        /// <value>The sample text.</value>
         public string SampleText {
             get {
                 return TextView.Value;
