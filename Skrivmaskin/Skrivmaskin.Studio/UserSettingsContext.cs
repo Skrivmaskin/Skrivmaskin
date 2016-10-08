@@ -21,28 +21,28 @@ namespace Skrivmaskin.Studio
 
         public static void RegisterDefaults ()
         {
-            var dict = new NSMutableDictionary ();
-            dict [kDefaultMode] = designMode;
-            NSUserDefaults.StandardUserDefaults.RegisterDefaults (dict);
+//            var dict = new NSMutableDictionary ();
+//            dict [kDefaultMode] = designMode;
+//            NSUserDefaults.StandardUserDefaults.RegisterDefaults (dict);
         }
 
-        public static UserSettings Settings;
+        public static UserSettings Settings = new UserSettings ();
 
         public static void LoadDefaults ()
         {
-            var defaults = NSUserDefaults.StandardUserDefaults;
-            NSNumber nsDefaultMode = (NSNumber)defaults [kDefaultMode];
-            var defaultMode = (nsDefaultMode == generateOnlyMode) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design;
-            Settings =
-                new UserSettings () {
-                DefaultMode = defaultMode
-                };
+//            var defaults = NSUserDefaults.StandardUserDefaults;
+//            NSNumber nsDefaultMode = (NSNumber)defaults [kDefaultMode];
+//            var defaultMode = (nsDefaultMode == generateOnlyMode) ? SkrivmaskinMode.GenerateOnly : SkrivmaskinMode.Design;
+//            Settings =
+//                new UserSettings () {
+//                DefaultMode = defaultMode
+//                };
         }
 
         public static void SaveDefaults ()
         {
-            var defaults = NSUserDefaults.StandardUserDefaults;
-            defaults [kDefaultMode] = (Settings.DefaultMode == SkrivmaskinMode.GenerateOnly) ? generateOnlyMode : designMode;
+//            var defaults = NSUserDefaults.StandardUserDefaults;
+//            defaults [kDefaultMode] = (Settings.DefaultMode == SkrivmaskinMode.GenerateOnly) ? generateOnlyMode : designMode;
         }
     }
 }

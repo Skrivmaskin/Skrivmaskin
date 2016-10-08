@@ -32,7 +32,7 @@ namespace Skrivmaskin.Studio
         {
             base.ViewDidAppear ();
 
-            if ((UserSettingsContext.Settings != null) && (UserSettingsContext.Settings.DefaultMode == SkrivmaskinMode.Design) && !parent.TreeCreated)
+            if (!parent.inGenerateOnlyMode && !parent.TreeCreated)
                 PerformSegue ("CreateTemplate", this);
         }
 

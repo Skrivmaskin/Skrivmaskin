@@ -17,7 +17,7 @@ namespace Skrivmaskin.Studio
         private const string Generate = "Generate";
 
         private readonly Dictionary<string, NSTabViewItem> tabViewItemRefs = new Dictionary<string, NSTabViewItem> ();
-        private bool inGenerateOnlyMode = false;
+        internal bool inGenerateOnlyMode = false;
         private bool discoveredTabs = false;
 
 		public CentralViewController (IntPtr handle) : base (handle)
