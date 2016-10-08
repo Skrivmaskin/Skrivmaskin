@@ -10,6 +10,7 @@ namespace Skrivmaskin.Studio
     public class VariablesTableViewDelegate : NSTableViewDelegate
     {
         private const string CellIdentifier = "SkrivmaskinCell";
+        private const string FullNameIdentifier = "Name";
         private const string DescriptionIdentifier = "Description";
         private const string VariantIdentifier = "Variant";
         private const string ValueIdentifier = "Value";
@@ -39,6 +40,10 @@ namespace Skrivmaskin.Studio
             view.TextColor = NSColor.Black;
 
             switch (tableColumn.Identifier) {
+            case FullNameIdentifier:
+                view.StringValue = variable.FullName;
+                view.Editable = false;
+                break;
             case DescriptionIdentifier:
                 if (String.IsNullOrEmpty (variable.FormName)) {
                     view.StringValue = variable.Description;
