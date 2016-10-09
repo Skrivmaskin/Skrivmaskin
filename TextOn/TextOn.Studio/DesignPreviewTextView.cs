@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using AppKit;
 using Foundation;
 using TextOn.Design;
@@ -8,6 +9,7 @@ using TextOn.Lexing;
 using TextOn.Interfaces;
 using TextOn.Parsing;
 using TextOn.Generation;
+using System.Threading.Tasks;
 
 namespace TextOn.Studio
 {
@@ -32,7 +34,7 @@ namespace TextOn.Studio
         #region Text view
         public DesignPreviewTextView (IntPtr handle) : base (handle)
         {
-            Console.Error.WriteLine ("SetVariables ctor");
+            Console.Error.WriteLine ("DesignPreviewTextView ctor");
 
             this.Delegate = new DesignPreviewTextViewDelegate (this);
         }
@@ -42,7 +44,7 @@ namespace TextOn.Studio
 
         public void SetValue (string value, PreviewRouteNode[] route, CompiledTemplate compiledTemplate)
         {
-            Console.Error.WriteLine ("SetVariables SetValue");
+            Console.Error.WriteLine ("DesignPreviewTextView SetValue");
 
             Value = value;
             CompiledTemplate = compiledTemplate;
@@ -82,11 +84,14 @@ namespace TextOn.Studio
         //TODO Note I could do this much more efficiently, clean up if gets expensive.
         //TODO E.g. I could compile this line by line, and that might play well with editing?
         //TODO This relies on the text I chose for <pr/> compiling as text - yikes.
-        public TextOnParseTokens Highlight ()
+        public async Task Highlight ()
         {
-            Console.Error.WriteLine ("SetVariables Highlight");
+            Console.Error.WriteLine ("DesignPreviewTextView Highlight");
 
-            if (CompiledTemplate == null) return TextOnParseTokens.Text;
+            // this stuff can run on another thread so let it, I probably need to add some stuff below to be careful though
+            await Task.Delay (TimeSpan.FromMilliseconds (1));
+
+            if (CompiledTemplate == null) return;
             var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
             var elements = compiledText.Elements;
             var lastToken = TextOnParseTokens.Error;
@@ -123,7 +128,7 @@ namespace TextOn.Studio
 
                 lastToken = element.Token;
             }
-            return lastToken;
+            Console.Error.WriteLine ("DesignPreviewTextView Highlight (exit)");
         }
 
         #region Overrides
@@ -134,10 +139,6 @@ namespace TextOn.Studio
         public override void KeyDown (NSEvent theEvent)
         {
             base.KeyDown (theEvent);
-            var possibleComplete = Char.IsLetterOrDigit (theEvent.Characters [0]);
-            //TODO Note, not ideal, because the user's position should be taken into account.
-            var lastToken = Highlight ();
-            if (possibleComplete && (CompiledTemplate != null) && (CompiledTemplate.VariableDefinitions.Count > 0) && (lastToken == TextOnParseTokens.VarName) || (lastToken == TextOnParseTokens.VarFormName)) Complete (this);
         }
 
         public override NSRange RangeForUserCompletion ()
