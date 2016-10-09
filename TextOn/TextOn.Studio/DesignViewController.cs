@@ -137,6 +137,7 @@ namespace TextOn.Studio
                         var selected = (DesignModel)TreeController.SelectedObjects [0];
                         string errorText;
                         CreateDefinition (designNode, false, (n) => AddChild (n), selected.isNodeActive, out errorText);
+                        DocumentEditedAction ();
                     };
                     break;
                 default:
