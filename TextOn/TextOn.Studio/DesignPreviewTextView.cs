@@ -76,6 +76,7 @@ namespace TextOn.Studio
         #endregion
 
         //TODO Note I could do this much more efficiently, clean up if gets expensive.
+        //TODO E.g. I could compile this line by line, and that might play well with editing?
         //TODO This relies on the text I chose for <pr/> compiling as text - yikes.
         public TextOnParseTokens Highlight ()
         {
