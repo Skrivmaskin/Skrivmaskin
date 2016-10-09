@@ -29,6 +29,15 @@ namespace TextOn.Studio
             Title = TitleText;
             TitleLabel.StringValue = TitleText;
             DescriptionLabel.StringValue = DescriptionText;
+            NameTextField.StringValue = NameTextInput;
+        }
+
+        public string NameTextInput { get; set; }
+
+        public string NameText {
+            get {
+                return NameTextField.StringValue;
+            }
         }
 
         public override void ViewDidAppear ()

@@ -16,6 +16,9 @@ namespace TextOn.Studio
 		AppKit.NSTextField DescriptionLabel { get; set; }
 
 		[Outlet]
+		AppKit.NSTextField NameTextField { get; set; }
+
+		[Outlet]
 		TextOn.Studio.TextOnTextView SampleTextView { get; set; }
 
 		[Outlet]
@@ -40,19 +43,24 @@ namespace TextOn.Studio
 				DescriptionLabel = null;
 			}
 
-			if (TitleLabel != null) {
-				TitleLabel.Dispose ();
-				TitleLabel = null;
-			}
-
 			if (SampleTextView != null) {
 				SampleTextView.Dispose ();
 				SampleTextView = null;
 			}
 
+			if (TitleLabel != null) {
+				TitleLabel.Dispose ();
+				TitleLabel = null;
+			}
+
 			if (ToBeAddedTextView != null) {
 				ToBeAddedTextView.Dispose ();
 				ToBeAddedTextView = null;
+			}
+
+			if (NameTextField != null) {
+				NameTextField.Dispose ();
+				NameTextField = null;
 			}
 		}
 	}

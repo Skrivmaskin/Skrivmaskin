@@ -153,6 +153,7 @@ namespace TextOn.Studio
                 var isChoice = segue.Identifier == DesignViewDialogSegues.MoveIntoNewChoice;
                 dlg.isChoice = isChoice;
                 dlg.TitleText = isChoice ? "Move Into New Choice" : "Move Into New Sequential";
+                dlg.NameTextInput = isChoice ? "New Choice" : "New Sequential";
                 if (selected.modelType == DesignModelType.Text) {
                     dlg.isTextNodeChoice = true;
                     dlg.DescriptionText = "Press the + button to add more text to the new " + (isChoice ? "choice" : "sequential") + " node.";
@@ -167,7 +168,7 @@ namespace TextOn.Studio
                         TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
                         var parentNode = (DesignModel)TreeController.SelectedObjects [0];
                         parentNode.RemoveDesign ((nint)lastIndex);
-                        var newChildModel = new DesignModel ((isChoice ? DesignModelType.Choice : DesignModelType.Sequential), "New " + (isChoice ? "Choice" : "Sequential"), "", true, parentNode.isNodeActive);
+                        var newChildModel = new DesignModel ((isChoice ? DesignModelType.Choice : DesignModelType.Sequential), dlg.NameText, "", true, parentNode.isNodeActive);
                         parentNode.InsertDesign (newChildModel, (nint)lastIndex);
                         foreach (var text in dlg.TextItems) {
                             TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
@@ -193,7 +194,7 @@ namespace TextOn.Studio
                             TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
                             TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { NSIndexPath.Create (new nint [] { 0 }) });
                             RemoveDesign (1);
-                            var newRootModel = new DesignModel (true, (isChoice ? DesignModelType.Choice : DesignModelType.Sequential), "New " + (isChoice ? "Choice" : "Sequential"), "", true, true);
+                            var newRootModel = new DesignModel (true, (isChoice ? DesignModelType.Choice : DesignModelType.Sequential), dlg.NameText, "", true, true);
                             AddDesign (newRootModel);
                             newRootModel.AddDesign (childModel);
                             TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
@@ -207,7 +208,7 @@ namespace TextOn.Studio
                             TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
                             var parentNode = (DesignModel)TreeController.SelectedObjects [0];
                             parentNode.RemoveDesign ((nint)lastIndex);
-                            var newChildModel = new DesignModel ((isChoice ? DesignModelType.Choice : DesignModelType.Sequential), "New " + (isChoice ? "Choice" : "Sequential"), "", true, parentNode.isNodeActive);
+                            var newChildModel = new DesignModel ((isChoice ? DesignModelType.Choice : DesignModelType.Sequential), dlg.NameText, "", true, parentNode.isNodeActive);
                             parentNode.InsertDesign (newChildModel, (nint)lastIndex);
                             TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
                             TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex) });
