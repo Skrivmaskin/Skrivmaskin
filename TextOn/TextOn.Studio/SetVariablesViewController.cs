@@ -25,11 +25,15 @@ namespace TextOn.Studio
         private CentralViewController parent = null;
         internal void SetControllerLinks (CentralViewController centralViewController)
         {
+            Console.Error.WriteLine ("SetVariables SetControllerLinks");
+
             this.parent = centralViewController;   
         }
 
         internal void SetCompiledTemplate ()
         {
+            Console.Error.WriteLine ("SetVariables SetCompiledTemplate");
+
             var datasource = new VariablesTableViewDataSource (parent.CompiledTemplate.VariableDefinitions.Select ((kvp) => kvp.Value));
             SetVariables.DataSource = datasource;
             SetVariables.Delegate = new VariablesTableViewDelegate (datasource);

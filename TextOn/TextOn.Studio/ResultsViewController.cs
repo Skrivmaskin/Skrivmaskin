@@ -20,6 +20,8 @@ namespace TextOn.Studio
 
         public override void ViewDidLoad ()
         {
+            Console.Error.WriteLine ("Results ViewDidLoad");
+
             base.ViewDidLoad ();
 
             // Set the initial value for the label
@@ -49,6 +51,8 @@ namespace TextOn.Studio
         private CentralViewController parent = null;
         internal void SetControllerLinks (CentralViewController cvc)
         {
+            Console.Error.WriteLine ("Results SetControllerLinks");
+
             parent = cvc;
         }
 

@@ -107,6 +107,8 @@ namespace TextOn.Studio
         private bool awake = false;
         public override void AwakeFromNib ()
         {
+            Console.Error.WriteLine ("Central AwakeFromNib");
+
             base.AwakeFromNib ();
 
             foreach (var child in ChildViewControllers) {
@@ -144,6 +146,8 @@ namespace TextOn.Studio
 
         public void CreateTree (string path, TextOnTemplate template)
         {
+            Console.Error.WriteLine ("Central CreateTree");
+
             Template = template;
             FilePath = path;
             designViewController.CreateTree ();

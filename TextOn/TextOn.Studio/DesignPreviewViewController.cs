@@ -21,12 +21,16 @@ namespace TextOn.Studio
         private CentralViewController centralViewController = null;
         internal void SetControllerLinks (CentralViewController cvc)
         {
+            Console.Error.WriteLine ("Preview SetControllerLinks");
+
             centralViewController = cvc;
         }
 
         bool firstAppearance = true;
         public override void ViewDidAppear ()
         {
+            Console.Error.WriteLine ("Preview ViewDidAppear");
+
             base.ViewDidAppear ();
 
             if (firstAppearance) {
@@ -52,6 +56,8 @@ namespace TextOn.Studio
 
         public void UpdatePreview (PreviewPartialRouteChoiceNode [] partialRoute)
         {
+            Console.Error.WriteLine ("Preview UpdatePreview");
+
             var rootNode = centralViewController.Template.Definition;
             var compiledTemplate = centralViewController.CompiledTemplate;
             if (rootNode == null) {
@@ -97,6 +103,8 @@ namespace TextOn.Studio
 
         partial void Slider_Moved (NSObject sender)
         {
+            Console.Error.WriteLine ("Preview Slider_Moved");
+
             // this signifies that the fixed choices setup will be used instead.
             if (partialRoute.Length > 0)
                 partialRoute = new PreviewPartialRouteChoiceNode [0];
@@ -108,6 +116,8 @@ namespace TextOn.Studio
 
         partial void Respin_Clicked (NSObject sender)
         {
+            Console.Error.WriteLine ("Preview Respin_Clicked");
+
             if (centralViewController != null) {
                 UpdatePreview (partialRoute);
             }
@@ -117,7 +127,7 @@ namespace TextOn.Studio
         {
             if (partialRoute.Length == 0) {
                 var numChoicesToKeep = ChoiceFixSlider.MaxValue - ChoiceFixSlider.IntValue;
-                return ((n) => n.ChoicesMadeSoFar.Length < numChoicesToKeep);
+                return ((n) => n.ChoicesMadeSoFar.Length <= numChoicesToKeep);
             } else {
                 return ((n) => !n.ReachedTarget);
             }
