@@ -110,7 +110,7 @@ namespace TextOn.Studio
                 partialRoute = new PreviewPartialRouteChoiceNode [0];
 
             // update the highlighting
-            TextView.DoHighlightBackground = DoHighlightBackground ();
+            TextView.DoHighlightBackground = GetDoHighlightPredicate ();
             TextView.Highlight ();
         }
 
@@ -123,7 +123,7 @@ namespace TextOn.Studio
             }
         }
 
-        private Func<PreviewRouteNode, bool> DoHighlightBackground ()
+        private Func<PreviewRouteNode, bool> GetDoHighlightPredicate ()
         {
             if (partialRoute.Length == 0) {
                 var numChoicesToKeep = ChoiceFixSlider.MaxValue - ChoiceFixSlider.IntValue;

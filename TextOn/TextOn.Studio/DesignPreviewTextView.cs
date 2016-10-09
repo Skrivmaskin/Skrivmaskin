@@ -51,7 +51,7 @@ namespace TextOn.Studio
         }
 
         #region Color setup
-        public static NSColor GetColor (TextOnParseTokens token, int choiceDepth)
+        public static NSColor GetSyntaxColorForToken (TextOnParseTokens token, int choiceDepth)
         {
             switch (token) {
             case TextOnParseTokens.ChoiceStart:
@@ -72,11 +72,11 @@ namespace TextOn.Studio
                 return (choiceDepth > 0) ? NSColor.Gray : NSColor.Black;
             }
         }
-        private static NSColor GetBlueColor ()
+        private static NSColor GetBackgroundColorForChoiceRoute ()
         {
             return NSColor.FromRgb (156, 210, 237);
         }
-        private static readonly NSColor blueColor = GetBlueColor ();
+        private static readonly NSColor choiceRouteBackgroundColor = GetBackgroundColorForChoiceRoute ();
         #endregion
 
         //TODO Note I could do this much more efficiently, clean up if gets expensive.
@@ -92,32 +92,32 @@ namespace TextOn.Studio
             var lastToken = TextOnParseTokens.Error;
             var lines = TextStorage.Value.Split ('\n');
             var lineNumber = 0;
-            var blueLastCharacterIndex = 0;
+            var choiceRouteLastCharacterIndex = 0;
             while (lineNumber < lines.Length && lineNumber < Route.Length && DoHighlightBackground (Route [lineNumber])) {
-                blueLastCharacterIndex += lines [lineNumber++].Length + 1; // EOL character I just knocked off?
+                choiceRouteLastCharacterIndex += lines [lineNumber++].Length + 1; // EOL character I just knocked off?
             }
             foreach (var element in elements) {
-                if (element.Range.EndCharacter < blueLastCharacterIndex) {
+                if (element.Range.EndCharacter < choiceRouteLastCharacterIndex) {
                     var attributes = new NSMutableDictionary ();
-                    attributes.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
-                    attributes.Add (NSStringAttributeKey.BackgroundColor, blueColor);
+                    attributes.Add (NSStringAttributeKey.ForegroundColor, GetSyntaxColorForToken (element.Token, element.ChoiceDepth));
+                    attributes.Add (NSStringAttributeKey.BackgroundColor, choiceRouteBackgroundColor);
                     var range = new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
                     LayoutManager.SetTemporaryAttributes (attributes, range);
-                } else if (element.Range.StartCharacter >= blueLastCharacterIndex) {
+                } else if (element.Range.StartCharacter >= choiceRouteLastCharacterIndex) {
                     var attributes = new NSMutableDictionary ();
-                    attributes.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
+                    attributes.Add (NSStringAttributeKey.ForegroundColor, GetSyntaxColorForToken (element.Token, element.ChoiceDepth));
                     var range = new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
                     LayoutManager.SetTemporaryAttributes (attributes, range);
                 } else {
                     var attributes1 = new NSMutableDictionary ();
-                    attributes1.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
-                    attributes1.Add (NSStringAttributeKey.BackgroundColor, blueColor);
-                    var range1 = new NSRange (element.Range.StartCharacter, blueLastCharacterIndex - element.Range.StartCharacter + 1);
+                    attributes1.Add (NSStringAttributeKey.ForegroundColor, GetSyntaxColorForToken (element.Token, element.ChoiceDepth));
+                    attributes1.Add (NSStringAttributeKey.BackgroundColor, choiceRouteBackgroundColor);
+                    var range1 = new NSRange (element.Range.StartCharacter, choiceRouteLastCharacterIndex - element.Range.StartCharacter + 1);
                     LayoutManager.SetTemporaryAttributes (attributes1, range1);
  
                     var attributes2 = new NSMutableDictionary ();
-                    attributes2.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
-                    var range2 = new NSRange (blueLastCharacterIndex, element.Range.EndCharacter - blueLastCharacterIndex + 1);
+                    attributes2.Add (NSStringAttributeKey.ForegroundColor, GetSyntaxColorForToken (element.Token, element.ChoiceDepth));
+                    var range2 = new NSRange (choiceRouteLastCharacterIndex, element.Range.EndCharacter - choiceRouteLastCharacterIndex + 1);
                     LayoutManager.SetTemporaryAttributes (attributes2, range2);
                 }
 
