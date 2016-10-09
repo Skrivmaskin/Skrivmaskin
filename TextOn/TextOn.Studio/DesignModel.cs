@@ -263,6 +263,13 @@ namespace TextOn.Studio
             }
         }
 
+        public bool isDeletable {
+            [Export (nameof (isDeletable))]
+            get {
+                return (modelType != DesignModelType.VariableRoot && !isRoot);
+            }
+        }
+
         [Export ("addObject:")]
         public void AddDesign (DesignModel design)
         {

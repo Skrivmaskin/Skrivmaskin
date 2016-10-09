@@ -56,7 +56,7 @@ namespace TextOn.Studio
         private bool fiddlingWithSelection = false;
         public void SelectionChanged (NSObservedChange change)
         {
-            if (!fiddlingWithSelection) {
+            if (!fiddlingWithSelection && !loading) {
                 UpdatePreview ();
             }
             disp.Dispose ();

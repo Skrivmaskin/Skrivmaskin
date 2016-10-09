@@ -54,7 +54,6 @@ namespace TextOn.Studio
         {
             var rootNode = centralViewController.Template.Definition;
             var compiledTemplate = centralViewController.CompiledTemplate;
-            var holdSliderStill = partialRoute.Length == 0;
             if (rootNode == null) {
                 nodes = new PreviewRouteNode [0];
                 this.partialRoute = new PreviewPartialRouteChoiceNode [0];
@@ -70,6 +69,8 @@ namespace TextOn.Studio
                         var numChoicesToKeep = ChoiceFixSlider.MaxValue - ChoiceFixSlider.IntValue;
                         var fixedChoices = nodes.SkipWhile ((p) => p.ChoicesMadeSoFar.Length < numChoicesToKeep).First ().ChoicesMadeSoFar;
                         nodes = generator.GenerateWithFixedChoices (rootNode, fixedChoices).ToArray ();
+                    } else {
+                        nodes = generator.GenerateWithFixedChoices (rootNode, new int [0]).ToArray();
                     }
                 } else
                     nodes = generator.GenerateWithPartialRoute (rootNode, partialRoute).ToArray ();

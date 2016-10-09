@@ -1098,12 +1098,14 @@ Gw
                         <menuItem title="Edit" id="uGk-DZ-jvz">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
+                                <binding destination="n3f-aZ-4pA" name="enabled" keyPath="selection.isEditable" id="OKg-EV-eDP"/>
                                 <segue destination="34o-xe-pSe" kind="modal" identifier="Edit" id="Hjf-Xe-Tw5"/>
                             </connections>
                         </menuItem>
                         <menuItem title="Delete" id="BBi-b7-qXA">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
+                                <binding destination="n3f-aZ-4pA" name="enabled" keyPath="selection.isDeletable" id="9nl-o0-9hE"/>
                                 <segue destination="34o-xe-pSe" kind="modal" identifier="Delete" id="Djo-Sg-vqZ"/>
                             </connections>
                         </menuItem>

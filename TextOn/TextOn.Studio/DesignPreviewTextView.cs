@@ -66,6 +66,11 @@ namespace TextOn.Studio
                 return (choiceDepth > 0) ? NSColor.Gray : NSColor.Black;
             }
         }
+        private static NSColor GetBlueColor ()
+        {
+            return NSColor.FromRgb (156, 210, 237);
+        }
+        private static readonly NSColor blueColor = GetBlueColor ();
         #endregion
 
         //TODO Note I could do this much more efficiently, clean up if gets expensive.
@@ -86,7 +91,7 @@ namespace TextOn.Studio
                 if (element.Range.EndCharacter < blueLastCharacterIndex) {
                     var attributes = new NSMutableDictionary ();
                     attributes.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
-                    attributes.Add (NSStringAttributeKey.BackgroundColor, NSColor.Cyan);
+                    attributes.Add (NSStringAttributeKey.BackgroundColor, blueColor);
                     var range = new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
                     LayoutManager.SetTemporaryAttributes (attributes, range);
                 } else if (element.Range.StartCharacter >= blueLastCharacterIndex) {
@@ -97,7 +102,7 @@ namespace TextOn.Studio
                 } else {
                     var attributes1 = new NSMutableDictionary ();
                     attributes1.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
-                    attributes1.Add (NSStringAttributeKey.BackgroundColor, NSColor.Cyan);
+                    attributes1.Add (NSStringAttributeKey.BackgroundColor, blueColor);
                     var range1 = new NSRange (element.Range.StartCharacter, blueLastCharacterIndex - element.Range.StartCharacter + 1);
                     LayoutManager.SetTemporaryAttributes (attributes1, range1);
  
