@@ -3,19 +3,19 @@ using System.Linq;
 using System.Collections.Generic;
 using TextOn.Design;
 using TextOn.Interfaces;
+using TextOn.Services;
 
 namespace TextOn.Generation
 {
     /// <summary>
-    /// Preview generator. Takes a random number generator and makes only the random choices at design template level, to give back
-    /// a sequence of Text and ParagraphBreak design nodes.
+    /// Preview generator. Uses a special combined random chooser that allows fixing of a certain number of choices.
     /// </summary>
     /// <remarks>
     /// This can be exposed to the user in a preview pane to flatten out the view of a given design node while they are working.
     /// </remarks>
     public sealed class TextOnPreviewGenerator
     {
-        readonly IRandomChooser randomChooser;
+        readonly ChoiceFixingRandomChooser randomChooser;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TextOn.Generation.TextOnPreviewGenerator"/> class.
@@ -26,29 +26,29 @@ namespace TextOn.Generation
         /// <param name="randomChooser">Random chooser.</param>
         public TextOnPreviewGenerator (IRandomChooser randomChooser)
         {
-            this.randomChooser = randomChooser;
+            this.randomChooser = new ChoiceFixingRandomChooser (randomChooser);
         }
 
-        private IEnumerable<INode> GenerateText (INode node)
+        private IEnumerable<PreviewRouteNode> GenerateText (INode node, bool reachedTarget)
         {
             switch (node.Type) {
             case NodeType.Text:
             case NodeType.ParagraphBreak:
-                yield return node;
+                yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, reachedTarget);
                 break;
             case NodeType.Sequential:
                 foreach (var n in (node as SequentialNode).Sequential) {
-                    foreach (var text in GenerateText (n)) {
+                    foreach (var text in GenerateText (n, reachedTarget)) {
                         yield return text;
                     }
                 }
                 break;
             case NodeType.Choice:
-                var choices = (node as ChoiceNode).Choices;
-                if (choices.Count > 0) {
-                    var n = randomChooser.Choose (choices.Count);
-                    var choice = choices [n];
-                    var li = GenerateText (choice);
+                var choiceNode = (node as ChoiceNode);
+                if (choiceNode.Choices.Count > 0) {
+                    var n = randomChooser.Choose (choiceNode, choiceNode.Choices.Count, out reachedTarget);
+                    var choice = choiceNode.Choices [n];
+                    var li = GenerateText (choice, reachedTarget);
                     foreach (var text in li) {
                         yield return text;
                     }
@@ -60,54 +60,25 @@ namespace TextOn.Generation
         }
 
         /// <summary>
-        /// Gets the last seed used in making random choices.
+        /// Generate a route through the design tree, given the specified fixed choices.
         /// </summary>
-        /// <remarks>
-        /// Exposed to the user for logging and reproducability purposes.
-        /// </remarks>
-        /// <value>The last seed.</value>
-        public int? LastSeed { get { return randomChooser.LastSeed; } }
-
-        /// <summary>
-        /// Determines if it is possible for this generator to regenerate.
-        /// </summary>
-        /// <remarks>
-        /// May be used by a user interface to allow the user to activate and hide controls that Regenerate.
-        /// </remarks>
-        /// <returns><c>true</c>, if regenerate was caned, <c>false</c> otherwise.</returns>
-        public bool CanRegenerate ()
+        /// <param name="choices">Choices.</param>
+        public IEnumerable<PreviewRouteNode> GenerateWithFixedChoices (INode rootNode, int [] choices)
         {
-            return LastSeed != null;
-        }
-
-        /// <summary>
-        /// Generate the preview text.
-        /// </summary>
-        public IEnumerable<INode> Generate (INode node)
-        {
-            randomChooser.Begin ();
-            var result = GenerateText (node).ToList ();
+            randomChooser.BeginWithFixedChoices (choices);
+            var result = GenerateText (rootNode, false).ToList ();
             randomChooser.End ();
             return result;
         }
 
         /// <summary>
-        /// Regenerate the preview text, using the same random seed as before.
+        /// Generate a route through the design tree, given the specified partial route.
         /// </summary>
-        public IEnumerable<INode> Regenerate (INode node)
+        /// <param name="partialRoute">The partial route that will arrive at the desired node on its way.</param>
+        public IEnumerable<PreviewRouteNode> GenerateWithPartialRoute (INode rootNode, PreviewPartialRouteChoiceNode [] partialRoute)
         {
-            var lastSeed = LastSeed;
-            if (lastSeed == null) throw new ApplicationException ("Unable to regenerate when we haven't run before");
-            return GenerateWithSeed (node, lastSeed.Value);
-        }
-
-        /// <summary>
-        /// Generate the preview text, using a given random seed.
-        /// </summary>
-        public IEnumerable<INode> GenerateWithSeed (INode node, int seed)
-        {
-            randomChooser.BeginWithSeed (seed);
-            var result = GenerateText (node).ToList ();
+            randomChooser.BeginWithPartialRoute (partialRoute);
+            var result = GenerateText (rootNode, false).ToList ();
             randomChooser.End ();
             return result;
         }

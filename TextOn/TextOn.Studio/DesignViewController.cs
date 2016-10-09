@@ -8,6 +8,7 @@ using AppKit;
 using TextOn.Design;
 using TextOn.Compiler;
 using TextOn.Lexing;
+using TextOn.Generation;
 
 namespace TextOn.Studio
 {
@@ -65,26 +66,25 @@ namespace TextOn.Studio
         public void UpdatePreview ()
         {
             if (!previewIsHidden) {
-                INode node;
-                if (centralViewController.Template == null) node = null;
-                else if (TreeController.SelectedObjects.Length != 1) node = null;
-                else {
+                List<PreviewPartialRouteChoiceNode> partialRoute = new List<PreviewPartialRouteChoiceNode> ();
+                if (TreeController.SelectedObjects.Length == 1) {
                     switch (((DesignModel)TreeController.SelectedObjects [0]).modelType) {
                     case DesignModelType.Variable:
                     case DesignModelType.VariableForm:
                     case DesignModelType.VariableRoot:
-                        node = null;
                         break;
                     default:
+                        var node = centralViewController.Template.Definition;
                         var indexPath = TreeController.SelectionIndexPaths [0];
                         var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
-                        node = centralViewController.Template.Definition;
                         foreach (var index in indices) {
                             if (node.Type == NodeType.Sequential)
                                 node = ((SequentialNode)node).Sequential [index];
-                            else if (node.Type == NodeType.Choice)
-                                node = ((ChoiceNode)node).Choices [index];
-                            else {
+                            else if (node.Type == NodeType.Choice) {
+                                var choiceNode = (ChoiceNode)node;
+                                partialRoute.Add (new PreviewPartialRouteChoiceNode (choiceNode, index));
+                                node = choiceNode.Choices [index];
+                            } else {
                                 node = null;
                                 break;
                             }
@@ -92,7 +92,7 @@ namespace TextOn.Studio
                         break;
                     }
                 }
-                centralViewController.GeneratePreview (node);
+                centralViewController.GeneratePreview (partialRoute.ToArray ());
             }
         }
 

@@ -87,6 +87,9 @@
     <Compile Include="Generation\AnnotatedOutput.cs" />
     <Compile Include="Design\OutputSplitter.cs" />
     <Compile Include="Generation\TextOnPreviewGenerator.cs" />
+    <Compile Include="Generation\PreviewRouteNode.cs" />
+    <Compile Include="Services\ChoiceFixingRandomChooser.cs" />
+    <Compile Include="Generation\PreviewPartialRouteChoiceNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

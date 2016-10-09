@@ -7,6 +7,7 @@ using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Interfaces;
 using TextOn.Parsing;
+using TextOn.Generation;
 
 namespace TextOn.Studio
 {
@@ -25,6 +26,7 @@ namespace TextOn.Studio
         public TextOnCompiler compiler { get; set; } = new TextOnCompiler (new DefaultLexerSyntax ());
         // I need the name of variables for auto completion.
         public CompiledTemplate CompiledTemplate { get; set; }
+        public PreviewRouteNode [] Route { get; set; } = new PreviewRouteNode [0];
         #endregion
 
         #region Text view
@@ -34,10 +36,11 @@ namespace TextOn.Studio
         }
         #endregion
 
-        public void SetValue (string value, CompiledTemplate compiledTemplate)
+        public void SetValue (string value, PreviewRouteNode[] route, CompiledTemplate compiledTemplate)
         {
             Value = value;
             CompiledTemplate = compiledTemplate;
+            Route = route;
             Highlight ();
         }
 
@@ -65,14 +68,45 @@ namespace TextOn.Studio
         }
         #endregion
 
+        //TODO Note I could do this much more efficiently, clean up if gets expensive.
+        //TODO This relies on the text I chose for <pr/> compiling as text - yikes.
         public TextOnParseTokens Highlight ()
         {
             if (CompiledTemplate == null) return TextOnParseTokens.Text;
             var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
             var elements = compiledText.Elements;
             var lastToken = TextOnParseTokens.Error;
+            var lines = TextStorage.Value.Split ('\n');
+            var lineNumber = 0;
+            var blueLastCharacterIndex = 0;
+            while (lineNumber < lines.Length && lineNumber < Route.Length && !Route [lineNumber].ReachedTarget) {
+                blueLastCharacterIndex += lines [lineNumber++].Length + 1; // EOL character I just knocked off?
+            }
             foreach (var element in elements) {
-                LayoutManager.SetTemporaryAttributes (new NSDictionary (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth)), new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1));
+                if (element.Range.EndCharacter < blueLastCharacterIndex) {
+                    var attributes = new NSMutableDictionary ();
+                    attributes.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
+                    attributes.Add (NSStringAttributeKey.BackgroundColor, NSColor.Cyan);
+                    var range = new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
+                    LayoutManager.SetTemporaryAttributes (attributes, range);
+                } else if (element.Range.StartCharacter >= blueLastCharacterIndex) {
+                    var attributes = new NSMutableDictionary ();
+                    attributes.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
+                    var range = new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
+                    LayoutManager.SetTemporaryAttributes (attributes, range);
+                } else {
+                    var attributes1 = new NSMutableDictionary ();
+                    attributes1.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
+                    attributes1.Add (NSStringAttributeKey.BackgroundColor, NSColor.Cyan);
+                    var range1 = new NSRange (element.Range.StartCharacter, blueLastCharacterIndex - element.Range.StartCharacter + 1);
+                    LayoutManager.SetTemporaryAttributes (attributes1, range1);
+ 
+                    var attributes2 = new NSMutableDictionary ();
+                    attributes2.Add (NSStringAttributeKey.ForegroundColor, GetColor (element.Token, element.ChoiceDepth));
+                    var range2 = new NSRange (blueLastCharacterIndex, element.Range.EndCharacter - blueLastCharacterIndex + 1);
+                    LayoutManager.SetTemporaryAttributes (attributes2, range2);
+                }
+
                 lastToken = element.Token;
             }
             return lastToken;

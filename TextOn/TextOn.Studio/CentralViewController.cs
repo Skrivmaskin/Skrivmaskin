@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Design;
+using TextOn.Generation;
 
 namespace TextOn.Studio
 {
@@ -124,6 +125,7 @@ namespace TextOn.Studio
             designViewController.SetControllerLinks (this);
             setVariablesViewController.SetControllerLinks (this);
             resultsViewController.SetControllerLinks (this);
+            designPreviewViewController.SetControllerLinks (this);
 
             Template = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
             CreateTree (null, Template);
@@ -147,9 +149,9 @@ namespace TextOn.Studio
             designViewController.CreateTree ();
         }
 
-        public void GeneratePreview (INode node)
+        public void GeneratePreview (PreviewPartialRouteChoiceNode[] partialRoute)
         {
-            designPreviewViewController.UpdatePreview (node, CompiledTemplate);
+            designPreviewViewController.UpdatePreview (partialRoute);
         }
     }
 }

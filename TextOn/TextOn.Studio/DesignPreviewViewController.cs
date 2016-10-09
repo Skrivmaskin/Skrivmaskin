@@ -18,30 +18,98 @@ namespace TextOn.Studio
 		{
 		}
 
-        private string NodeString (INode node)
+        private CentralViewController centralViewController = null;
+        internal void SetControllerLinks (CentralViewController cvc)
         {
-            switch (node.Type) {
+            centralViewController = cvc;
+        }
+
+        bool firstAppearance = true;
+        public override void ViewDidAppear ()
+        {
+            base.ViewDidAppear ();
+
+            if (firstAppearance) {
+                ChoiceFixSlider.MaxValue = 1;
+                ChoiceFixSlider.TickMarksCount = 2;
+                ChoiceFixSlider.IntValue = 1;
+                ChoiceFixSlider.Enabled = false;
+                firstAppearance = false;
+            }
+        }
+
+        private string NodeString (PreviewRouteNode node)
+        {
+            switch (node.Node.Type) {
             case NodeType.Text:
-                return ((TextNode)node).Text;
+                return ((TextNode)node.Node).Text;
             case NodeType.ParagraphBreak:
                 return "<pr/>";
             default:
-                throw new ApplicationException ("Unexpected node type " + node.Type);
+                throw new ApplicationException ("Unexpected node type " + node.Node.Type);
             }
         }
 
-        public void UpdatePreview (INode node, CompiledTemplate compiledTemplate)
+        public void UpdatePreview (PreviewPartialRouteChoiceNode [] partialRoute)
         {
-            if (node == null) {
-                nodes = new INode [0];
-                TextView.SetValue ("", null);
+            var rootNode = centralViewController.Template.Definition;
+            var compiledTemplate = centralViewController.CompiledTemplate;
+            var holdSliderStill = partialRoute.Length == 0;
+            if (rootNode == null) {
+                nodes = new PreviewRouteNode [0];
+                this.partialRoute = new PreviewPartialRouteChoiceNode [0];
+                TextView.SetValue ("", nodes, null);
+                ChoiceFixSlider.MaxValue = 1;
+                ChoiceFixSlider.TickMarksCount = 2;
+                ChoiceFixSlider.IntValue = 1;
+                ChoiceFixSlider.Enabled = false;
             } else {
-                nodes = generator.Generate (node);
-                TextView.SetValue (string.Join ("\n", nodes.Select (NodeString)), compiledTemplate);
+                if (partialRoute.Length == 0) {
+                    if (nodes.Length != 0) {
+                        // fix the choices at the slider level
+                        var numChoicesToKeep = ChoiceFixSlider.MaxValue - ChoiceFixSlider.IntValue;
+                        var fixedChoices = nodes.SkipWhile ((p) => p.ChoicesMadeSoFar.Length < numChoicesToKeep).First ().ChoicesMadeSoFar;
+                        nodes = generator.GenerateWithFixedChoices (rootNode, fixedChoices).ToArray ();
+                    }
+                } else
+                    nodes = generator.GenerateWithPartialRoute (rootNode, partialRoute).ToArray ();
+                TextView.SetValue (string.Join ("\n", nodes.Select (NodeString)), nodes, compiledTemplate);
+                if ((nodes.Length == 0) || (nodes [nodes.Length - 1].ChoicesMadeSoFar.Length == 0)) {
+                    this.partialRoute = new PreviewPartialRouteChoiceNode [0];
+                    ChoiceFixSlider.MaxValue = 1;
+                    ChoiceFixSlider.TickMarksCount = 2;
+                    ChoiceFixSlider.IntValue = 1;
+                    ChoiceFixSlider.Enabled = false;
+                } else {
+                    this.partialRoute = partialRoute;
+                    var finalChoices = nodes [nodes.Length - 1].ChoicesMadeSoFar;
+                    var maxNumChoices = finalChoices.Length;
+                    ChoiceFixSlider.MaxValue = maxNumChoices;
+                    ChoiceFixSlider.TickMarksCount = maxNumChoices + 1;
+                    var numChoicesMadeToTargetNode = nodes.First ((p) => p.ReachedTarget).ChoicesMadeSoFar.Length;
+                    ChoiceFixSlider.IntValue = maxNumChoices - numChoicesMadeToTargetNode; // set to fix the choices
+                    ChoiceFixSlider.Enabled = true;
+                }
             }
         }
 
-        private IEnumerable<INode> nodes;
+        partial void Slider_Moved (NSObject sender)
+        {
+            // this signifies that the fixed choices setup will be used instead.
+            if (partialRoute.Length > 0)
+                partialRoute = new PreviewPartialRouteChoiceNode [0];
+        }
+
+        partial void Respin_Clicked (NSObject sender)
+        {
+            if (centralViewController != null) {
+                UpdatePreview (partialRoute);
+            }
+        }
+
+        private PreviewRouteNode [] nodes = new PreviewRouteNode [0];
+
+        private PreviewPartialRouteChoiceNode [] partialRoute = new PreviewPartialRouteChoiceNode [0];
 
         private readonly TextOnPreviewGenerator generator = new TextOnPreviewGenerator (new RandomChooser ());
 	}

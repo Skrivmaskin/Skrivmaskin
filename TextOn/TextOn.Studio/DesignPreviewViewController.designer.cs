@@ -13,10 +13,24 @@ namespace TextOn.Studio
 	partial class DesignPreviewViewController
 	{
 		[Outlet]
+		AppKit.NSSlider ChoiceFixSlider { get; set; }
+
+		[Outlet]
 		TextOn.Studio.DesignPreviewTextView TextView { get; set; }
+
+		[Action ("Respin_Clicked:")]
+		partial void Respin_Clicked (Foundation.NSObject sender);
+
+		[Action ("Slider_Moved:")]
+		partial void Slider_Moved (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (ChoiceFixSlider != null) {
+				ChoiceFixSlider.Dispose ();
+				ChoiceFixSlider = null;
+			}
+
 			if (TextView != null) {
 				TextView.Dispose ();
 				TextView = null;
