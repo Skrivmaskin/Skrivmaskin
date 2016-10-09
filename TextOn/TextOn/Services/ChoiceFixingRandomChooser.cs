@@ -87,11 +87,11 @@ namespace TextOn.Services
             int choice;
             if (fixedChoices.Count > 0) {
                 choice = fixedChoices.Dequeue ();
-                reachedTarget = fixedChoices.Count == 0;
+                reachedTarget = false;
                 if (choice >= numOptions) throw new ApplicationException ("Misuse of ChoiceFixingRandomChooser - the tree has changed, this should be reset");
             } else if (partialRoute.Count > 0 && Object.ReferenceEquals (partialRoute.Peek ().ChoiceNode, node)) {
                 choice = partialRoute.Dequeue ().Decision;
-                reachedTarget = partialRoute.Count == 0;
+                reachedTarget = false;
                 if (choice >= numOptions) throw new ApplicationException ("Misuse of ChoiceFixingRandomChooser - the tree has changed, this should be reset");
             } else {
                 choice = wrappedRandomChooser.Choose (numOptions);

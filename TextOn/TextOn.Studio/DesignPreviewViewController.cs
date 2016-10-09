@@ -86,7 +86,8 @@ namespace TextOn.Studio
                     var maxNumChoices = finalChoices.Length;
                     ChoiceFixSlider.MaxValue = maxNumChoices;
                     ChoiceFixSlider.TickMarksCount = maxNumChoices + 1;
-                    var numChoicesMadeToTargetNode = nodes.First ((p) => p.ReachedTarget).ChoicesMadeSoFar.Length;
+                    var lastNonReached = nodes.LastOrDefault ((p) => !p.ReachedTarget);
+                    var numChoicesMadeToTargetNode = (lastNonReached == null) ? 0 : lastNonReached.ChoicesMadeSoFar.Length;
                     ChoiceFixSlider.IntValue = maxNumChoices - numChoicesMadeToTargetNode; // set to fix the choices
                     ChoiceFixSlider.Enabled = true;
                 }
