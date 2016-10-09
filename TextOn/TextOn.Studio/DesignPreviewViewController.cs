@@ -100,12 +100,26 @@ namespace TextOn.Studio
             // this signifies that the fixed choices setup will be used instead.
             if (partialRoute.Length > 0)
                 partialRoute = new PreviewPartialRouteChoiceNode [0];
+
+            // update the highlighting
+            TextView.DoHighlightBackground = DoHighlightBackground ();
+            TextView.Highlight ();
         }
 
         partial void Respin_Clicked (NSObject sender)
         {
             if (centralViewController != null) {
                 UpdatePreview (partialRoute);
+            }
+        }
+
+        private Func<PreviewRouteNode, bool> DoHighlightBackground ()
+        {
+            if (partialRoute.Length == 0) {
+                var numChoicesToKeep = ChoiceFixSlider.MaxValue - ChoiceFixSlider.IntValue;
+                return ((n) => n.ChoicesMadeSoFar.Length < numChoicesToKeep);
+            } else {
+                return ((n) => !n.ReachedTarget);
             }
         }
 

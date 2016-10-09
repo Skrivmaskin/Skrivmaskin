@@ -36,6 +36,8 @@ namespace TextOn.Studio
         }
         #endregion
 
+        public Func<PreviewRouteNode, bool> DoHighlightBackground { get; set; } = (n) => !n.ReachedTarget;
+
         public void SetValue (string value, PreviewRouteNode[] route, CompiledTemplate compiledTemplate)
         {
             Value = value;
@@ -84,7 +86,7 @@ namespace TextOn.Studio
             var lines = TextStorage.Value.Split ('\n');
             var lineNumber = 0;
             var blueLastCharacterIndex = 0;
-            while (lineNumber < lines.Length && lineNumber < Route.Length && !Route [lineNumber].ReachedTarget) {
+            while (lineNumber < lines.Length && lineNumber < Route.Length && DoHighlightBackground (Route [lineNumber])) {
                 blueLastCharacterIndex += lines [lineNumber++].Length + 1; // EOL character I just knocked off?
             }
             foreach (var element in elements) {
