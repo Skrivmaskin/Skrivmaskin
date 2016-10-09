@@ -1177,12 +1177,12 @@ Gw
                                 </connections>
                             </slider>
                             <button toolTip="Respin the remaining random choices in the preview." verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="ugJ-Hr-mNI">
-                                <rect key="frame" x="22" y="18" width="13" height="25"/>
+                                <rect key="frame" x="20" y="19" width="13" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="13" id="Cty-7s-WrJ"/>
                                     <constraint firstAttribute="height" constant="22" id="mGY-ay-snS"/>
                                 </constraints>
-                                <buttonCell key="cell" type="roundTextured" bezelStyle="texturedRounded" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sDE-Tl-cjj">
+                                <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="sDE-Tl-cjj">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>
@@ -1192,17 +1192,19 @@ Gw
                             </button>
                         </subviews>
                         <constraints>
+                            <constraint firstItem="ugJ-Hr-mNI" firstAttribute="top" secondItem="t57-xj-Eu6" secondAttribute="bottom" constant="8" id="13m-X8-STZ"/>
                             <constraint firstItem="ugJ-Hr-mNI" firstAttribute="top" secondItem="t57-xj-Eu6" secondAttribute="bottom" constant="8" id="1Kd-jv-gSm"/>
                             <constraint firstAttribute="bottom" secondItem="ugJ-Hr-mNI" secondAttribute="bottom" constant="20" id="4Zd-3Y-ux9"/>
                             <constraint firstItem="a4l-Gl-v0p" firstAttribute="top" secondItem="seW-bG-hJv" secondAttribute="top" constant="20" id="56v-2I-0zN"/>
                             <constraint firstItem="t57-xj-Eu6" firstAttribute="top" secondItem="seW-bG-hJv" secondAttribute="top" constant="20" id="6D3-ve-hxm"/>
-                            <constraint firstItem="ugJ-Hr-mNI" firstAttribute="leading" secondItem="seW-bG-hJv" secondAttribute="leading" constant="22" id="B0k-8g-WYh"/>
+                            <constraint firstItem="a4l-Gl-v0p" firstAttribute="leading" secondItem="ugJ-Hr-mNI" secondAttribute="trailing" constant="12" id="Dbl-iL-qbb"/>
                             <constraint firstAttribute="bottom" secondItem="a4l-Gl-v0p" secondAttribute="bottom" constant="20" id="IzN-ci-Bjn"/>
                             <constraint firstItem="a4l-Gl-v0p" firstAttribute="leading" secondItem="t57-xj-Eu6" secondAttribute="trailing" constant="1" id="J9L-FC-Mmt"/>
-                            <constraint firstItem="a4l-Gl-v0p" firstAttribute="leading" secondItem="ugJ-Hr-mNI" secondAttribute="trailing" constant="10" id="PcC-ga-R8C"/>
                             <constraint firstItem="ugJ-Hr-mNI" firstAttribute="top" secondItem="t57-xj-Eu6" secondAttribute="bottom" constant="8" id="Ws5-W3-LsF"/>
                             <constraint firstItem="a4l-Gl-v0p" firstAttribute="leading" secondItem="t57-xj-Eu6" secondAttribute="trailing" constant="1" id="bvB-f5-gDV"/>
                             <constraint firstItem="t57-xj-Eu6" firstAttribute="leading" secondItem="seW-bG-hJv" secondAttribute="leading" constant="20" id="due-Yb-hrF"/>
+                            <constraint firstItem="ugJ-Hr-mNI" firstAttribute="leading" secondItem="seW-bG-hJv" secondAttribute="leading" constant="20" id="hfh-g8-ppD"/>
+                            <constraint firstAttribute="bottom" secondItem="ugJ-Hr-mNI" secondAttribute="bottom" constant="20" id="qgO-sm-8fp"/>
                             <constraint firstAttribute="trailing" secondItem="a4l-Gl-v0p" secondAttribute="trailing" constant="20" id="wbh-KK-Rs8"/>
                         </constraints>
                     </view>
