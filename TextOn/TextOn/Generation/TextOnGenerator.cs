@@ -120,7 +120,7 @@ namespace TextOn.Generation
         }
 
         /// <summary>
-        /// Generate the text for a given set of variable substitutions, using the same random seed as before to get the same variable substitutions.
+        /// Generate the text for a given set of variable substitutions, using the same random seed as before to get the same choices.
         /// </summary>
         /// <param name="variableSubstituter">Variable substituter.</param>
         public AnnotatedOutput Regenerate (CompiledTemplate project, IVariableSubstituter variableSubstituter)

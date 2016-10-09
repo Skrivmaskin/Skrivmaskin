@@ -54,8 +54,8 @@
     <Compile Include="TestGeneratorBase.cs" />
     <Compile Include="TestScenario.cs" />
     <Compile Include="TestCompiler.cs" />
-    <Compile Include="TestIssueDiagnosis.cs" />
     <Compile Include="TestOutputSplitter.cs" />
+    <Compile Include="TemplateHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextOn\TextOn.csproj">

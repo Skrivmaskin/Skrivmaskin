@@ -131,8 +131,14 @@
       <DependentUpon>TextOnWindowController.cs</DependentUpon>
     </Compile>
     <Compile Include="DesignOutlineView.cs" />
-    <Compile Include="DesignOutlineViewDataSource.cs" />
-    <Compile Include="DesignOutlineViewDelegate.cs" />
+    <Compile Include="DesignPreviewViewController.cs" />
+    <Compile Include="DesignPreviewViewController.designer.cs">
+      <DependentUpon>DesignPreviewViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DesignPreviewTextView.cs" />
+    <Compile Include="DesignPreviewTextView.designer.cs">
+      <DependentUpon>DesignPreviewTextView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

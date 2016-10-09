@@ -100,6 +100,7 @@ namespace TextOn.Studio
         #endregion
 
         DesignViewController designViewController = null;
+        DesignPreviewViewController designPreviewViewController = null;
         SetVariablesViewController setVariablesViewController = null;
         ResultsViewController resultsViewController = null;
         private bool awake = false;
@@ -108,15 +109,16 @@ namespace TextOn.Studio
             base.AwakeFromNib ();
 
             foreach (var child in ChildViewControllers) {
-                if (child is DesignViewController)
-                    designViewController = (DesignViewController)child;
-                else {
-                    foreach (var subchild in child.ChildViewControllers) {
-                        if (subchild is SetVariablesViewController)
-                            setVariablesViewController = (SetVariablesViewController)subchild;
-                        else if (subchild is ResultsViewController)
-                            resultsViewController = (ResultsViewController)subchild;
-                    }
+                foreach (var subchild in child.ChildViewControllers) {
+                    if (subchild is DesignViewController) {
+                        designViewController = (DesignViewController)subchild;
+                        designViewController.SplitViewController = child as NSSplitViewController;
+                    } else if (subchild is DesignPreviewViewController)
+                        designPreviewViewController = (DesignPreviewViewController)subchild;
+                    else if (subchild is SetVariablesViewController)
+                        setVariablesViewController = (SetVariablesViewController)subchild;
+                    else if (subchild is ResultsViewController)
+                        resultsViewController = (ResultsViewController)subchild;
                 }
             }
             designViewController.SetControllerLinks (this);
@@ -143,6 +145,11 @@ namespace TextOn.Studio
             Template = template;
             FilePath = path;
             designViewController.CreateTree ();
+        }
+
+        public void GeneratePreview (INode node)
+        {
+            designPreviewViewController.UpdatePreview (node);
         }
     }
 }

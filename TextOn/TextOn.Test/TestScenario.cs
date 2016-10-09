@@ -19,7 +19,6 @@ namespace TextOn.Test
     [TestFixture]
     public class TestScenario
     {
-        private static string namespaceName = "TextOn.Test";
         private TextOnCompiler compiler;
         private TextOnGenerator generator;
         private Mock<IVariableSubstituter> mockVariableSubstituter;
@@ -38,34 +37,6 @@ namespace TextOn.Test
             compiler = null;
             mockVariableSubstituter = null;
             generator = null;
-        }
-
-        internal class TemplateHost : IDisposable
-        {
-            private readonly Stream stream;
-            private readonly StreamReader streamReader;
-
-            public TemplateHost ([CallerMemberName] string testName = "Don't know")
-            {
-                var assembly = Assembly.GetExecutingAssembly ();
-                var resourceName = namespaceName + ".Scenario." + (testName.Replace ("Test", "").Split ('_') [0]) + ".json";
-                var serializer = new JsonSerializer ();
-                serializer.Formatting = Formatting.Indented;
-                foreach (var converter in TemplateWriter.JsonConverters) {
-                    serializer.Converters.Add (converter);
-                }
-                stream = assembly.GetManifestResourceStream (resourceName);
-                streamReader = new StreamReader (stream);
-                Object = (TextOnTemplate)serializer.Deserialize (streamReader, typeof (TextOnTemplate));
-            }
-
-            public TextOnTemplate Object { get; private set; }
-
-            public void Dispose ()
-            {
-                streamReader.Dispose ();
-                stream.Dispose ();
-            }
         }
 
         [Test]

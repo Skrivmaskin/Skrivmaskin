@@ -10,8 +10,6 @@ namespace TextOn.Studio
     {
         public DesignOutlineView (IntPtr handle) : base (handle)
         {
-            DataSource = new DesignOutlineViewDataSource ();
-            Delegate = new DesignOutlineViewDelegate ();
         }
 
         public override void ViewDidMoveToSuperview ()

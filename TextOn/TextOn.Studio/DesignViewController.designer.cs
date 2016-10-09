@@ -21,6 +21,9 @@ namespace TextOn.Studio
 		[Action ("Add_ParagraphBreak:")]
 		partial void Add_ParagraphBreak (Foundation.NSObject sender);
 
+		[Action ("HideShowPreview_Clicked:")]
+		partial void HideShowPreview_Clicked (Foundation.NSObject sender);
+
 		[Action ("MoveDown_Clicked:")]
 		partial void MoveDown_Clicked (Foundation.NSObject sender);
 
@@ -29,14 +32,14 @@ namespace TextOn.Studio
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (TreeController != null) {
-				TreeController.Dispose ();
-				TreeController = null;
-			}
-
 			if (OutlineView != null) {
 				OutlineView.Dispose ();
 				OutlineView = null;
+			}
+
+			if (TreeController != null) {
+				TreeController.Dispose ();
+				TreeController = null;
 			}
 		}
 	}

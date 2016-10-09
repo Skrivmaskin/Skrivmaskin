@@ -86,6 +86,7 @@
     <Compile Include="Generation\AnnotatedText.cs" />
     <Compile Include="Generation\AnnotatedOutput.cs" />
     <Compile Include="Design\OutputSplitter.cs" />
+    <Compile Include="Generation\TextOnPreviewGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -104,7 +105,7 @@
     <MonoDevelop>
       <Properties>
         <Policies>
-          <DotNetNamingPolicy DirectoryNamespaceAssociation="Hierarchical" ResourceNamePolicy="FileFormatDefault" />
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileFormatDefault" />
         </Policies>
       </Properties>
     </MonoDevelop>
