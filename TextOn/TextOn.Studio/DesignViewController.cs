@@ -30,28 +30,32 @@ namespace TextOn.Studio
         }
 
         IDisposable disp;
+        bool firstTimeAppearing = true;
 
         public override void ViewDidAppear ()
         {
             base.ViewDidAppear ();
 
-            OutlineView.TreeController = TreeController;
+            if (firstTimeAppearing) {
+                firstTimeAppearing = false;
+                OutlineView.TreeController = TreeController;
 
-            var windowController = NSApplication.SharedApplication.KeyWindow.WindowController as TextOnWindowController;
-            if (!centralViewController.inGenerateOnlyMode && windowController.IsInNew) {
-                windowController.IsInNew = false;
-                PerformSegue (DesignViewDialogSegues.CreateTemplate, this);
-            }
+                var windowController = NSApplication.SharedApplication.KeyWindow.WindowController as TextOnWindowController;
+                if (!centralViewController.inGenerateOnlyMode && windowController.IsInNew) {
+                    windowController.IsInNew = false;
+                    PerformSegue (DesignViewDialogSegues.CreateTemplate, this);
+                }
 
-            previewSplitViewItem = SplitViewController.SplitViewItems [1];
+                previewSplitViewItem = SplitViewController.SplitViewItems [1];
 
-            disp = TreeController.AddObserver ("selectionIndexPaths", NSKeyValueObservingOptions.New, SelectionChanged);
-                
+                disp = TreeController.AddObserver ("selectionIndexPaths", NSKeyValueObservingOptions.New, SelectionChanged);
+            }       
         }
 
+        private bool fiddlingWithSelection = false;
         public void SelectionChanged (NSObservedChange change)
         {
-            if (!previewIsHidden) {
+            if (!fiddlingWithSelection) {
                 UpdatePreview ();
             }
             disp.Dispose ();
@@ -60,34 +64,36 @@ namespace TextOn.Studio
 
         public void UpdatePreview ()
         {
-            INode node;
-            if (centralViewController.Template == null) node = null;
-            else if (TreeController.SelectedObjects.Length != 1) node = null;
-            else {
-                switch (((DesignModel)TreeController.SelectedObjects [0]).modelType) {
-                case DesignModelType.Variable:
-                case DesignModelType.VariableForm:
-                case DesignModelType.VariableRoot:
-                    node = null;
-                    break;
-                default:
-                    var indexPath = TreeController.SelectionIndexPaths [0];
-                    var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
-                    node = centralViewController.Template.Definition;
-                    foreach (var index in indices) {
-                        if (node.Type == NodeType.Sequential)
-                            node = ((SequentialNode)node).Sequential [index];
-                        else if (node.Type == NodeType.Choice)
-                            node = ((ChoiceNode)node).Choices [index];
-                        else {
-                            node = null;
-                            break;
+            if (!previewIsHidden) {
+                INode node;
+                if (centralViewController.Template == null) node = null;
+                else if (TreeController.SelectedObjects.Length != 1) node = null;
+                else {
+                    switch (((DesignModel)TreeController.SelectedObjects [0]).modelType) {
+                    case DesignModelType.Variable:
+                    case DesignModelType.VariableForm:
+                    case DesignModelType.VariableRoot:
+                        node = null;
+                        break;
+                    default:
+                        var indexPath = TreeController.SelectionIndexPaths [0];
+                        var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
+                        node = centralViewController.Template.Definition;
+                        foreach (var index in indices) {
+                            if (node.Type == NodeType.Sequential)
+                                node = ((SequentialNode)node).Sequential [index];
+                            else if (node.Type == NodeType.Choice)
+                                node = ((ChoiceNode)node).Choices [index];
+                            else {
+                                node = null;
+                                break;
+                            }
                         }
+                        break;
                     }
-                    break;
                 }
+                centralViewController.GeneratePreview (node);
             }
-            centralViewController.GeneratePreview (node);
         }
 
         #region Edits from the tree to a TextOnTemplate
@@ -135,6 +141,84 @@ namespace TextOn.Studio
                     break;
                 default:
                     break;
+                }
+                return;
+            }
+
+            if (segue.DestinationController is MakeChoiceViewController) {
+                var dlg = segue.DestinationController as MakeChoiceViewController;
+                dlg.Presentor = this;
+                dlg.CompiledTemplate = centralViewController.CompiledTemplate;
+                var selected = (DesignModel)TreeController.SelectedObjects [0];
+                var isChoice = segue.Identifier == DesignViewDialogSegues.MoveIntoNewChoice;
+                dlg.isChoice = isChoice;
+                dlg.TitleText = isChoice ? "Move Into New Choice" : "Move Into New Sequential";
+                if (selected.modelType == DesignModelType.Text) {
+                    dlg.isTextNodeChoice = true;
+                    dlg.DescriptionText = "Press the + button to add more text to the new " + (isChoice ? "choice" : "sequential") + " node.";
+                    dlg.SampleText = selected.details;
+                    dlg.DialogAccepted += (s, e) => {
+                        fiddlingWithSelection = true;
+                        var selectionIndexPath = TreeController.SelectionIndexPaths [0];
+                        // Find parent, remove at index, add a new choice/sequential, add all the text nodes.
+                        var lastIndex = selectionIndexPath.IndexAtPosition (selectionIndexPath.Length - 1);
+                        var parentIndexPath = selectionIndexPath.IndexPathByRemovingLastIndex ();
+                        TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { selectionIndexPath });
+                        TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
+                        var parentNode = (DesignModel)TreeController.SelectedObjects [0];
+                        parentNode.RemoveDesign ((nint)lastIndex);
+                        var newChildModel = new DesignModel ((isChoice ? DesignModelType.Choice : DesignModelType.Sequential), "New " + (isChoice ? "Choice" : "Sequential"), "", true, parentNode.isNodeActive);
+                        parentNode.InsertDesign (newChildModel, (nint)lastIndex);
+                        foreach (var text in dlg.TextItems) {
+                            TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
+                            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex) });
+                            AddChildModel (DesignModelType.Text, "", text, true);
+                        }
+                        TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
+                        TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex).IndexPathByAddingIndex (0) });
+                        DocumentEditedAction ();
+                        fiddlingWithSelection = false;
+                        UpdatePreview ();
+                    };
+                } else {
+                    dlg.isTextNodeChoice = false;
+                    dlg.DescriptionText = "Are you sure? This will encapsulate the current node in a new " + (isChoice ? "choice" : "sequential") + " node.";
+                    dlg.SampleText = "";
+                    dlg.DialogAccepted += (s, e) => {
+                        fiddlingWithSelection = true;
+                        var selectionIndexPath = TreeController.SelectionIndexPaths [0];
+                        if (selectionIndexPath.Length == 1) {
+                            // Find parent, remove at index, add a new choice/sequential, re-add the old selected.
+                            var childModel = (DesignModel)TreeController.SelectedObjects [0];
+                            TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
+                            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { NSIndexPath.Create (new nint [] { 0 }) });
+                            RemoveDesign (1);
+                            var newRootModel = new DesignModel (true, (isChoice ? DesignModelType.Choice : DesignModelType.Sequential), "New " + (isChoice ? "Choice" : "Sequential"), "", true, true);
+                            AddDesign (newRootModel);
+                            newRootModel.AddDesign (childModel);
+                            TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
+                            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { NSIndexPath.Create (new nint [] { 1, 0 }) });
+                        } else {
+                            // Find parent, remove at index, add a new choice/sequential, re-add the old selected.
+                            var childModel = (DesignModel)TreeController.SelectedObjects [0];
+                            var lastIndex = selectionIndexPath.IndexAtPosition (selectionIndexPath.Length - 1);
+                            var parentIndexPath = selectionIndexPath.IndexPathByRemovingLastIndex ();
+                            TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { selectionIndexPath });
+                            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
+                            var parentNode = (DesignModel)TreeController.SelectedObjects [0];
+                            parentNode.RemoveDesign ((nint)lastIndex);
+                            var newChildModel = new DesignModel ((isChoice ? DesignModelType.Choice : DesignModelType.Sequential), "New " + (isChoice ? "Choice" : "Sequential"), "", true, parentNode.isNodeActive);
+                            parentNode.InsertDesign (newChildModel, (nint)lastIndex);
+                            TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
+                            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex) });
+                            AddChild (childModel);
+                            TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
+                            TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex).IndexPathByAddingIndex (0) });
+                        }
+                        DocumentEditedAction ();
+                        fiddlingWithSelection = false;
+                        UpdatePreview ();
+                    };
                 }
                 return;
             }
@@ -262,6 +346,7 @@ namespace TextOn.Studio
 
         private void AddChildModel (DesignModelType modelType, string name, string details, bool isActive)
         {
+            fiddlingWithSelection = true;
             var selected = ((DesignModel)TreeController.SelectedObjects [0]);
             var model = new DesignModel (modelType, name, details, isActive, selected.isNodeActive);
             selected.AddDesign (model);
@@ -270,6 +355,8 @@ namespace TextOn.Studio
             TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
             TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { newIndexPath });
             DocumentEditedAction ();
+            fiddlingWithSelection = false;
+            UpdatePreview ();
         }
 
         private void AddChild (DesignModel model)
@@ -283,6 +370,7 @@ namespace TextOn.Studio
         #region Move Up/Down
         partial void MoveUp_Clicked (NSObject sender)
         {
+            fiddlingWithSelection = true;
             // Find parent, remove at index, add at (index - 1), select.
             var selectionIndexPath = TreeController.SelectionIndexPaths [0];
             var childModel = (DesignModel)TreeController.SelectedObjects [0];
@@ -296,10 +384,13 @@ namespace TextOn.Studio
             TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
             TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex - 1) });
             DocumentEditedAction ();
+            fiddlingWithSelection = false;
+            UpdatePreview ();
         }
 
         partial void MoveDown_Clicked (NSObject sender)
         {
+            fiddlingWithSelection = true;
             // Find parent, remove at index, add at (index + 1), select.
             var selectionIndexPath = TreeController.SelectionIndexPaths [0];
             var childModel = (DesignModel)TreeController.SelectedObjects [0];
@@ -313,6 +404,8 @@ namespace TextOn.Studio
             TreeController.RemoveSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath });
             TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { parentIndexPath.IndexPathByAddingIndex (lastIndex + 1) });
             DocumentEditedAction ();
+            fiddlingWithSelection = false;
+            UpdatePreview ();
         }
         #endregion
 

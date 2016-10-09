@@ -139,6 +139,11 @@
     <Compile Include="DesignPreviewTextView.designer.cs">
       <DependentUpon>DesignPreviewTextView.cs</DependentUpon>
     </Compile>
+    <Compile Include="DesignPreviewTextViewDelegate.cs" />
+    <Compile Include="MakeChoiceViewController.cs" />
+    <Compile Include="MakeChoiceViewController.designer.cs">
+      <DependentUpon>MakeChoiceViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

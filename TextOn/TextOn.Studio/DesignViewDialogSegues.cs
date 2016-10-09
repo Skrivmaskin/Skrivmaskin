@@ -15,5 +15,9 @@ namespace TextOn.Studio
         // To Create Template
         public const string CreateTemplate = "CreateTemplate";
         public const string AddFromSample = "AddFromSample";
+
+        // To Make Choice
+        public const string MoveIntoNewChoice = "MoveIntoNewChoice";
+        public const string MoveIntoNewSequential = "MoveIntoNewSequential";
     }
 }

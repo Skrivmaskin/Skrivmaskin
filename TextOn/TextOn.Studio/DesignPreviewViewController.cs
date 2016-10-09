@@ -8,6 +8,7 @@ using TextOn.Design;
 using TextOn.Generation;
 using TextOn.Services;
 using System.Collections.Generic;
+using TextOn.Compiler;
 
 namespace TextOn.Studio
 {
@@ -29,14 +30,14 @@ namespace TextOn.Studio
             }
         }
 
-        public void UpdatePreview (INode node)
+        public void UpdatePreview (INode node, CompiledTemplate compiledTemplate)
         {
             if (node == null) {
                 nodes = new INode [0];
-                TextView.Value = "";
+                TextView.SetValue ("", null);
             } else {
                 nodes = generator.Generate (node);
-                TextView.Value = string.Join ("\n", nodes.Select (NodeString));
+                TextView.SetValue (string.Join ("\n", nodes.Select (NodeString)), compiledTemplate);
             }
         }
 

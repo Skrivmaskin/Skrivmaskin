@@ -363,6 +363,22 @@ namespace TextOn.Studio
             }
         }
 
+        public bool enableEncapsulate {
+            [Export (nameof (enableEncapsulate))]
+            get {
+                switch (modelType) {
+                case DesignModelType.Variable:
+                case DesignModelType.VariableForm:
+                case DesignModelType.VariableRoot:
+                    return false;
+                case DesignModelType.Text:
+                    return (!isRoot);
+                default:
+                    return true;
+                }
+            }
+        }
+
         [Export ("setDesignModelArray:")]
         public void SetDesigns (NSMutableArray array)
         {

@@ -149,7 +149,7 @@ namespace TextOn.Studio
 
         public void GeneratePreview (INode node)
         {
-            designPreviewViewController.UpdatePreview (node);
+            designPreviewViewController.UpdatePreview (node, CompiledTemplate);
         }
     }
 }
