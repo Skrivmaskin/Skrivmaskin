@@ -91,6 +91,11 @@
     <Compile Include="Services\ChoiceFixingRandomChooser.cs" />
     <Compile Include="Generation\PreviewPartialRouteChoiceNode.cs" />
     <Compile Include="Generation\PreviewRouteState.cs" />
+    <Compile Include="Nouns\Noun.cs" />
+    <Compile Include="Nouns\NounDependency.cs" />
+    <Compile Include="Nouns\NounManager.cs" />
+    <Compile Include="Nouns\NounSuggestion.cs" />
+    <Compile Include="Nouns\NounSuggestionDependency.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
