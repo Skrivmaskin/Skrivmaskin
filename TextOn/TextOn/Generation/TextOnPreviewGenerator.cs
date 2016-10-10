@@ -38,9 +38,13 @@ namespace TextOn.Generation
                 if (Object.ReferenceEquals (node, targetNode)) {
                     yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, PreviewRouteState.AtTarget);
                     state = PreviewRouteState.AfterTarget;
-                }
-                else
+                } else {
+                    if ((numChoicesRemaining != null) && (numChoicesRemaining == 0)) {
+                        numChoicesRemaining = null;
+                        state = PreviewRouteState.AfterTarget;
+                    }
                     yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, state);
+                }
                 break;
             case NodeType.Sequential:
                 if (Object.ReferenceEquals (node, targetNode)) {
@@ -61,6 +65,7 @@ namespace TextOn.Generation
                 var choiceNode = (node as ChoiceNode);
                 if (choiceNode.Choices.Count > 0) {
                     var n = randomChooser.Choose (choiceNode, choiceNode.Choices.Count);
+                    if (numChoicesRemaining != null) numChoicesRemaining = (numChoicesRemaining - 1);
                     var choice = choiceNode.Choices [n];
                     var li = GenerateText (choice, targetNode);
                     foreach (var text in li) {
@@ -73,6 +78,8 @@ namespace TextOn.Generation
             }
         }
 
+        int? numChoicesRemaining = null;
+
         /// <summary>
         /// Generate a route through the design tree, given the specified fixed choices.
         /// </summary>
@@ -80,6 +87,7 @@ namespace TextOn.Generation
         public IEnumerable<PreviewRouteNode> GenerateWithFixedChoices (INode rootNode, int [] choices)
         {
             state = PreviewRouteState.BeforeTarget;
+            numChoicesRemaining = choices.Length;
             randomChooser.BeginWithFixedChoices (choices);
             var result = GenerateText (rootNode, null).ToList ();
             randomChooser.End ();
@@ -93,6 +101,7 @@ namespace TextOn.Generation
         public IEnumerable<PreviewRouteNode> GenerateWithPartialRoute (INode rootNode, PreviewPartialRouteChoiceNode [] partialRoute)
         {
             state = PreviewRouteState.BeforeTarget;
+            numChoicesRemaining = null;
             randomChooser.BeginWithPartialRoute (partialRoute.Take (partialRoute.Length - 1).ToArray ());
             var result = GenerateText (rootNode, partialRoute [partialRoute.Length - 1].TargetNode).ToList ();
             randomChooser.End ();
