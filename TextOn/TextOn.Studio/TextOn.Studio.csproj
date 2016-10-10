@@ -114,9 +114,6 @@
     </Compile>
     <Compile Include="TextOnTextView.cs" />
     <Compile Include="TextOnTextViewDelegate.cs" />
-    <Compile Include="UserSettingsContext.cs" />
-    <Compile Include="UserSettings.cs" />
-    <Compile Include="TextOnMode.cs" />
     <Compile Include="AppDelegate.designer.cs">
       <DependentUpon>AppDelegate.cs</DependentUpon>
     </Compile>

@@ -55,7 +55,7 @@ namespace TextOn.Studio
                 if (windowController == null)
                     throw new ApplicationException ("windowController is nulll");
 
-                if (!centralViewController.inGenerateOnlyMode && windowController.IsInNew) {
+                if (windowController.IsInNew) {
                     windowController.IsInNew = false;
                     PerformSegue (DesignViewDialogSegues.CreateTemplate, this);
                 }

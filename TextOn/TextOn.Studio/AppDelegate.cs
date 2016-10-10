@@ -10,20 +10,19 @@ namespace TextOn.Studio
     {
         public AppDelegate ()
         {
-            UserSettingsContext.RegisterDefaults ();
+//            UserSettingsContext.RegisterDefaults ();
         }
 
         public override void DidFinishLaunching (NSNotification notification)
         {
             // Insert code here to initialize your application
-            UserSettingsContext.LoadDefaults ();
-            Mode = UserSettingsContext.Settings.DefaultMode;
+//            UserSettingsContext.LoadDefaults ();
         }
 
         public override void WillTerminate (NSNotification notification)
         {
             // Insert code here to tear down your application
-            UserSettingsContext.SaveDefaults ();
+//            UserSettingsContext.SaveDefaults ();
         }
 
         public override bool OpenFile (NSApplication sender, string filename)
@@ -37,41 +36,6 @@ namespace TextOn.Studio
                 return false;
             }
         }
-
-        private TextOnMode mode = TextOnMode.Design;
-        public string modeTitle {
-            [Export (nameof (modeTitle))]
-            get {
-                return (mode == TextOnMode.Design) ? "Enable Generate Mode" : "Disable Generate Mode";
-            }
-        }
-
-        public TextOnMode Mode {
-            get {
-                return mode;
-            }
-            set {
-                setMode (value);
-            }
-        }
-
-        private void setMode (TextOnMode newMode)
-        {
-            WillChangeValue (nameof (modeTitle));
-            mode = newMode;
-            for (int n = 0; n < NSApplication.SharedApplication.Windows.Length; ++n) {
-                var content = NSApplication.SharedApplication.Windows [n].ContentViewController as CentralViewController;
-                if (content != null)
-                    content.SetMode (mode);
-            }
-            if (UserSettingsContext.Settings != null) UserSettingsContext.Settings.DefaultMode = mode;
-            DidChangeValue (nameof (modeTitle));
-        }
-
-//        partial void changeMode (NSObject sender)
-//        {
-//            setMode ((mode == TextOnMode.Design) ? TextOnMode.GenerateOnly : TextOnMode.Design);
-//        }
 
         private bool OpenFile (NSUrl url)
         {
@@ -110,9 +74,6 @@ namespace TextOn.Studio
 
                 // Add document to the Open Recent menu
                 NSDocumentController.SharedDocumentController.NoteNewRecentDocumentURL (url);
-
-                // Set the mode up in the controllers.
-                viewController.SetMode (mode);
 
                 // Make as successful
                 good = true;

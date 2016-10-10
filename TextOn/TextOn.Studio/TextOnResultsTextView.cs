@@ -137,7 +137,7 @@ namespace TextOn.Studio
 
         public override void MouseDown (NSEvent theEvent)
         {
-            if (UserSettingsContext.Settings.DefaultMode == TextOnMode.GenerateOnly || Output == null) {
+            if (Output == null) {
                 base.MouseDown (theEvent);
                 return;
             }

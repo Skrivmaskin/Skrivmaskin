@@ -14,68 +14,17 @@ namespace TextOn.Studio
 {
 	public partial class CentralViewController : NSTabViewController
 	{
-        private const string Design = "Design";
-        private const string Generate = "Generate";
-
-        private readonly Dictionary<string, NSTabViewItem> tabViewItemRefs = new Dictionary<string, NSTabViewItem> ();
-        internal bool inGenerateOnlyMode = false;
-        private bool discoveredTabs = false;
+        private const int DesignViewTabViewItemIndex = 0;
 
 		public CentralViewController (IntPtr handle) : base (handle)
 		{
 		}
 
-        public void DiscoverTabs()
-        {
-            if (!discoveredTabs) {
-                discoveredTabs = true;
-                for (nint i = 0; i < TabViewItems.Length; i++) {
-                    var tabViewItem = TabViewItems [i];
-                    tabViewItemRefs.Add (tabViewItem.Label, tabViewItem);
-                }
-            }
-        }
-
         //TODO can't keep using magic numbers here - get these numbers in a sensible way or else!
         internal void NavigateAndSelectDesignNode (INode designNode)
         {
             if (designViewController.SelectDesignNode (designNode))
-                SelectedTabViewItemIndex = 0;
-        }
-
-        /// <summary>
-        /// Enable Generate-only mode.
-        /// </summary>
-        internal void EnableGenerateOnlyMode ()
-        {
-            DiscoverTabs ();
-            if (!inGenerateOnlyMode) {
-                inGenerateOnlyMode = true;
-                SelectedTabViewItemIndex = 1;
-                RemoveTabViewItem (tabViewItemRefs [Design]);
-            }
-        }
-
-        /// <summary>
-        /// Disable Generate-only mode.
-        /// </summary>
-        internal void DisableGenerateOnlyMode ()
-        {
-            DiscoverTabs ();
-            if (inGenerateOnlyMode) {
-                inGenerateOnlyMode = false;
-                InsertTabViewItem (tabViewItemRefs [Design], 0);
-            }
-        }
-
-        private TextOnMode mode = TextOnMode.Design;
-        public void SetMode (TextOnMode mode)
-        {
-            this.mode = mode;
-            if (awake) {
-                if (mode == TextOnMode.Design) DisableGenerateOnlyMode ();
-                else EnableGenerateOnlyMode ();
-            }
+                SelectedTabViewItemIndex = DesignViewTabViewItemIndex;
         }
 
         #region Design and Compiled templates
@@ -104,7 +53,6 @@ namespace TextOn.Studio
         DesignPreviewViewController designPreviewViewController = null;
         SetVariablesViewController setVariablesViewController = null;
         ResultsViewController resultsViewController = null;
-        private bool awake = false;
         public override void AwakeFromNib ()
         {
             Console.Error.WriteLine ("Central AwakeFromNib");
@@ -131,11 +79,6 @@ namespace TextOn.Studio
 
             Template = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
             CreateTree (null, Template);
-
-            if (mode == TextOnMode.Design) DisableGenerateOnlyMode ();
-            else EnableGenerateOnlyMode ();
-
-            awake = true;
         }
 
         /// <summary>
