@@ -47,20 +47,23 @@ namespace TextOn.Generation
                 }
                 break;
             case NodeType.Sequential:
-                if (Object.ReferenceEquals (node, targetNode)) {
+                bool inTarget = Object.ReferenceEquals (node, targetNode);
+                if (inTarget) {
                     yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, PreviewRouteState.AtTarget);
-                    state = PreviewRouteState.AfterTarget;
+                    state = PreviewRouteState.WithinTarget;
                 }
                 foreach (var n in (node as SequentialNode).Sequential) {
                     foreach (var text in GenerateText (n, targetNode)) {
                         yield return text;
                     }
                 }
+                if (inTarget) state = PreviewRouteState.AfterTarget;
                 break;
             case NodeType.Choice:
-                if (Object.ReferenceEquals (node, targetNode)) {
+                bool inTarget2 = Object.ReferenceEquals (node, targetNode);
+                if (inTarget2) {
                     yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, PreviewRouteState.AtTarget);
-                    state = PreviewRouteState.AfterTarget;
+                    state = PreviewRouteState.WithinTarget;
                 }
                 var choiceNode = (node as ChoiceNode);
                 if (choiceNode.Choices.Count > 0) {
@@ -72,6 +75,8 @@ namespace TextOn.Generation
                         yield return text;
                     }
                 }
+                if (inTarget2)
+                    state = PreviewRouteState.AfterTarget;
                 break;
             default:
                 break;

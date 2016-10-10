@@ -83,19 +83,27 @@ namespace TextOn.Studio
             case PreviewRouteState.AtTarget:
                 attributes.Add (NSStringAttributeKey.BackgroundColor, atTargetBackgroundColor);
                 break;
+            case PreviewRouteState.WithinTarget:
+                attributes.Add (NSStringAttributeKey.BackgroundColor, withinTargetBackgroundColor);
+                break;
             }
             return attributes;
         }
         private static NSColor GetBackgroundColorForChoiceRoute ()
         {
-            return NSColor.FromRgb (156, 210, 237);
+            return NSColor.FromRgb (150, 240, 240);
         }
         private static NSColor GetAtTargetBackgroundColor ()
         {
-            return NSColor.FromRgb (250, 158, 255);
+            return NSColor.FromRgb (240, 150, 240);
+        }
+        private static NSColor GetWithinTargetBackgroundColor ()
+        {
+            return NSColor.FromRgb (240, 240, 150);
         }
         private static readonly NSColor choiceRouteBackgroundColor = GetBackgroundColorForChoiceRoute ();
         private static readonly NSColor atTargetBackgroundColor = GetAtTargetBackgroundColor ();
+        private static readonly NSColor withinTargetBackgroundColor = GetWithinTargetBackgroundColor ();
         #endregion
 
         internal bool IsInvalid = true;

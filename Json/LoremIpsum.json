@@ -1,0 +1,542 @@
+{
+  "VariableDefinitions": [],
+  "Definition": {
+    "ChoiceName": "Sample Texts",
+    "Choices": [
+      {
+        "SequentialName": "Lorem Ipsum",
+        "Sequential": [
+          {
+            "ChoiceName": "Paragraph 1",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Lorem ipsum dolor sit amet, te imperdiet intellegam vim."
+                  },
+                  {
+                    "Text": "Ex nam esse fierent volutpat, no eum vide meis, mei an adhuc virtute inciderint."
+                  },
+                  {
+                    "Text": "Eu duo liber inciderint."
+                  },
+                  {
+                    "Text": "Per eu liber partem eruditi, sit cu quando consul, modo fuisset eleifend vis id."
+                  },
+                  {
+                    "Text": "Cu mei ullum laoreet contentiones, partiendo rationibus voluptatibus ne his."
+                  },
+                  {
+                    "Text": "Assum sapientem facilisis quo ea, essent cetero probatus eum te."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Lorem ipsum dolor sit amet, in possit menandri his."
+                  },
+                  {
+                    "Text": "Epicuri assentior accommodare ad est, sea copiosae nominati te, ex usu elitr tation lucilius."
+                  },
+                  {
+                    "Text": "Purto eius officiis ea has, vim at hinc reprimique."
+                  },
+                  {
+                    "Text": "Ad utinam instructior vix, ei novum philosophia vis."
+                  },
+                  {
+                    "Text": "Ne cum vidit fugit, molestiae percipitur deterruisset est ea."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 2",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Duis tincidunt quo te, sit et ceteros scriptorem."
+                  },
+                  {
+                    "Text": "Nec at periculis scribentur ullamcorper."
+                  },
+                  {
+                    "Text": "Graecis copiosae ne usu."
+                  },
+                  {
+                    "Text": "Choro ancillae necessitatibus ut qui, te sed feugiat officiis abhorreant."
+                  },
+                  {
+                    "Text": "Nusquam gloriatur ut duo, animal dissentias id pro."
+                  },
+                  {
+                    "Text": "Duo et solum reprimique."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Vix te tale choro, eum an posse voluptua reformidans."
+                  },
+                  {
+                    "Text": "An forensibus voluptatibus per."
+                  },
+                  {
+                    "Text": "Prima animal has id."
+                  },
+                  {
+                    "Text": "An diam recteque ius, vim id magna reformidans suscipiantur."
+                  },
+                  {
+                    "Text": "Fugit virtute singulis id mea."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 3",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Qui menandri consequat similique ad, ea simul epicuri sententiae vix."
+                  },
+                  {
+                    "Text": "Odio ullum nonumy ei pri, sea ad everti praesent, mediocrem consetetur deterruisset no per."
+                  },
+                  {
+                    "Text": "Facer mollis accumsan eu his, sed alienum detraxit an."
+                  },
+                  {
+                    "Text": "Placerat praesent definiebas ut quo, id dicam vocibus nam, nisl iisque eripuit pri eu."
+                  },
+                  {
+                    "Text": "Ex qui sumo pericula intellegebat, mel error incorrupte ei, at eros ancillae vis."
+                  },
+                  {
+                    "Text": "In blandit suscipiantur conclusionemque has."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Qui no vidisse admodum civibus, illum scripta alterum sea no, ut usu soluta assentior repudiandae."
+                  },
+                  {
+                    "Text": "Eam odio prodesset assueverit no."
+                  },
+                  {
+                    "Text": "Mea suas adipisci expetenda in."
+                  },
+                  {
+                    "Text": "Affert putant ea vel, pri zril placerat luptatum cu."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 4",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Eam ubique abhorreant ea."
+                  },
+                  {
+                    "Text": "Has at regione fabulas feugait, cibo detraxit liberavisse cum ea."
+                  },
+                  {
+                    "Text": "Has ne sonet minimum, in volutpat gloriatur nec."
+                  },
+                  {
+                    "Text": "An dicit luptatum vel, ei cum autem facilisis complectitur, cu libris molestiae vix."
+                  },
+                  {
+                    "Text": "Sea at saepe honestatis, in quo feugait nominati contentiones."
+                  },
+                  {
+                    "Text": "Ius viris timeam cu, ea consulatu comprehensam mel."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Eum in dolore voluptaria, partem electram ea eos, sit reprimique scriptorem eu."
+                  },
+                  {
+                    "Text": "Amet dolores ne mei, ornatus phaedrum complectitur no mea."
+                  },
+                  {
+                    "Text": "Sint mazim gloriatur ei usu, dicat omittantur reformidans eu his."
+                  },
+                  {
+                    "Text": "Molestie elaboraret per ad, pri veri facilis expetenda ne, sit case persecuti ut."
+                  },
+                  {
+                    "Text": "Ex animal volutpat mea, ferri eirmod dolorum pro ea, id cum facilis invidunt."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 5",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Eum id nulla soleat."
+                  },
+                  {
+                    "Text": "Dicta sonet expetenda eu quo, ne nec dissentias quaerendum."
+                  },
+                  {
+                    "Text": "Eu qui tantas soleat perfecto."
+                  },
+                  {
+                    "Text": "In cum putant audiam invidunt, cum inani novum quaeque ut."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Enim fastidii in mea, alterum scribentur instructior mel no."
+                  },
+                  {
+                    "Text": "Suas paulo similique at usu, lorem omittam est cu, ne est ferri soluta cetero."
+                  },
+                  {
+                    "Text": "Qui ei veritus insolens, erat choro petentium an per, sit saperet omittam molestie te."
+                  },
+                  {
+                    "Text": "Sea dicant nullam no, in per noster vivendum, cum luptatum expetendis ne."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 6",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Eum scripta qualisque neglegentur ei."
+                  },
+                  {
+                    "Text": "Sea harum semper eu."
+                  },
+                  {
+                    "Text": "Ne iriure dissentiunt pro, ex quas dicat explicari duo."
+                  },
+                  {
+                    "Text": "Cum vide tincidunt consectetuer ex, vel cu sonet epicurei."
+                  },
+                  {
+                    "Text": "Ut vel minim officiis placerat, mel soluta quidam accusam ad."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Quo ex eius dicam posidonium."
+                  },
+                  {
+                    "Text": "Aliquam hendrerit et nec, vel ullum placerat id."
+                  },
+                  {
+                    "Text": "Ad quis facer primis quo, vivendo perpetua consectetuer ei nec, alienum atomorum rationibus nam ei."
+                  },
+                  {
+                    "Text": "Eam corrumpit persecuti reformidans in, copiosae imperdiet in eos."
+                  },
+                  {
+                    "Text": "Ei audire voluptua cum, velit augue sed an, pro platonem recteque similique te."
+                  },
+                  {
+                    "Text": "Ex vide dolorem nam."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 7",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Sea putent aperiam expetendis ea, autem copiosae delicatissimi at pro."
+                  },
+                  {
+                    "Text": "Mei unum adipiscing eu, ea sea novum mucius."
+                  },
+                  {
+                    "Text": "Vis solet sententiae ut."
+                  },
+                  {
+                    "Text": "Nec an lorem meliore, no tibique torquatos pri, cu qui nisl definitionem."
+                  },
+                  {
+                    "Text": "Mea te quaeque dolorem, cum ad velit eligendi definitiones, scaevola percipit invidunt sed te."
+                  },
+                  {
+                    "Text": "Duo no amet dolor copiosae, quis alia aperiri sea no, accusam vituperatoribus has eu."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Sale justo oblique ne pri."
+                  },
+                  {
+                    "Text": "Partem sanctus maiestatis vix ut, mei ad numquam perpetua, nam in hinc theophrastus."
+                  },
+                  {
+                    "Text": "Cu quo nullam utroque ullamcorper, ne quando scripta consetetur vel."
+                  },
+                  {
+                    "Text": "Eum debet necessitatibus in, et semper sanctus laboramus mei."
+                  },
+                  {
+                    "Text": "Sed ut illum decore."
+                  },
+                  {
+                    "Text": "Habeo singulis in his, duo eripuit democritum no, ut sea ornatus habemus adolescens."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 8",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Quo prima appetere ad, in accusata expetendis qui."
+                  },
+                  {
+                    "Text": "Has porro civibus et, et everti fuisset delectus cum."
+                  },
+                  {
+                    "Text": "Ut est prompta debitis fastidii."
+                  },
+                  {
+                    "Text": "Senserit mnesarchum definiebas at pri, dicam persius adipiscing ea sed."
+                  },
+                  {
+                    "Text": "Novum homero hendrerit ius id, repudiare tincidunt constituam mea ad."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Elit diceret ex pro."
+                  },
+                  {
+                    "Text": "Vim cu mundi lobortis, vix ea essent delicata accommodare."
+                  },
+                  {
+                    "Text": "Qui summo virtute instructior an, his ei laoreet aliquando, vis ei mundi deserunt tacimates."
+                  },
+                  {
+                    "Text": "Et ius probatus percipitur, et per decore assueverit, liber patrioque ne eam."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 9",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Ne mutat scaevola ius, usu eirmod alienum oporteat cu, omnes consul fastidii sit an."
+                  },
+                  {
+                    "Text": "Ea animal constituto definiebas mei, cum an ignota prompta accumsan."
+                  },
+                  {
+                    "Text": "Pri elit phaedrum at, velit scribentur persequeris nam at."
+                  },
+                  {
+                    "Text": "Vix te nulla movet, ne brute accumsan vel, id per dolore habemus."
+                  },
+                  {
+                    "Text": "Eos et ferri vitae, ex nihil antiopam usu."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "An eruditi commune legendos eos, ad quo noster deserunt periculis."
+                  },
+                  {
+                    "Text": "Verear principes ius id, ius eu congue fabulas, autem legere necessitatibus in mei."
+                  },
+                  {
+                    "Text": "Nusquam adversarium has ex."
+                  },
+                  {
+                    "Text": "Has ad simul molestie, hinc forensibus reprehendunt eos an, ei qui brute falli disputationi."
+                  },
+                  {
+                    "Text": "Recteque facilisis an mea, cu vix ridens intellegat philosophia."
+                  }
+                ]
+              }
+            ]
+          },
+          {},
+          {
+            "ChoiceName": "Paragraph 10",
+            "Choices": [
+              {
+                "SequentialName": "Generation 1",
+                "Sequential": [
+                  {
+                    "Text": "Et munere mnesarchum sit, no sit fuisset invidunt."
+                  },
+                  {
+                    "Text": "Discere fuisset ius ex."
+                  },
+                  {
+                    "Text": "Erat probo ea est, nostro fierent placerat quo at, cum ut hinc vide ponderum."
+                  },
+                  {
+                    "Text": "Eam doming inermis deseruisse an."
+                  },
+                  {
+                    "Text": "At minimum molestie antiopam ius, nam et paulo intellegat disputando."
+                  },
+                  {
+                    "Text": "Ea sit eius melius iuvaret."
+                  },
+                  {
+                    "Text": "Et cum iriure delicata, eruditi verterem vim no."
+                  }
+                ]
+              },
+              {
+                "SequentialName": "Generation 2",
+                "Sequential": [
+                  {
+                    "Text": "Sed an quem aeque virtute, ad dicit paulo est."
+                  },
+                  {
+                    "Text": "Aperiri scribentur vix ei."
+                  },
+                  {
+                    "Text": "Et eripuit detracto offendit duo, mei ad meis abhorreant efficiendi."
+                  },
+                  {
+                    "Text": "Eu pri augue feugiat epicuri."
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "SequentialName": "Explanation",
+        "Sequential": [
+          {
+            "SequentialName": "Sentences 1",
+            "Sequential": [
+              {
+                "Text": "Lorem ipsum is a pseudo-Latin text used in web design, typography, layout, and printing in place of English to emphasise design elements over content."
+              },
+              {
+                "Text": "It's also called placeholder (or filler) text."
+              },
+              {
+                "Text": "It's a convenient tool for mock-ups."
+              },
+              {
+                "Text": "It helps to outline the visual elements of a document or presentation, eg typography, font, or layout."
+              },
+              {
+                "Text": "Lorem ipsum is mostly a part of a Latin text by the classical author and philosopher Cicero."
+              },
+              {
+                "Text": "Its words and letters have been changed by addition or removal, so to deliberately render its content nonsensical; it's not genuine, correct, or comprehensible Latin anymore."
+              },
+              {
+                "Text": "While lorem ipsum's still resembles classical Latin, it actually has no meaning whatsoever."
+              },
+              {
+                "Text": "As Cicero's text doesn't contain the letters K, W, or Z, alien to latin, these, and others are often inserted randomly to mimic the typographic appearence of European languages, as are digraphs not to be found in the original."
+              }
+            ]
+          },
+          {},
+          {
+            "SequentialName": "Sentences 2",
+            "Sequential": [
+              {
+                "Text": "In a professional context it often happens that private or corporate clients corder a publication to be made and presented with the actual content still not being ready."
+              },
+              {
+                "Text": "Think of a news blog that's filled with content hourly on the day of going live."
+              },
+              {
+                "Text": "However, reviewers tend to be distracted by comprehensible content, say, a random text copied from a newspaper or the internet."
+              },
+              {
+                "Text": "The are likely to focus on the text, disregarding the layout and its elements."
+              },
+              {
+                "Text": "Besides, random text risks to be unintendedly humorous or offensive, an unacceptable risk in corporate environments."
+              },
+              {
+                "Text": "Lorem ipsum and its many variants have been employed since the early 1960ies, and quite likely since the sixteenth century."
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
