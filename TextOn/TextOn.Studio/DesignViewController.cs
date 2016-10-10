@@ -49,13 +49,10 @@ namespace TextOn.Studio
                 firstTimeAppearing = false;
                 OutlineView.TreeController = TreeController;
 
-                var windowController = NSApplication.SharedApplication.KeyWindow.WindowController as TextOnWindowController;
+                var windowController = NSApplication.SharedApplication.KeyWindow?.WindowController as TextOnWindowController;
                 if (centralViewController == null)
                     throw new ApplicationException ("centralViewController has not been set");
-                if (windowController == null)
-                    throw new ApplicationException ("windowController is nulll");
-
-                if (windowController.IsInNew) {
+                if ((windowController != null) && (windowController.IsInNew)) {
                     windowController.IsInNew = false;
                     PerformSegue (DesignViewDialogSegues.CreateTemplate, this);
                 }
