@@ -82,20 +82,17 @@ namespace TextOn.Services
             wrappedRandomChooser.BeginWithSeed (seed);
         }
 
-        public int Choose (ChoiceNode node, int numOptions, out bool reachedTarget)
+        public int Choose (ChoiceNode node, int numOptions)
         {
             int choice;
             if (fixedChoices.Count > 0) {
                 choice = fixedChoices.Dequeue ();
-                reachedTarget = false;
                 if (choice >= numOptions) throw new ApplicationException ("Misuse of ChoiceFixingRandomChooser - the tree has changed, this should be reset");
             } else if (partialRoute.Count > 0 && Object.ReferenceEquals (partialRoute.Peek ().ChoiceNode, node)) {
                 choice = partialRoute.Dequeue ().Decision;
-                reachedTarget = false;
                 if (choice >= numOptions) throw new ApplicationException ("Misuse of ChoiceFixingRandomChooser - the tree has changed, this should be reset");
             } else {
                 choice = wrappedRandomChooser.Choose (numOptions);
-                reachedTarget = partialRoute.Count == 0 && fixedChoices.Count == 0;
             }
             choicesMadeList.Add (choice);
             return choice;

@@ -99,18 +99,19 @@ namespace TextOn.Studio
                         var node = centralViewController.Template.Definition;
                         var indexPath = TreeController.SelectionIndexPaths [0];
                         var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
+                        var choicesMade = 0;
                         foreach (var index in indices) {
                             if (node.Type == NodeType.Sequential)
                                 node = ((SequentialNode)node).Sequential [index];
                             else if (node.Type == NodeType.Choice) {
                                 var choiceNode = (ChoiceNode)node;
-                                partialRoute.Add (new PreviewPartialRouteChoiceNode (choiceNode, index));
+                                partialRoute.Add (new PreviewPartialRouteChoiceNode (choiceNode, index, choicesMade++, null));
                                 node = choiceNode.Choices [index];
                             } else {
-                                node = null;
                                 break;
                             }
                         }
+                        partialRoute.Add (new PreviewPartialRouteChoiceNode (null, -1, choicesMade, node));
                         break;
                     }
                 }
@@ -132,6 +133,8 @@ namespace TextOn.Studio
                     centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template); // has a caching layer so should be quick
                 }
             }
+
+            centralViewController.MarkPreviewAsInvalid ();
         }
 
         #endregion

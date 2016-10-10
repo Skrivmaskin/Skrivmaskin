@@ -157,5 +157,10 @@ namespace TextOn.Studio
         {
             designPreviewViewController.UpdatePreview (partialRoute);
         }
+
+        internal void MarkPreviewAsInvalid ()
+        {
+            designPreviewViewController.MarkPreviewAsInvalid ();
+        }
     }
 }

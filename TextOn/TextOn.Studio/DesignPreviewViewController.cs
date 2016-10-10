@@ -24,14 +24,16 @@ namespace TextOn.Studio
             Console.Error.WriteLine ("Preview SetControllerLinks");
 
             centralViewController = cvc;
+            if (TextView != null)
+                TextView.Compiler = centralViewController.Compiler;
         }
 
         bool firstAppearance = true;
-        public override void ViewDidAppear ()
+        public override void ViewDidLoad ()
         {
-            Console.Error.WriteLine ("Preview ViewDidAppear");
+            Console.Error.WriteLine ("Preview ViewDidLoad");
 
-            base.ViewDidAppear ();
+            base.ViewDidLoad ();
 
             if (firstAppearance) {
                 ChoiceFixSlider.MaxValue = 1;
@@ -39,6 +41,9 @@ namespace TextOn.Studio
                 ChoiceFixSlider.IntValue = 1;
                 ChoiceFixSlider.Enabled = false;
                 firstAppearance = false;
+                if (centralViewController != null)
+                    TextView.Compiler = centralViewController.Compiler;
+
             }
         }
 
@@ -49,14 +54,25 @@ namespace TextOn.Studio
                 return ((TextNode)node.Node).Text;
             case NodeType.ParagraphBreak:
                 return "<pr/>";
+            case NodeType.Choice:
+                return "Selected Node : " + ((ChoiceNode)node.Node).ChoiceName;
+            case NodeType.Sequential:
+                return "Selected Node : " + ((SequentialNode)node.Node).SequentialName;
             default:
-                throw new ApplicationException ("Unexpected node type " + node.Node.Type);
+                throw new ApplicationException ("Unexpected node type");
             }
+        }
+
+        internal void MarkPreviewAsInvalid ()
+        {
+            TextView.IsInvalid = true;
         }
 
         public void UpdatePreview (PreviewPartialRouteChoiceNode [] partialRoute)
         {
             Console.Error.WriteLine ("Preview UpdatePreview");
+
+            TextView.IsInvalid = false;
 
             var rootNode = centralViewController.Template.Definition;
             var compiledTemplate = centralViewController.CompiledTemplate;
@@ -93,8 +109,8 @@ namespace TextOn.Studio
                     var maxNumChoices = finalChoices.Length;
                     ChoiceFixSlider.MaxValue = maxNumChoices;
                     ChoiceFixSlider.TickMarksCount = maxNumChoices + 1;
-                    var lastNonReached = nodes.LastOrDefault ((p) => !p.ReachedTarget);
-                    var numChoicesMadeToTargetNode = (lastNonReached == null) ? 0 : lastNonReached.ChoicesMadeSoFar.Length;
+                    var target = nodes.FirstOrDefault ((node) => node.State != PreviewRouteState.BeforeTarget);
+                    var numChoicesMadeToTargetNode = (target == null) ? nodes [nodes.Length - 1].ChoicesMadeSoFar.Length : target.ChoicesMadeSoFar.Length;
                     ChoiceFixSlider.IntValue = maxNumChoices - numChoicesMadeToTargetNode; // set to fix the choices
                     ChoiceFixSlider.Enabled = true;
                 }
@@ -109,8 +125,22 @@ namespace TextOn.Studio
             if (partialRoute.Length > 0)
                 partialRoute = new PreviewPartialRouteChoiceNode [0];
 
-            // update the highlighting
-            TextView.DoHighlightBackground = GetDoHighlightPredicate ();
+            // update the preview
+            var numChoicesToFix = (int)(ChoiceFixSlider.MaxValue - ChoiceFixSlider.IntValue);
+            var newNodes = new List<PreviewRouteNode> ();
+            var refreshString = false;
+            foreach (var node in nodes) {
+                if (node.State != PreviewRouteState.AtTarget) {
+                    node.State = (node.ChoicesMadeSoFar.Length <= numChoicesToFix) ? PreviewRouteState.BeforeTarget : PreviewRouteState.AfterTarget;
+                    newNodes.Add (node);
+                } else
+                    refreshString = true;
+            }
+            nodes = newNodes.ToArray ();
+            if (refreshString)
+                TextView.SetValue (string.Join ("\n", nodes.Select (NodeString)), nodes, centralViewController.CompiledTemplate);
+            else
+                TextView.Route = nodes;
             TextView.Highlight ();
         }
 
@@ -123,20 +153,11 @@ namespace TextOn.Studio
             }
         }
 
-        private Func<PreviewRouteNode, bool> GetDoHighlightPredicate ()
-        {
-            if (partialRoute.Length == 0) {
-                var numChoicesToKeep = ChoiceFixSlider.MaxValue - ChoiceFixSlider.IntValue;
-                return ((n) => n.ChoicesMadeSoFar.Length <= numChoicesToKeep);
-            } else {
-                return ((n) => !n.ReachedTarget);
-            }
-        }
-
         private PreviewRouteNode [] nodes = new PreviewRouteNode [0];
 
         private PreviewPartialRouteChoiceNode [] partialRoute = new PreviewPartialRouteChoiceNode [0];
 
         private readonly TextOnPreviewGenerator generator = new TextOnPreviewGenerator (new RandomChooser ());
-	}
+
+   }
 }

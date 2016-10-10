@@ -29,26 +29,40 @@ namespace TextOn.Generation
             this.randomChooser = new ChoiceFixingRandomChooser (randomChooser);
         }
 
-        private IEnumerable<PreviewRouteNode> GenerateText (INode node, bool reachedTarget)
+        PreviewRouteState state = PreviewRouteState.BeforeTarget;
+        private IEnumerable<PreviewRouteNode> GenerateText (INode node, INode targetNode)
         {
             switch (node.Type) {
             case NodeType.Text:
             case NodeType.ParagraphBreak:
-                yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, reachedTarget);
+                if (Object.ReferenceEquals (node, targetNode)) {
+                    yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, PreviewRouteState.AtTarget);
+                    state = PreviewRouteState.AfterTarget;
+                }
+                else
+                    yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, state);
                 break;
             case NodeType.Sequential:
+                if (Object.ReferenceEquals (node, targetNode)) {
+                    yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, PreviewRouteState.AtTarget);
+                    state = PreviewRouteState.AfterTarget;
+                }
                 foreach (var n in (node as SequentialNode).Sequential) {
-                    foreach (var text in GenerateText (n, reachedTarget)) {
+                    foreach (var text in GenerateText (n, targetNode)) {
                         yield return text;
                     }
                 }
                 break;
             case NodeType.Choice:
+                if (Object.ReferenceEquals (node, targetNode)) {
+                    yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, PreviewRouteState.AtTarget);
+                    state = PreviewRouteState.AfterTarget;
+                }
                 var choiceNode = (node as ChoiceNode);
                 if (choiceNode.Choices.Count > 0) {
-                    var n = randomChooser.Choose (choiceNode, choiceNode.Choices.Count, out reachedTarget);
+                    var n = randomChooser.Choose (choiceNode, choiceNode.Choices.Count);
                     var choice = choiceNode.Choices [n];
-                    var li = GenerateText (choice, reachedTarget);
+                    var li = GenerateText (choice, targetNode);
                     foreach (var text in li) {
                         yield return text;
                     }
@@ -65,8 +79,9 @@ namespace TextOn.Generation
         /// <param name="choices">Choices.</param>
         public IEnumerable<PreviewRouteNode> GenerateWithFixedChoices (INode rootNode, int [] choices)
         {
+            state = PreviewRouteState.BeforeTarget;
             randomChooser.BeginWithFixedChoices (choices);
-            var result = GenerateText (rootNode, false).ToList ();
+            var result = GenerateText (rootNode, null).ToList ();
             randomChooser.End ();
             return result;
         }
@@ -77,8 +92,9 @@ namespace TextOn.Generation
         /// <param name="partialRoute">The partial route that will arrive at the desired node on its way.</param>
         public IEnumerable<PreviewRouteNode> GenerateWithPartialRoute (INode rootNode, PreviewPartialRouteChoiceNode [] partialRoute)
         {
-            randomChooser.BeginWithPartialRoute (partialRoute);
-            var result = GenerateText (rootNode, false).ToList ();
+            state = PreviewRouteState.BeforeTarget;
+            randomChooser.BeginWithPartialRoute (partialRoute.Take (partialRoute.Length - 1).ToArray ());
+            var result = GenerateText (rootNode, partialRoute [partialRoute.Length - 1].TargetNode).ToList ();
             randomChooser.End ();
             return result;
         }

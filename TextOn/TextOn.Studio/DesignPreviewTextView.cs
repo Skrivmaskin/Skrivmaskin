@@ -22,8 +22,8 @@ namespace TextOn.Studio
     {
         #region Automatic properties
         public ILexerSyntax LexerSyntax { get; set; } = new DefaultLexerSyntax ();
-        // This is going to help me find errors and "word" boundaries in the partial text.
-        public TextOnCompiler compiler { get; set; } = new TextOnCompiler (new DefaultLexerSyntax ());
+        // Shared compiler with the Central.
+        internal TextOnCompiler Compiler = null;
         // I need the name of variables for auto completion.
         public CompiledTemplate CompiledTemplate { get; set; }
         public PreviewRouteNode [] Route { get; set; } = new PreviewRouteNode [0];
@@ -38,8 +38,6 @@ namespace TextOn.Studio
         }
         #endregion
 
-        public Func<PreviewRouteNode, bool> DoHighlightBackground { get; set; } = (n) => !n.ReachedTarget;
-
         public void SetValue (string value, PreviewRouteNode[] route, CompiledTemplate compiledTemplate)
         {
             Console.Error.WriteLine ("DesignPreview SetValue");
@@ -51,33 +49,56 @@ namespace TextOn.Studio
         }
 
         #region Color setup
-        public static NSColor GetSyntaxColorForToken (TextOnParseTokens token, int choiceDepth)
+        private static NSDictionary GetAttributes (PreviewRouteState state, TextOnParseTokens token, bool isInChoice)
         {
+            NSColor foregroundColor;
+            var attributes = new NSMutableDictionary ();
             switch (token) {
             case TextOnParseTokens.ChoiceStart:
             case TextOnParseTokens.ChoiceEnd:
             case TextOnParseTokens.ChoiceDivide:
-                return NSColor.Purple;
+                foregroundColor = NSColor.Purple;
+                break;
             case TextOnParseTokens.Error:
             case TextOnParseTokens.InvalidText:
             case TextOnParseTokens.InvalidCharacter:
-                return NSColor.Red;
+                foregroundColor = NSColor.Red;
+                break;
             case TextOnParseTokens.VarEnd:
             case TextOnParseTokens.VarName:
             case TextOnParseTokens.VarStart:
             case TextOnParseTokens.VarDivide:
             case TextOnParseTokens.VarFormName:
-                return NSColor.Blue;
+                foregroundColor = NSColor.Blue;
+                break;
             default:
-                return (choiceDepth > 0) ? NSColor.Gray : NSColor.Black;
+                foregroundColor = isInChoice ? NSColor.Gray : NSColor.Black;
+                break;
             }
+            attributes.Add (NSStringAttributeKey.ForegroundColor, foregroundColor);
+            switch(state){
+            case PreviewRouteState.BeforeTarget:
+                attributes.Add (NSStringAttributeKey.BackgroundColor, choiceRouteBackgroundColor);
+                break;
+            case PreviewRouteState.AtTarget:
+                attributes.Add (NSStringAttributeKey.BackgroundColor, atTargetBackgroundColor);
+                break;
+            }
+            return attributes;
         }
         private static NSColor GetBackgroundColorForChoiceRoute ()
         {
             return NSColor.FromRgb (156, 210, 237);
         }
+        private static NSColor GetAtTargetBackgroundColor ()
+        {
+            return NSColor.FromRgb (250, 158, 255);
+        }
         private static readonly NSColor choiceRouteBackgroundColor = GetBackgroundColorForChoiceRoute ();
+        private static readonly NSColor atTargetBackgroundColor = GetAtTargetBackgroundColor ();
         #endregion
+
+        internal bool IsInvalid = true;
 
         //TODO Note I could do this much more efficiently, clean up if gets expensive.
         //TODO E.g. I could compile this line by line, and that might play well with editing?
@@ -87,41 +108,32 @@ namespace TextOn.Studio
             Console.Error.WriteLine ("DesignPreview Highlight");
 
             if (CompiledTemplate == null) return TextOnParseTokens.Text;
-            var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
-            var elements = compiledText.Elements;
+            if (IsInvalid) return TextOnParseTokens.Text;
+
             var lastToken = TextOnParseTokens.Error;
             var lines = TextStorage.Value.Split ('\n');
+            var currentCharacter = 0;
             var lineNumber = 0;
-            var choiceRouteLastCharacterIndex = 0;
-            while (lineNumber < lines.Length && lineNumber < Route.Length && DoHighlightBackground (Route [lineNumber])) {
-                choiceRouteLastCharacterIndex += lines [lineNumber++].Length + 1; // EOL character I just knocked off?
-            }
-            foreach (var element in elements) {
-                if (element.Range.EndCharacter < choiceRouteLastCharacterIndex) {
-                    var attributes = new NSMutableDictionary ();
-                    attributes.Add (NSStringAttributeKey.ForegroundColor, GetSyntaxColorForToken (element.Token, element.ChoiceDepth));
-                    attributes.Add (NSStringAttributeKey.BackgroundColor, choiceRouteBackgroundColor);
-                    var range = new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
-                    LayoutManager.SetTemporaryAttributes (attributes, range);
-                } else if (element.Range.StartCharacter >= choiceRouteLastCharacterIndex) {
-                    var attributes = new NSMutableDictionary ();
-                    attributes.Add (NSStringAttributeKey.ForegroundColor, GetSyntaxColorForToken (element.Token, element.ChoiceDepth));
-                    var range = new NSRange (element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
-                    LayoutManager.SetTemporaryAttributes (attributes, range);
+            foreach (var line in lines) {
+                // bail if this happens
+                if (lineNumber >= Route.Length) return TextOnParseTokens.Text;
+                var routeNode = Route [lineNumber];
+                var node = routeNode.Node;
+                IEnumerable<TextOnParseElement> elements;
+                if (node.Type == NodeType.Text) {
+                    var compiledText = Compiler.GetCompiledNode (node as TextNode) as ICompiledText;
+                    elements = (compiledText == null) ? new TextOnParseElement [1] { new TextOnParseElement (TextOnParseTokens.Text, 0, new TextOnParseRange (0, line.Length - 1)) } : compiledText.Elements;
                 } else {
-                    var attributes1 = new NSMutableDictionary ();
-                    attributes1.Add (NSStringAttributeKey.ForegroundColor, GetSyntaxColorForToken (element.Token, element.ChoiceDepth));
-                    attributes1.Add (NSStringAttributeKey.BackgroundColor, choiceRouteBackgroundColor);
-                    var range1 = new NSRange (element.Range.StartCharacter, choiceRouteLastCharacterIndex - element.Range.StartCharacter + 1);
-                    LayoutManager.SetTemporaryAttributes (attributes1, range1);
- 
-                    var attributes2 = new NSMutableDictionary ();
-                    attributes2.Add (NSStringAttributeKey.ForegroundColor, GetSyntaxColorForToken (element.Token, element.ChoiceDepth));
-                    var range2 = new NSRange (choiceRouteLastCharacterIndex, element.Range.EndCharacter - choiceRouteLastCharacterIndex + 1);
-                    LayoutManager.SetTemporaryAttributes (attributes2, range2);
+                    elements = new TextOnParseElement [1] { new TextOnParseElement (TextOnParseTokens.Text, 0, new TextOnParseRange (0, line.Length - 1)) };
                 }
-
-                lastToken = element.Token;
+                foreach (var element in elements) {
+                    var range = new NSRange (currentCharacter + element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
+                    var attributes = GetAttributes (Route[lineNumber].State, element.Token, element.ChoiceDepth > 0);
+                    LayoutManager.SetTemporaryAttributes (attributes, range);
+                    lastToken = element.Token;
+                }
+                currentCharacter += line.Length + 1;
+                ++lineNumber;
             }
             return lastToken;
         }

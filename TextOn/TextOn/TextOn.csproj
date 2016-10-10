@@ -90,6 +90,7 @@
     <Compile Include="Generation\PreviewRouteNode.cs" />
     <Compile Include="Services\ChoiceFixingRandomChooser.cs" />
     <Compile Include="Generation\PreviewPartialRouteChoiceNode.cs" />
+    <Compile Include="Generation\PreviewRouteState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
