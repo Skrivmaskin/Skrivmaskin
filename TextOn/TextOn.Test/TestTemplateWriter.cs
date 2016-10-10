@@ -59,11 +59,11 @@ namespace TextOn.Test
                 jsonSerializer.Converters.Add (converter);
             }
             var testCase = projects [testProject];
-            var expectedProject = testCase.Item1;
+            var expectedTemplate = testCase.Item1;
             var text = testCase.Item2;
             using (var stringReader = new StringReader (text)) {
-                TextOnTemplate actualProject = (TextOnTemplate)jsonSerializer.Deserialize (stringReader, typeof (TextOnTemplate));
-                Assert.AreEqual (expectedProject, actualProject);
+                TextOnTemplate actualTemplate = (TextOnTemplate)jsonSerializer.Deserialize (stringReader, typeof (TextOnTemplate));
+                Assert.AreEqual (expectedTemplate, actualTemplate);
             }
         }
 

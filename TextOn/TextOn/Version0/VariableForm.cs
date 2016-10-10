@@ -1,5 +1,5 @@
 using System;
-namespace TextOn.Design
+namespace TextOn.Version0
 {
     /// <summary>
     /// Variable form. This represents a grammatical form that the parent variable may be in, e.g. plural, possessive etc, in case there are languag    /// specific adjustments to be made.

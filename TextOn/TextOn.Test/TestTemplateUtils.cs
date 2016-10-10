@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using TextOn.Design;
+using TextOn.Version0;
 
 namespace TextOn.Test
 {
@@ -33,21 +34,21 @@ namespace TextOn.Test
             var projects = new Dictionary<TestTemplates, Tuple<TextOnTemplate, string>> ();
 
             // Empty project
-            var emptyProject = new TextOnTemplate (new List<Variable> (), new ChoiceNode ());
-            var emptyExpected = "{\n  \"VariableDefinitions\": [],\n  \"Definition\": {\n    \"ChoiceName\": \"\",\n    \"Choices\": []\n  }\n}";
-            projects.Add (TestTemplates.Empty, new Tuple<TextOnTemplate, string> (emptyProject, emptyExpected));
+            var emptyTemplate = new TextOnTemplate (new List<Variable> (), new ChoiceNode ());
+            var emptyExpected = "{\n  \"Definition\": {\n    \"ChoiceName\": \"\",\n    \"Choices\": []\n  },\n  \"Version\": 1\n}";
+            projects.Add (TestTemplates.Empty, new Tuple<TextOnTemplate, string> (emptyTemplate, emptyExpected));
 
             // One variable
-            var oneVariableProjectVariableDefinitions = new List<Variable> ();
-            oneVariableProjectVariableDefinitions.Add (variable1);
-            var oneVariableProject = new TextOnTemplate (oneVariableProjectVariableDefinitions, new ChoiceNode ());
-            var oneVariableExpected = "{\n  \"VariableDefinitions\": [\n    {\n      \"Name\": \"City\",\n      \"Description\": \"Where do you live?\",\n      \"Forms\": [\n        {\n          \"Name\": \"\",\n          \"Suggestion\": \"London\"\n        }\n      ]\n    }\n  ],\n  \"Definition\": {\n    \"ChoiceName\": \"\",\n    \"Choices\": []\n  }\n}";
+            var oneVariableTemplate = new List<Variable> ();
+            oneVariableTemplate.Add (variable1);
+            var oneVariableProject = new TextOnTemplate (oneVariableTemplate, new ChoiceNode ());
+            var oneVariableExpected = "{\n  \"VariableDefinitions\": [\n    {\n      \"Name\": \"City\",\n      \"Description\": \"Where do you live?\",\n      \"Forms\": [\n        {\n          \"Name\": \"\",\n          \"Suggestion\": \"London\"\n        }\n      ]\n    }\n  ],\n  \"Definition\": {\n    \"ChoiceName\": \"\",\n    \"Choices\": []\n  },\n  \"Version\": 1\n}";
             projects.Add (TestTemplates.OneVariable, new Tuple<TextOnTemplate, string> (oneVariableProject, oneVariableExpected));
 
             // Paragraph break.
-            var paragraphBreakProject = new TextOnTemplate (new List<Variable>(), new ParagraphBreakNode ());
-            var paragraphBreakExpected = "{\n  \"VariableDefinitions\": [],\n  \"Definition\": {}\n}";
-            projects.Add (TestTemplates.ParagraphBreak, new Tuple<TextOnTemplate, string> (paragraphBreakProject, paragraphBreakExpected));
+            var paragraphBreakTemplate = new TextOnTemplate (new List<Variable>(), new ParagraphBreakNode ());
+            var paragraphBreakExpected = "{\n  \"Definition\": {},\n  \"Version\": 1\n}";
+            projects.Add (TestTemplates.ParagraphBreak, new Tuple<TextOnTemplate, string> (paragraphBreakTemplate, paragraphBreakExpected));
             return projects;
         }
     }

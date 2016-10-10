@@ -9,6 +9,7 @@ using TextOn.Design;
 using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Generation;
+using TextOn.Version0;
 
 namespace TextOn.Studio
 {

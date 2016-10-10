@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TextOn.Version0;
 
 namespace TextOn.Design
 {
@@ -17,6 +18,24 @@ namespace TextOn.Design
         {
             VariableDefinitions = variableDefinitions;
             Definition = definition;
+            Migrate ();
+            //TODO KILL.
+        }
+
+        /// <summary>
+        /// Migrate this instance to the latest version. Called during deserialization.
+        /// </summary>
+        internal void Migrate ()
+        {
+            if (Version == 0) {
+                Migrate_0_1 ();
+            }
+        }
+
+        private void Migrate_0_1 ()
+        {
+            if (VariableDefinitions == null) VariableDefinitions = new List<Variable> ();
+            Version = 1;
         }
 
         /// <summary>
@@ -24,6 +43,10 @@ namespace TextOn.Design
         /// </summary>
         /// <value>The variable definitions.</value>
         public IReadOnlyList<Variable> VariableDefinitions { get; private set; }
+        public bool ShouldSerializeVariableDefinitions ()
+        {
+            return VariableDefinitions != null && VariableDefinitions.Count > 0;
+        }
 
         /// <summary>
         /// The definition of the template.
@@ -40,5 +63,11 @@ namespace TextOn.Design
             if (!this.Definition.Equals (other.Definition)) return false;
             return true;
         }
+
+        /// <summary>
+        /// Gets or sets the version for the storage format.
+        /// </summary>
+        /// <value>The version.</value>
+        public int Version { get; set; }
     }
 }

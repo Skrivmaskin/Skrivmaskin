@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using TextOn.Design;
 
 namespace TextOn.Design
 {
@@ -83,8 +84,11 @@ namespace TextOn.Design
             serializer.DefaultValueHandling = DefaultValueHandling.Ignore;
             serializer.Converters.Add (new NodeConverter ());
             using (var stream = new FileStream (fileInfo.FullName, FileMode.Open, FileAccess.Read))
-            using (var reader = new StreamReader (stream))
-                return (TextOnTemplate)serializer.Deserialize (reader, typeof (TextOnTemplate));
+            using (var reader = new StreamReader (stream)) {
+                var template = (TextOnTemplate)serializer.Deserialize (reader, typeof (TextOnTemplate));
+                template.Migrate ();
+                return template;
+            }
         }
     }
 }

@@ -6,6 +6,7 @@ using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Parsing;
 using TextOn.Design;
+using TextOn.Version0;
 
 namespace TextOn.Test
 {

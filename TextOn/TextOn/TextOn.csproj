@@ -42,10 +42,7 @@
     <Compile Include="Design\TextNode.cs" />
     <Compile Include="Design\SequentialNode.cs" />
     <Compile Include="Design\ChoiceNode.cs" />
-    <Compile Include="Design\Variable.cs" />
-    <Compile Include="Design\VariableForm.cs" />
     <Compile Include="Design\TextOnTemplate.cs" />
-    <Compile Include="Design\TemplateWriter.cs" />
     <Compile Include="Design\ParagraphBreakNode.cs" />
     <Compile Include="Compiler\ICompiledNode.cs" />
     <Compile Include="Compiler\CompiledVariable.cs" />
@@ -96,6 +93,9 @@
     <Compile Include="Nouns\NounManager.cs" />
     <Compile Include="Nouns\NounSuggestion.cs" />
     <Compile Include="Nouns\NounSuggestionDependency.cs" />
+    <Compile Include="Design\TemplateWriter.cs" />
+    <Compile Include="Version0\Variable.cs" />
+    <Compile Include="Version0\VariableForm.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -108,6 +108,7 @@
     <Folder Include="Lexing\" />
     <Folder Include="Parsing\" />
     <Folder Include="Generation\" />
+    <Folder Include="Version0\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

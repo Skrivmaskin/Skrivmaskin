@@ -17,13 +17,6 @@ namespace TextOn.Nouns
         private readonly List<NounDependency> dependencies = new List<NounDependency> ();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:TextOn.Nouns.NounManager"/> class.
-        /// </summary>
-        public NounManager ()
-        {
-        }
-
-        /// <summary>
         /// Gets all defined nouns.
         /// </summary>
         /// <returns>The all nouns.</returns>
