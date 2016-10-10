@@ -16,6 +16,6 @@ namespace TextOn.Studio
         /// <summary>
         /// Signals to view controllers that the user is creating a new document.
         /// </summary>
-        internal bool IsInNew = false;
-	}
+        public bool IsInNew { get; set; } = false;
+    }
 }
