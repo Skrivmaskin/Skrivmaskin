@@ -32,7 +32,7 @@ namespace TextOn.Studio
         #region Text view
         public DesignPreviewTextView (IntPtr handle) : base (handle)
         {
-            Console.Error.WriteLine ("SetVariables ctor");
+            Console.Error.WriteLine ("DesignPreview ctor");
 
             this.Delegate = new DesignPreviewTextViewDelegate (this);
         }
@@ -42,7 +42,7 @@ namespace TextOn.Studio
 
         public void SetValue (string value, PreviewRouteNode[] route, CompiledTemplate compiledTemplate)
         {
-            Console.Error.WriteLine ("SetVariables SetValue");
+            Console.Error.WriteLine ("DesignPreview SetValue");
 
             Value = value;
             CompiledTemplate = compiledTemplate;
@@ -84,7 +84,7 @@ namespace TextOn.Studio
         //TODO This relies on the text I chose for <pr/> compiling as text - yikes.
         public TextOnParseTokens Highlight ()
         {
-            Console.Error.WriteLine ("SetVariables Highlight");
+            Console.Error.WriteLine ("DesignPreview Highlight");
 
             if (CompiledTemplate == null) return TextOnParseTokens.Text;
             var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
