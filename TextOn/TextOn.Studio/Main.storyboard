@@ -1042,20 +1042,6 @@ Gw
                                             <segue destination="mUe-1O-a1D" kind="modal" identifier="AddFromSample" id="Ala-Pz-dYp"/>
                                         </connections>
                                     </menuItem>
-                                    <menuItem title="Variable" id="HFd-Yh-TbF">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <binding destination="n3f-aZ-4pA" name="enabled" keyPath="selection.enableAddVariable" id="JiC-b6-Rnr"/>
-                                            <segue destination="34o-xe-pSe" kind="modal" identifier="AddVariable" id="g7j-Kp-oWu"/>
-                                        </connections>
-                                    </menuItem>
-                                    <menuItem title="Variable Variant" id="1wb-60-abv">
-                                        <modifierMask key="keyEquivalentModifierMask"/>
-                                        <connections>
-                                            <binding destination="n3f-aZ-4pA" name="enabled" keyPath="selection.enableAddVariableVariant" id="e00-tt-MVE"/>
-                                            <segue destination="34o-xe-pSe" kind="modal" identifier="AddVariableVariant" id="LHX-HJ-eKj"/>
-                                        </connections>
-                                    </menuItem>
                                 </items>
                             </menu>
                         </menuItem>
@@ -1240,12 +1226,12 @@ Gw
         <scene sceneID="lwH-qR-aru">
             <objects>
                 <viewController id="34o-xe-pSe" customClass="GeneralPurposeDialogController" sceneMemberID="viewController">
-                    <view key="view" id="Hl3-FR-Kzq">
+                    <view key="view" misplaced="YES" id="Hl3-FR-Kzq">
                         <rect key="frame" x="0.0" y="0.0" width="522" height="305"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="NAn-js-Zrl">
-                                <rect key="frame" x="18" y="261" width="413" height="24"/>
+                                <rect key="frame" x="18" y="231" width="413" height="24"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="24" id="uqu-4t-Mcb"/>
                                     <constraint firstAttribute="width" constant="409" id="x5w-e6-bHK"/>
@@ -1260,7 +1246,7 @@ Gw
                                 </connections>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="OaO-HE-O96">
-                                <rect key="frame" x="18" y="179" width="413" height="74"/>
+                                <rect key="frame" x="18" y="149" width="413" height="74"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="74" id="1wg-mc-LHv"/>
                                     <constraint firstAttribute="width" constant="409" id="Fpo-w8-cSn"/>
@@ -1309,10 +1295,10 @@ DQ
                                 </connections>
                             </button>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rCY-HS-fRF">
-                                <rect key="frame" x="20" y="61" width="482" height="110"/>
+                                <rect key="frame" x="20" y="61" width="482" height="80"/>
                                 <subviews>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="slt-F3-3bk">
-                                        <rect key="frame" x="0.0" y="88" width="482" height="22"/>
+                                        <rect key="frame" x="0.0" y="58" width="482" height="22"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Wjc-6d-ATa">
                                                 <rect key="frame" x="-2" y="3" width="84" height="19"/>
@@ -1366,7 +1352,7 @@ DQ
                                         </connections>
                                     </stackView>
                                     <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DF6-mz-eNO">
-                                        <rect key="frame" x="0.0" y="30" width="482" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="482" height="50"/>
                                         <subviews>
                                             <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="EOL-iS-iD6">
                                                 <rect key="frame" x="-2" y="31" width="84" height="19"/>
@@ -1432,53 +1418,6 @@ DQ
                                             </binding>
                                         </connections>
                                     </stackView>
-                                    <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="0Tq-DJ-Nfm">
-                                        <rect key="frame" x="0.0" y="0.0" width="482" height="22"/>
-                                        <subviews>
-                                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XjQ-cU-fVL">
-                                                <rect key="frame" x="-2" y="3" width="84" height="19"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="80" id="F0R-j8-IGg"/>
-                                                    <constraint firstAttribute="height" constant="19" id="FjB-FA-DSs"/>
-                                                </constraints>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Suggestion:" id="0bE-NO-PDD">
-                                                    <font key="font" metaFont="system" size="16"/>
-                                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                            <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="LNJ-Ll-htv">
-                                                <rect key="frame" x="88" y="0.0" width="394" height="22"/>
-                                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" borderStyle="bezel" drawsBackground="YES" id="zZD-Y0-QnC">
-                                                    <font key="font" metaFont="system"/>
-                                                    <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
-                                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                                </textFieldCell>
-                                            </textField>
-                                        </subviews>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="XjQ-cU-fVL" secondAttribute="bottom" constant="3" id="Evy-mN-odr"/>
-                                            <constraint firstItem="XjQ-cU-fVL" firstAttribute="leading" secondItem="0Tq-DJ-Nfm" secondAttribute="leading" id="Te2-bf-kIB"/>
-                                            <constraint firstItem="LNJ-Ll-htv" firstAttribute="leading" secondItem="XjQ-cU-fVL" secondAttribute="trailing" constant="8" id="VnV-1i-Yeb"/>
-                                            <constraint firstAttribute="height" constant="22" id="qVe-gg-sTR"/>
-                                            <constraint firstItem="XjQ-cU-fVL" firstAttribute="top" secondItem="0Tq-DJ-Nfm" secondAttribute="top" id="wkY-hg-G2w"/>
-                                        </constraints>
-                                        <visibilityPriorities>
-                                            <integer value="1000"/>
-                                            <integer value="1000"/>
-                                        </visibilityPriorities>
-                                        <customSpacing>
-                                            <real value="3.4028234663852886e+38"/>
-                                            <real value="3.4028234663852886e+38"/>
-                                        </customSpacing>
-                                        <connections>
-                                            <binding destination="34o-xe-pSe" name="hidden" keyPath="self.showSuggestion" id="qvj-h1-321">
-                                                <dictionary key="options">
-                                                    <string key="NSValueTransformerName">NSNegateBoolean</string>
-                                                </dictionary>
-                                            </binding>
-                                        </connections>
-                                    </stackView>
                                 </subviews>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="482" id="lBU-Sb-QR3"/>
@@ -1486,16 +1425,14 @@ DQ
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
-                                    <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
-                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
                             </stackView>
                             <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xzc-Yf-FSR">
-                                <rect key="frame" x="438" y="221" width="64" height="64"/>
+                                <rect key="frame" x="438" y="191" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="dcE-3v-aIC"/>
                                     <constraint firstAttribute="width" constant="64" id="uAH-bQ-cUp"/>
@@ -1503,7 +1440,7 @@ DQ
                                 <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="d0p-KG-kVa"/>
                             </imageView>
                             <button translatesAutoresizingMaskIntoConstraints="NO" id="bdm-aQ-Vot">
-                                <rect key="frame" x="436" y="178" width="69" height="18"/>
+                                <rect key="frame" x="436" y="148" width="69" height="18"/>
                                 <constraints>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="14" id="d5m-HY-bGo"/>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="65" id="gUq-Ag-clE"/>
@@ -1556,7 +1493,6 @@ DQ
                         <outlet property="DetailsTextView" destination="Xkh-fC-He9" id="Vyv-Vf-RRm"/>
                         <outlet property="IsActive" destination="bdm-aQ-Vot" id="WQQ-Tj-Kaj"/>
                         <outlet property="NameTextField" destination="Rnw-OQ-3Rq" id="a6h-Gp-WmY"/>
-                        <outlet property="SuggestionTextField" destination="LNJ-Ll-htv" id="p1C-eB-1da"/>
                     </connections>
                 </viewController>
                 <customObject id="3L9-sj-kzQ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
@@ -2122,8 +2058,8 @@ DQ
         <image name="NSAddTemplate" width="11" height="11"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="LHX-HJ-eKj"/>
-        <segue reference="lp0-H5-DuO"/>
         <segue reference="Ala-Pz-dYp"/>
+        <segue reference="lp0-H5-DuO"/>
+        <segue reference="dto-6U-pUu"/>
     </inferredMetricsTieBreakers>
 </document>

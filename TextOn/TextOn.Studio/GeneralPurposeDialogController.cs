@@ -94,12 +94,6 @@ namespace TextOn.Studio
             }
         }
 
-        public string SuggestionTextOutput {
-            get {
-                return SuggestionTextField.StringValue;
-            }
-        }
-
         public string NameTextInput { get; set; } = "";
 
         public string DetailsTextInput { get; set; } = "";
@@ -123,17 +117,6 @@ namespace TextOn.Studio
             }
             set {
                 _showDetails = value;
-            }
-        }
-
-        private bool _showSuggestion;
-        public bool showSuggestion {
-            [Export (nameof (showSuggestion))]
-            get {
-                return _showSuggestion;
-            }
-            set {
-                _showSuggestion = value;
             }
         }
 

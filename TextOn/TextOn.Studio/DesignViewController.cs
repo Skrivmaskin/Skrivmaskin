@@ -266,7 +266,6 @@ namespace TextOn.Studio
                 dialog.showActive = false;
                 dialog.showName = false;
                 dialog.showDetails = false;
-                dialog.showSuggestion = false;
                 dialog.DialogAccepted += (s, e) => {
                     TreeController.RemoveObjectsAtArrangedObjectIndexPaths (TreeController.SelectionIndexPaths);
                     DocumentEditedAction ();
@@ -279,7 +278,6 @@ namespace TextOn.Studio
                 dialog.showActive = (selected.modelType != DesignModelType.Variable);
                 dialog.showName = (selected.modelType != DesignModelType.Text && selected.modelType != DesignModelType.ParagraphBreak);
                 dialog.showDetails = (selected.modelType != DesignModelType.Choice && selected.modelType != DesignModelType.Sequential && selected.modelType != DesignModelType.ParagraphBreak);
-                dialog.showSuggestion = false;
                 dialog.NameTextInput = selected.name;
                 dialog.DetailsTextInput = selected.details;
                 dialog.IsActiveInput = selected.isActive;
@@ -298,7 +296,6 @@ namespace TextOn.Studio
                 dialog.showName = false;
                 dialog.detailsText = "Text:";
                 dialog.showDetails = true;
-                dialog.showSuggestion = false;
                 dialog.DetailsTextInput = "";
                 dialog.IsActiveInput = true;
                 dialog.CompiledTemplate = centralViewController.CompiledTemplate;
@@ -312,7 +309,6 @@ namespace TextOn.Studio
                 dialog.showActive = true;
                 dialog.showName = true;
                 dialog.showDetails = false;
-                dialog.showSuggestion = false;
                 dialog.NameTextInput = "Choice";
                 dialog.IsActiveInput = true;
                 dialog.DialogAccepted += (s, e) => {
@@ -325,30 +321,14 @@ namespace TextOn.Studio
                 dialog.showActive = true;
                 dialog.showName = true;
                 dialog.showDetails = false;
-                dialog.showSuggestion = false;
                 dialog.NameTextInput = "Sequential";
                 dialog.IsActiveInput = true;
                 dialog.DialogAccepted += (s, e) => {
                     AddChildModel (DesignModelType.Sequential, dialog.NameTextOutput, "", dialog.IsActiveOutput);
                 };
                 break;
-            case DesignViewDialogSegues.AddVariable:
-                dialog.titleText = "Add Variable";
-                dialog.descriptionText = "Add new variable.";
-                dialog.showActive = false;
-                dialog.showName = true;
-                dialog.showDetails = true;
-                dialog.showSuggestion = true;
-                dialog.NameTextInput = "VARNAME";
-                dialog.detailsText = "Description:";
-                dialog.DetailsTextInput = "Description for this variable";
-                dialog.DialogAccepted += (s, e) => {
-                    var variable = new DesignModel (DesignModelType.Variable, dialog.NameTextOutput, dialog.DetailsTextOutput, true, true);
-                    AddChild (variable);
-                };
-                break;
             default:
-                break;
+                throw new ApplicationException ("Unknown segue - " + segue.Identifier);
             }
         }
 

@@ -4,8 +4,6 @@ namespace TextOn.Studio
     public static class DesignViewDialogSegues
     {
         // To General purpose
-        public const string AddVariable = "AddVariable";
-        public const string AddVariableVariant = "AddVariableVariant";
         public const string AddChoice = "AddChoice";
         public const string AddText = "AddText";
         public const string AddSequential = "AddSequential";
