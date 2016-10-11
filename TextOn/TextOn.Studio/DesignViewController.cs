@@ -87,31 +87,22 @@ namespace TextOn.Studio
 
             if (!previewIsHidden) {
                 List<PreviewPartialRouteChoiceNode> partialRoute = new List<PreviewPartialRouteChoiceNode> ();
-                if (TreeController.SelectedObjects.Length == 1) {
-                    switch (((DesignModel)TreeController.SelectedObjects [0]).modelType) {
-                    case DesignModelType.Variable:
-                    case DesignModelType.VariableRoot:
-                        break;
-                    default:
-                        var node = centralViewController.Template.Definition;
-                        var indexPath = TreeController.SelectionIndexPaths [0];
-                        var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
-                        var choicesMade = 0;
-                        foreach (var index in indices) {
-                            if (node.Type == NodeType.Sequential)
-                                node = ((SequentialNode)node).Sequential [index];
-                            else if (node.Type == NodeType.Choice) {
-                                var choiceNode = (ChoiceNode)node;
-                                partialRoute.Add (new PreviewPartialRouteChoiceNode (choiceNode, index, choicesMade++, null));
-                                node = choiceNode.Choices [index];
-                            } else {
-                                break;
-                            }
-                        }
-                        partialRoute.Add (new PreviewPartialRouteChoiceNode (null, -1, choicesMade, node));
+                var node = centralViewController.Template.Definition;
+                var indexPath = TreeController.SelectionIndexPaths [0];
+                var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
+                var choicesMade = 0;
+                foreach (var index in indices) {
+                    if (node.Type == NodeType.Sequential)
+                        node = ((SequentialNode)node).Sequential [index];
+                    else if (node.Type == NodeType.Choice) {
+                        var choiceNode = (ChoiceNode)node;
+                        partialRoute.Add (new PreviewPartialRouteChoiceNode (choiceNode, index, choicesMade++, null));
+                        node = choiceNode.Choices [index];
+                    } else {
                         break;
                     }
                 }
+                partialRoute.Add (new PreviewPartialRouteChoiceNode (null, -1, choicesMade, node));
                 centralViewController.GeneratePreview (partialRoute.ToArray ());
             }
         }
@@ -124,11 +115,9 @@ namespace TextOn.Studio
             if (!loading) {
                 // Reread project from the outline view
                 var template = CreateTemplateFromOutlineView ();
-                if (!template.Equals (centralViewController.Template)) {
-                    NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
-                    centralViewController.Template = template;
-                    centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template); // has a caching layer so should be quick
-                }
+                NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
+                centralViewController.Template = template;
+                centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template); // has a caching layer so should be quick
             }
 
             centralViewController.MarkPreviewAsInvalid ();
@@ -275,7 +264,7 @@ namespace TextOn.Studio
                 var selected = (DesignModel)TreeController.SelectedObjects [0];
                 dialog.titleText = "Edit";
                 dialog.descriptionText = "Edit this " + selected.modelType + ".";
-                dialog.showActive = (selected.modelType != DesignModelType.Variable);
+                dialog.showActive = true;
                 dialog.showName = (selected.modelType != DesignModelType.Text && selected.modelType != DesignModelType.ParagraphBreak);
                 dialog.showDetails = (selected.modelType != DesignModelType.Choice && selected.modelType != DesignModelType.Sequential && selected.modelType != DesignModelType.ParagraphBreak);
                 dialog.NameTextInput = selected.name;
@@ -457,13 +446,8 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("Design CreateTemplateFromOutlineView");
 
-            var variablesNode = Designs.GetItem<DesignModel> ((nuint)0);
-            var definitionNode = Designs.GetItem<DesignModel> ((nuint)1);
-            var nounProfile = new NounProfile ();
-            for (int i = 0; i < variablesNode.numberOfDesigns; i++) {
-                var variableNode = variablesNode.Designs.GetItem<DesignModel> ((nuint)i);
-                nounProfile.AddNewNoun (variableNode.name, variableNode.details, true);
-            }
+            var definitionNode = Designs.GetItem<DesignModel> ((nuint)0);
+            var nounProfile = centralViewController.Template?.Nouns;
             var root = CreateDesignNode (definitionNode);
             return new TextOnTemplate (nounProfile, root);
         }
@@ -501,26 +485,12 @@ namespace TextOn.Studio
             loading = true;
             var array = new NSMutableArray ();
             SetDesigns (array);
-            var variables = new DesignModel (true, DesignModelType.VariableRoot, "Variables", "", true, true);
-            AddDesign (variables);
-            if (this.CreateVariables (centralViewController.Template, variables, out errorText)) {
-                if (this.CreateDefinition (centralViewController.Template.Definition, true, (d) => AddDesign (d), true, out errorText)) {
-                    centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template);
-                    loading = false;
-                    return;
-                }
+            if (this.CreateDefinition (centralViewController.Template.Definition, true, (d) => AddDesign (d), true, out errorText)) {
+                centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template);
+                loading = false;
+                return;
             }
             loading = false;
-        }
-
-        public bool CreateVariables (TextOnTemplate project, DesignModel variables, out string errorText)
-        {
-            foreach (var variable in project.Nouns.GetAllNouns()) {
-                var model = new DesignModel (DesignModelType.Variable, variable.Name, variable.Description, true, true);
-                variables.AddDesign (model);
-            }
-            errorText = "";
-            return true;
         }
 
         public bool CreateDefinition (INode designNode, bool root, Action<DesignModel> addDefn, bool isParentActive, out string errorText)
