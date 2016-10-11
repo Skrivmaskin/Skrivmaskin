@@ -41,28 +41,24 @@ namespace TextOn.Studio
 
             switch (tableColumn.Identifier) {
             case FullNameIdentifier:
-                view.StringValue = variable.FullName;
+                view.StringValue = variable.Item1;
                 view.Editable = false;
                 break;
             case DescriptionIdentifier:
-                if (String.IsNullOrEmpty (variable.FormName)) {
-                    view.StringValue = variable.Description;
-                } else {
-                    view.StringValue = "";
-                }
+                view.StringValue = variable.Item2;
                 view.Editable = false;
                 break;
             case VariantIdentifier:
-                view.StringValue = variable.FormName;
+                view.StringValue = "";
                 view.Editable = false;
                 break;
             case ValueIdentifier:
-                view.StringValue = DataSource.VariableValues [variable.FullName];
+                view.StringValue = DataSource.VariableValues [variable.Item1];
                 // Save after edit
                 //TODO not allowed to be left blank?
                 //TODO Don't I have to worry about view reuse?
                 view.EditingEnded += (sender, e) => {
-                    DataSource.VariableValues [variable.FullName] = view.StringValue;
+                    DataSource.VariableValues [variable.Item1] = view.StringValue;
                 };
                 view.Editable = true;
                 break;

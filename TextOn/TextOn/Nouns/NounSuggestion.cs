@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+
 namespace TextOn.Nouns
 {
     /// <summary>
@@ -7,11 +9,8 @@ namespace TextOn.Nouns
     /// </summary>
     public sealed class NounSuggestion
     {
-        public NounSuggestion () : this ("")
-        {
-        }
-
-        public NounSuggestion (string value)
+        [JsonConstructor]
+        internal NounSuggestion (string value)
         {
             Value = value;
         }

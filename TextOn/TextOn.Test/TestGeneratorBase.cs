@@ -6,14 +6,15 @@ using Moq;
 using TextOn.Compiler;
 using TextOn.Design;
 using TextOn.Parsing;
+using TextOn.Nouns;
 
 namespace TextOn.Test
 {
     public class TestGeneratorBase
     {
-        public CompiledTemplate MakeProject (IEnumerable<ICompiledVariable> variables, ICompiledNode definition, [CallerMemberName] string testName = "Test Project")
+        public CompiledTemplate MakeProject (NounProfile nouns, ICompiledNode definition, [CallerMemberName] string testName = "Test Project")
         {
-            return new CompiledTemplate (variables ?? new List<ICompiledVariable> (), definition);
+            return new CompiledTemplate (nouns ?? new NounProfile (), definition);
         }
 
         internal TextCompiledNode MakeSimpleText (string text)

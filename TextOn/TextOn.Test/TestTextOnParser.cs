@@ -38,17 +38,6 @@ namespace TextOn.Test
         }
 
         [Test]
-        public void TestCompileCompoundVariable ()
-        {
-            var inputText = "[Compound|Variable]";
-            var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
-            Assert.IsNotNull (compiledNode);
-            var variableNode = compiledNode.Node as VariableCompiledNode;
-            Assert.IsNotNull (variableNode);
-        }
-
-        [Test]
         public void TestTwoTextChoices ()
         {
             var inputText = "{Hello|World} {World|Hello}";
@@ -95,7 +84,7 @@ namespace TextOn.Test
         [Test]
         public void TestDiacriticsInVariable ()
         {
-            var inputText = "[MÄRKE|MÄRKE_Variant]";
+            var inputText = "[MÄRKE_Variant]";
             var designNode = new TextNode () { Text = inputText };
             var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
             Assert.IsNotNull (compiledNode);

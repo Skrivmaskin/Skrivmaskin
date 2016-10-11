@@ -67,8 +67,6 @@ namespace TextOn.Studio
             case TextOnParseTokens.VarEnd:
             case TextOnParseTokens.VarName:
             case TextOnParseTokens.VarStart:
-            case TextOnParseTokens.VarDivide:
-            case TextOnParseTokens.VarFormName:
                 foregroundColor = NSColor.Blue;
                 break;
             default:
@@ -157,7 +155,10 @@ namespace TextOn.Studio
             var possibleComplete = Char.IsLetterOrDigit (theEvent.Characters [0]);
             //TODO Note, not ideal, because the user's position should be taken into account.
             var lastToken = Highlight ();
-            if (possibleComplete && (CompiledTemplate != null) && (CompiledTemplate.VariableDefinitions.Count > 0) && (lastToken == TextOnParseTokens.VarName) || (lastToken == TextOnParseTokens.VarFormName)) Complete (this);
+            if (possibleComplete &&
+                (CompiledTemplate != null) &&
+                (CompiledTemplate.Nouns.Count > 0) &&
+                (lastToken == TextOnParseTokens.VarName)) Complete (this);
         }
 
         public override NSRange RangeForUserCompletion ()

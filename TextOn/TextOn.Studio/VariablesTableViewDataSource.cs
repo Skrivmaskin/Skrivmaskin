@@ -5,6 +5,7 @@ using AppKit;
 using CoreGraphics;
 using Foundation;
 using TextOn.Compiler;
+using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
@@ -12,14 +13,14 @@ namespace TextOn.Studio
     // the data used in your Delegate. In this example, we walk a simple tree.
     public class VariablesTableViewDataSource : NSTableViewDataSource
     {
-        public List<ICompiledVariable> Variables = new List<ICompiledVariable> ();
+        public List<Tuple<string, string>> Variables = new List<Tuple<string, string>> ();
         public Dictionary<string, string> VariableValues = new Dictionary<string, string> ();
 
-        public VariablesTableViewDataSource (IEnumerable<ICompiledVariable> variables)
+        public VariablesTableViewDataSource (NounProfile variables)
         {
-            foreach (var variable in variables) {
-                Variables.Add (variable);
-                VariableValues.Add (variable.FullName, variable.Suggestion);
+            foreach (var variable in variables.GetAllNouns ()) {
+                Variables.Add (new Tuple<string, string> (variable.Name, variable.Description));
+                VariableValues.Add (variable.Name, "");
             }
         }
 

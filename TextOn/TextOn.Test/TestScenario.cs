@@ -77,17 +77,17 @@ namespace TextOn.Test
         public void TestTemplate2_BrownTerrier ()
         {
             using (var host = new TemplateHost ()) {
-                var project = host.Object;
-                var compiledProject = compiler.Compile (project);
+                var template = host.Object;
+                var compiledProject = compiler.Compile (template);
                 Assert.IsNotNull (compiledProject);
                 Assert.AreEqual (7, compiledProject.Definition.RequiredVariables.Count ());
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("BREED")).Returns ("terrier");
-                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("BREED|Plural")).Returns ("terriers");
+                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("BREEDPlural")).Returns ("terriers");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("CITY")).Returns ("London");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("NAME")).Returns ("Susie");
-                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("NAME|Pronoun")).Returns ("She");
+                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("NAMEPronoun")).Returns ("She");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("COLOUR")).Returns ("brown");
-                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("COLOUR|Capitalized")).Returns ("Brown");
+                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("COLOURCapitalized")).Returns ("Brown");
                 var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 17).ToString ();
                 var expectedText = "I used to have a brown terrier named Susie. She would run alongside me while I jogged through the streets of London. Brown terriers are so irritating.\n\nThe end.";
                 Assert.AreEqual (expectedText, generatedText);

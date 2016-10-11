@@ -45,7 +45,6 @@
     <Compile Include="Design\TextOnTemplate.cs" />
     <Compile Include="Design\ParagraphBreakNode.cs" />
     <Compile Include="Compiler\ICompiledNode.cs" />
-    <Compile Include="Compiler\CompiledVariable.cs" />
     <Compile Include="Compiler\VariableCompiledNode.cs" />
     <Compile Include="Compiler\TextCompiledNode.cs" />
     <Compile Include="Compiler\SequentialCompiledNode.cs" />
@@ -53,7 +52,6 @@
     <Compile Include="Interfaces\IDialogService.cs" />
     <Compile Include="Interfaces\IVariableSubstituter.cs" />
     <Compile Include="Interfaces\IRandomChooser.cs" />
-    <Compile Include="Services\CachingDialogBasedVariableSubstituter.cs" />
     <Compile Include="Services\RandomChooser.cs" />
     <Compile Include="Interfaces\ILexerSyntax.cs" />
     <Compile Include="Lexing\DefaultLexerSyntax.cs" />
@@ -66,7 +64,6 @@
     <Compile Include="Generation\TextOnGenerator.cs" />
     <Compile Include="Interfaces\IGeneratorConfig.cs" />
     <Compile Include="Services\SingleSpaceUnixGeneratorConfig.cs" />
-    <Compile Include="Compiler\ICompiledVariable.cs" />
     <Compile Include="Compiler\CompiledNodeType.cs" />
     <Compile Include="Compiler\ErrorCompiledNode.cs" />
     <Compile Include="Compiler\TextOnCompiler.cs" />
@@ -89,8 +86,7 @@
     <Compile Include="Generation\PreviewPartialRouteChoiceNode.cs" />
     <Compile Include="Generation\PreviewRouteState.cs" />
     <Compile Include="Nouns\Noun.cs" />
-    <Compile Include="Nouns\NounDependency.cs" />
-    <Compile Include="Nouns\NounManager.cs" />
+    <Compile Include="Nouns\NounProfile.cs" />
     <Compile Include="Nouns\NounSuggestion.cs" />
     <Compile Include="Nouns\NounSuggestionDependency.cs" />
     <Compile Include="Design\TemplateWriter.cs" />

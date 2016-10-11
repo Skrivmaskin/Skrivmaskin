@@ -8,8 +8,6 @@ namespace TextOn.Parsing
         ChoiceEnd,
         VarStart,
         VarName,
-        VarDivide,
-        VarFormName,
         VarEnd,
         Text,
         Error,

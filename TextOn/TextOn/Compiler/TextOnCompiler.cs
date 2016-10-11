@@ -40,14 +40,7 @@ namespace TextOn.Compiler
             var transientCompiledNodes = new Dictionary<TextNode, ICompiledNode> ();
             var compiledNode = CompileNode (transientCompiledNodes, project.Definition);
             compiledNodes = transientCompiledNodes;
-            var variables = new List<ICompiledVariable> ();
-            foreach (var definition in project.VariableDefinitions) {
-                foreach (var form in definition.Forms) {
-                    var compiledVariable = new CompiledVariable (lexerSyntax, definition, form);
-                    variables.Add (compiledVariable);
-                }
-            }
-            return new CompiledTemplate (variables, compiledNode);
+            return new CompiledTemplate (project.Nouns, compiledNode);
         }
 
         /// <summary>

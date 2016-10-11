@@ -62,9 +62,7 @@ namespace TextOn.Parsing
                     elements.Add (new TextOnParseElement (TextOnParseTokens.Error, choiceDepth, new TextOnParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Length - 1)));
                 } else if (isKey) {
                     if (inVariable) {
-                        if (lexerSyntax.VariableFormDelimiter.ToString () == token.Text) {
-                            elements.Add (new TextOnParseElement (TextOnParseTokens.VarDivide, choiceDepth, new TextOnParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
-                        } else if (lexerSyntax.VariableEndDelimiter.ToString () == token.Text) {
+                        if (lexerSyntax.VariableEndDelimiter.ToString () == token.Text) {
                             inVariable = false;
                             elements.Add (new TextOnParseElement (TextOnParseTokens.VarEnd, choiceDepth, new TextOnParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position)));
                         } else {
@@ -101,9 +99,6 @@ namespace TextOn.Parsing
                             break;
                         case TextOnParseNodes.VarName:
                             elements.Add (new TextOnParseElement (TextOnParseTokens.VarName, choiceDepth, new TextOnParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
-                            break;
-                        case TextOnParseNodes.VarForm:
-                            elements.Add (new TextOnParseElement (TextOnParseTokens.VarFormName, choiceDepth, new TextOnParseRange (token.Location.Position, tokenizedLastCharIndex = token.Location.Position + token.Text.Length - 1)));
                             break;
                         default:
                             //TODO info about this failure - this is meant to be an assertion, but is effectively asserting that
@@ -153,7 +148,7 @@ namespace TextOn.Parsing
             if (node.ChildNodes.Count != 1) throw new ApplicationException (string.Format ("Unexpected number of child nodes {0}", node.ChildNodes.Count));
             if (Enum.TryParse (node.ChildNodes [0].Term.Name, out token)) {
                 switch (token) {
-                case TextOnParseNodes.Variable:
+                case TextOnParseNodes.Noun:
                     return ConvertVariable (designNode, node.ChildNodes [0]);
                 case TextOnParseNodes.Phrase:
                     return ConvertPhrase (designNode, node.ChildNodes [0]);
@@ -168,21 +163,8 @@ namespace TextOn.Parsing
 
         private ICompiledNode ConvertVariable (INode designNode, ParseTreeNode node)
         {
-            TextOnParseNodes token;
-            if (node.ChildNodes.Count != 1) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
-            node = node.ChildNodes [0];
-            if (!Enum.TryParse (node.Term.Name, out token))
-                throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
-            switch (token) {
-            case TextOnParseNodes.SimpleVariable:
-                if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
-                return new VariableCompiledNode (node.ChildNodes [1].Token.Text, designNode);
-            case TextOnParseNodes.CompoundVariable:
-                if (node.ChildNodes.Count != 5) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
-                return new VariableCompiledNode (node.ChildNodes [1].Token.Text + lexerSyntax.VariableFormDelimiter.ToString () + node.ChildNodes [3].Token.Text, designNode);
-            default:
-                throw new ApplicationException (string.Format ("Unexpected token when expected a variable type: {0}", token));
-            }
+            if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
+            return new VariableCompiledNode (node.ChildNodes [1].Token.Text, designNode);
         }
 
         private ICompiledNode ConvertPhrase (INode designNode, ParseTreeNode node)

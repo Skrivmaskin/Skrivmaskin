@@ -17,7 +17,6 @@ namespace TextOn.Lexing
                     lexerSyntax.ChoiceStartDelimiter,
                     lexerSyntax.ChoiceEndDelimiter,
                     lexerSyntax.VariableEndDelimiter,
-                    lexerSyntax.VariableFormDelimiter,
                     lexerSyntax.VariableStartDelimiter,
                     lexerSyntax.EscapeCharacter
             };

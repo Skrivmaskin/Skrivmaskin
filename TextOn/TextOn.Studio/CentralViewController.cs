@@ -10,6 +10,7 @@ using TextOn.Lexing;
 using TextOn.Design;
 using TextOn.Generation;
 using TextOn.Version0;
+using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
@@ -30,7 +31,7 @@ namespace TextOn.Studio
 
         #region Design and Compiled templates
         internal TextOnCompiler Compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-        internal TextOnTemplate Template { get; set; } = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
+        internal TextOnTemplate Template { get; set; } = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));
         private CompiledTemplate compiledTemplate = null;
         internal IReadOnlyDictionary<string, string> VariableValues {
             get {
@@ -78,7 +79,7 @@ namespace TextOn.Studio
             resultsViewController.SetControllerLinks (this);
             designPreviewViewController.SetControllerLinks (this);
 
-            Template = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
+            Template = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));
             CreateTree (null, Template);
         }
 

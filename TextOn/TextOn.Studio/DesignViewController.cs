@@ -9,7 +9,7 @@ using TextOn.Design;
 using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Generation;
-using TextOn.Version0;
+using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
@@ -90,7 +90,6 @@ namespace TextOn.Studio
                 if (TreeController.SelectedObjects.Length == 1) {
                     switch (((DesignModel)TreeController.SelectedObjects [0]).modelType) {
                     case DesignModelType.Variable:
-                    case DesignModelType.VariableForm:
                     case DesignModelType.VariableRoot:
                         break;
                     default:
@@ -152,7 +151,7 @@ namespace TextOn.Studio
                     dlg.TitleText = "Create Template";
                     dlg.DescriptionText = "Paste sample text below to create a new template outline.";
                     dlg.DialogAccepted += (s, e) => {
-                        var project = new TextOnTemplate (new List<Variable> (), OutputSplitter.Split (dlg.SampleText));
+                        var project = new TextOnTemplate (new NounProfile (), OutputSplitter.Split (dlg.SampleText));
                         centralViewController.CreateTree (null, project);
                     };
                     break;
@@ -277,7 +276,7 @@ namespace TextOn.Studio
                 var selected = (DesignModel)TreeController.SelectedObjects [0];
                 dialog.titleText = "Edit";
                 dialog.descriptionText = "Edit this " + selected.modelType + ".";
-                dialog.showActive = (selected.modelType != DesignModelType.VariableForm && selected.modelType != DesignModelType.Variable);
+                dialog.showActive = (selected.modelType != DesignModelType.Variable);
                 dialog.showName = (selected.modelType != DesignModelType.Text && selected.modelType != DesignModelType.ParagraphBreak);
                 dialog.showDetails = (selected.modelType != DesignModelType.Choice && selected.modelType != DesignModelType.Sequential && selected.modelType != DesignModelType.ParagraphBreak);
                 dialog.showSuggestion = false;
@@ -345,22 +344,7 @@ namespace TextOn.Studio
                 dialog.DetailsTextInput = "Description for this variable";
                 dialog.DialogAccepted += (s, e) => {
                     var variable = new DesignModel (DesignModelType.Variable, dialog.NameTextOutput, dialog.DetailsTextOutput, true, true);
-                    variable.AddDesign (new DesignModel (DesignModelType.VariableForm, "", dialog.SuggestionTextOutput, true, true));
                     AddChild (variable);
-                };
-                break;
-            case DesignViewDialogSegues.AddVariableVariant:
-                dialog.titleText = "Add Variable variant";
-                dialog.descriptionText = "Add new variant.";
-                dialog.showActive = false;
-                dialog.showName = true;
-                dialog.showDetails = true;
-                dialog.showSuggestion = false;
-                dialog.NameTextInput = "";
-                dialog.detailsText = "Suggestion:";
-                dialog.DetailsTextInput = "Suggestion";
-                dialog.DialogAccepted += (s, e) => {
-                    AddChildModel (DesignModelType.VariableForm, dialog.NameTextOutput, dialog.DetailsTextOutput, true);
                 };
                 break;
             default:
@@ -495,24 +479,13 @@ namespace TextOn.Studio
 
             var variablesNode = Designs.GetItem<DesignModel> ((nuint)0);
             var definitionNode = Designs.GetItem<DesignModel> ((nuint)1);
-            var variables = new List<Variable> ();
+            var nounProfile = new NounProfile ();
             for (int i = 0; i < variablesNode.numberOfDesigns; i++) {
                 var variableNode = variablesNode.Designs.GetItem<DesignModel> ((nuint)i);
-                var variable = new Variable ();
-                variable.Name = variableNode.name;
-                variable.Description = variableNode.details;
-                variable.Forms = new List<VariableForm> ();
-                for (int j = 0; j < variableNode.numberOfDesigns; j++) {
-                    var variableFormNode = variableNode.Designs.GetItem<DesignModel> ((nuint)j);
-                    var variableForm = new VariableForm ();
-                    variableForm.Name = variableFormNode.name;
-                    variableForm.Suggestion = variableFormNode.details;
-                    variable.Forms.Add (variableForm);
-                }
-                variables.Add (variable);
+                nounProfile.AddNewNoun (variableNode.name, variableNode.details, true);
             }
             var root = CreateDesignNode (definitionNode);
-            return new TextOnTemplate (variables, root);
+            return new TextOnTemplate (nounProfile, root);
         }
 
         INode CreateDesignNode (DesignModel designModel)
@@ -562,12 +535,9 @@ namespace TextOn.Studio
 
         public bool CreateVariables (TextOnTemplate project, DesignModel variables, out string errorText)
         {
-            foreach (var variable in project.VariableDefinitions) {
+            foreach (var variable in project.Nouns.GetAllNouns()) {
                 var model = new DesignModel (DesignModelType.Variable, variable.Name, variable.Description, true, true);
                 variables.AddDesign (model);
-                foreach (var form in variable.Forms) {
-                    model.AddDesign (new DesignModel (DesignModelType.VariableForm, form.Name, form.Suggestion, true, true));
-                }
             }
             errorText = "";
             return true;

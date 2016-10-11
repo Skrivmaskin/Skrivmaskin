@@ -21,11 +21,6 @@ namespace TextOn.Interfaces
         char VariableEndDelimiter { get; }
 
         /// <summary>
-        /// Delimits the variable name from its form.
-        /// </summary>
-        char VariableFormDelimiter { get; }
-
-        /// <summary>
         /// Delimits the beginning of a multiple choice.
         /// </summary>
         char ChoiceStartDelimiter { get; }

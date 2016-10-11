@@ -5,7 +5,6 @@ namespace TextOn.Studio
     {
         VariableRoot,
         Variable,
-        VariableForm,
         Text,
         Choice,
         Sequential,

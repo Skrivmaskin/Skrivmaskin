@@ -48,7 +48,7 @@ namespace TextOn.Studio
             var endString = TextView.LexerSyntax.VariableEndDelimiter.ToString ();
             var completions = new List<string> ();
             completions.Add ("");
-            completions.AddRange (TextView.CompiledTemplate.VariableDefinitions.Keys.Select ((n) => startString + n + endString));
+            completions.AddRange (TextView.CompiledTemplate.Nouns.GetAllNouns ().Select ((n) => startString + n + endString));
             return completions.ToArray ();
         }
 

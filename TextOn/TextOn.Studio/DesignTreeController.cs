@@ -17,7 +17,7 @@ namespace TextOn.Studio
             get {
                 if (SelectedObjects.Length != 1) return false;
                 var model = (DesignModel)SelectedObjects [0];
-                return model.modelType != DesignModelType.Text && model.modelType != DesignModelType.VariableForm;
+                return model.modelType != DesignModelType.Text;
             }
         }
 	}

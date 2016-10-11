@@ -1,17 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using Newtonsoft.Json;
+
 namespace TextOn.Nouns
 {
     /// <summary>
-    /// Text on Noun. Represents a user variable.
+    /// Noun. Represents a user variable.
     /// </summary>
     public sealed class Noun
     {
-        public Noun () : this ("", "", true)
-        {
-        }
-
-        public Noun (string name, string description, bool acceptsUserValue)
+        [JsonConstructor]
+        internal Noun (string name, string description, bool acceptsUserValue)
         {
             Name = name;
             Description = description;
@@ -22,7 +21,7 @@ namespace TextOn.Nouns
         /// Gets or sets the name of this Noun.
         /// </summary>
         /// <value>The name.</value>
-        public string Name { get; set; }
+        public string Name { get; private set; }
 
         /// <summary>
         /// Gets or sets the description to display for this Noun at generation time.
@@ -41,6 +40,6 @@ namespace TextOn.Nouns
         /// Gets or sets the suggestions for the value of this Noun.
         /// </summary>
         /// <value>The suggestions.</value>
-        public List<NounSuggestion> Suggestions { get; set; } = new List<NounSuggestion>();
+        public List<NounSuggestion> Suggestions { get; private set; } = new List<NounSuggestion>();
     }
 }

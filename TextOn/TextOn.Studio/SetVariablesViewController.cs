@@ -34,7 +34,7 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("SetVariables SetCompiledTemplate");
 
-            var datasource = new VariablesTableViewDataSource (parent.CompiledTemplate.VariableDefinitions.Select ((kvp) => kvp.Value));
+            var datasource = new VariablesTableViewDataSource (parent.CompiledTemplate.Nouns);
             SetVariables.DataSource = datasource;
             SetVariables.Delegate = new VariablesTableViewDelegate (datasource);
         }

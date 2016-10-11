@@ -8,14 +8,6 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TextOn.Nouns.NounSuggestionDependency"/> class.
         /// </summary>
-        public NounSuggestionDependency () : this ("", "")
-        {
-
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:TextOn.Nouns.NounSuggestionDependency"/> class.
-        /// </summary>
         /// <param name="name">Name.</param>
         /// <param name="value">Value.</param>
         public NounSuggestionDependency (string name, string value)

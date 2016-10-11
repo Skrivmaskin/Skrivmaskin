@@ -33,8 +33,6 @@ namespace TextOn.Studio
                     return "Root node";
                 case DesignModelType.Variable:
                     return "A variable to be substituted into the output, using the [VARNAME] syntax.";
-                case DesignModelType.VariableForm:
-                    return "A grammatical variant of the variable to be substituted into the output, using the [VARNAME|Variant] syntax.";
                 case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
                 }
@@ -55,8 +53,6 @@ namespace TextOn.Studio
                     return "Root node";
                 case DesignModelType.Variable:
                     return "Variable definition - used as a prompt for the user.";
-                case DesignModelType.VariableForm:
-                    return "Suggestion for the value of this variant.";
                 case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
                 }
@@ -210,7 +206,6 @@ namespace TextOn.Studio
                 case DesignModelType.VariableRoot:
                     return NSImage.ImageNamed (NSImageName.Folder);
                 case DesignModelType.Variable:
-                case DesignModelType.VariableForm:
                     return NSImage.ImageNamed (NSImageName.UserGuest);
                 case DesignModelType.Text:
                     return NSImage.ImageNamed (NSImageName.GoRightTemplate);
@@ -375,7 +370,6 @@ namespace TextOn.Studio
             get {
                 switch (modelType) {
                 case DesignModelType.Variable:
-                case DesignModelType.VariableForm:
                 case DesignModelType.VariableRoot:
                     return false;
                 case DesignModelType.Text:
