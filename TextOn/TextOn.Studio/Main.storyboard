@@ -1494,10 +1494,10 @@ DQ
             </objects>
             <point key="canvasLocation" x="1346" y="-528"/>
         </scene>
-        <!--Set Variables-->
+        <!--Set Noun Values-->
         <scene sceneID="HdK-fN-xtP">
             <objects>
-                <viewController title="Set Variables" id="amp-VL-hto" customClass="SetVariablesViewController" sceneMemberID="viewController">
+                <viewController title="Set Noun Values" id="amp-VL-hto" customClass="SetNounValuesViewController" sceneMemberID="viewController">
                     <view key="view" id="cSF-H9-6nE">
                         <rect key="frame" x="0.0" y="0.0" width="450" height="300"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1508,7 +1508,7 @@ DQ
                                     <rect key="frame" x="1" y="1" width="408" height="258"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <collectionView id="Lsj-bw-Ono">
+                                        <collectionView maxNumberOfColumns="1" id="Lsj-bw-Ono">
                                             <rect key="frame" x="0.0" y="0.0" width="408" height="258"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                             <color key="primaryBackgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
@@ -1534,7 +1534,7 @@ DQ
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="SetVariablesCollectionView" destination="Lsj-bw-Ono" id="ebU-GM-LOn"/>
+                        <outlet property="SetNounValuesCollectionView" destination="Lsj-bw-Ono" id="ebU-GM-LOn"/>
                     </connections>
                 </viewController>
                 <customObject id="ro2-bq-Ssf" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>

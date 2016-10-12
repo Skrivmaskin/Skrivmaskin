@@ -53,7 +53,7 @@ namespace TextOn.Studio
 
         DesignViewController designViewController = null;
         DesignPreviewViewController designPreviewViewController = null;
-        SetVariablesViewController setVariablesViewController = null;
+        SetNounValuesViewController setVariablesViewController = null;
         ResultsViewController resultsViewController = null;
         public override void AwakeFromNib ()
         {
@@ -68,8 +68,8 @@ namespace TextOn.Studio
                         designViewController.SplitViewController = child as NSSplitViewController;
                     } else if (subchild is DesignPreviewViewController)
                         designPreviewViewController = (DesignPreviewViewController)subchild;
-                    else if (subchild is SetVariablesViewController)
-                        setVariablesViewController = (SetVariablesViewController)subchild;
+                    else if (subchild is SetNounValuesViewController)
+                        setVariablesViewController = (SetNounValuesViewController)subchild;
                     else if (subchild is ResultsViewController)
                         resultsViewController = (ResultsViewController)subchild;
                 }

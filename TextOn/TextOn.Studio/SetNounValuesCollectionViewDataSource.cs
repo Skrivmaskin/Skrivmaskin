@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using AppKit;
 using Foundation;
 
 namespace TextOn.Studio
 {
-    public class NounCollectionViewDataSource : NSCollectionViewDataSource
+    public class SetNounValuesCollectionViewDataSource : NSCollectionViewDataSource
     {
-        public NounCollectionViewDataSource ()
+        public SetNounValuesCollectionViewDataSource ()
         {
         }
 
@@ -18,7 +18,10 @@ namespace TextOn.Studio
         public override NSCollectionViewItem GetItem (NSCollectionView collectionView, NSIndexPath indexPath)
         {
             // should all be like (0, a) where a is 0 - 4
-            var item = collectionView.MakeItem (nameof(NounItemView), indexPath) as NounItemViewController;
+            var item = collectionView.MakeItem (nameof(SetNounValuesItemView), indexPath) as SetNounValuesItemViewController;
+            var indexes = indexPath.GetIndexes ();
+            var lastIndex = indexes [indexes.Length - 1];
+            item.NounName = "NOUN" + lastIndex;
             return item;
         }
 

@@ -10,9 +10,9 @@ using CoreGraphics;
 
 namespace TextOn.Studio
 {
-	public partial class SetVariablesViewController : NSViewController
+	public partial class SetNounValuesViewController : NSViewController
 	{
-		public SetVariablesViewController (IntPtr handle) : base (handle)
+		public SetNounValuesViewController (IntPtr handle) : base (handle)
 		{
 		}
 
@@ -20,7 +20,7 @@ namespace TextOn.Studio
         {
             base.ViewDidLoad ();
 
-            SetVariablesCollectionView.DataSource = new NounCollectionViewDataSource ();
+            SetNounValuesCollectionView.DataSource = new SetNounValuesCollectionViewDataSource ();
             ConfigureCollectionView ();
         }
 
@@ -34,29 +34,27 @@ namespace TextOn.Studio
 //        private CentralViewController parent = null;
         internal void SetControllerLinks (CentralViewController centralViewController)
         {
-            Console.Error.WriteLine ("SetVariables SetControllerLinks");
+            Console.Error.WriteLine ("SetNounValues SetControllerLinks");
 
 //            this.parent = centralViewController;   
         }
 
         internal void SetCompiledTemplate ()
         {
-            Console.Error.WriteLine ("SetVariables SetCompiledTemplate");
+            Console.Error.WriteLine ("SetNounValues SetCompiledTemplate");
         }
 
         private void ConfigureCollectionView ()
         {
             var flowLayout = new NSCollectionViewFlowLayout ();
-            flowLayout.ItemSize = new CGSize (width: 160.0, height: 140.0);
-            flowLayout.SectionInset = new NSEdgeInsets (top: (nfloat)10.0, left: (nfloat)20.0, bottom: (nfloat)10.0, right: (nfloat)20.0);
+            flowLayout.ItemSize = new CGSize (width: 250.0, height: 150.0);
+            flowLayout.SectionInset = new NSEdgeInsets (top: (nfloat)20.0, left: (nfloat)10.0, bottom: (nfloat)20.0, right: (nfloat)10.0);
             flowLayout.MinimumInteritemSpacing = (nfloat)20.0;
             flowLayout.MinimumLineSpacing = (nfloat)20.0;
-            SetVariablesCollectionView.CollectionViewLayout = flowLayout;
+            SetNounValuesCollectionView.CollectionViewLayout = flowLayout;
             // 2
             View.WantsLayer = true;
             // 3
-            //SetVariablesCollectionView.Layer.BackgroundColor = NSColor.Black.CGColor;
-
         }
 	}
 }

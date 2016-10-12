@@ -93,9 +93,9 @@
     <Compile Include="DesignViewController.designer.cs">
       <DependentUpon>DesignViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SetVariablesViewController.cs" />
-    <Compile Include="SetVariablesViewController.designer.cs">
-      <DependentUpon>SetVariablesViewController.cs</DependentUpon>
+    <Compile Include="SetNounValuesViewController.cs" />
+    <Compile Include="SetNounValuesViewController.designer.cs">
+      <DependentUpon>SetNounValuesViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ResultsViewController.cs" />
     <Compile Include="ResultsViewController.designer.cs">
@@ -140,25 +140,29 @@
       <DependentUpon>MakeChoiceViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="NounModel.cs" />
-    <Compile Include="NounItemView.cs" />
-    <Compile Include="NounItemViewController.cs" />
-    <Compile Include="NounItemView.designer.cs">
-      <DependentUpon>NounItemView.cs</DependentUpon>
+    <Compile Include="SetNounValuesItemView.cs" />
+    <Compile Include="SetNounValuesItemViewController.cs" />
+    <Compile Include="SetNounValuesItemView.designer.cs">
+      <DependentUpon>SetNounValuesItemView.cs</DependentUpon>
     </Compile>
-    <Compile Include="NounItemViewController.designer.cs">
-      <DependentUpon>NounItemViewController.cs</DependentUpon>
+    <Compile Include="SetNounValuesItemViewController.designer.cs">
+      <DependentUpon>SetNounValuesItemViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="NounCollectionViewDataSource.cs" />
+    <Compile Include="SetNounValuesCollectionViewDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="NounItemView.xib" />
+    <InterfaceDefinition Include="SetNounValuesItemView.xib" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextOn\TextOn.csproj">
       <Project>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</Project>
       <Name>TextOn</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\invalid.png" />
+    <BundleResource Include="Resources\valid.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
   <ProjectExtensions>

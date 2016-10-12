@@ -9,18 +9,12 @@ using System.CodeDom.Compiler;
 
 namespace TextOn.Studio
 {
-	[Register ("SetVariablesViewController")]
-	partial class SetVariablesViewController
+	[Register ("SetNounValuesItemView")]
+	partial class SetNounValuesItemView
 	{
-		[Outlet]
-		AppKit.NSCollectionView SetVariablesCollectionView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SetVariablesCollectionView != null) {
-				SetVariablesCollectionView.Dispose ();
-				SetVariablesCollectionView = null;
-			}
 		}
 	}
 }
