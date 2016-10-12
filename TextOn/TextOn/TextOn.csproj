@@ -92,6 +92,7 @@
     <Compile Include="Design\TemplateWriter.cs" />
     <Compile Include="Version0\Variable.cs" />
     <Compile Include="Version0\VariableForm.cs" />
+    <Compile Include="Nouns\NounSetValuesSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

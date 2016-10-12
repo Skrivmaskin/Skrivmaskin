@@ -239,5 +239,33 @@ namespace TextOn.Test
             Assert.AreEqual (expectedDependenciesCity, allowedDependenciesCity);
             Assert.AreEqual (expectedDependenciesCountry, allowedDependenciesCountry);
         }
+
+        [Test]
+        public void TestTransitiveDependencyRoute_DeleteMediatorNoun_TransitiveGone ()
+        {
+            var profile = new NounProfile ();
+            profile.AddNewNoun ("Country", "Name of a country.", true);
+            profile.AddNewNoun ("City", "Name of a city.", true);
+            profile.AddNewNoun ("District", "Name of a district.", true);
+            profile.AddNewNoun ("Park", "Name of a park.", true);
+            profile.AddSuggestion ("Country", "Japan", new NounSuggestionDependency [0]);
+            profile.AddSuggestion ("City", "Tokyo", new NounSuggestionDependency [1] { new NounSuggestionDependency ("Country", "Japan") });
+            profile.AddSuggestion ("District", "Ginza", new NounSuggestionDependency [1] { new NounSuggestionDependency ("City", "Tokyo") });
+            profile.AddSuggestion ("Park", "Yoyogi Park", new NounSuggestionDependency [2] { new NounSuggestionDependency ("Country", "Japan"), new NounSuggestionDependency ("City", "Tokyo") });
+            profile.DeleteNoun ("City");
+
+            var existingDependenciesPark = profile.GetExistingDependencies ("Park").ToArray ();
+            var expectedDependenciesPark = new string [] { "Country", "City" };
+
+            var existingDependenciesDistrict = profile.GetExistingDependencies ("District").ToArray ();
+            var expectedDependenciesDistrict = new string [] { "Country", "City" };
+
+            var existingDependenciesCountry = profile.GetExistingDependencies ("Country").ToArray ();
+            var expectedDependenciesCountry = new string [] { };
+
+            Assert.AreEqual (expectedDependenciesPark, existingDependenciesPark);
+            Assert.AreEqual (expectedDependenciesDistrict, existingDependenciesDistrict);
+            Assert.AreEqual (expectedDependenciesCountry, existingDependenciesCountry);
+        }
     }
 }

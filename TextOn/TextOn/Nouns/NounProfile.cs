@@ -63,8 +63,41 @@ namespace TextOn.Nouns
             nouns.Add (name, noun);
             nounsInOrder.Add (name);
 
-            // no need to rebuild, this Noun is currently independent
+            // No need to rebuild, this Noun is currently independent.
             globalDependencies.Add (name, new HashSet<string> ());
+        }
+
+        /// <summary>
+        /// Remove a Noun from the profile.
+        /// </summary>
+        /// <remarks>
+        /// This is pretty extreme - make sure your users don't do this without their eyes open. This cleans up a lot.
+        /// </remarks>
+        /// <param name="name">Name.</param>
+        public void DeleteNoun (string name)
+        {
+            nouns.Remove (name); // this removes the suggestions too
+            nounsInOrder.Remove (name);
+            globalDependencies.Remove (name);
+
+            // for every variable with a dependency on me, try to find any suggestions that reference me and clean up
+            foreach (var item in globalDependencies) {
+                if (item.Value.Contains (name)) {
+                    foreach (var suggestion in nouns [item.Key].Suggestions) {
+                        int i = 0;
+                        while (i < suggestion.Dependencies.Count) {
+                            if (suggestion.Dependencies [i].Name == name) {
+                                suggestion.Dependencies.RemoveAt (i);
+                                break;
+                            }
+                            ++i;
+                        }
+                    }
+                }
+            }
+
+            // finally, rebuild, since some transitive dependencies, through me might have gone away
+            RebuildGlobalDependencies ();
         }
 
         [JsonIgnore]

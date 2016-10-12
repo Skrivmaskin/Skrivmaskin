@@ -16,7 +16,6 @@ namespace TextOn.Lexing
             var Text = new TextOnTextTerminal (nameof(TextOnParseNodes.Text), lexerSyntax, true);
             var Escape = new TextOnEscapeTerminal (nameof (TextOnParseNodes.Escape), lexerSyntax);
             var VarName = new TextOnTextTerminal (nameof (TextOnParseNodes.VarName), lexerSyntax, false);
-            var VarForm = new TextOnTextTerminal (nameof (TextOnParseNodes.VarForm), lexerSyntax, false);
 
             // 2. Non-terminals
             var CompoundText = new NonTerminal (nameof (TextOnParseNodes.CompoundText));
