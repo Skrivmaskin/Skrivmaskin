@@ -255,10 +255,10 @@ namespace TextOn.Test
             profile.DeleteNoun ("City");
 
             var existingDependenciesPark = profile.GetExistingDependencies ("Park").ToArray ();
-            var expectedDependenciesPark = new string [] { "Country", "City" };
+            var expectedDependenciesPark = new string [] { "Country" };
 
             var existingDependenciesDistrict = profile.GetExistingDependencies ("District").ToArray ();
-            var expectedDependenciesDistrict = new string [] { "Country", "City" };
+            var expectedDependenciesDistrict = new string [] { };
 
             var existingDependenciesCountry = profile.GetExistingDependencies ("Country").ToArray ();
             var expectedDependenciesCountry = new string [] { };
