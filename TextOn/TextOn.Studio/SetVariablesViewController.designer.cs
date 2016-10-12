@@ -13,13 +13,13 @@ namespace TextOn.Studio
 	partial class SetVariablesViewController
 	{
 		[Outlet]
-		AppKit.NSTableView SetVariables { get; set; }
+		AppKit.NSCollectionView SetVariablesCollectionView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SetVariables != null) {
-				SetVariables.Dispose ();
-				SetVariables = null;
+			if (SetVariablesCollectionView != null) {
+				SetVariablesCollectionView.Dispose ();
+				SetVariablesCollectionView = null;
 			}
 		}
 	}

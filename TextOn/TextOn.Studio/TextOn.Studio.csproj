@@ -101,8 +101,6 @@
     <Compile Include="ResultsViewController.designer.cs">
       <DependentUpon>ResultsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="VariablesTableViewDataSource.cs" />
-    <Compile Include="VariablesTableViewDelegate.cs" />
     <Compile Include="DesignTreeController.cs" />
     <Compile Include="DesignTreeController.designer.cs">
       <DependentUpon>DesignTreeController.cs</DependentUpon>
@@ -141,9 +139,20 @@
     <Compile Include="MakeChoiceViewController.designer.cs">
       <DependentUpon>MakeChoiceViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="NounModel.cs" />
+    <Compile Include="NounItemView.cs" />
+    <Compile Include="NounItemViewController.cs" />
+    <Compile Include="NounItemView.designer.cs">
+      <DependentUpon>NounItemView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NounItemViewController.designer.cs">
+      <DependentUpon>NounItemViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NounCollectionViewDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
+    <InterfaceDefinition Include="NounItemView.xib" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextOn\TextOn.csproj">

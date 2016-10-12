@@ -6,6 +6,7 @@ using Foundation;
 using AppKit;
 using System.Collections.Generic;
 using TextOn.Compiler;
+using CoreGraphics;
 
 namespace TextOn.Studio
 {
@@ -15,28 +16,47 @@ namespace TextOn.Studio
 		{
 		}
 
+        public override void ViewDidLoad ()
+        {
+            base.ViewDidLoad ();
+
+            SetVariablesCollectionView.DataSource = new NounCollectionViewDataSource ();
+            ConfigureCollectionView ();
+        }
+
+        //TODO obviously this will break...
         public IReadOnlyDictionary<string, string> VariableValues {
             get {
-                if (this.SetVariables.DataSource == null) return new Dictionary<string, string> ();
-                return ((VariablesTableViewDataSource)SetVariables.DataSource).VariableValues;
+                return new Dictionary<string, string> ();
             }
         }
 
-        private CentralViewController parent = null;
+//        private CentralViewController parent = null;
         internal void SetControllerLinks (CentralViewController centralViewController)
         {
             Console.Error.WriteLine ("SetVariables SetControllerLinks");
 
-            this.parent = centralViewController;   
+//            this.parent = centralViewController;   
         }
 
         internal void SetCompiledTemplate ()
         {
             Console.Error.WriteLine ("SetVariables SetCompiledTemplate");
+        }
 
-            var datasource = new VariablesTableViewDataSource (parent.CompiledTemplate.Nouns);
-            SetVariables.DataSource = datasource;
-            SetVariables.Delegate = new VariablesTableViewDelegate (datasource);
+        private void ConfigureCollectionView ()
+        {
+            var flowLayout = new NSCollectionViewFlowLayout ();
+            flowLayout.ItemSize = new CGSize (width: 160.0, height: 140.0);
+            flowLayout.SectionInset = new NSEdgeInsets (top: (nfloat)10.0, left: (nfloat)20.0, bottom: (nfloat)10.0, right: (nfloat)20.0);
+            flowLayout.MinimumInteritemSpacing = (nfloat)20.0;
+            flowLayout.MinimumLineSpacing = (nfloat)20.0;
+            SetVariablesCollectionView.CollectionViewLayout = flowLayout;
+            // 2
+            View.WantsLayer = true;
+            // 3
+            //SetVariablesCollectionView.Layer.BackgroundColor = NSColor.Black.CGColor;
+
         }
 	}
 }
