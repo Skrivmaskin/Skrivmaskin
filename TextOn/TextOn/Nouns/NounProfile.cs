@@ -225,5 +225,19 @@ namespace TextOn.Nouns
             if (suggestionToDelete.Dependencies.Count == 0) return; // can't affect dependencies
             RebuildGlobalDependencies ();
         }
+
+        /// <summary>
+        /// Makes a new set values session.
+        /// </summary>
+        /// <remarks>
+        /// This session will only be aware of the nouns that are known at creation time. It is expected that
+        /// users will only ever have one at a time, and will fully deactivate and throw it away before creating a
+        /// new one to pick up edits.
+        /// </remarks>
+        /// <returns>The set values session.</returns>
+        public NounSetValuesSession MakeSetValuesSession ()
+        {
+            return new NounSetValuesSession (this);
+        }
     }
 }

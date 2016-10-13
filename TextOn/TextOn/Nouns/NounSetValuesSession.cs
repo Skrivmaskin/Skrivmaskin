@@ -13,7 +13,7 @@ namespace TextOn.Nouns
         private readonly string [] nounNames;
         private readonly Dictionary<string, string> values = new Dictionary<string, string> ();
         private bool allValuesAreSet = false;
-        private Dictionary<string, List<NounSuggestion>> currentSuggestions = new Dictionary<string, List<NounSuggestion>> ();
+        private Dictionary<string, IEnumerable<NounSuggestion>> currentSuggestions = new Dictionary<string, IEnumerable<NounSuggestion>> ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TextOn.Nouns.NounSetValuesSession"/> class.
@@ -22,7 +22,7 @@ namespace TextOn.Nouns
         /// Edits are not allowed while there is a session open - this is guaranteed by the profile.
         /// </remarks>
         /// <param name="nouns">The noun profile from the design template.</param>
-        public NounSetValuesSession (NounProfile nouns)
+        internal NounSetValuesSession (NounProfile nouns)
         {
             var allNouns = nouns.GetAllNouns ();
             this.nouns = allNouns.ToDictionary ((noun) => noun.Name);
@@ -33,21 +33,7 @@ namespace TextOn.Nouns
                 values.Add (nounName, "");
             }
             allValuesAreSet = (nounNames.Length == 0);
-
-            // take a copy of the suggestions at this point - no filters to apply
-            foreach (var kvp in this.nouns) {
-                var noun = kvp.Value;
-                var suggestions = noun.Suggestions;
-                var li = new List<NounSuggestion> ();
-                this.currentSuggestions.Add (noun.Name, li);
-                foreach (var suggestion in suggestions) {
-                    var suggestionCopy = new NounSuggestion (suggestion.Value);
-                    foreach (var dependency in suggestion.Dependencies) {
-                        suggestionCopy.Dependencies.Add (new NounSuggestionDependency (dependency.Name, dependency.Value));
-                    }
-                    li.Add (suggestionCopy);
-                }
-            }
+            CopySuggestions ();
         }
 
         /// <summary>
@@ -100,17 +86,63 @@ namespace TextOn.Nouns
             return currentSuggestions [name].Select ((s) => s.Value).ToArray();
         }
 
+        private void CopySuggestions ()
+        {
+            // take a copy of the suggestions at this point - no filters to apply
+            foreach (var kvp in this.nouns) {
+                var noun = kvp.Value;
+                var li = new List<NounSuggestion> ();
+                // Careful - taking actual references here - but we're only going to filter them and reset, no edits allowed.
+                li.AddRange (noun.Suggestions);
+                this.currentSuggestions.Add (noun.Name, li);
+            }
+        }
+
         private void RecalculateSuggestions ()
         {
-            // given all the current inputs for each noun, we filter down the possible
-            // suggestions of all other nouns that are either directly dependent on this noun or that this noun
-            // depends on directly
+            // Take a copy of the original suggestions
+            currentSuggestions.Clear ();
+            CopySuggestions ();
 
+            // given all the current inputs for each noun, we filter down the possible
+            // suggestions of all other nouns that are dependent on this one
+            // Note: we do not do the reverse ordering, it is only reasonable to do so for a chain
+            // of Nouns that do not accept user values (there might be two Hyde Parks for all the
+            // machine knows)
+            //TODO notify users for a non-AcceptUserValue dependent variable that their value stinks
+            for (var i = 0; i < nounNames.Length; ++i)
+            {
+                var nounName = nounNames [i];
+                var nounValue = values [nounName];
+                if (!String.IsNullOrWhiteSpace (nounValue))
+                {
+                    for (int j = i + 1; j < nounNames.Length; j++) {
+                        var maybeDependentNounName = nounNames [j];
+                        var maybeDependentSuggestions = currentSuggestions [maybeDependentNounName];
+                        var newMaybeDependentSuggestions =
+                            maybeDependentSuggestions
+                                .Where ((suggestion) => HasNoInvalidSuggestions (nounName, nounValue, suggestion.Dependencies));
+                        currentSuggestions [maybeDependentNounName] = newMaybeDependentSuggestions;
+                    }
+                }
+            }
+            foreach (var nounName in nounNames) {
+                FireSuggestionsUpdated (nounName);
+            }
         }
 
         private void FireSuggestionsUpdated (string name)
         {
             SuggestionsUpdated?.Invoke (name);
+        }
+
+        private bool HasNoInvalidSuggestions (string nounName, string nounValue, IEnumerable<NounSuggestionDependency> dependencies)
+        {
+            foreach (var dependency in dependencies) {
+                if (dependency.Name == nounName)
+                    return nounValue == dependency.Value;
+            }
+            return true;
         }
 
         /// <summary>
@@ -141,9 +173,10 @@ namespace TextOn.Nouns
         public void SetValue (string nounName, string value)
         {
             values [nounName] = value;
-            if (String.IsNullOrWhiteSpace (value)) values.Remove (nounName);
-            else {
-                allValuesAreSet = allValuesAreSet || (!HasAnyUnsetValues ());
+            var newAllValuesAreSet = allValuesAreSet || (!HasAnyUnsetValues ());
+            if (allValuesAreSet != newAllValuesAreSet) {
+                allValuesAreSet = newAllValuesAreSet;
+                AllValuesAreSetUpdated?.Invoke (allValuesAreSet);
             }
             RecalculateSuggestions ();
         }
@@ -156,13 +189,23 @@ namespace TextOn.Nouns
             return false;
         }
 
+        public void Deactivate ()
+        {
+            Deactivating?.Invoke ();
+        }
+
         /// <summary>
         /// Notifies users of the session that the set of suggestions has changed for this noun.
         /// </summary>
         public event Action<string> SuggestionsUpdated;
 
         /// <summary>
-        /// Occurs when deactivating.
+        /// Notifies users of a change in validity of <see cref="NounValues"/>. 
+        /// </summary>
+        public event Action<bool> AllValuesAreSetUpdated;
+
+        /// <summary>
+        /// Occurs when deactivating. Users are expected to stop listening to this session and throw away references.
         /// </summary>
         public event Action Deactivating;
     }

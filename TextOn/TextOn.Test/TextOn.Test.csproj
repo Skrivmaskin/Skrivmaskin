@@ -57,6 +57,7 @@
     <Compile Include="TestOutputSplitter.cs" />
     <Compile Include="TemplateHost.cs" />
     <Compile Include="TestNounProfile.cs" />
+    <Compile Include="TestNounProfileSession.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextOn\TextOn.csproj">

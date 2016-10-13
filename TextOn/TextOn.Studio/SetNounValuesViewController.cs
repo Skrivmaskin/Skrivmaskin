@@ -37,7 +37,7 @@ namespace TextOn.Studio
         {
             base.ViewDidAppear ();
             this.datasource = new SetNounValuesCollectionViewDataSource ();
-			datasource.Session = new NounSetValuesSession (parent.Template.Nouns);
+			datasource.Session = parent.Template.Nouns.MakeSetValuesSession ();
             SetNounValuesCollectionView.DataSource = this.datasource;
             SetNounValuesCollectionView.WantsLayer = true;
             SetNounValuesCollectionView.Layer.BackgroundColor = new CGColor (0.9f, 0.9f, 0.9f);
