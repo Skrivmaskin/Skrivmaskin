@@ -121,7 +121,8 @@ namespace TextOn.Nouns
                         var maybeDependentSuggestions = currentSuggestions [maybeDependentNounName];
                         var newMaybeDependentSuggestions =
                             maybeDependentSuggestions
-                                .Where ((suggestion) => HasNoInvalidSuggestions (nounName, nounValue, suggestion.Dependencies));
+                                .Where ((suggestion) => HasNoInvalidSuggestions (nounName, nounValue, suggestion.Dependencies))
+                                .ToArray ();
                         currentSuggestions [maybeDependentNounName] = newMaybeDependentSuggestions;
                     }
                 }

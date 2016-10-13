@@ -36,6 +36,7 @@ namespace TextOn.Nouns
             // do this quickly, then rebuild
             foreach (var noun in value) {
                 nouns.Add (noun.Name, noun);
+                nounsInOrder.Add (noun.Name);
                 globalDependencies.Add (noun.Name, new HashSet<string> ());
             }
             RebuildGlobalDependencies ();

@@ -59,7 +59,8 @@ namespace TextOn.Studio
             StatusImage.Image = unsetImage;
             SuggestionsComboBox.Editable = session.GetAcceptsUserValue (nounName);
             session.SuggestionsUpdated += Session_SuggestionsUpdated;
-            SuggestionsComboBox.Changed += SuggestionsComboBox_Changed;
+            SuggestionsComboBox.EditingEnded += SuggestionsComboBox_Changed;
+            SuggestionsComboBox.SelectionChanged += SuggestionsComboBox_Changed;
             SuggestionsComboBox.StringValue = "";
             Session_SuggestionsUpdated (nounName);
             session.Deactivating += Deactivate;
@@ -69,7 +70,8 @@ namespace TextOn.Studio
         {
             session.SuggestionsUpdated -= Session_SuggestionsUpdated;
             session.Deactivating -= Deactivate;
-            SuggestionsComboBox.Changed -= SuggestionsComboBox_Changed;
+            SuggestionsComboBox.EditingEnded -= SuggestionsComboBox_Changed;
+            SuggestionsComboBox.SelectionChanged -= SuggestionsComboBox_Changed;
             session = null;
         }
 

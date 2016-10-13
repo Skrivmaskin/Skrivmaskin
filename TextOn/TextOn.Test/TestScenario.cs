@@ -93,5 +93,27 @@ namespace TextOn.Test
                 Assert.AreEqual (expectedText, generatedText);
             }
         }
+
+        [Test]
+        public void TestTemplate3_Leeds ()
+        {
+            using (var host = new TemplateHost ()) {
+                var template = host.Object;
+
+                var numNouns = template.Nouns.GetAllNouns ().ToArray ().Length;
+                var expectedNumNouns = 3;
+
+                var compiledProject = compiler.Compile (template);
+                Assert.IsNotNull (compiledProject);
+                Assert.AreEqual (3, compiledProject.Definition.RequiredVariables.Count ());
+                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("MÄRKE")).Returns ("Leeds");
+                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P2")).Returns ("Carlton");
+                mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P3")).Returns ("Honda");
+                var generatedText = generator.GenerateWithSeed (compiledProject, mockVariableSubstituter.Object, 427).ToString ();
+                var expectedText = "Letar du efter en centralt belägen biluthyrning i Leeds? kontoret har ett perfekt läge vid..på kort avstånd från några av stadens mest kända turistmål. Läget är även perfekt för fortsatta resor i angränsande städer. Läget är även utmärkt för längre bilresor som fortsätter vidare utanför_ ill närliggande platser i regionen. Vårt_ team hjälper dig att snabbt komma igång med din resa. Vi_på_Sixt strävar alltid efter att ge dig som vill hyra bil i Leeds en lösning av bästa kvalitet. Boka din hyrbil i Leeds smidigt direkt på webben. resenärer som vill hyra bil i Leeds erbjuds alltid en rad prisvärda erbjudanden. Vår moderna flotta rymmer.. Om du har frågor om att  hyra bil i Leeds kan du självklart också höra av dig till oss direkt. Vi hjälper gärna till en hitta en hyrbil i Leeds som passar just dina behov. Du kan till exempel göra en rad tillvalstjänster. Kanske har du särskilda önskemål då det gäller komfort och navigering? Kolla in våra paket och sätt ihop en unikt för dig. flexibiliteten för dig som vill boka en hyrbil i Leeds är stor.";
+                Assert.AreEqual (expectedText, generatedText);
+                Assert.AreEqual (expectedNumNouns, numNouns);
+            }
+        }
     }
 }
