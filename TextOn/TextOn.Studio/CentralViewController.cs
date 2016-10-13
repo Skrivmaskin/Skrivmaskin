@@ -33,9 +33,9 @@ namespace TextOn.Studio
         internal TextOnCompiler Compiler = new TextOnCompiler (new DefaultLexerSyntax ());
         internal TextOnTemplate Template { get; set; } = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));
         private CompiledTemplate compiledTemplate = null;
-        internal IReadOnlyDictionary<string, string> VariableValues {
+        internal IReadOnlyDictionary<string, string> NounValues {
             get {
-                return setVariablesViewController.VariableValues;
+                return setVariablesViewController.NounValues;
             }
         }
         internal CompiledTemplate CompiledTemplate {

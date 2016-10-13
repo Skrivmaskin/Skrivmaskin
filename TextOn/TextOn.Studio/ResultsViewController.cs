@@ -70,9 +70,9 @@ namespace TextOn.Studio
             WillChangeValue (nameof (canRegenerate));
             if (parent.CompiledTemplate != null) {
                 if (isRegen) {
-                    ResultsView.Output = (generator.Regenerate (parent.CompiledTemplate, new DictionaryBackedVariableSubstituter (parent.VariableValues)));
+                    ResultsView.Output = (generator.Regenerate (parent.CompiledTemplate, new DictionaryBackedVariableSubstituter (parent.NounValues)));
                 } else {
-                    ResultsView.Output = (generator.Generate (parent.CompiledTemplate, new DictionaryBackedVariableSubstituter (parent.VariableValues)));
+                    ResultsView.Output = (generator.Generate (parent.CompiledTemplate, new DictionaryBackedVariableSubstituter (parent.NounValues)));
                 }
 
             } else {

@@ -13,27 +13,22 @@ namespace TextOn.Studio
 	partial class SetNounValuesItemViewController
 	{
 		[Outlet]
-		AppKit.NSTextView DescriptionTextField { get; set; }
+		AppKit.NSTextView DescriptionTextView { get; set; }
 
 		[Outlet]
 		AppKit.NSTextField NounNameTextField { get; set; }
 
 		[Outlet]
-		AppKit.NSImageView StatusImageView { get; set; }
+		AppKit.NSImageView StatusImage { get; set; }
 
 		[Outlet]
 		AppKit.NSComboBox SuggestionsComboBox { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SuggestionsComboBox != null) {
-				SuggestionsComboBox.Dispose ();
-				SuggestionsComboBox = null;
-			}
-
-			if (DescriptionTextField != null) {
-				DescriptionTextField.Dispose ();
-				DescriptionTextField = null;
+			if (DescriptionTextView != null) {
+				DescriptionTextView.Dispose ();
+				DescriptionTextView = null;
 			}
 
 			if (NounNameTextField != null) {
@@ -41,9 +36,14 @@ namespace TextOn.Studio
 				NounNameTextField = null;
 			}
 
-			if (StatusImageView != null) {
-				StatusImageView.Dispose ();
-				StatusImageView = null;
+			if (StatusImage != null) {
+				StatusImage.Dispose ();
+				StatusImage = null;
+			}
+
+			if (SuggestionsComboBox != null) {
+				SuggestionsComboBox.Dispose ();
+				SuggestionsComboBox = null;
 			}
 		}
 	}

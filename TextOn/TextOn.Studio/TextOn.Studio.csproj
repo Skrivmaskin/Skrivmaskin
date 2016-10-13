@@ -149,6 +149,7 @@
       <DependentUpon>SetNounValuesItemViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="SetNounValuesCollectionViewDataSource.cs" />
+    <Compile Include="SetNounValuesItemSuggestionsComboBoxDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
@@ -163,6 +164,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\invalid.png" />
     <BundleResource Include="Resources\valid.png" />
+    <BundleResource Include="Resources\unset.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
   <ProjectExtensions>
