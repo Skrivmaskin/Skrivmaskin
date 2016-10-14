@@ -30,13 +30,6 @@ namespace TextOn.Studio
             base.ViewDidAppear ();
 
             session = parent.Template.Nouns.MakeSetValuesSession ();
-            var newNouns = new NSMutableArray ();
-            for (int i = 0; i < session.Count; i++) {
-                var name = session.GetName (i);
-                var nounModel = new SetNounModel (name, session.GetDescription (name), session.GetAcceptsUserValue (name));
-                newNouns.Add (nounModel);
-            }
-            SetNouns (newNouns);
 
             var datasource = new SetNounValuesTableViewDataSource (session);
             SetNounValuesTableView.DataSource = datasource;
@@ -83,44 +76,5 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("SetNounValues SetCompiledTemplate");
         }
-
-        private NSMutableArray nouns = new NSMutableArray ();
-        public NSArray Nouns {
-            [Export ("nounModelArray")]
-            get { return nouns; }
-        }
-
-        [Export ("addObject:")]
-        public void AddNoun (SetNounModel noun)
-        {
-            WillChangeValue ("nounModelArray");
-            nouns.Add (noun);
-            DidChangeValue ("nounModelArray");
-        }
-
-        [Export ("insertObject:inNounModelArrayAtIndex:")]
-        public void InsertNoun (SetNounModel noun, nint index)
-        {
-            WillChangeValue ("nounModelArray");
-            nouns.Insert (noun, index);
-            DidChangeValue ("nounModelArray");
-        }
-
-        [Export ("removeObjectFromNounModelArrayAtIndex:")]
-        public void RemoveNoun (nint index)
-        {
-            WillChangeValue ("nounModelArray");
-            nouns.RemoveObject (index);
-            DidChangeValue ("nounModelArray");
-        }
-
-        [Export ("setNounModelArray:")]
-        public void SetNouns (NSMutableArray array)
-        {
-            WillChangeValue ("nounModelArray");
-            nouns = array;
-            DidChangeValue ("nounModelArray");
-        }
-
     }
 }

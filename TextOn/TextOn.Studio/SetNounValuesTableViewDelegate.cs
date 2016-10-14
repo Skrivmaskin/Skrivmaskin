@@ -9,16 +9,16 @@ namespace TextOn.Studio
     public class SetNounValuesTableViewDelegate : NSTableViewDelegate
     {
         private readonly SetNounValuesTableViewDataSource datasource;
-        private readonly SetNounValuesViewController controller;
+//        private readonly SetNounValuesViewController controller;
         private const string CellIdentifier = "SetNounValuesCell";
-        private const string NameColumnIdentifier = "Name";
+        private const string NounColumnIdentifier = "Noun";
         private const string DescriptionColumnIdentifier = "Description";
         private const string ValueColumnIdentifier = "Value";
 
         public SetNounValuesTableViewDelegate (SetNounValuesViewController controller, SetNounValuesTableViewDataSource datasource)
         {
             this.datasource = datasource;
-            this.controller = controller;
+//            this.controller = controller;
         }
 
         private void ConfigureTextField (NSTableCellView view, nint row)
@@ -51,7 +51,7 @@ namespace TextOn.Studio
 
                 // Take action based on title
                 switch (tableColumn.Title) {
-                case NameColumnIdentifier:
+                case NounColumnIdentifier:
                 case DescriptionColumnIdentifier:
                     view.TextField = new NSTextField (new CGRect (0, 0, 400, 16));
                     ConfigureTextField (view, row);
@@ -61,7 +61,7 @@ namespace TextOn.Studio
 
             // Setup view based on the column selected - titles match identifiers.
             switch (tableColumn.Title) {
-            case NameColumnIdentifier:
+            case NounColumnIdentifier:
                 view.TextField.StringValue = datasource.Session.GetName ((int)row);
                 view.TextField.Tag = row;
                 break;

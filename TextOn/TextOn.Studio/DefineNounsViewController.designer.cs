@@ -13,13 +13,13 @@ namespace TextOn.Studio
 	partial class DefineNounsViewController
 	{
 		[Outlet]
-		AppKit.NSOutlineView OutlineView { get; set; }
+		AppKit.NSTableView DefineNounsTableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (OutlineView != null) {
-				OutlineView.Dispose ();
-				OutlineView = null;
+			if (DefineNounsTableView != null) {
+				DefineNounsTableView.Dispose ();
+				DefineNounsTableView = null;
 			}
 		}
 	}

@@ -139,7 +139,6 @@
     <Compile Include="MakeChoiceViewController.designer.cs">
       <DependentUpon>MakeChoiceViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SetNounModel.cs" />
     <Compile Include="SetNounValuesSuggestionsComboBoxDataSource.cs" />
     <Compile Include="DefineNounsViewController.cs" />
     <Compile Include="DefineNounsViewController.designer.cs">
@@ -147,6 +146,8 @@
     </Compile>
     <Compile Include="SetNounValuesTableViewDataSource.cs" />
     <Compile Include="SetNounValuesTableViewDelegate.cs" />
+    <Compile Include="DefineNounsTableViewDataSource.cs" />
+    <Compile Include="DefineNounsTableViewDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
