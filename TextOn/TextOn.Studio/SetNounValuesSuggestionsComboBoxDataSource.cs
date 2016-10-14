@@ -4,11 +4,11 @@ using Foundation;
 
 namespace TextOn.Studio
 {
-	class SetNounValuesItemSuggestionsComboBoxDataSource : NSComboBoxDataSource
+	class SetNounValuesSuggestionsComboBoxDataSource : NSComboBoxDataSource
 	{
         string [] suggestions;
 
-		public SetNounValuesItemSuggestionsComboBoxDataSource (string [] suggestions)
+		public SetNounValuesSuggestionsComboBoxDataSource (string [] suggestions)
 		{
             this.suggestions = suggestions;
 		}

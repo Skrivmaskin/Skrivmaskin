@@ -14,6 +14,7 @@ namespace TextOn.Nouns
         private readonly Dictionary<string, string> values = new Dictionary<string, string> ();
         private bool allValuesAreSet = false;
         private Dictionary<string, IEnumerable<NounSuggestion>> currentSuggestions = new Dictionary<string, IEnumerable<NounSuggestion>> ();
+        private readonly NounProfile nounProfile;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TextOn.Nouns.NounSetValuesSession"/> class.
@@ -24,6 +25,7 @@ namespace TextOn.Nouns
         /// <param name="nouns">The noun profile from the design template.</param>
         internal NounSetValuesSession (NounProfile nouns)
         {
+            nounProfile = nouns;
             var allNouns = nouns.GetAllNouns ();
             this.nouns = allNouns.ToDictionary ((noun) => noun.Name);
             this.nounNames = allNouns.Select ((n) => n.Name).ToArray();
@@ -86,49 +88,43 @@ namespace TextOn.Nouns
             return currentSuggestions [name].Select ((s) => s.Value).ToArray();
         }
 
+        private void CopySuggestionsForNoun (string nounName)
+        {
+            this.currentSuggestions.Remove (nounName);
+            var noun = nouns [nounName];
+            var li = new List<NounSuggestion> ();
+            // Careful - taking actual references here - but we're only going to filter them and reset, no edits allowed.
+            li.AddRange (noun.Suggestions);
+            this.currentSuggestions.Add (nounName, li);
+        }
+
         private void CopySuggestions ()
         {
             // take a copy of the suggestions at this point - no filters to apply
-            foreach (var kvp in this.nouns) {
-                var noun = kvp.Value;
-                var li = new List<NounSuggestion> ();
-                // Careful - taking actual references here - but we're only going to filter them and reset, no edits allowed.
-                li.AddRange (noun.Suggestions);
-                this.currentSuggestions.Add (noun.Name, li);
+            foreach (var nounName in nounNames) {
+                CopySuggestionsForNoun (nounName);
             }
         }
 
-        private void RecalculateSuggestions ()
+        private void RecalculateSuggestions (string changedNounName)
         {
-            // Take a copy of the original suggestions
-            currentSuggestions.Clear ();
-            CopySuggestions ();
+            var dependentNounNames =
+                nounNames
+                    .Where ((dnn) => nounProfile.GetExistingDependencies (dnn).Contains (changedNounName));
 
-            // given all the current inputs for each noun, we filter down the possible
-            // suggestions of all other nouns that are dependent on this one
-            // Note: we do not do the reverse ordering, it is only reasonable to do so for a chain
-            // of Nouns that do not accept user values (there might be two Hyde Parks for all the
-            // machine knows)
-            //TODO notify users for a non-AcceptUserValue dependent variable that their value stinks
-            for (var i = 0; i < nounNames.Length; ++i)
-            {
-                var nounName = nounNames [i];
-                var nounValue = values [nounName];
-                if (!String.IsNullOrWhiteSpace (nounValue))
-                {
-                    for (int j = i + 1; j < nounNames.Length; j++) {
-                        var maybeDependentNounName = nounNames [j];
-                        var maybeDependentSuggestions = currentSuggestions [maybeDependentNounName];
-                        var newMaybeDependentSuggestions =
-                            maybeDependentSuggestions
-                                .Where ((suggestion) => HasNoInvalidSuggestions (nounName, nounValue, suggestion.Dependencies))
-                                .ToArray ();
-                        currentSuggestions [maybeDependentNounName] = newMaybeDependentSuggestions;
+            foreach (var dependentNounName in dependentNounNames) {
+                CopySuggestionsForNoun (dependentNounName);
+
+                foreach (var dep in nounProfile.GetExistingDependencies (dependentNounName)) {
+                    var depValue = values [dep];
+                    if (!String.IsNullOrWhiteSpace (depValue)) {
+                        currentSuggestions [dependentNounName] =
+                            currentSuggestions [dependentNounName]
+                                .Where ((suggestion) => HasNoInvalidSuggestions (dep, depValue, suggestion.Dependencies));
                     }
                 }
-            }
-            foreach (var nounName in nounNames) {
-                FireSuggestionsUpdated (nounName);
+                //TODO notify users for a non-AcceptUserValue dependent variable that their value stinks
+                FireSuggestionsUpdated (dependentNounName);
             }
         }
 
@@ -166,20 +162,37 @@ namespace TextOn.Nouns
             }
         }
 
+        bool settingValue = false;
+        Queue<Tuple<string, string>> remainingToSet = new Queue<Tuple<string, string>>();
+
         /// <summary>
         /// Set the value for a Noun.
         /// </summary>
-        /// <param name="nounName">Noun name.</param>
-        /// <param name="value">Value.</param>
-        public void SetValue (string nounName, string value)
+        /// <remarks>
+        /// This queues up inputs because users may recurse in to set new values after suggestions change on dependencies. The user
+        /// should not recurse back in for this or a higher precedence Noun.
+        /// </remarks>
+        /// <param name="_nounName">Noun name.</param>
+        /// <param name="_value">Value.</param>
+        public void SetValue (string _nounName, string _value)
         {
-            values [nounName] = value;
-            var newAllValuesAreSet = allValuesAreSet || (!HasAnyUnsetValues ());
-            if (allValuesAreSet != newAllValuesAreSet) {
-                allValuesAreSet = newAllValuesAreSet;
-                AllValuesAreSetUpdated?.Invoke (allValuesAreSet);
+            remainingToSet.Enqueue (new Tuple<string, string> (_nounName, _value));
+            if (settingValue) return;
+
+            while (remainingToSet.Count > 0) {
+                var data = remainingToSet.Dequeue ();
+                var nounName = data.Item1;
+                var value = data.Item2;
+                settingValue = true;
+                values [nounName] = value;
+                var newAllValuesAreSet = allValuesAreSet || (!HasAnyUnsetValues ());
+                if (allValuesAreSet != newAllValuesAreSet) {
+                    allValuesAreSet = newAllValuesAreSet;
+                    AllValuesAreSetUpdated?.Invoke (allValuesAreSet);
+                }
+                RecalculateSuggestions (nounName);
+                settingValue = false;
             }
-            RecalculateSuggestions ();
         }
 
         private bool HasAnyUnsetValues ()

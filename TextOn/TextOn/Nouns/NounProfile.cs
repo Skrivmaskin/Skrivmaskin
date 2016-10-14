@@ -240,5 +240,10 @@ namespace TextOn.Nouns
         {
             return new NounSetValuesSession (this);
         }
+
+        public Noun GetNounByIndex (int index)
+        {
+            return nouns [nounsInOrder [index]];
+        }
     }
 }

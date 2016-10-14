@@ -71,7 +71,7 @@ namespace TextOn.Test
             
             session1.SetValue ("Country", "Japan");
 
-            var expectedUpdated = new string [] { "Country", "City", "District", "Park" };
+            var expectedUpdated = new string [] { "City", "District", "Park" };
             var actualUpdated = nounsUpdated.ToArray ();
 
             var expectedCountries = new string [] { "Japan", "United Kingdom" };
@@ -106,7 +106,7 @@ namespace TextOn.Test
             session1.SetValue ("Country", "Japan");
             session1.SetValue ("City", "Tokyo");
 
-            var expectedUpdated = new string [] { "Country", "City", "District", "Park", "Country", "City", "District", "Park" };
+            var expectedUpdated = new string [] { "City", "District", "Park", "District", "Park" };
             var actualUpdated = nounsUpdated.ToArray ();
 
             var expectedCountries = new string [] { "Japan", "United Kingdom" };

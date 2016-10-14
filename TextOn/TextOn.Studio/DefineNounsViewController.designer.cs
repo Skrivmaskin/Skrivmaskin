@@ -9,12 +9,18 @@ using System.CodeDom.Compiler;
 
 namespace TextOn.Studio
 {
-	[Register ("SetNounValuesItemView")]
-	partial class SetNounValuesItemView
+	[Register ("DefineNounsViewController")]
+	partial class DefineNounsViewController
 	{
+		[Outlet]
+		AppKit.NSOutlineView OutlineView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (OutlineView != null) {
+				OutlineView.Dispose ();
+				OutlineView = null;
+			}
 		}
 	}
 }

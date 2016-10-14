@@ -11,24 +11,16 @@ using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
-	public partial class SetNounValuesViewController : NSViewController
-	{
-		public SetNounValuesViewController (IntPtr handle) : base (handle)
-		{
-		}
+    public partial class SetNounValuesViewController : NSViewController
+    {
+        public SetNounValuesViewController (IntPtr handle) : base (handle)
+        {
+        }
 
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-
-            this.datasource = new SetNounValuesCollectionViewDataSource ();
-            SetNounValuesCollectionView.DataSource = this.datasource;
-            SetNounValuesCollectionView.WantsLayer = true;
-            SetNounValuesCollectionView.Layer.BackgroundColor = new CGColor (0.9f, 0.9f, 0.9f);
-            ConfigureCollectionView ();
         }
-
-        SetNounValuesCollectionViewDataSource datasource;
 
         /// <summary>
         /// When the view appears, the Template is locked, so we can make a session that lasts that long. We tear down on disappear.
@@ -36,13 +28,32 @@ namespace TextOn.Studio
         public override void ViewDidAppear ()
         {
             base.ViewDidAppear ();
-            this.datasource = new SetNounValuesCollectionViewDataSource ();
-			datasource.Session = parent.Template.Nouns.MakeSetValuesSession ();
-            SetNounValuesCollectionView.DataSource = this.datasource;
-            SetNounValuesCollectionView.WantsLayer = true;
-            SetNounValuesCollectionView.Layer.BackgroundColor = new CGColor (0.9f, 0.9f, 0.9f);
-            ConfigureCollectionView ();
+
+            session = parent.Template.Nouns.MakeSetValuesSession ();
+            var newNouns = new NSMutableArray ();
+            for (int i = 0; i < session.Count; i++) {
+                var name = session.GetName (i);
+                var nounModel = new SetNounModel (name, session.GetDescription (name), session.GetAcceptsUserValue (name));
+                newNouns.Add (nounModel);
+            }
+            SetNouns (newNouns);
+
+            var datasource = new SetNounValuesTableViewDataSource (session);
+            SetNounValuesTableView.DataSource = datasource;
+            SetNounValuesTableView.Delegate = new SetNounValuesTableViewDelegate (this, datasource);
         }
+
+        public override void ViewDidDisappear ()
+        {
+            base.ViewDidDisappear ();
+
+            session = null;
+            // clean up the presentation as well
+            SetNounValuesTableView.DataSource = null;
+            SetNounValuesTableView.Delegate = null;
+        }
+
+        NounSetValuesSession session = null;
 
         /// <summary>
         /// Exposes the user's current values to the Generate page.
@@ -50,13 +61,13 @@ namespace TextOn.Studio
         /// <value>The noun values.</value>
         public IReadOnlyDictionary<string, string> NounValues {
             get {
-                return datasource.Session.NounValues;
+                return (session == null) ? new Dictionary<string, string> () : session.NounValues;
             }
         }
 
         public bool AllValuesAreSet {
             get {
-                return datasource.Session.AllValuesAreSet;
+                return session != null && session.AllValuesAreSet;
             }
         }
 
@@ -65,7 +76,7 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("SetNounValues SetControllerLinks");
 
-            this.parent = centralViewController;   
+            this.parent = centralViewController;
         }
 
         internal void SetCompiledTemplate ()
@@ -73,17 +84,43 @@ namespace TextOn.Studio
             Console.Error.WriteLine ("SetNounValues SetCompiledTemplate");
         }
 
-        private void ConfigureCollectionView ()
-        {
-            var flowLayout = new NSCollectionViewFlowLayout ();
-            flowLayout.ItemSize = new CGSize (width: 250.0, height: 100.0);
-            flowLayout.SectionInset = new NSEdgeInsets (top: (nfloat)20.0, left: (nfloat)10.0, bottom: (nfloat)20.0, right: (nfloat)10.0);
-            flowLayout.MinimumInteritemSpacing = (nfloat)20.0;
-            flowLayout.MinimumLineSpacing = (nfloat)20.0;
-            SetNounValuesCollectionView.CollectionViewLayout = flowLayout;
-            // 2
-            View.WantsLayer = true;
-            // 3
+        private NSMutableArray nouns = new NSMutableArray ();
+        public NSArray Nouns {
+            [Export ("nounModelArray")]
+            get { return nouns; }
         }
-	}
+
+        [Export ("addObject:")]
+        public void AddNoun (SetNounModel noun)
+        {
+            WillChangeValue ("nounModelArray");
+            nouns.Add (noun);
+            DidChangeValue ("nounModelArray");
+        }
+
+        [Export ("insertObject:inNounModelArrayAtIndex:")]
+        public void InsertNoun (SetNounModel noun, nint index)
+        {
+            WillChangeValue ("nounModelArray");
+            nouns.Insert (noun, index);
+            DidChangeValue ("nounModelArray");
+        }
+
+        [Export ("removeObjectFromNounModelArrayAtIndex:")]
+        public void RemoveNoun (nint index)
+        {
+            WillChangeValue ("nounModelArray");
+            nouns.RemoveObject (index);
+            DidChangeValue ("nounModelArray");
+        }
+
+        [Export ("setNounModelArray:")]
+        public void SetNouns (NSMutableArray array)
+        {
+            WillChangeValue ("nounModelArray");
+            nouns = array;
+            DidChangeValue ("nounModelArray");
+        }
+
+    }
 }

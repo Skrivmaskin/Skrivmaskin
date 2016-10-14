@@ -139,21 +139,17 @@
     <Compile Include="MakeChoiceViewController.designer.cs">
       <DependentUpon>MakeChoiceViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="NounModel.cs" />
-    <Compile Include="SetNounValuesItemView.cs" />
-    <Compile Include="SetNounValuesItemViewController.cs" />
-    <Compile Include="SetNounValuesItemView.designer.cs">
-      <DependentUpon>SetNounValuesItemView.cs</DependentUpon>
+    <Compile Include="SetNounModel.cs" />
+    <Compile Include="SetNounValuesSuggestionsComboBoxDataSource.cs" />
+    <Compile Include="DefineNounsViewController.cs" />
+    <Compile Include="DefineNounsViewController.designer.cs">
+      <DependentUpon>DefineNounsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SetNounValuesItemViewController.designer.cs">
-      <DependentUpon>SetNounValuesItemViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SetNounValuesCollectionViewDataSource.cs" />
-    <Compile Include="SetNounValuesItemSuggestionsComboBoxDataSource.cs" />
+    <Compile Include="SetNounValuesTableViewDataSource.cs" />
+    <Compile Include="SetNounValuesTableViewDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
-    <InterfaceDefinition Include="SetNounValuesItemView.xib" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextOn\TextOn.csproj">

@@ -54,6 +54,17 @@
           "Dependencies": []
         }
       ]
+    },
+    {
+      "Name": "P4",
+      "Description": "Typ av bilar 2?",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Volvo",
+          "Dependencies": []
+        }
+      ]
     }
   ],
   "Definition": {

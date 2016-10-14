@@ -58,12 +58,13 @@ namespace TextOn.Studio
                     PerformSegue (DesignViewDialogSegues.CreateTemplate, this);
                 }
 
-                if (SplitViewController == null)
+                if (PreviewSplitViewController == null)
                     throw new ApplicationException ("SplitViewController is null");
                 if (TreeController == null)
                     throw new ApplicationException ("TreeController is null");
 
-                previewSplitViewItem = SplitViewController.SplitViewItems [1];
+                previewSplitViewItem = PreviewSplitViewController.SplitViewItems [1];
+                defineNounsSplitViewItem= NounsSplitViewController.SplitViewItems [1];
 
                 disp = TreeController.AddObserver ("selectionIndexPaths", NSKeyValueObservingOptions.New, SelectionChanged);
             }       
@@ -566,7 +567,8 @@ namespace TextOn.Studio
             return retVal;
         }
 
-        internal NSSplitViewController SplitViewController { get; set; } = null;
+        #region Split View management
+        internal NSSplitViewController PreviewSplitViewController { get; set; } = null;
         private NSSplitViewItem previewSplitViewItem = null;
 
         private bool previewIsHidden = false;
@@ -577,17 +579,38 @@ namespace TextOn.Studio
             set {
                 WillChangeValue (nameof (hideShowPreviewTitle));
                 WillChangeValue (nameof (hideShowPreviewTooltip));
-                if (SplitViewController != null) {
+                if (PreviewSplitViewController != null) {
                     if (value && !previewIsHidden) {
-                        SplitViewController.RemoveSplitViewItem (previewSplitViewItem);
+                        PreviewSplitViewController.RemoveSplitViewItem (previewSplitViewItem);
                     } else if (!value && previewIsHidden) {
-                        SplitViewController.AddSplitViewItem (previewSplitViewItem);
+                        PreviewSplitViewController.AddSplitViewItem (previewSplitViewItem);
                         UpdatePreview ();
                     }
                     previewIsHidden = value;
                 }
                 DidChangeValue (nameof (hideShowPreviewTitle));
                 DidChangeValue (nameof (hideShowPreviewTooltip));
+            }
+        }
+
+        private bool defineNounsIsHidden = false;
+        public bool DefineNounsIsHidden {
+            get {
+                return defineNounsIsHidden;
+            }
+            set {
+                WillChangeValue (nameof (hideShowDefineNounsTitle));
+                WillChangeValue (nameof (hideShowDefineNounsTooltip));
+                if (NounsSplitViewController != null) {
+                    if (value && !defineNounsIsHidden) {
+                        NounsSplitViewController.RemoveSplitViewItem (defineNounsSplitViewItem);
+                    } else if (!value && defineNounsIsHidden) {
+                        NounsSplitViewController.AddSplitViewItem (defineNounsSplitViewItem);
+                    }
+                    defineNounsIsHidden = value;
+                }
+                DidChangeValue (nameof (hideShowDefineNounsTitle));
+                DidChangeValue (nameof (hideShowDefineNounsTooltip));
             }
         }
 
@@ -605,9 +628,32 @@ namespace TextOn.Studio
             }
         }
 
-        partial void HideShowPreview_Clicked (NSObject sender)
+        public string hideShowDefineNounsTitle {
+            [Export (nameof (hideShowDefineNounsTitle))]
+            get {
+                return defineNounsIsHidden ? "Show Nouns" : "Hide Nouns";
+            }
+        }
+
+        public string hideShowDefineNounsTooltip {
+            [Export (nameof (hideShowDefineNounsTooltip))]
+            get {
+                return defineNounsIsHidden ? "Show the Nouns pane." : "Hide the Nouns pane.";
+            }
+        }
+
+        public NSSplitViewController NounsSplitViewController { get; internal set; }
+        private NSSplitViewItem defineNounsSplitViewItem = null;
+        #endregion
+
+		partial void HideShowPreview_Clicked (NSObject sender)
         {
             PreviewIsHidden = !PreviewIsHidden;
+        }
+
+        partial void HideShowDefineNouns_Clicked (NSObject sender)
+        {
+            DefineNounsIsHidden = !DefineNounsIsHidden;
         }
     }
 }

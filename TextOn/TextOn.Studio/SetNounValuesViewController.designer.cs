@@ -13,13 +13,13 @@ namespace TextOn.Studio
 	partial class SetNounValuesViewController
 	{
 		[Outlet]
-		AppKit.NSCollectionView SetNounValuesCollectionView { get; set; }
+		AppKit.NSTableView SetNounValuesTableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SetNounValuesCollectionView != null) {
-				SetNounValuesCollectionView.Dispose ();
-				SetNounValuesCollectionView = null;
+			if (SetNounValuesTableView != null) {
+				SetNounValuesTableView.Dispose ();
+				SetNounValuesTableView = null;
 			}
 		}
 	}
