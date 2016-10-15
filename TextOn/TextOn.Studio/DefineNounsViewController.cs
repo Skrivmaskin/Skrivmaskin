@@ -9,11 +9,11 @@ using System.Collections.Generic;
 
 namespace TextOn.Studio
 {
-	public partial class DefineNounsViewController : NSViewController
-	{
-		public DefineNounsViewController (IntPtr handle) : base (handle)
-		{
-		}
+    public partial class DefineNounsViewController : NSViewController
+    {
+        public DefineNounsViewController (IntPtr handle) : base (handle)
+        {
+        }
 
         public override void ViewDidLoad ()
         {
@@ -73,11 +73,5 @@ namespace TextOn.Studio
                 break;
             }
         }
-
-        private readonly Dictionary<string, int> selectedIndexes = new Dictionary<string, int>();
-        internal void SelectSuggestionIndex (string nounName, int suggestionIndex)
-        {
-            selectedIndexes [nounName] = suggestionIndex;
-        }
-   }
+    }
 }

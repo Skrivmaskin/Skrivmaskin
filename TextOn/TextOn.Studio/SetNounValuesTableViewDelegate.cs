@@ -24,7 +24,7 @@ namespace TextOn.Studio
         private void ConfigureTextField (NSTableCellView view, nint row)
         {
             // Add to view
-            view.TextField.AutoresizingMask = NSViewResizingMask.WidthSizable;
+            //view.TextField.AutoresizingMask = NSViewResizingMask.WidthSizable;
             view.AddSubview (view.TextField);
 
             // Configure
@@ -35,6 +35,61 @@ namespace TextOn.Studio
 
             // Tag view
             view.TextField.Tag = row;
+        }
+
+        private void ConfigureComboBox (NSTableCellView view, NSComboBox combobox, nint row)
+        {
+            //combobox.AutoresizingMask = NSViewResizingMask.WidthSizable;
+            view.AddSubview (combobox);
+
+            combobox.UsesDataSource = true;
+            combobox.Selectable = true;
+            combobox.IgnoresMultiClick = false;
+            combobox.Cell.Font = NSFont.SystemFontOfSize (10);
+
+            // Listen for changes to suggestions.
+            datasource.Session.SuggestionsUpdated += (name) => {
+                var thisName = datasource.Session.GetName ((int)combobox.Tag);
+                if (name == thisName) {
+                    // If the suggestion is set, it may need to be cleared after invalidation.
+                    var newSuggestions = datasource.Session.GetCurrentSuggestionsForNoun (name);
+                    if (combobox.SelectedIndex >= 0) {
+                        var value = combobox.StringValue;
+                        combobox.DeselectItem (combobox.SelectedIndex);
+                        var newIndex = 0;
+                        for (; newIndex < newSuggestions.Length; newIndex++) {
+                            if (newSuggestions [newIndex] == value)
+                                break;
+                        }
+                        combobox.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
+                        if (newIndex < newSuggestions.Length) {
+                            combobox.SelectItem (newIndex);
+                        } else if (datasource.Session.GetAcceptsUserValue (thisName)) {
+                            combobox.StringValue = value;
+                        }
+                    } else
+                        combobox.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
+                }
+            };
+
+            // Listen to the value getting set.
+            combobox.Changed += (s, e) => {
+                var thisName = datasource.Session.GetName ((int)combobox.Tag);
+                var value = combobox.StringValue;
+                datasource.Session.SetValue (thisName, value);
+            };
+            combobox.SelectionChanged += (s, e) => {
+                var thisName = datasource.Session.GetName ((int)combobox.Tag);
+                var index = combobox.SelectedIndex;
+                if (index >= 0) {
+                    var value = datasource.Session.GetCurrentSuggestionsForNoun (thisName) [index];
+                    datasource.Session.SetValue (thisName, value);
+                } else {
+                    datasource.Session.SetValue (thisName, "");
+                }
+            };
+
+            combobox.Tag = row;
         }
 
         public override NSView GetViewForItem (NSTableView tableView, NSTableColumn tableColumn, nint row)
@@ -53,8 +108,12 @@ namespace TextOn.Studio
                 switch (tableColumn.Title) {
                 case NounColumnIdentifier:
                 case DescriptionColumnIdentifier:
-                    view.TextField = new NSTextField (new CGRect (0, 0, 400, 16));
+                    view.TextField = new NSTextField (new CGRect (0, 0, 400, 20));
                     ConfigureTextField (view, row);
+                    break;
+                case ValueColumnIdentifier:
+                    var combobox = new NSComboBox (new CGRect (0, 0, 200, 20));
+                    ConfigureComboBox (view, combobox, row);
                     break;
                 }
             }
@@ -76,57 +135,9 @@ namespace TextOn.Studio
                         cbx.Tag = row;
                         var nounName = datasource.Session.GetName ((int)row);
                         var suggestions = datasource.Session.GetCurrentSuggestionsForNoun (nounName);
-                        cbx.Editable = datasource.Session.GetAcceptsUserValue (nounName);
                         cbx.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (suggestions);
-                        cbx.UsesDataSource = true;
-                        cbx.Selectable = true;
-                        cbx.AutoresizingMask = NSViewResizingMask.WidthSizable;
-                        cbx.IgnoresMultiClick = false;
-
+                        cbx.Editable = datasource.Session.GetAcceptsUserValue (nounName);
                         datasource.Session.SetValue (nounName, cbx.StringValue);
-
-                        // Listen for changes to suggestions.
-                        datasource.Session.SuggestionsUpdated += (name) => {
-                            var thisName = datasource.Session.GetName ((int)cbx.Tag);
-                            if (name == thisName) {
-                                // If the suggestion is set, it may need to be cleared after invalidation.
-                                var newSuggestions = datasource.Session.GetCurrentSuggestionsForNoun (name);
-                                if (cbx.SelectedIndex >= 0) {
-                                    var value = cbx.StringValue;
-                                    cbx.DeselectItem (cbx.SelectedIndex);
-                                    var newIndex = 0;
-                                    for (; newIndex < newSuggestions.Length; newIndex++) {
-                                        if (newSuggestions [newIndex] == value)
-                                            break;
-                                    }
-                                    cbx.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
-                                    if (newIndex < newSuggestions.Length) {
-                                        cbx.SelectItem (newIndex);
-                                    } else if (datasource.Session.GetAcceptsUserValue (thisName)) {
-                                        cbx.StringValue = value;
-                                    }
-                                }
-                                else
-                                    cbx.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
-                            }
-                        };
-
-                        // Listen to the value getting set.
-                        cbx.Changed += (s, e) => {
-                            var thisName = datasource.Session.GetName ((int)cbx.Tag);
-                            var value = cbx.StringValue;
-                            datasource.Session.SetValue (thisName, value);
-                        };
-                        cbx.SelectionChanged += (s, e) => {
-                            var thisName = datasource.Session.GetName ((int)cbx.Tag);
-                            var index = cbx.SelectedIndex;
-                            if (index >= 0) {
-                                var value = datasource.Session.GetCurrentSuggestionsForNoun (nounName) [index];
-                                datasource.Session.SetValue (thisName, value);
-                            } else {
-                                datasource.Session.SetValue (thisName, "");
-                            }
-                        };
                     }
                 }
                 break;
