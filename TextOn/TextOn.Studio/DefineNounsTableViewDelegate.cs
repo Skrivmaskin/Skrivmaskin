@@ -39,14 +39,26 @@ namespace TextOn.Studio
             view.TextField.Tag = row;
         }
 
-        private void ConfigureComboBox (NSTableCellView view,NSComboBox combobox, nint row)
+        private void ConfigureComboBox (NSTableCellView view, NounProfile nounProfile, NSComboBox combobox, nint row)
         {
+            // Add to view.
             view.AddSubview (combobox);
 
+            // Configure
             combobox.UsesDataSource = true;
             combobox.Selectable = true;
             combobox.IgnoresMultiClick = false;
             combobox.Cell.Font = NSFont.SystemFontOfSize (10);
+
+            // Listen to changes in suggestions for the relevant Noun
+            nounProfile.SuggestionsChangedForNoun += (nounName) => {
+                var currentNoun = nounProfile.GetNounByIndex ((int)combobox.Tag);
+                if (currentNoun.Name == nounName) {
+                    var suggestions = currentNoun.Suggestions.Select ((s) => s.Value).ToArray ();
+                    combobox.StringValue = "";
+                    combobox.DataSource = new DefineNounsComboBoxDataSource (suggestions);
+                }
+            };
 
             // Tag view
             combobox.Tag = row;
@@ -77,7 +89,7 @@ namespace TextOn.Studio
                 case SuggestionsColumnIdentifier:
                     var buttonStyle = NSBezelStyle.TexturedRounded;
                     var combobox = new NSComboBox (new CGRect (0, 0, 250, 20));
-                    ConfigureComboBox (view, combobox, row);
+                    ConfigureComboBox (view, datasource.NounProfile, combobox, row);
                     var addButton = new NSButton (new CGRect (252, 0, 20, 20));
                     addButton.Image = NSImage.ImageNamed (NSImageName.AddTemplate);
                     view.AddSubview (addButton);
@@ -99,6 +111,15 @@ namespace TextOn.Studio
                     view.AddSubview (removeButton);
                     removeButton.BezelStyle = buttonStyle;
                     removeButton.Tag = row;
+                    removeButton.Activated += (s, e) => {
+                        var thisNoun = datasource.NounProfile.GetNounByIndex ((int)addButton.Tag);
+                        var selectedIndex = combobox.SelectedIndex;
+                        var thisSuggestionsPrior = thisNoun.Suggestions.Select ((sugg) => sugg.Value).ToArray ();
+                        var thisSuggestionValue = thisSuggestionsPrior [selectedIndex];
+                        if ((selectedIndex >= 0) && thisSuggestionValue == combobox.StringValue) {
+                            controller.DeleteSuggestion (thisNoun.Name, thisSuggestionValue);
+                        }
+                    };
                     var editConstraintsButton = new NSButton (new CGRect (296, 0, 104, 20));
                     editConstraintsButton.Title = "Constraints";
                     view.AddSubview (editConstraintsButton);

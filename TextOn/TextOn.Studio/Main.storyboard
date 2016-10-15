@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -1552,11 +1553,118 @@ Gw
                     </view>
                     <connections>
                         <outlet property="DefineNounsTableView" destination="6f3-Sw-cp4" id="QKa-yC-4fz"/>
+                        <segue destination="FIm-bS-D0b" kind="modal" identifier="DeleteSuggestion" id="9HJ-cr-4o7"/>
                     </connections>
                 </viewController>
                 <customObject id="btE-80-ELd" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1483" y="-96"/>
+            <point key="canvasLocation" x="1546" y="-79"/>
+        </scene>
+        <!--Delete Suggestion View Controller-->
+        <scene sceneID="2yy-Nx-6vW">
+            <objects>
+                <viewController id="FIm-bS-D0b" customClass="DeleteSuggestionViewController" sceneMemberID="viewController">
+                    <view key="view" id="TDW-FI-SmH">
+                        <rect key="frame" x="0.0" y="0.0" width="497" height="192"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="qn4-IA-fwj">
+                                <rect key="frame" x="413" y="108" width="64" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="64" id="9xF-V3-ev2"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="64" id="Ws0-4w-iSY"/>
+                                    <constraint firstAttribute="height" constant="64" id="dlp-Tc-KiN"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="64" id="mpJ-Gq-Zsb"/>
+                                </constraints>
+                                <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="AppIcon" id="RV4-re-8e8"/>
+                            </imageView>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="vtt-sx-MjU">
+                                <rect key="frame" x="401" y="13" width="82" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="EzV-09-kRG"/>
+                                    <constraint firstAttribute="width" constant="70" id="JLn-En-c82"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="OK" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="PVK-ZM-9fh">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+DQ
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="OK_Clicked:" target="FIm-bS-D0b" id="pS0-Hz-ER1"/>
+                                </connections>
+                            </button>
+                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="gWJ-at-p3E">
+                                <rect key="frame" x="18" y="148" width="383" height="24"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="379" id="4vP-W7-aHc"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="24" id="QzZ-9e-3Nv"/>
+                                    <constraint firstAttribute="width" constant="379" id="t7F-zv-hwP"/>
+                                    <constraint firstAttribute="height" constant="24" id="vUp-g1-CiE"/>
+                                </constraints>
+                                <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="Delete Suggestion?" id="cVf-9g-co4">
+                                    <font key="font" metaFont="system" size="20"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="RBZ-9j-emM">
+                                <rect key="frame" x="18" y="55" width="383" height="85"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="379" id="BYm-xl-lCR"/>
+                                    <constraint firstAttribute="height" constant="85" id="Lre-W9-qPj"/>
+                                </constraints>
+                                <textFieldCell key="cell" sendsActionOnEndEditing="YES" title="Are you sure you want to delete this suggestion? Yadda yadda." id="jmX-ol-km4">
+                                    <font key="font" metaFont="system"/>
+                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                    <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                                </textFieldCell>
+                            </textField>
+                            <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="XT6-lU-CXD">
+                                <rect key="frame" x="319" y="13" width="82" height="32"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="E6Y-MA-JxL"/>
+                                    <constraint firstAttribute="width" constant="70" id="ejW-HS-6zD"/>
+                                </constraints>
+                                <buttonCell key="cell" type="push" title="Cancel" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="SiL-eO-XEc">
+                                    <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+                                    <font key="font" metaFont="system"/>
+                                    <string key="keyEquivalent" base64-UTF8="YES">
+Gw
+</string>
+                                </buttonCell>
+                                <connections>
+                                    <action selector="Cancel_Clicked:" target="FIm-bS-D0b" id="yHk-WU-edB"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="XT6-lU-CXD" firstAttribute="top" secondItem="RBZ-9j-emM" secondAttribute="bottom" constant="14" id="2BV-GI-U79"/>
+                            <constraint firstItem="XT6-lU-CXD" firstAttribute="top" secondItem="RBZ-9j-emM" secondAttribute="bottom" constant="14" id="4hL-XH-yr9"/>
+                            <constraint firstItem="RBZ-9j-emM" firstAttribute="top" secondItem="gWJ-at-p3E" secondAttribute="bottom" constant="8" id="4lI-AE-jtK"/>
+                            <constraint firstItem="vtt-sx-MjU" firstAttribute="top" secondItem="qn4-IA-fwj" secondAttribute="bottom" constant="67" id="7Zu-Vi-7OK"/>
+                            <constraint firstAttribute="trailing" secondItem="vtt-sx-MjU" secondAttribute="trailing" constant="20" id="9of-3Y-rXi"/>
+                            <constraint firstItem="RBZ-9j-emM" firstAttribute="leading" secondItem="TDW-FI-SmH" secondAttribute="leading" constant="20" id="F0A-nW-m2o"/>
+                            <constraint firstItem="XT6-lU-CXD" firstAttribute="leading" secondItem="TDW-FI-SmH" secondAttribute="leading" constant="325" id="LTz-YF-CAf"/>
+                            <constraint firstAttribute="bottom" secondItem="vtt-sx-MjU" secondAttribute="bottom" constant="20" id="QPb-6M-ejw"/>
+                            <constraint firstItem="gWJ-at-p3E" firstAttribute="leading" secondItem="TDW-FI-SmH" secondAttribute="leading" constant="20" id="Qgx-dM-2wK"/>
+                            <constraint firstItem="qn4-IA-fwj" firstAttribute="leading" secondItem="gWJ-at-p3E" secondAttribute="trailing" constant="14" id="TV2-n2-yH3"/>
+                            <constraint firstItem="RBZ-9j-emM" firstAttribute="top" secondItem="gWJ-at-p3E" secondAttribute="bottom" constant="8" id="bjF-HP-v2O"/>
+                            <constraint firstItem="gWJ-at-p3E" firstAttribute="top" secondItem="TDW-FI-SmH" secondAttribute="top" constant="20" id="f7o-WZ-n8l"/>
+                            <constraint firstItem="vtt-sx-MjU" firstAttribute="leading" secondItem="XT6-lU-CXD" secondAttribute="trailing" constant="12" id="faS-NO-rd4"/>
+                            <constraint firstItem="vtt-sx-MjU" firstAttribute="leading" secondItem="XT6-lU-CXD" secondAttribute="trailing" constant="12" id="o0P-q9-rsh"/>
+                            <constraint firstAttribute="bottom" secondItem="XT6-lU-CXD" secondAttribute="bottom" constant="20" id="o9u-YS-s3V"/>
+                            <constraint firstItem="qn4-IA-fwj" firstAttribute="leading" secondItem="RBZ-9j-emM" secondAttribute="trailing" constant="14" id="pjg-NP-blr"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="DescriptionTextField" destination="RBZ-9j-emM" id="hVo-sv-Bai"/>
+                    </connections>
+                </viewController>
+                <customObject id="vSs-yc-3MS" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2129.5" y="-352"/>
         </scene>
         <!--Add New Noun-->
         <scene sceneID="vGe-cQ-McO">

@@ -69,9 +69,27 @@ namespace TextOn.Studio
                     TemplateUpdated ();
                 };
                 break;
+            case DesignViewDialogSegues.DeleteSuggestion:
+                var ddlg = segue.DestinationController as DeleteSuggestionViewController;
+                ddlg.Presentor = this;
+                ddlg.NounName = nounNameToDelete;
+                ddlg.SuggestionValue = suggestionValueToDelete;
+                ddlg.DialogAccepted += (s, e) => {
+                    centralViewController.Template.Nouns.DeleteSuggestion (nounNameToDelete, suggestionValueToDelete);
+                };
+                break;
             default:
                 break;
             }
+        }
+
+        private string nounNameToDelete;
+        private string suggestionValueToDelete;
+        public void DeleteSuggestion (string nounName, string suggestionValue)
+        {
+            nounNameToDelete = nounName;
+            suggestionValueToDelete = suggestionValue;
+            PerformSegue (DesignViewDialogSegues.DeleteSuggestion, this);
         }
     }
 }

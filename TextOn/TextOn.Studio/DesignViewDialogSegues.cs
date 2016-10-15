@@ -20,5 +20,8 @@ namespace TextOn.Studio
 
         // From Define Nouns To Add New Noun
         public const string AddNewNoun = "AddNewNoun";
+
+        // From Define Nouns to Delete Suggestion
+        public const string DeleteSuggestion = "DeleteSuggestion";
     }
 }

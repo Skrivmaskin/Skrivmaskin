@@ -157,6 +157,10 @@
     <Compile Include="ManageConstraintsDialogController.designer.cs">
       <DependentUpon>ManageConstraintsDialogController.cs</DependentUpon>
     </Compile>
+    <Compile Include="DeleteSuggestionViewController.cs" />
+    <Compile Include="DeleteSuggestionViewController.designer.cs">
+      <DependentUpon>DeleteSuggestionViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

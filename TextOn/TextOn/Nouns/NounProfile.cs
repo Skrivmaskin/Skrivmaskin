@@ -223,8 +223,9 @@ namespace TextOn.Nouns
             var suggestionToDelete = noun.Suggestions.Find ((s) => s.Value == value);
             if (!noun.Suggestions.Remove (suggestionToDelete))
                 throw new ApplicationException ("Unable to remove suggestion [" + name + ", " + value + "]");
-            if (suggestionToDelete.Dependencies.Count == 0) return; // can't affect dependencies
-            RebuildGlobalDependencies ();
+            if (suggestionToDelete.Dependencies.Count > 0)
+                RebuildGlobalDependencies ();
+            SuggestionsChangedForNoun?.Invoke (name);
         }
 
         /// <summary>
@@ -245,5 +246,7 @@ namespace TextOn.Nouns
         {
             return nouns [nounsInOrder [index]];
         }
+
+        public event Action<string> SuggestionsChangedForNoun;
     }
 }
