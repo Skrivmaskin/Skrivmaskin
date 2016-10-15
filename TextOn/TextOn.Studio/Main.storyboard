@@ -1413,7 +1413,7 @@ Gw
         <!--Add New Noun-->
         <scene sceneID="vGe-cQ-McO">
             <objects>
-                <viewController title="Add New Noun" id="r9z-4g-u1e" sceneMemberID="viewController">
+                <viewController title="Add New Noun" id="r9z-4g-u1e" customClass="AddNewNounViewController" sceneMemberID="viewController">
                     <view key="view" id="qII-hh-5VF">
                         <rect key="frame" x="0.0" y="0.0" width="497" height="167"/>
                         <autoresizingMask key="autoresizingMask"/>

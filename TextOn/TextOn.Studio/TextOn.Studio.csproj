@@ -149,6 +149,10 @@
     <Compile Include="DefineNounsTableViewDataSource.cs" />
     <Compile Include="DefineNounsTableViewDelegate.cs" />
     <Compile Include="DefineNounsComboBoxDataSource.cs" />
+    <Compile Include="AddNewNounViewController.cs" />
+    <Compile Include="AddNewNounViewController.designer.cs">
+      <DependentUpon>AddNewNounViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
