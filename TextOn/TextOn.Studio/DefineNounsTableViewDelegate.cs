@@ -40,14 +40,12 @@ namespace TextOn.Studio
 
         private void ConfigureComboBox (NSTableCellView view,NSComboBox combobox, nint row)
         {
-            // Add to view
-            combobox.AutoresizingMask = NSViewResizingMask.WidthSizable;
             view.AddSubview (combobox);
 
-            // Configure
-            combobox.Editable = true;
             combobox.UsesDataSource = true;
-            combobox.Selectable = false;
+            combobox.Selectable = true;
+            combobox.IgnoresMultiClick = false;
+            combobox.Cell.Font = NSFont.SystemFontOfSize (10);
 
             // Tag view
             combobox.Tag = row;
@@ -72,12 +70,28 @@ namespace TextOn.Studio
                 switch (tableColumn.Title) {
                 case NounColumnIdentifier:
                 case DescriptionColumnIdentifier:
-                    view.TextField = new NSTextField (new CGRect (0, 0, 400, 16));
+                    view.TextField = new NSTextField (new CGRect (0, 0, 400, 20));
                     ConfigureTextField (view, row);
                     break;
                 case SuggestionsColumnIdentifier:
-                    var combobox = new NSComboBox ();
+                    var buttonStyle = NSBezelStyle.TexturedRounded;
+                    var combobox = new NSComboBox (new CGRect (0, 0, 250, 20));
                     ConfigureComboBox (view, combobox, row);
+                    var addButton = new NSButton (new CGRect (250, 0, 20, 20));
+                    addButton.Image = NSImage.ImageNamed (NSImageName.AddTemplate);
+                    view.AddSubview (addButton);
+                    addButton.BezelStyle = buttonStyle;
+                    addButton.Tag = row;
+                    var removeButton = new NSButton (new CGRect (270, 0, 20, 20));
+                    removeButton.Image = NSImage.ImageNamed (NSImageName.RemoveTemplate);
+                    view.AddSubview (removeButton);
+                    removeButton.BezelStyle = buttonStyle;
+                    removeButton.Tag = row;
+                    var editConstraintsButton = new NSButton (new CGRect (290, 0, 110, 20));
+                    editConstraintsButton.Title = "Constraints";
+                    view.AddSubview (editConstraintsButton);
+                    editConstraintsButton.BezelStyle = buttonStyle;
+                    editConstraintsButton.Tag = row;
                     break;
                 }
             }
