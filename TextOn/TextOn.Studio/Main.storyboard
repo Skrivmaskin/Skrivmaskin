@@ -1255,7 +1255,7 @@ Gw
                                                     </prototypeCellViews>
                                                 </tableColumn>
                                                 <tableColumn identifier="" width="64" minWidth="64" maxWidth="64" id="ePl-ld-q2b">
-                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Accepts User Edits">
+                                                    <tableHeaderCell key="headerCell" lineBreakMode="truncatingTail" borderStyle="border" alignment="left" title="Editable">
                                                         <font key="font" metaFont="smallSystem"/>
                                                         <color key="textColor" name="headerTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -1265,7 +1265,6 @@ Gw
                                                         <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
                                                         <color key="backgroundColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
                                                     </textFieldCell>
-                                                    <tableColumnResizingMask key="resizingMask" resizeWithTable="YES" userResizable="YES"/>
                                                     <prototypeCellViews>
                                                         <tableCellView id="At4-bf-iBg">
                                                             <rect key="frame" x="457" y="1" width="64" height="17"/>
@@ -1301,7 +1300,7 @@ Gw
                                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                             <subviews>
                                                                 <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4O5-Y9-Yp2">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="99" height="18"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="65" height="18"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                                                     <comboBoxCell key="cell" controlSize="mini" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" placeholderString="New Suggestion" drawsBackground="YES" usesDataSource="YES" numberOfVisibleItems="5" id="Bg7-pM-4VE">
                                                                         <font key="font" metaFont="miniSystem"/>
@@ -1353,7 +1352,7 @@ Gw
                                                                 <button toolTip="Manage Constraints for the selected suggestion." verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GOy-U3-YFc" userLabel="Constraints">
                                                                     <rect key="frame" x="0.0" y="0.0" width="64" height="16"/>
                                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                                                                    <buttonCell key="cell" type="push" title="Button" bezelStyle="rounded" alignment="center" controlSize="mini" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GLF-AC-gPb">
+                                                                    <buttonCell key="cell" type="bevel" title="Button" bezelStyle="rounded" alignment="center" controlSize="mini" imageScaling="proportionallyDown" inset="2" id="GLF-AC-gPb">
                                                                         <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                                                         <font key="font" metaFont="miniSystem"/>
                                                                     </buttonCell>
@@ -1575,7 +1574,7 @@ Gw
                 </viewController>
                 <customObject id="cOg-eH-ETJ" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2028.5" y="87"/>
+            <point key="canvasLocation" x="2130" y="34"/>
         </scene>
         <!--Design Preview-->
         <scene sceneID="3LB-EP-6XO">
