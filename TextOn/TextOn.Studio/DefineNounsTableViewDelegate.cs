@@ -2,6 +2,7 @@
 using System.Linq;
 using AppKit;
 using CoreGraphics;
+using Foundation;
 using TextOn.Nouns;
 
 namespace TextOn.Studio
@@ -82,6 +83,17 @@ namespace TextOn.Studio
                     view.AddSubview (addButton);
                     addButton.BezelStyle = buttonStyle;
                     addButton.Tag = row;
+                    addButton.Activated += (s, e) => {
+                        var thisNoun = datasource.NounProfile.GetNounByIndex ((int)addButton.Tag);
+                        var thisSuggestionsPrior = thisNoun.Suggestions.Select ((sugg) => sugg.Value).ToArray ();
+                        if (((combobox.SelectedIndex < 0) || thisSuggestionsPrior[combobox.SelectedIndex] != combobox.StringValue) && (!String.IsNullOrWhiteSpace (combobox.StringValue))) {
+                            var thisValue = combobox.StringValue;
+                            datasource.NounProfile.AddSuggestion (thisNoun.Name, thisValue, new NounSuggestionDependency [0]);
+                            var thisSuggestions = thisNoun.Suggestions.Select ((sugg) => sugg.Value).ToArray ();
+                            combobox.DataSource = new DefineNounsComboBoxDataSource (thisSuggestions);
+                            combobox.Select ((NSString)thisValue);
+                        }
+                    };
                     var removeButton = new NSButton (new CGRect (274, 0, 20, 20));
                     removeButton.Image = NSImage.ImageNamed (NSImageName.RemoveTemplate);
                     view.AddSubview (removeButton);
