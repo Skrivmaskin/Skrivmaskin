@@ -2,6 +2,7 @@
 using System.Linq;
 using AppKit;
 using CoreGraphics;
+using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
@@ -9,15 +10,16 @@ namespace TextOn.Studio
     {
         private const string NounColumnIdentifier = "Noun";
         private const string DescriptionColumnIdentifier = "Description";
-        private const string AcceptsUserEditsColumnIdentifier = "Accepts User Edits";
         private const string SuggestionsColumnIdentifier = "Suggestions";
         private const string ConstraintsColumnIdentifier = "Constraints";
 
         private readonly DefineNounsTableViewDataSource datasource;
+        private readonly DefineNounsViewController controller;
 
-        public DefineNounsTableViewDelegate (DefineNounsTableViewDataSource datasource)
+        public DefineNounsTableViewDelegate (DefineNounsViewController controller, DefineNounsTableViewDataSource datasource)
         {
             this.datasource = datasource;
+            this.controller = controller;
         }
 
         private void ConfigureTextField (NSTableCellView view, nint row)
@@ -68,13 +70,27 @@ namespace TextOn.Studio
                     view.AddSubview (combobox);
                     view.AddSubview (addButton);
                     view.AddSubview (removeButton);
+                    var suggestions = noun.Suggestions.Select ((s) => s.Value).ToArray();
+                    combobox.UsesDataSource = true;
+                    combobox.DataSource = new DefineNounsComboBoxDataSource (suggestions);
                     addButton.Activated += (s, e) => {
+                        var thisRow = (int)addButton.Tag;
+                        var thisView = tableView.GetView (2, thisRow, false);
+                        var thisCbx = thisView.Subviews [0] as NSComboBox;
+                        var value = thisCbx.StringValue;
                         // check there's some text
                         // add
                         // new datasource/delegate
                         // select it
                         // update an array of selection indices in the datasource
-
+                        if (!String.IsNullOrWhiteSpace (value)) {
+                            var thisNoun = datasource.NounProfile.GetNounByIndex (thisRow);
+                            datasource.NounProfile.AddSuggestion (thisNoun.Name, value, new NounSuggestionDependency [0]);
+                            var newSuggestions = thisNoun.Suggestions.Select ((sug) => sug.Value).ToArray ();
+                            thisCbx.DataSource = new DefineNounsComboBoxDataSource (newSuggestions);
+                            thisCbx.SelectItem (newSuggestions.Length - 1);
+                            controller.SelectSuggestionIndex(thisNoun.Name, newSuggestions.Length - 1);
+                        }
                     };
                     removeButton.Activated += (s, e) => {
                         // check there's a selection
@@ -83,15 +99,13 @@ namespace TextOn.Studio
                         // new datasource/delegate
                         // update an array of selection indices in the datasource (might be none left)
                         // or select another item (previous/0?)
+
                     };
                     combobox.SelectionChanged += (s, e) => {
                         // update an array of selection indices in the datasource
+                        var thisNoun = datasource.NounProfile.GetNounByIndex ((int)combobox.Tag);
+                        controller.SelectSuggestionIndex (thisNoun.Name, (int)combobox.SelectedIndex);
                     };
-                    break;
-                case AcceptsUserEditsColumnIdentifier:
-                    var checkbox = new NSButton ();
-                    checkbox.Tag = row;
-                    view.AddSubview (checkbox);
                     break;
                 case ConstraintsColumnIdentifier:
                     var editConstraints = new NSButton ();
@@ -128,15 +142,6 @@ namespace TextOn.Studio
                 cbx.Selectable = true;
                 cbx.AutoresizingMask = NSViewResizingMask.WidthSizable;
                 cbx.IgnoresMultiClick = false;
-                break;
-            case AcceptsUserEditsColumnIdentifier:
-                var checkbox = view.Subviews [0] as NSButton;
-                checkbox.Tag = row;
-                checkbox.State = (noun.AcceptsUserValue) ? NSCellStateValue.On : NSCellStateValue.Off;
-                checkbox.ToolTip = (noun.AcceptsUserValue) ? "Allows any value." : "Only the suggested values are allowed.";
-                checkbox.Activated += (s, e) => {
-                    
-                };
                 break;
             case ConstraintsColumnIdentifier:
                 var editConstraints = view.Subviews [0] as NSButton;

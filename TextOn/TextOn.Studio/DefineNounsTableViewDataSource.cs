@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using AppKit;
 using TextOn.Nouns;
 
@@ -16,5 +17,5 @@ namespace TextOn.Studio
         {
             return NounProfile.Count;
         }
-    }
+   }
 }

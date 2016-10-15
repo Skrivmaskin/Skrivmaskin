@@ -5,6 +5,7 @@ using System;
 using Foundation;
 using AppKit;
 using CoreGraphics;
+using System.Collections.Generic;
 
 namespace TextOn.Studio
 {
@@ -27,7 +28,7 @@ namespace TextOn.Studio
 
             var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
             DefineNounsTableView.DataSource = datasource;
-            DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (datasource);
+            DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (this, datasource);
             apparent = true;
         }
 
@@ -44,7 +45,7 @@ namespace TextOn.Studio
             if (apparent) {
                 var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
                 DefineNounsTableView.DataSource = datasource;
-                DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (datasource);
+                DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (this, datasource);
             }
         }
 
@@ -71,6 +72,12 @@ namespace TextOn.Studio
             default:
                 break;
             }
+        }
+
+        private readonly Dictionary<string, int> selectedIndexes = new Dictionary<string, int>();
+        internal void SelectSuggestionIndex (string nounName, int suggestionIndex)
+        {
+            selectedIndexes [nounName] = suggestionIndex;
         }
    }
 }
