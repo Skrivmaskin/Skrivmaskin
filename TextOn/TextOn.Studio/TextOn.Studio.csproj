@@ -153,6 +153,10 @@
     <Compile Include="AddNewNounViewController.designer.cs">
       <DependentUpon>AddNewNounViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageConstraintsDialogController.cs" />
+    <Compile Include="ManageConstraintsDialogController.designer.cs">
+      <DependentUpon>ManageConstraintsDialogController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

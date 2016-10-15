@@ -21,7 +21,7 @@
       "AcceptsUserValue": true,
       "Suggestions": [
         {
-          "Value": "Covent Garden",
+          "Value": "Always Offer This",
           "Dependencies": []
         },
         {
@@ -34,7 +34,61 @@
           ]
         },
         {
+          "Value": "Barnet",
+          "Dependencies": [
+              {
+                  "Name": "MÄRKE",
+                  "Value": "London"
+              }
+          ]
+        },
+        {
+          "Value": "Brent",
+          "Dependencies": [
+              {
+                  "Name": "MÄRKE",
+                  "Value": "London"
+              }
+          ]
+        },
+        {
+          "Value": "Haringey",
+          "Dependencies": [
+              {
+                  "Name": "MÄRKE",
+                  "Value": "London"
+              }
+          ]
+        },
+        {
           "Value": "Swarcliffe",
+          "Dependencies": [
+              {
+                  "Name": "MÄRKE",
+                  "Value": "Leeds"
+              }
+          ]
+        },
+        {
+          "Value": "Carlton",
+          "Dependencies": [
+              {
+                  "Name": "MÄRKE",
+                  "Value": "Leeds"
+              }
+          ]
+        },
+        {
+          "Value": "Chapel Allerton",
+          "Dependencies": [
+              {
+                  "Name": "MÄRKE",
+                  "Value": "Leeds"
+              }
+          ]
+        },
+        {
+          "Value": "Churwell",
           "Dependencies": [
               {
                   "Name": "MÄRKE",

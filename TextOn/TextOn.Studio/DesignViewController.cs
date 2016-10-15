@@ -86,7 +86,7 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("Design UpdatePreview");
 
-            if (!previewIsHidden) {
+            if (!previewIsHidden && TreeController.SelectionIndexPaths.Length == 1) {
                 List<PreviewPartialRouteChoiceNode> partialRoute = new List<PreviewPartialRouteChoiceNode> ();
                 var node = centralViewController.Template.Definition;
                 var indexPath = TreeController.SelectionIndexPaths [0];
@@ -558,7 +558,7 @@ namespace TextOn.Studio
 
         internal bool SelectDesignNode (INode designNode)
         {
-            var indexPath = (new NSIndexPath ()).IndexPathByAddingIndex (1);
+            var indexPath = (new NSIndexPath ()).IndexPathByAddingIndex (0);
             var retVal = FindAndSelectDesignNode (designNode, centralViewController.Template.Definition, ref indexPath);
             if (retVal) {
                 TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
