@@ -94,6 +94,7 @@ namespace TextOn.Studio
 
             Template = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));
             CreateTree (null, Template);
+            defineNounsViewController.TemplateUpdated ();
         }
 
         /// <summary>

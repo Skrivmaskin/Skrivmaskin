@@ -135,7 +135,6 @@ namespace TextOn.Studio
             return view;
         }
 
-
         public override bool ShouldSelectRow (NSTableView tableView, nint row)
         {
             return false;
@@ -145,6 +144,5 @@ namespace TextOn.Studio
         {
             return false;
         }
-
     }
 }

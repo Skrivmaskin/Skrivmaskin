@@ -148,6 +148,7 @@
     <Compile Include="SetNounValuesTableViewDelegate.cs" />
     <Compile Include="DefineNounsTableViewDataSource.cs" />
     <Compile Include="DefineNounsTableViewDelegate.cs" />
+    <Compile Include="DefineNounsComboBoxDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

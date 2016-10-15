@@ -1,7 +1,7 @@
 using System;
 namespace TextOn.Studio
 {
-    public static class DesignViewDialogSegues
+    static class DesignViewDialogSegues
     {
         // To General purpose
         public const string AddChoice = "AddChoice";
@@ -17,5 +17,8 @@ namespace TextOn.Studio
         // To Make Choice
         public const string MoveIntoNewChoice = "MoveIntoNewChoice";
         public const string MoveIntoNewSequential = "MoveIntoNewSequential";
+
+        // From Define Nouns To Add New Noun
+        public const string AddNewNoun = "AddNewNoun";
     }
 }

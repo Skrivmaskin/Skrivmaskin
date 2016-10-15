@@ -14,52 +14,46 @@ namespace TextOn.Studio
 		{
 		}
 
-//        DefineNounsCollectionViewDataSource datasource;
-
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
-
-//            this.datasource = new DefineNounsCollectionViewDataSource ();
-//            CollectionView.DataSource = this.datasource;
-//            CollectionView.Delegate = new DefineNounsCollectionViewDelegateFlowLayout ();
-//            CollectionView.WantsLayer = true;
-//            CollectionView.Layer.BackgroundColor = new CGColor (0.9f, 0.9f, 0.9f);
         }
 
-        private NSMutableArray nouns = new NSMutableArray ();
-        public NSArray nounModelArray {
-            [Export (nameof(nounModelArray))]
-            get { return nouns; }
+        bool apparent = false;
+
+        public override void ViewDidAppear ()
+        {
+            base.ViewDidAppear ();
+
+            var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
+            DefineNounsTableView.DataSource = datasource;
+            DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (datasource);
+            apparent = true;
         }
+
+        public override void ViewDidDisappear ()
+        {
+            base.ViewDidDisappear ();
+            DefineNounsTableView.DataSource = null;
+            DefineNounsTableView.Delegate = null;
+            apparent = false;
+        }
+
+        internal void TemplateUpdated ()
+        {
+            if (apparent) {
+                var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
+                DefineNounsTableView.DataSource = datasource;
+                DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (datasource);
+            }
+        }
+
         private CentralViewController centralViewController = null;
         internal void SetControllerLinks (CentralViewController cvc)
         {
             Console.Error.WriteLine ("DefineNouns SetControllerLinks");
             centralViewController = cvc;
-            TemplateUpdated ();
         }
 
-        internal void TemplateUpdated ()
-        {
-//            var nounProfile = centralViewController.Template.Nouns;
-//            var allNouns = nounProfile.GetAllNouns ();
-//            var array = new NSMutableArray ();
-//            foreach (var item in allNouns) {
-//                array.Add (new NounModel (item.Name, item.Description));
-//            }
-//            SetNouns (array);
-//            this.datasource = new DefineNounsCollectionViewDataSource ();
-//            datasource.Nouns = centralViewController.Template.Nouns;
-//            CollectionView.DataSource = this.datasource;
-//            CollectionView.Delegate = new DefineNounsCollectionViewDelegateFlowLayout ();
-//            CollectionView.WantsLayer = true;
-//            DCollectionView.Layer.BackgroundColor = new CGColor (0.9f, 0.9f, 0.9f);
-        }
-
-        public void AddNewNoun (string nounName, string description, bool acceptsUserValue)
-        {
-            centralViewController.Template.Nouns.AddNewNoun (nounName, description, acceptsUserValue);
-        }
-	}
+   }
 }
