@@ -12,5 +12,56 @@ namespace TextOn.Studio
 		public AddNewNounViewController (IntPtr handle) : base (handle)
 		{
 		}
+
+        public override void ViewDidLoad ()
+        {
+            base.ViewDidLoad ();
+
+            Title = "Add New Noun";
+        }
+
+        public string NameText {
+            get {
+                return NameTextField.StringValue;
+            }
+        }
+
+        public string DescriptionText {
+            get {
+                return DescriptionTextField.StringValue;
+            }
+        }
+
+        public bool AcceptsUserValue {
+            get {
+                return AcceptsUserValueButton.State == NSCellStateValue.On;
+            }
+        }
+
+        public NSViewController Presentor { get; set; }
+
+        private void CloseDialog ()
+        {
+            Presentor.DismissViewController (this);
+        }
+
+        partial void Cancel_Clicked (Foundation.NSObject sender)
+        {
+            CloseDialog ();
+        }
+
+        partial void OK_Clicked (Foundation.NSObject sender)
+        {
+            RaiseDialogAccepted ();
+            CloseDialog ();
+        }
+
+        public EventHandler DialogAccepted;
+
+        internal void RaiseDialogAccepted ()
+        {
+            if (this.DialogAccepted != null)
+                this.DialogAccepted (this, EventArgs.Empty);
+        }
 	}
 }

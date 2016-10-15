@@ -55,5 +55,22 @@ namespace TextOn.Studio
             centralViewController = cvc;
         }
 
+        public override void PrepareForSegue (NSStoryboardSegue segue, NSObject sender)
+        {
+            base.PrepareForSegue (segue, sender);
+
+            switch (segue.Identifier) {
+            case DesignViewDialogSegues.AddNewNoun:
+                var dlg = segue.DestinationController as AddNewNounViewController;
+                dlg.Presentor = this;
+                dlg.DialogAccepted += (s, e) => {
+                    centralViewController.Template.Nouns.AddNewNoun (dlg.NameText, dlg.DescriptionText, dlg.AcceptsUserValue);
+                    TemplateUpdated ();
+                };
+                break;
+            default:
+                break;
+            }
+        }
    }
 }
