@@ -15,6 +15,27 @@ namespace TextOn.Studio
         {
         }
 
+        void NounComboBox_SelectionChanged (object sender, EventArgs e)
+        {
+            Console.Error.WriteLine ("ManageConstraints NounComboBox_SelectionChanged");
+            if (ValueComboBox.SelectedIndex >= 0) {
+                ValueComboBox.DeselectItem (ValueComboBox.SelectedIndex);
+            }
+            if (NounComboBox.SelectedIndex >= 0) {
+                BuildSuggestionComboBox ();
+                ValueComboBox.SelectionChanged += ValueComboBox_SelectionChanged;
+            } else {
+                ValueComboBox.SelectionChanged -= ValueComboBox_SelectionChanged;
+                ValueComboBox.DataSource = null;
+            }
+        }
+
+        private void ValueComboBox_SelectionChanged (object sender, EventArgs eventArgs)
+        {
+            Console.Error.WriteLine ("ManageConstraints ValueComboBox_SelectionChanged");
+            AddRowEnabled = ValueComboBox.SelectedIndex >= 0 && values != null & ValueComboBox.SelectedIndex < values.Length;
+        }
+
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
@@ -28,22 +49,7 @@ namespace TextOn.Studio
                 constraints.Add (item.Name, item.Value);
             }
 
-            NounComboBox.SelectionChanged += (s, e) => {
-                Console.Error.WriteLine ("ManageConstraints NounComboBox_SelectionChanged");
-                if (ValueComboBox.SelectedIndex >= 0) {
-                    ValueComboBox.DeselectItem (ValueComboBox.SelectedIndex);
-                }
-                if (NounComboBox.SelectedIndex >= 0) {
-                    BuildSuggestionComboBox ();
-                } else {
-                    ValueComboBox.DataSource = null;
-                }
-            };
-
-            ValueComboBox.SelectionChanged += (s, e) => {
-                Console.Error.WriteLine ("ManageConstraints ValueComboBox_SelectionChanged");
-                AddRowEnabled = ValueComboBox.SelectedIndex >= 0 && values != null & ValueComboBox.SelectedIndex < values.Length;
-            };
+            NounComboBox.SelectionChanged += NounComboBox_SelectionChanged;
 
             RebuildTable ();
         }
@@ -68,6 +74,15 @@ namespace TextOn.Studio
             ValueComboBox.DataSource = null;
             ManageConstraintsTableView.DataSource = new ManageConstraintsTableViewDataSource (this, constraints);
             ManageConstraintsTableView.Delegate = new ManageConstraintsTableViewDelegate (this, constraints);
+        }
+
+        internal void RemoveConstraint (string name)
+        {
+            constraints.Remove (name);
+            ValueComboBox.DeselectItem (ValueComboBox.SelectedIndex);
+            NounComboBox.DeselectItem (NounComboBox.SelectedIndex);
+            ValueComboBox.Delegate = null;
+            RebuildTable ();
         }
 
         private void BuildSuggestionComboBox ()

@@ -66,7 +66,12 @@ namespace TextOn.Studio
                     view.AddSubview (removeButton);
                     removeButton.BezelStyle = buttonStyle;
                     removeButton.Tag = row;
-                    //TODO hook up!!!
+                    removeButton.Activated += (s, e) => {
+                        var rowView = tableView.GetRowView (removeButton.Tag, false);
+                        var nounView = rowView.Subviews [0];
+                        var nounTextField = nounView.Subviews [0] as NSTextField;
+                        controller.RemoveConstraint (nounTextField.StringValue);
+                    };
                     break;
                 }
             }

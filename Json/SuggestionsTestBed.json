@@ -1,0 +1,95 @@
+{
+  "Nouns": [
+    {
+      "Name": "COUNTRY",
+      "Description": "Country",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "UK",
+          "Dependencies": []
+        },
+        {
+          "Value": "Japan",
+          "Dependencies": []
+        }
+      ]
+    },
+    {
+      "Name": "CITY",
+      "Description": "City",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "London",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "UK"
+            }
+          ]
+        },
+        {
+          "Value": "Tokyo",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "Japan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "PARK",
+      "Description": "Park",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Hyde Park",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "UK"
+            },
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "Regent's Park",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "UK"
+            },
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "St James' Park",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "UK"
+            },
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Definition": {
+    "SequentialName": "Sentences",
+    "Sequential": []
+  },
+  "Version": 1
+}
