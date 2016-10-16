@@ -6,6 +6,7 @@ using Foundation;
 using AppKit;
 using CoreGraphics;
 using System.Collections.Generic;
+using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
@@ -26,6 +27,8 @@ namespace TextOn.Studio
         {
             base.ViewDidAppear ();
 
+            centralViewController.Template.Nouns.NounsInOrderChanged += TemplateUpdated;
+
             var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
             DefineNounsTableView.DataSource = datasource;
             DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (this, datasource);
@@ -35,6 +38,9 @@ namespace TextOn.Studio
         public override void ViewDidDisappear ()
         {
             base.ViewDidDisappear ();
+
+            centralViewController.Template.Nouns.NounsInOrderChanged -= TemplateUpdated;
+
             DefineNounsTableView.DataSource = null;
             DefineNounsTableView.Delegate = null;
             apparent = false;
@@ -66,7 +72,6 @@ namespace TextOn.Studio
                 dlg.Presentor = this;
                 dlg.DialogAccepted += (s, e) => {
                     centralViewController.Template.Nouns.AddNewNoun (dlg.NameText, dlg.DescriptionText, dlg.AcceptsUserValue);
-                    TemplateUpdated ();
                 };
                 break;
             case DesignViewDialogSegues.DeleteSuggestion:
@@ -87,11 +92,23 @@ namespace TextOn.Studio
                 mdlg.DialogAccepted += (s, e) => {
                     var newDependencies = mdlg.NewDependencies;
                     centralViewController.Template.Nouns.SetDependenciesForSuggestion (nounNameToManage, suggestionValueToManage, newDependencies);
+                    if (mdlg.ApplyToFutureSuggestions) {
+                        currentDefaultDependencies [nounNameToManage] = newDependencies;
+                    } else {
+                        currentDefaultDependencies [nounNameToManage] = new NounSuggestionDependency [0];
+                    }
                 };
                 break;
             default:
                 break;
             }
+        }
+
+        private readonly Dictionary<string, IEnumerable<NounSuggestionDependency>> currentDefaultDependencies = new Dictionary<string, IEnumerable<NounSuggestionDependency>> ();
+        internal IEnumerable<NounSuggestionDependency> GetCurrentDefaultDependenciesForThisNoun (string name)
+        {
+            if (currentDefaultDependencies.ContainsKey (name)) return currentDefaultDependencies [name];
+            return new NounSuggestionDependency [0];
         }
 
         //TODO Everything below is horribly un-thread-safe, surely? Fix this!!! Or just hope I get away with it?
@@ -112,5 +129,6 @@ namespace TextOn.Studio
             suggestionValueToManage = suggestionValue;
             PerformSegue (DesignViewDialogSegues.ManageConstraints, this);
         }
-    }
+
+   }
 }

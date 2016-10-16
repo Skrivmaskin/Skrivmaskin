@@ -30,6 +30,9 @@ namespace TextOn.Nouns
         /// <summary>
         /// Called by the <see cref="TextOn.Design.TemplateWriter"/> to set up.
         /// </summary>
+        /// <remarks>
+        /// Does not fire events as this is before exposing the template to users.
+        /// </remarks>
         /// <param name="value">Value.</param>
         internal void SetAllNouns (IEnumerable<Noun> value)
         {
@@ -66,6 +69,8 @@ namespace TextOn.Nouns
 
             // No need to rebuild, this Noun is currently independent.
             globalDependencies.Add (name, new HashSet<string> ());
+
+            NounsInOrderChanged?.Invoke ();
         }
 
         /// <summary>
@@ -131,14 +136,22 @@ namespace TextOn.Nouns
             return nounsInOrder.Where ((n) => thisDependencies.Contains (n));
         }
 
-        private void AddGlobalDependency (string fromName, string onName) {
+        /// <summary>
+        /// Adds the global dependency.
+        /// </summary>
+        /// <returns>Whether the NounsInOrder changed.</returns>
+        /// <param name="fromName">From name.</param>
+        /// <param name="onName">On name.</param>
+        private bool AddGlobalDependency (string fromName, string onName) {
             globalDependencies [fromName].Add (onName);
             var foundFromName = false;
+            var retVal = false;
             var i = 0;
             while (i < nounsInOrder.Count) {
                 var nounName = nounsInOrder [i];
                 if (nounName == fromName) {
                     foundFromName = true;
+                    retVal = true;
                     nounsInOrder.RemoveAt (i);
                 } else if (nounName == onName) {
                     if (foundFromName) {
@@ -150,6 +163,7 @@ namespace TextOn.Nouns
                     ++i;
                 }
             }
+            return retVal;
         }
 
         /// <summary>
@@ -162,11 +176,12 @@ namespace TextOn.Nouns
             }
 
             // Find all the direct dependencies.
+            var nounOrderingChanged = false;
             foreach (var kvp in nouns) {
                 foreach (var suggestion in kvp.Value.Suggestions) {
                     foreach (var dependency in suggestion.Dependencies) {
                         if (!globalDependencies [kvp.Key].Contains (dependency.Name))
-                            AddGlobalDependency (kvp.Key, dependency.Name);
+                            nounOrderingChanged = nounOrderingChanged || AddGlobalDependency (kvp.Key, dependency.Name);
                     }
                 }
             }
@@ -175,7 +190,7 @@ namespace TextOn.Nouns
             Tuple<string, string> toAdd = null;
             do {
                 if (toAdd != null) {
-                    AddGlobalDependency (toAdd.Item1, toAdd.Item2);
+                    nounOrderingChanged = nounOrderingChanged || AddGlobalDependency (toAdd.Item1, toAdd.Item2);
                     toAdd = null;
                 }
 
@@ -193,6 +208,9 @@ namespace TextOn.Nouns
                     if (toAdd != null) break;
                 }
             } while (toAdd != null);
+
+            if (nounOrderingChanged)
+                NounsInOrderChanged?.Invoke ();
         }
 
         /// <summary>
@@ -268,6 +286,14 @@ namespace TextOn.Nouns
             SuggestionsChangedForNoun?.Invoke (nounName);
         }
 
+        /// <summary>
+        /// Occurs when suggestions changed for noun.
+        /// </summary>
         public event Action<string> SuggestionsChangedForNoun;
+
+        /// <summary>
+        /// Occurs when nouns in order changed.
+        /// </summary>
+        public event Action NounsInOrderChanged;
     }
 }

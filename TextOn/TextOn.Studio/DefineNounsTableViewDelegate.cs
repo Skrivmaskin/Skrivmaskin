@@ -100,7 +100,7 @@ namespace TextOn.Studio
                         var thisSuggestionsPrior = thisNoun.Suggestions.Select ((sugg) => sugg.Value).ToArray ();
                         if (((combobox.SelectedIndex < 0) || thisSuggestionsPrior[combobox.SelectedIndex] != combobox.StringValue) && (!String.IsNullOrWhiteSpace (combobox.StringValue))) {
                             var thisValue = combobox.StringValue;
-                            datasource.NounProfile.AddSuggestion (thisNoun.Name, thisValue, new NounSuggestionDependency [0]);
+                            datasource.NounProfile.AddSuggestion (thisNoun.Name, thisValue, controller.GetCurrentDefaultDependenciesForThisNoun (thisNoun.Name));
                             var thisSuggestions = thisNoun.Suggestions.Select ((sugg) => sugg.Value).ToArray ();
                             combobox.DataSource = new DefineNounsComboBoxDataSource (thisSuggestions);
                             combobox.Select ((NSString)thisValue);

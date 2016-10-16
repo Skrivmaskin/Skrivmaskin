@@ -102,6 +102,12 @@ namespace TextOn.Studio
             }
         }
 
+        public bool ApplyToFutureSuggestions {
+            get {
+                return ApplyToFuture.State == NSCellStateValue.On;
+            }
+        }
+
         public NSViewController Presentor { get; set; }
 
         private void CloseDialog ()
