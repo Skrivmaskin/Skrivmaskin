@@ -143,6 +143,7 @@ namespace TextOn.Nouns
         /// <param name="fromName">From name.</param>
         /// <param name="onName">On name.</param>
         private bool AddGlobalDependency (string fromName, string onName) {
+            Console.WriteLine ("Adding global dependency from {0} on {1}", fromName, onName);
             globalDependencies [fromName].Add (onName);
             var foundFromName = false;
             var retVal = false;
@@ -178,10 +179,14 @@ namespace TextOn.Nouns
             // Find all the direct dependencies.
             var nounOrderingChanged = false;
             foreach (var kvp in nouns) {
+                Console.WriteLine ("Rebuild Direct {0}", kvp.Key);
                 foreach (var suggestion in kvp.Value.Suggestions) {
+                    Console.WriteLine ("Rebuild Direct {0} {1}", kvp.Key, suggestion.Value);
                     foreach (var dependency in suggestion.Dependencies) {
+                        Console.WriteLine ("Rebuild Direct {0} {1} {2} {3}", kvp.Key, suggestion.Value, dependency.Name, dependency.Value);
                         if (!globalDependencies [kvp.Key].Contains (dependency.Name))
-                            nounOrderingChanged = nounOrderingChanged || AddGlobalDependency (kvp.Key, dependency.Name);
+                            Console.WriteLine ("Rebuild Direct {0} {1} {2} {3} - Adding", kvp.Key, suggestion.Value, dependency.Name, dependency.Value);
+                            nounOrderingChanged = AddGlobalDependency (kvp.Key, dependency.Name) || nounOrderingChanged;
                     }
                 }
             }
@@ -190,7 +195,7 @@ namespace TextOn.Nouns
             Tuple<string, string> toAdd = null;
             do {
                 if (toAdd != null) {
-                    nounOrderingChanged = nounOrderingChanged || AddGlobalDependency (toAdd.Item1, toAdd.Item2);
+                    nounOrderingChanged = AddGlobalDependency (toAdd.Item1, toAdd.Item2) || nounOrderingChanged;
                     toAdd = null;
                 }
 
@@ -204,8 +209,10 @@ namespace TextOn.Nouns
                                 break;
                             }
                         }
+                        if (toAdd != null) {
+                            break;
+                        }
                     }
-                    if (toAdd != null) break;
                 }
             } while (toAdd != null);
 
@@ -226,8 +233,16 @@ namespace TextOn.Nouns
             var globalDependenciesForThisNoun = globalDependencies [name];
             suggestion.Dependencies.AddRange (dependencies);
             noun.Suggestions.Add (suggestion);
-            if (suggestion.Dependencies.Count == 0) return; // can't affect dependencies
-            RebuildGlobalDependencies ();
+            if (suggestion.Dependencies.Count >= 0) {
+                var anyNewGlobalDependencies = false;
+                foreach (var dependency in dependencies) {
+                    if (!globalDependenciesForThisNoun.Contains (dependency.Name)) {
+                        anyNewGlobalDependencies = true;
+                        break;
+                    }
+                }
+                if (anyNewGlobalDependencies) RebuildGlobalDependencies ();
+            }
             SuggestionsChangedForNoun?.Invoke (name);
         }
 
@@ -279,6 +294,7 @@ namespace TextOn.Nouns
         /// <param name="newDependencies">New dependencies.</param>
         public void SetDependenciesForSuggestion (string nounName, string suggestionValue, IEnumerable<NounSuggestionDependency> newDependencies)
         {
+            Console.WriteLine ("Setting suggestion dependencies for {0}, {1}", nounName, suggestionValue);
             var noun = nouns [nounName];
             var suggestionToChange = noun.Suggestions.Find ((s) => s.Value == suggestionValue);
             suggestionToChange.Dependencies = new List<NounSuggestionDependency> (newDependencies);

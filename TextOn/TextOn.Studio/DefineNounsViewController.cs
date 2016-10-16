@@ -27,7 +27,7 @@ namespace TextOn.Studio
         {
             base.ViewDidAppear ();
 
-            centralViewController.Template.Nouns.NounsInOrderChanged += TemplateUpdated;
+            centralViewController.Template.Nouns.NounsInOrderChanged += Refresh;
             apparent = true;
             TemplateUpdated ();
         }
@@ -36,11 +36,10 @@ namespace TextOn.Studio
         {
             base.ViewDidDisappear ();
 
-            centralViewController.Template.Nouns.NounsInOrderChanged -= TemplateUpdated;
+            centralViewController.Template.Nouns.NounsInOrderChanged -= Refresh;
 
             DefineNounsTableView.DataSource = null;
             DefineNounsTableView.Delegate = null;
-            DefineNounsTableView.ReloadData ();
             apparent = false;
         }
 
@@ -50,8 +49,13 @@ namespace TextOn.Studio
                 var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
                 DefineNounsTableView.DataSource = datasource;
                 DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (this, datasource);
-                DefineNounsTableView.ReloadData ();
             }
+        }
+
+        private void Refresh ()
+        {
+            Console.Error.WriteLine ("DefineNouns Refresh");
+            DefineNounsTableView.ReloadData ();
         }
 
         private CentralViewController centralViewController = null;

@@ -267,5 +267,32 @@ namespace TextOn.Test
             Assert.AreEqual (expectedDependenciesDistrict, existingDependenciesDistrict);
             Assert.AreEqual (expectedDependenciesCountry, existingDependenciesCountry);
         }
+
+        [Test]
+        public void TestNewRootDependency_NounsReordered ()
+        {
+            var profile = new NounProfile ();
+            profile.AddNewNoun ("Country", "Name of a country.", true);
+            profile.AddNewNoun ("City", "Name of a city.", true);
+            profile.AddNewNoun ("District", "Name of a district.", true);
+            profile.AddNewNoun ("Park", "Name of a park.", true);
+            profile.AddSuggestion ("Country", "Japan", new NounSuggestionDependency [0]);
+            profile.AddSuggestion ("City", "Tokyo", new NounSuggestionDependency [1] { new NounSuggestionDependency ("Country", "Japan") });
+            profile.AddSuggestion ("District", "Ginza", new NounSuggestionDependency [1] { new NounSuggestionDependency ("City", "Tokyo") });
+            profile.AddSuggestion ("Park", "Yoyogi Park", new NounSuggestionDependency [2] { new NounSuggestionDependency ("Country", "Japan"), new NounSuggestionDependency ("City", "Tokyo") });
+            profile.AddNewNoun ("Continent", "Name of a continent.", true);
+            profile.AddSuggestion ("Continent", "Asia", new NounSuggestionDependency [0]);
+            var nounsInOrderChangedCount = 0;
+            profile.NounsInOrderChanged += () => {
+                ++nounsInOrderChangedCount;
+            };
+            profile.SetDependenciesForSuggestion ("Country", "Japan", new NounSuggestionDependency [] { new NounSuggestionDependency ("Continent", "Asia") });
+
+            var expectedNounsInOrder = new string [] { "Continent", "Country", "City", "Park", "District" };
+            var actualNounsInOrder = profile.GetAllNouns ().Select ((n) => n.Name).ToArray();
+
+            Assert.AreEqual (1, nounsInOrderChangedCount);
+            Assert.AreEqual (expectedNounsInOrder, actualNounsInOrder);
+        }
     }
 }
