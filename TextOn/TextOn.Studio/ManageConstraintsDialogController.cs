@@ -79,6 +79,7 @@ namespace TextOn.Studio
             if ((this.NounComboBox.SelectedIndex >= 0) && (this.ValueComboBox.SelectedIndex >= 0)) {
                 constraints.Add (names [NounComboBox.SelectedIndex], values [ValueComboBox.SelectedIndex]);
                 NounComboBox.DeselectItem (NounComboBox.SelectedIndex);
+                ValueComboBox.DeselectItem (ValueComboBox.SelectedIndex);
                 ValueComboBox.Delegate = null;
                 RebuildTable ();
             }

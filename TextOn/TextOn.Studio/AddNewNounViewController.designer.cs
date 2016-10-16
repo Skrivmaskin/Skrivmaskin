@@ -21,9 +21,6 @@ namespace TextOn.Studio
 		[Outlet]
 		AppKit.NSTextField NameTextField { get; set; }
 
-		[Action ("AcceptsUserValue_Clicked:")]
-		partial void AcceptsUserValue_Clicked (Foundation.NSObject sender);
-
 		[Action ("Cancel_Clicked:")]
 		partial void Cancel_Clicked (Foundation.NSObject sender);
 
@@ -32,9 +29,9 @@ namespace TextOn.Studio
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (NameTextField != null) {
-				NameTextField.Dispose ();
-				NameTextField = null;
+			if (AcceptsUserValueButton != null) {
+				AcceptsUserValueButton.Dispose ();
+				AcceptsUserValueButton = null;
 			}
 
 			if (DescriptionTextField != null) {
@@ -42,9 +39,9 @@ namespace TextOn.Studio
 				DescriptionTextField = null;
 			}
 
-			if (AcceptsUserValueButton != null) {
-				AcceptsUserValueButton.Dispose ();
-				AcceptsUserValueButton = null;
+			if (NameTextField != null) {
+				NameTextField.Dispose ();
+				NameTextField = null;
 			}
 		}
 	}
