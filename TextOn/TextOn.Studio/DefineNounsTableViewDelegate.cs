@@ -228,6 +228,8 @@ namespace TextOn.Studio
 
         public override NSView GetViewForItem (NSTableView tableView, NSTableColumn tableColumn, nint row)
         {
+            Console.Error.WriteLine ("DefineNounsTableViewDelegate GetViewForItem {0}", row);
+
             // Get the noun for this row.
             var noun = datasource.NounProfile.GetNounByIndex ((int)row);
 

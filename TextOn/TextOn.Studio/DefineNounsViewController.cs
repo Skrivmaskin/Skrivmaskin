@@ -27,7 +27,6 @@ namespace TextOn.Studio
         {
             base.ViewDidAppear ();
 
-            centralViewController.Template.Nouns.NounsInOrderChanged += Refresh;
             apparent = true;
             TemplateUpdated ();
         }
@@ -36,8 +35,6 @@ namespace TextOn.Studio
         {
             base.ViewDidDisappear ();
 
-            centralViewController.Template.Nouns.NounsInOrderChanged -= Refresh;
-
             DefineNounsTableView.DataSource = null;
             DefineNounsTableView.Delegate = null;
             apparent = false;
@@ -45,6 +42,7 @@ namespace TextOn.Studio
 
         internal void TemplateUpdated ()
         {
+            centralViewController.Template.Nouns.NounsInOrderChanged += Refresh;
             if (apparent) {
                 var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
                 DefineNounsTableView.DataSource = datasource;

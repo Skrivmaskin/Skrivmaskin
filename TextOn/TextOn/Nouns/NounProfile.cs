@@ -63,6 +63,7 @@ namespace TextOn.Nouns
         /// <param name="acceptsUserValue">If set to <c>true</c> accepts user value.</param>
         public void AddNewNoun (string name, string description, bool acceptsUserValue)
         {
+            Console.WriteLine ("NounProfile AddNewNoun");
             var noun = new Noun (name, description, acceptsUserValue);
             nouns.Add (name, noun);
             nounsInOrder.Add (name);
@@ -70,6 +71,8 @@ namespace TextOn.Nouns
             // No need to rebuild, this Noun is currently independent.
             globalDependencies.Add (name, new HashSet<string> ());
 
+            if (NounsInOrderChanged == null)
+                Console.Error.WriteLine ("No subscribers to NounsInOrderChanged");
             NounsInOrderChanged?.Invoke ();
         }
 
@@ -143,7 +146,6 @@ namespace TextOn.Nouns
         /// <param name="fromName">From name.</param>
         /// <param name="onName">On name.</param>
         private bool AddGlobalDependency (string fromName, string onName) {
-            Console.WriteLine ("Adding global dependency from {0} on {1}", fromName, onName);
             globalDependencies [fromName].Add (onName);
             var foundFromName = false;
             var retVal = false;
@@ -179,13 +181,9 @@ namespace TextOn.Nouns
             // Find all the direct dependencies.
             var nounOrderingChanged = false;
             foreach (var kvp in nouns) {
-                Console.WriteLine ("Rebuild Direct {0}", kvp.Key);
                 foreach (var suggestion in kvp.Value.Suggestions) {
-                    Console.WriteLine ("Rebuild Direct {0} {1}", kvp.Key, suggestion.Value);
                     foreach (var dependency in suggestion.Dependencies) {
-                        Console.WriteLine ("Rebuild Direct {0} {1} {2} {3}", kvp.Key, suggestion.Value, dependency.Name, dependency.Value);
                         if (!globalDependencies [kvp.Key].Contains (dependency.Name))
-                            Console.WriteLine ("Rebuild Direct {0} {1} {2} {3} - Adding", kvp.Key, suggestion.Value, dependency.Name, dependency.Value);
                             nounOrderingChanged = AddGlobalDependency (kvp.Key, dependency.Name) || nounOrderingChanged;
                     }
                 }
