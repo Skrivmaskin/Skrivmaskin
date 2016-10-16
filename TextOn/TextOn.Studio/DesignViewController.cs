@@ -9,6 +9,7 @@ using TextOn.Design;
 using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Generation;
+using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
@@ -57,12 +58,13 @@ namespace TextOn.Studio
                     PerformSegue (DesignViewDialogSegues.CreateTemplate, this);
                 }
 
-                if (SplitViewController == null)
+                if (PreviewSplitViewController == null)
                     throw new ApplicationException ("SplitViewController is null");
                 if (TreeController == null)
                     throw new ApplicationException ("TreeController is null");
 
-                previewSplitViewItem = SplitViewController.SplitViewItems [1];
+                previewSplitViewItem = PreviewSplitViewController.SplitViewItems [1];
+                defineNounsSplitViewItem= NounsSplitViewController.SplitViewItems [1];
 
                 disp = TreeController.AddObserver ("selectionIndexPaths", NSKeyValueObservingOptions.New, SelectionChanged);
             }       
@@ -84,34 +86,24 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("Design UpdatePreview");
 
-            if (!previewIsHidden) {
+            if (!previewIsHidden && TreeController.SelectionIndexPaths.Length == 1) {
                 List<PreviewPartialRouteChoiceNode> partialRoute = new List<PreviewPartialRouteChoiceNode> ();
-                if (TreeController.SelectedObjects.Length == 1) {
-                    switch (((DesignModel)TreeController.SelectedObjects [0]).modelType) {
-                    case DesignModelType.Variable:
-                    case DesignModelType.VariableForm:
-                    case DesignModelType.VariableRoot:
-                        break;
-                    default:
-                        var node = centralViewController.Template.Definition;
-                        var indexPath = TreeController.SelectionIndexPaths [0];
-                        var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
-                        var choicesMade = 0;
-                        foreach (var index in indices) {
-                            if (node.Type == NodeType.Sequential)
-                                node = ((SequentialNode)node).Sequential [index];
-                            else if (node.Type == NodeType.Choice) {
-                                var choiceNode = (ChoiceNode)node;
-                                partialRoute.Add (new PreviewPartialRouteChoiceNode (choiceNode, index, choicesMade++, null));
-                                node = choiceNode.Choices [index];
-                            } else {
-                                break;
-                            }
-                        }
-                        partialRoute.Add (new PreviewPartialRouteChoiceNode (null, -1, choicesMade, node));
+                var node = centralViewController.Template.Definition;
+                var indexPath = TreeController.SelectionIndexPaths [0];
+                var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
+                var choicesMade = 0;
+                foreach (var index in indices) {
+                    if (node.Type == NodeType.Sequential)
+                        node = ((SequentialNode)node).Sequential [index];
+                    else if (node.Type == NodeType.Choice) {
+                        var choiceNode = (ChoiceNode)node;
+                        partialRoute.Add (new PreviewPartialRouteChoiceNode (choiceNode, index, choicesMade++, null));
+                        node = choiceNode.Choices [index];
+                    } else {
                         break;
                     }
                 }
+                partialRoute.Add (new PreviewPartialRouteChoiceNode (null, -1, choicesMade, node));
                 centralViewController.GeneratePreview (partialRoute.ToArray ());
             }
         }
@@ -124,11 +116,9 @@ namespace TextOn.Studio
             if (!loading) {
                 // Reread project from the outline view
                 var template = CreateTemplateFromOutlineView ();
-                if (!template.Equals (centralViewController.Template)) {
-                    NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
-                    centralViewController.Template = template;
-                    centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template); // has a caching layer so should be quick
-                }
+                NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
+                centralViewController.Template = template;
+                centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template); // has a caching layer so should be quick
             }
 
             centralViewController.MarkPreviewAsInvalid ();
@@ -151,7 +141,7 @@ namespace TextOn.Studio
                     dlg.TitleText = "Create Template";
                     dlg.DescriptionText = "Paste sample text below to create a new template outline.";
                     dlg.DialogAccepted += (s, e) => {
-                        var project = new TextOnTemplate (new List<Variable> (), OutputSplitter.Split (dlg.SampleText));
+                        var project = new TextOnTemplate (new NounProfile (), OutputSplitter.Split (dlg.SampleText));
                         centralViewController.CreateTree (null, project);
                     };
                     break;
@@ -266,7 +256,6 @@ namespace TextOn.Studio
                 dialog.showActive = false;
                 dialog.showName = false;
                 dialog.showDetails = false;
-                dialog.showSuggestion = false;
                 dialog.DialogAccepted += (s, e) => {
                     TreeController.RemoveObjectsAtArrangedObjectIndexPaths (TreeController.SelectionIndexPaths);
                     DocumentEditedAction ();
@@ -276,10 +265,9 @@ namespace TextOn.Studio
                 var selected = (DesignModel)TreeController.SelectedObjects [0];
                 dialog.titleText = "Edit";
                 dialog.descriptionText = "Edit this " + selected.modelType + ".";
-                dialog.showActive = (selected.modelType != DesignModelType.VariableForm && selected.modelType != DesignModelType.Variable);
+                dialog.showActive = true;
                 dialog.showName = (selected.modelType != DesignModelType.Text && selected.modelType != DesignModelType.ParagraphBreak);
                 dialog.showDetails = (selected.modelType != DesignModelType.Choice && selected.modelType != DesignModelType.Sequential && selected.modelType != DesignModelType.ParagraphBreak);
-                dialog.showSuggestion = false;
                 dialog.NameTextInput = selected.name;
                 dialog.DetailsTextInput = selected.details;
                 dialog.IsActiveInput = selected.isActive;
@@ -298,7 +286,6 @@ namespace TextOn.Studio
                 dialog.showName = false;
                 dialog.detailsText = "Text:";
                 dialog.showDetails = true;
-                dialog.showSuggestion = false;
                 dialog.DetailsTextInput = "";
                 dialog.IsActiveInput = true;
                 dialog.CompiledTemplate = centralViewController.CompiledTemplate;
@@ -312,7 +299,6 @@ namespace TextOn.Studio
                 dialog.showActive = true;
                 dialog.showName = true;
                 dialog.showDetails = false;
-                dialog.showSuggestion = false;
                 dialog.NameTextInput = "Choice";
                 dialog.IsActiveInput = true;
                 dialog.DialogAccepted += (s, e) => {
@@ -325,45 +311,14 @@ namespace TextOn.Studio
                 dialog.showActive = true;
                 dialog.showName = true;
                 dialog.showDetails = false;
-                dialog.showSuggestion = false;
                 dialog.NameTextInput = "Sequential";
                 dialog.IsActiveInput = true;
                 dialog.DialogAccepted += (s, e) => {
                     AddChildModel (DesignModelType.Sequential, dialog.NameTextOutput, "", dialog.IsActiveOutput);
                 };
                 break;
-            case DesignViewDialogSegues.AddVariable:
-                dialog.titleText = "Add Variable";
-                dialog.descriptionText = "Add new variable.";
-                dialog.showActive = false;
-                dialog.showName = true;
-                dialog.showDetails = true;
-                dialog.showSuggestion = true;
-                dialog.NameTextInput = "VARNAME";
-                dialog.detailsText = "Description:";
-                dialog.DetailsTextInput = "Description for this variable";
-                dialog.DialogAccepted += (s, e) => {
-                    var variable = new DesignModel (DesignModelType.Variable, dialog.NameTextOutput, dialog.DetailsTextOutput, true, true);
-                    variable.AddDesign (new DesignModel (DesignModelType.VariableForm, "", dialog.SuggestionTextOutput, true, true));
-                    AddChild (variable);
-                };
-                break;
-            case DesignViewDialogSegues.AddVariableVariant:
-                dialog.titleText = "Add Variable variant";
-                dialog.descriptionText = "Add new variant.";
-                dialog.showActive = false;
-                dialog.showName = true;
-                dialog.showDetails = true;
-                dialog.showSuggestion = false;
-                dialog.NameTextInput = "";
-                dialog.detailsText = "Suggestion:";
-                dialog.DetailsTextInput = "Suggestion";
-                dialog.DialogAccepted += (s, e) => {
-                    AddChildModel (DesignModelType.VariableForm, dialog.NameTextOutput, dialog.DetailsTextOutput, true);
-                };
-                break;
             default:
-                break;
+                throw new ApplicationException ("Unknown segue - " + segue.Identifier);
             }
         }
 
@@ -492,26 +447,10 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("Design CreateTemplateFromOutlineView");
 
-            var variablesNode = Designs.GetItem<DesignModel> ((nuint)0);
-            var definitionNode = Designs.GetItem<DesignModel> ((nuint)1);
-            var variables = new List<Variable> ();
-            for (int i = 0; i < variablesNode.numberOfDesigns; i++) {
-                var variableNode = variablesNode.Designs.GetItem<DesignModel> ((nuint)i);
-                var variable = new Variable ();
-                variable.Name = variableNode.name;
-                variable.Description = variableNode.details;
-                variable.Forms = new List<VariableForm> ();
-                for (int j = 0; j < variableNode.numberOfDesigns; j++) {
-                    var variableFormNode = variableNode.Designs.GetItem<DesignModel> ((nuint)j);
-                    var variableForm = new VariableForm ();
-                    variableForm.Name = variableFormNode.name;
-                    variableForm.Suggestion = variableFormNode.details;
-                    variable.Forms.Add (variableForm);
-                }
-                variables.Add (variable);
-            }
+            var definitionNode = Designs.GetItem<DesignModel> ((nuint)0);
+            var nounProfile = centralViewController.Template?.Nouns;
             var root = CreateDesignNode (definitionNode);
-            return new TextOnTemplate (variables, root);
+            return new TextOnTemplate (nounProfile, root);
         }
 
         INode CreateDesignNode (DesignModel designModel)
@@ -547,29 +486,12 @@ namespace TextOn.Studio
             loading = true;
             var array = new NSMutableArray ();
             SetDesigns (array);
-            var variables = new DesignModel (true, DesignModelType.VariableRoot, "Variables", "", true, true);
-            AddDesign (variables);
-            if (this.CreateVariables (centralViewController.Template, variables, out errorText)) {
-                if (this.CreateDefinition (centralViewController.Template.Definition, true, (d) => AddDesign (d), true, out errorText)) {
-                    centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template);
-                    loading = false;
-                    return;
-                }
+            if (this.CreateDefinition (centralViewController.Template.Definition, true, (d) => AddDesign (d), true, out errorText)) {
+                centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template);
+                loading = false;
+                return;
             }
             loading = false;
-        }
-
-        public bool CreateVariables (TextOnTemplate project, DesignModel variables, out string errorText)
-        {
-            foreach (var variable in project.VariableDefinitions) {
-                var model = new DesignModel (DesignModelType.Variable, variable.Name, variable.Description, true, true);
-                variables.AddDesign (model);
-                foreach (var form in variable.Forms) {
-                    model.AddDesign (new DesignModel (DesignModelType.VariableForm, form.Name, form.Suggestion, true, true));
-                }
-            }
-            errorText = "";
-            return true;
         }
 
         public bool CreateDefinition (INode designNode, bool root, Action<DesignModel> addDefn, bool isParentActive, out string errorText)
@@ -636,7 +558,7 @@ namespace TextOn.Studio
 
         internal bool SelectDesignNode (INode designNode)
         {
-            var indexPath = (new NSIndexPath ()).IndexPathByAddingIndex (1);
+            var indexPath = (new NSIndexPath ()).IndexPathByAddingIndex (0);
             var retVal = FindAndSelectDesignNode (designNode, centralViewController.Template.Definition, ref indexPath);
             if (retVal) {
                 TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
@@ -645,7 +567,8 @@ namespace TextOn.Studio
             return retVal;
         }
 
-        internal NSSplitViewController SplitViewController { get; set; } = null;
+        #region Split View management
+        internal NSSplitViewController PreviewSplitViewController { get; set; } = null;
         private NSSplitViewItem previewSplitViewItem = null;
 
         private bool previewIsHidden = false;
@@ -656,17 +579,38 @@ namespace TextOn.Studio
             set {
                 WillChangeValue (nameof (hideShowPreviewTitle));
                 WillChangeValue (nameof (hideShowPreviewTooltip));
-                if (SplitViewController != null) {
+                if (PreviewSplitViewController != null) {
                     if (value && !previewIsHidden) {
-                        SplitViewController.RemoveSplitViewItem (previewSplitViewItem);
+                        PreviewSplitViewController.RemoveSplitViewItem (previewSplitViewItem);
                     } else if (!value && previewIsHidden) {
-                        SplitViewController.AddSplitViewItem (previewSplitViewItem);
+                        PreviewSplitViewController.AddSplitViewItem (previewSplitViewItem);
                         UpdatePreview ();
                     }
                     previewIsHidden = value;
                 }
                 DidChangeValue (nameof (hideShowPreviewTitle));
                 DidChangeValue (nameof (hideShowPreviewTooltip));
+            }
+        }
+
+        private bool defineNounsIsHidden = false;
+        public bool DefineNounsIsHidden {
+            get {
+                return defineNounsIsHidden;
+            }
+            set {
+                WillChangeValue (nameof (hideShowDefineNounsTitle));
+                WillChangeValue (nameof (hideShowDefineNounsTooltip));
+                if (NounsSplitViewController != null) {
+                    if (value && !defineNounsIsHidden) {
+                        NounsSplitViewController.RemoveSplitViewItem (defineNounsSplitViewItem);
+                    } else if (!value && defineNounsIsHidden) {
+                        NounsSplitViewController.AddSplitViewItem (defineNounsSplitViewItem);
+                    }
+                    defineNounsIsHidden = value;
+                }
+                DidChangeValue (nameof (hideShowDefineNounsTitle));
+                DidChangeValue (nameof (hideShowDefineNounsTooltip));
             }
         }
 
@@ -684,9 +628,32 @@ namespace TextOn.Studio
             }
         }
 
-        partial void HideShowPreview_Clicked (NSObject sender)
+        public string hideShowDefineNounsTitle {
+            [Export (nameof (hideShowDefineNounsTitle))]
+            get {
+                return defineNounsIsHidden ? "Show Nouns" : "Hide Nouns";
+            }
+        }
+
+        public string hideShowDefineNounsTooltip {
+            [Export (nameof (hideShowDefineNounsTooltip))]
+            get {
+                return defineNounsIsHidden ? "Show the Nouns pane." : "Hide the Nouns pane.";
+            }
+        }
+
+        public NSSplitViewController NounsSplitViewController { get; internal set; }
+        private NSSplitViewItem defineNounsSplitViewItem = null;
+        #endregion
+
+		partial void HideShowPreview_Clicked (NSObject sender)
         {
             PreviewIsHidden = !PreviewIsHidden;
+        }
+
+        partial void HideShowDefineNouns_Clicked (NSObject sender)
+        {
+            DefineNounsIsHidden = !DefineNounsIsHidden;
         }
     }
 }

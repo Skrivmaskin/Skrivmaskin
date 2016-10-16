@@ -1,11 +1,9 @@
 using System;
 namespace TextOn.Studio
 {
-    public static class DesignViewDialogSegues
+    static class DesignViewDialogSegues
     {
         // To General purpose
-        public const string AddVariable = "AddVariable";
-        public const string AddVariableVariant = "AddVariableVariant";
         public const string AddChoice = "AddChoice";
         public const string AddText = "AddText";
         public const string AddSequential = "AddSequential";
@@ -19,5 +17,14 @@ namespace TextOn.Studio
         // To Make Choice
         public const string MoveIntoNewChoice = "MoveIntoNewChoice";
         public const string MoveIntoNewSequential = "MoveIntoNewSequential";
+
+        // From Define Nouns To Add New Noun
+        public const string AddNewNoun = "AddNewNoun";
+
+        // From Define Nouns to Delete Suggestion
+        public const string DeleteSuggestion = "DeleteSuggestion";
+
+        // From Define Nouns to Manage Constraints
+        public const string ManageConstraints = "ManageConstraints";
     }
 }

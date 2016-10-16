@@ -1,0 +1,187 @@
+{
+  "Nouns": [
+    {
+      "Name": "CONTINENT",
+      "Description": "Continent",
+      "Suggestions": [
+        {
+          "Value": "Europe",
+          "Dependencies": []
+        },
+        {
+          "Value": "Asia",
+          "Dependencies": []
+        },
+        {
+          "Value": "North America",
+          "Dependencies": []
+        },
+        {
+          "Value": "South America",
+          "Dependencies": []
+        }
+      ]
+    },
+    {
+      "Name": "COUNTRY",
+      "Description": "Country",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "England",
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "Europe"
+            }
+          ]
+        },
+        {
+          "Value": "Japan",
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "Asia"
+            }
+          ]
+        },
+        {
+          "Value": "China",
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "Asia"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "CITY",
+      "Description": "City",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "London",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "England"
+            }
+          ]
+        },
+        {
+          "Value": "Tokyo",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "Japan"
+            }
+          ]
+        },
+        {
+          "Value": "Kyoto",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "Japan"
+            }
+          ]
+        },
+        {
+          "Value": "Beijing",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "China"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "DISTRICT",
+      "Description": "District",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Westminster",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "PARK",
+      "Description": "Park",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Hyde Park",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "Victoria Park",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "St James' Park",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Definition": {
+    "SequentialName": "Sentences",
+    "Sequential": [
+      {
+        "SequentialName": "Sentences",
+        "Sequential": [
+          {
+            "ChoiceName": "Opening line",
+            "Choices": [
+              {
+                "Text": "This is a text about [COUNTRY]."
+              },
+              {
+                "Text": "Here is some nonsense about [COUNTRY]."
+              },
+              {
+                "Text": "This text is all about [COUNTRY]."
+              }
+            ]
+          },
+          {
+            "Text": "Specifically, it is about life in [CITY], and the beautiful park there called [PARK]."
+          },
+          {
+            "Text": "In [DISTRICT] there is the {beautiful|gorgeous|magical|majestic} [PARK]."
+          },
+          {
+            "Text": "This one day, I was wandering around [DISTRICT]."
+          }
+        ]
+      }
+    ]
+  },
+  "Version": 1
+}

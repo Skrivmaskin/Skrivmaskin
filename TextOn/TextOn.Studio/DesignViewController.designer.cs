@@ -21,6 +21,9 @@ namespace TextOn.Studio
 		[Action ("Add_ParagraphBreak:")]
 		partial void Add_ParagraphBreak (Foundation.NSObject sender);
 
+		[Action ("HideShowDefineNouns_Clicked:")]
+		partial void HideShowDefineNouns_Clicked (Foundation.NSObject sender);
+
 		[Action ("HideShowPreview_Clicked:")]
 		partial void HideShowPreview_Clicked (Foundation.NSObject sender);
 

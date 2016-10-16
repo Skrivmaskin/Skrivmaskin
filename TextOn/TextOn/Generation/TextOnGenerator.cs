@@ -84,15 +84,26 @@ namespace TextOn.Generation
         public int? LastSeed { get { return randomChooser.LastSeed; } }
 
         /// <summary>
+        /// Is the template missing a noun definition?
+        /// </summary>
+        /// <returns><c>true</c>, if missing required noun definitions was ised, <c>false</c> otherwise.</returns>
+        /// <param name="template">Template.</param>
+        public bool IsMissingRequiredNounDefinitions (CompiledTemplate template)
+        {
+            var definedNouns = new HashSet<string> (template.Nouns.GetAllNouns ().Select ((n) => n.Name));
+            return template.Definition.RequiredVariables.Where ((n) => !definedNouns.Contains (n)).Count () != 0;
+        }
+
+        /// <summary>
         /// Determines if it is possible for this generator to regenerate.
         /// </summary>
         /// <remarks>
         /// May be used by a user interface to allow the user to activate and hide controls that Regenerate.
         /// </remarks>
         /// <returns><c>true</c>, if regenerate was caned, <c>false</c> otherwise.</returns>
-        public bool CanRegenerate (CompiledTemplate project)
+        public bool CanRegenerate (CompiledTemplate template)
         {
-            return LastSeed != null && !project.Definition.HasErrors;
+            return LastSeed != null && !template.Definition.HasErrors && !IsMissingRequiredNounDefinitions(template);
         }
 
         /// <summary>
@@ -102,9 +113,9 @@ namespace TextOn.Generation
         /// May be used by a user interface to allow the user to activate and hide controls that Generate.
         /// </remarks>
         /// <returns><c>true</c>, if regenerate was caned, <c>false</c> otherwise.</returns>
-        public bool CanGenerate (CompiledTemplate project)
+        public bool CanGenerate (CompiledTemplate template)
         {
-            return !project.Definition.HasErrors;
+            return !template.Definition.HasErrors && !IsMissingRequiredNounDefinitions (template);
         }
 
         /// <summary>

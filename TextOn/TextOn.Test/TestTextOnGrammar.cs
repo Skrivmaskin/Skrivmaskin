@@ -38,19 +38,5 @@ namespace TextOn.Test
             Assert.False (parseTree.HasErrors ());
         }
 
-        [Test]
-        public void TestCompoundVariable ()
-        {
-            var parseTree = parser.ParseToTree ("[Variable|Form]");
-            Assert.False (parseTree.HasErrors ());
-        }
-
-        [Test]
-        public void TestSentenceWithCompoundVariable ()
-        {
-            var parseTree = parser.ParseToTree ("I would like some [Variable|Form] please");
-            Assert.False (parseTree.HasErrors ());
-        }
-
     }
 }

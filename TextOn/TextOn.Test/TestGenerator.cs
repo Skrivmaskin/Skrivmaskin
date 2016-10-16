@@ -7,6 +7,7 @@ using TextOn.Compiler;
 using TextOn.Design;
 using TextOn.Generation;
 using TextOn.Interfaces;
+using TextOn.Nouns;
 using TextOn.Services;
 
 namespace TextOn.Test
@@ -52,7 +53,9 @@ namespace TextOn.Test
             var varValue = "MyValue";
             mockVariableSubstituter.Setup ((vs) => vs.Substitute (varName)).Returns (varValue);
             var definition = MakeSimpleVariable (varName);
-            var project = MakeProject (null, definition);
+            var nounProfile = new NounProfile ();
+            nounProfile.AddNewNoun ("MyVar", "Some description", true);
+            var project = MakeProject (nounProfile, definition);
             var seed = 42;
             var generatedText = generator.GenerateWithSeed (project, mockVariableSubstituter.Object, seed);
             Assert.AreEqual (varValue, generatedText.ToString ());

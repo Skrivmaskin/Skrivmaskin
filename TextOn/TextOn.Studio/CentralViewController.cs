@@ -9,6 +9,8 @@ using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Design;
 using TextOn.Generation;
+using TextOn.Version0;
+using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
@@ -29,11 +31,11 @@ namespace TextOn.Studio
 
         #region Design and Compiled templates
         internal TextOnCompiler Compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-        internal TextOnTemplate Template { get; set; } = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
+        internal TextOnTemplate Template { get; set; } = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));
         private CompiledTemplate compiledTemplate = null;
-        internal IReadOnlyDictionary<string, string> VariableValues {
+        internal IReadOnlyDictionary<string, string> NounValues {
             get {
-                return setVariablesViewController.VariableValues;
+                return setVariablesViewController.NounValues;
             }
         }
         internal CompiledTemplate CompiledTemplate {
@@ -49,9 +51,43 @@ namespace TextOn.Studio
         }
         #endregion
 
-        DesignViewController designViewController = null;
+        private void DiscoverControllers (NSViewController grandpa, NSViewController dad, NSViewController controller)
+        {
+            if (controller is DesignViewController) {
+                designViewController = (DesignViewController)controller;
+                designViewController.NounsSplitViewController = dad as NSSplitViewController;
+                designViewController.PreviewSplitViewController = grandpa as NSSplitViewController;
+            } else if (controller is DesignPreviewViewController)
+                designPreviewViewController = (DesignPreviewViewController)controller;
+            else if (controller is SetNounValuesViewController)
+                setVariablesViewController = (SetNounValuesViewController)controller;
+            else if (controller is ResultsViewController)
+                resultsViewController = (ResultsViewController)controller;
+            else if (controller is DefineNounsViewController)
+                defineNounsViewController = (DefineNounsViewController)controller;
+            else {
+                foreach (var child in controller.ChildViewControllers) {
+                    DiscoverControllers (dad, controller, child);
+                }
+            }
+        }
+
+        public bool AllValuesAreSet { get { return setVariablesViewController.AllValuesAreSet; } }
+
+        internal void DidChangeCanGenerate ()
+		{
+            resultsViewController.DidChangeCanGenerate ();
+		}
+
+		internal void WillChangeCanGenerate ()
+		{
+            resultsViewController.WillChangeCanGenerate ();
+		}
+
+		DesignViewController designViewController = null;
+        DefineNounsViewController defineNounsViewController = null;
         DesignPreviewViewController designPreviewViewController = null;
-        SetVariablesViewController setVariablesViewController = null;
+        SetNounValuesViewController setVariablesViewController = null;
         ResultsViewController resultsViewController = null;
         public override void AwakeFromNib ()
         {
@@ -59,26 +95,18 @@ namespace TextOn.Studio
 
             base.AwakeFromNib ();
 
-            foreach (var child in ChildViewControllers) {
-                foreach (var subchild in child.ChildViewControllers) {
-                    if (subchild is DesignViewController) {
-                        designViewController = (DesignViewController)subchild;
-                        designViewController.SplitViewController = child as NSSplitViewController;
-                    } else if (subchild is DesignPreviewViewController)
-                        designPreviewViewController = (DesignPreviewViewController)subchild;
-                    else if (subchild is SetVariablesViewController)
-                        setVariablesViewController = (SetVariablesViewController)subchild;
-                    else if (subchild is ResultsViewController)
-                        resultsViewController = (ResultsViewController)subchild;
-                }
-            }
+            // This is really cheesy - recurse through to find the controllers with fairly intimate knowledge of
+            // how they link together, then tell them all about me so that they can ask me to do work for them.
+            DiscoverControllers (null, null, this);
             designViewController.SetControllerLinks (this);
             setVariablesViewController.SetControllerLinks (this);
             resultsViewController.SetControllerLinks (this);
             designPreviewViewController.SetControllerLinks (this);
+            defineNounsViewController.SetControllerLinks (this);
 
-            Template = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Sentences", true, new List<INode> ()));
+            Template = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));
             CreateTree (null, Template);
+            defineNounsViewController.TemplateUpdated ();
         }
 
         /// <summary>
@@ -94,6 +122,7 @@ namespace TextOn.Studio
             Template = template;
             FilePath = path;
             designViewController.CreateTree ();
+            defineNounsViewController.TemplateUpdated ();
         }
 
         public void GeneratePreview (PreviewPartialRouteChoiceNode[] partialRoute)

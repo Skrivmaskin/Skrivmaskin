@@ -67,8 +67,6 @@ namespace TextOn.Studio
             case TextOnParseTokens.VarEnd:
             case TextOnParseTokens.VarName:
             case TextOnParseTokens.VarStart:
-            case TextOnParseTokens.VarDivide:
-            case TextOnParseTokens.VarFormName:
                 foregroundColor = NSColor.Blue;
                 break;
             default:
@@ -146,7 +144,52 @@ namespace TextOn.Studio
             return lastToken;
         }
 
+        public event Action<INode> ModifiedClick;
+
         #region Overrides
+        /// <summary>
+        /// If Alt is down, navigate the Design to the desired text node in the design tree.
+        /// </summary>
+        /// <param name="theEvent">The event.</param>
+        public override void MouseDown (NSEvent theEvent)
+        {
+            if (CompiledTemplate == null) {
+                base.MouseDown (theEvent);
+                return;
+            }
+            var altPressed = (theEvent.ModifierFlags & NSEventModifierMask.AlternateKeyMask) == NSEventModifierMask.AlternateKeyMask;
+            if (!altPressed) {
+                base.MouseDown (theEvent);
+                return;
+            }
+            var point = ConvertPointFromView (theEvent.LocationInWindow, null);
+            var charIndex = CharacterIndex (point);
+            var lines = TextStorage.Value.Split ('\n');
+            var currentCharacter = 0;
+            var lineNumber = 0;
+            foreach (var line in lines) {
+                // bail if this happens
+                if (lineNumber >= Route.Length) {
+                    base.MouseDown (theEvent);
+                    return;
+                }
+                currentCharacter += line.Length + 1; // newline character
+                if (currentCharacter > (int)charIndex) {
+                    var routeNode = Route [lineNumber];
+                    var node = routeNode.Node;
+                    if (node != null) {
+                        ModifiedClick?.Invoke (node);
+                        return;
+                    } else {
+                        base.MouseDown (theEvent);
+                        return;
+                    }
+                }
+                ++lineNumber;
+            }
+            base.MouseDown (theEvent);
+        }
+
         /// <summary>
         /// Look for special keys being pressed and does specific processing based on the key.
         /// </summary>
@@ -157,7 +200,10 @@ namespace TextOn.Studio
             var possibleComplete = Char.IsLetterOrDigit (theEvent.Characters [0]);
             //TODO Note, not ideal, because the user's position should be taken into account.
             var lastToken = Highlight ();
-            if (possibleComplete && (CompiledTemplate != null) && (CompiledTemplate.VariableDefinitions.Count > 0) && (lastToken == TextOnParseTokens.VarName) || (lastToken == TextOnParseTokens.VarFormName)) Complete (this);
+            if (possibleComplete &&
+                (CompiledTemplate != null) &&
+                (CompiledTemplate.Nouns.Count > 0) &&
+                (lastToken == TextOnParseTokens.VarName)) Complete (this);
         }
 
         public override NSRange RangeForUserCompletion ()

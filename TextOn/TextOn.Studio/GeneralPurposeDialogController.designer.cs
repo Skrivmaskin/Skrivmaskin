@@ -21,9 +21,6 @@ namespace TextOn.Studio
 		[Outlet]
 		AppKit.NSTextField NameTextField { get; set; }
 
-		[Outlet]
-		AppKit.NSTextField SuggestionTextField { get; set; }
-
 		[Action ("Cancel_Clicked:")]
 		partial void Cancel_Clicked (Foundation.NSObject sender);
 
@@ -37,19 +34,14 @@ namespace TextOn.Studio
 				DetailsTextView = null;
 			}
 
-			if (NameTextField != null) {
-				NameTextField.Dispose ();
-				NameTextField = null;
-			}
-
-			if (SuggestionTextField != null) {
-				SuggestionTextField.Dispose ();
-				SuggestionTextField = null;
-			}
-
 			if (IsActive != null) {
 				IsActive.Dispose ();
 				IsActive = null;
+			}
+
+			if (NameTextField != null) {
+				NameTextField.Dispose ();
+				NameTextField = null;
 			}
 		}
 	}

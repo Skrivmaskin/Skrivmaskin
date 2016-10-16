@@ -6,6 +6,9 @@ using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Parsing;
 using TextOn.Design;
+using TextOn.Version0;
+using TextOn.Nouns;
+using System.Text.RegularExpressions;
 
 namespace TextOn.Test
 {
@@ -37,6 +40,23 @@ namespace TextOn.Test
             }
         }
 
+        [Test, Ignore ("Currently there is a problem with the RegularExpresison terminal")]
+        public void TestSuccessWithPowerCharacter ()
+        {
+            var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
+            var successNode = compiler.CompileText ("This is ^ some text") as SuccessCompiledNode;
+            Assert.IsNotNull (successNode);
+        }
+
+        [Test]
+        public void TestIronyRegex ()
+        {
+            var regexString = TextOnTextTerminal.MakeRegex (new DefaultLexerSyntax (), true);
+            var regex = new Regex (regexString);
+            var match = regex.Match ("This is ^ some text");
+            Assert.IsTrue (match.Success);
+        }
+
         [Test]
         public void TestErrorIncompleteVariableForm ()
         {
@@ -54,8 +74,8 @@ namespace TextOn.Test
             expected.Add (new TextOnParseElement (TextOnParseTokens.Text, choiceDepth, new TextOnParseRange (10, 10)));
             expected.Add (new TextOnParseElement (TextOnParseTokens.VarStart, choiceDepth, new TextOnParseRange (11, 11)));
             expected.Add (new TextOnParseElement (TextOnParseTokens.VarName, choiceDepth, new TextOnParseRange (12, 16)));
-            expected.Add (new TextOnParseElement (TextOnParseTokens.VarDivide, choiceDepth, new TextOnParseRange (17, 17)));
-            expected.Add (new TextOnParseElement (TextOnParseTokens.VarFormName, choiceDepth, new TextOnParseRange (18, 21)));
+            expected.Add (new TextOnParseElement (TextOnParseTokens.InvalidCharacter, choiceDepth, new TextOnParseRange (17, 17)));
+            expected.Add (new TextOnParseElement (TextOnParseTokens.InvalidText, choiceDepth, new TextOnParseRange (18, 21)));
             Assert.IsNotNull (errorNode);
             var elements = errorNode.Elements.ToList ();
             Assert.AreEqual (expected.Count, elements.Count);
@@ -164,7 +184,7 @@ namespace TextOn.Test
         public void TestInactiveParagraphBreak ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var template = new TextOnTemplate (new List<Variable> (), new ParagraphBreakNode () { IsActive = false });
+            var template = new TextOnTemplate (new NounProfile (), new ParagraphBreakNode () { IsActive = false });
             var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
@@ -173,7 +193,7 @@ namespace TextOn.Test
         public void TestInactiveText ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var template = new TextOnTemplate (new List<Variable> (), new TextNode () { Text = "Hello world", IsActive = false });
+            var template = new TextOnTemplate (new NounProfile (), new TextNode () { Text = "Hello world", IsActive = false });
             var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
@@ -184,7 +204,7 @@ namespace TextOn.Test
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
             var text1 = new TextNode ("ABC", true);
             var text2 = new TextNode ("DEF", true);
-            var template = new TextOnTemplate (new List<Variable> (), new ChoiceNode ("Some choice", false, new List<INode> (new INode [] { text1, text2 })));
+            var template = new TextOnTemplate (new NounProfile (), new ChoiceNode ("Some choice", false, new List<INode> (new INode [] { text1, text2 })));
             var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
@@ -195,7 +215,7 @@ namespace TextOn.Test
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
             var text1 = new TextNode ("ABC", true);
             var text2 = new TextNode ("DEF", true);
-            var template = new TextOnTemplate (new List<Variable> (), new SequentialNode ("Some sequential", false, new List<INode> (new INode [] { text1, text2 })));
+            var template = new TextOnTemplate (new NounProfile (), new SequentialNode ("Some sequential", false, new List<INode> (new INode [] { text1, text2 })));
             var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }

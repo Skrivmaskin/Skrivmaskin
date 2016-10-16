@@ -93,16 +93,14 @@
     <Compile Include="DesignViewController.designer.cs">
       <DependentUpon>DesignViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="SetVariablesViewController.cs" />
-    <Compile Include="SetVariablesViewController.designer.cs">
-      <DependentUpon>SetVariablesViewController.cs</DependentUpon>
+    <Compile Include="SetNounValuesViewController.cs" />
+    <Compile Include="SetNounValuesViewController.designer.cs">
+      <DependentUpon>SetNounValuesViewController.cs</DependentUpon>
     </Compile>
     <Compile Include="ResultsViewController.cs" />
     <Compile Include="ResultsViewController.designer.cs">
       <DependentUpon>ResultsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="VariablesTableViewDataSource.cs" />
-    <Compile Include="VariablesTableViewDelegate.cs" />
     <Compile Include="DesignTreeController.cs" />
     <Compile Include="DesignTreeController.designer.cs">
       <DependentUpon>DesignTreeController.cs</DependentUpon>
@@ -141,6 +139,30 @@
     <Compile Include="MakeChoiceViewController.designer.cs">
       <DependentUpon>MakeChoiceViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="SetNounValuesSuggestionsComboBoxDataSource.cs" />
+    <Compile Include="DefineNounsViewController.cs" />
+    <Compile Include="DefineNounsViewController.designer.cs">
+      <DependentUpon>DefineNounsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SetNounValuesTableViewDataSource.cs" />
+    <Compile Include="SetNounValuesTableViewDelegate.cs" />
+    <Compile Include="DefineNounsTableViewDataSource.cs" />
+    <Compile Include="DefineNounsTableViewDelegate.cs" />
+    <Compile Include="DefineNounsComboBoxDataSource.cs" />
+    <Compile Include="AddNewNounViewController.cs" />
+    <Compile Include="AddNewNounViewController.designer.cs">
+      <DependentUpon>AddNewNounViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageConstraintsDialogController.cs" />
+    <Compile Include="ManageConstraintsDialogController.designer.cs">
+      <DependentUpon>ManageConstraintsDialogController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DeleteSuggestionViewController.cs" />
+    <Compile Include="DeleteSuggestionViewController.designer.cs">
+      <DependentUpon>DeleteSuggestionViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ManageConstraintsTableViewDataSource.cs" />
+    <Compile Include="ManageConstraintsTableViewDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
@@ -150,6 +172,11 @@
       <Project>{9FE90831-8757-4B3F-8B75-E054B4FFD2D2}</Project>
       <Name>TextOn</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\invalid.png" />
+    <BundleResource Include="Resources\valid.png" />
+    <BundleResource Include="Resources\unset.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
   <ProjectExtensions>

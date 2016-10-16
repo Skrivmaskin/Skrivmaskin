@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using TextOn.Nouns;
 
 namespace TextOn.Compiler
 {
@@ -11,23 +12,19 @@ namespace TextOn.Compiler
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TextOn.Compiler.CompiledTemplate"/> class.
         /// </summary>
-        /// <param name="variables">Variables.</param>
+        /// <param name="nouns">Nouns.</param>
         /// <param name="definition">Definition.</param>
-        public CompiledTemplate (IEnumerable<ICompiledVariable> variables, ICompiledNode definition)
+        public CompiledTemplate (NounProfile nouns, ICompiledNode definition)
         {
-            var variableDefinitions = new Dictionary<string, ICompiledVariable> ();
-            foreach (var item in variables) {
-                variableDefinitions.Add (item.FullName, item);
-            }
-            VariableDefinitions = variableDefinitions;
+            Nouns = nouns;
             Definition = definition;
         }
 
         /// <summary>
-        /// The user's variable definitions.
+        /// The user's noun profile.
         /// </summary>
-        /// <value>The variable definitions.</value>
-        public IReadOnlyDictionary<string, ICompiledVariable> VariableDefinitions { get; private set; }
+        /// <value>The noun profile.</value>
+        public NounProfile Nouns { get; private set; }
 
         /// <summary>
         /// The definition of the template.

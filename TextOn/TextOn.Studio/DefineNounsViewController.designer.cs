@@ -9,17 +9,17 @@ using System.CodeDom.Compiler;
 
 namespace TextOn.Studio
 {
-	[Register ("SetVariablesViewController")]
-	partial class SetVariablesViewController
+	[Register ("DefineNounsViewController")]
+	partial class DefineNounsViewController
 	{
 		[Outlet]
-		AppKit.NSTableView SetVariables { get; set; }
+		AppKit.NSTableView DefineNounsTableView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (SetVariables != null) {
-				SetVariables.Dispose ();
-				SetVariables = null;
+			if (DefineNounsTableView != null) {
+				DefineNounsTableView.Dispose ();
+				DefineNounsTableView = null;
 			}
 		}
 	}

@@ -14,7 +14,6 @@ namespace TextOn.Compiler
     {
         readonly TextOnParser parser;
         Dictionary<TextNode, ICompiledNode> compiledNodes = new Dictionary<TextNode, ICompiledNode> ();
-        readonly ILexerSyntax lexerSyntax;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TextOn.Compilation.TextOnCompiler"/> class.
@@ -23,7 +22,6 @@ namespace TextOn.Compiler
         public TextOnCompiler (ILexerSyntax lexerSyntax)
         {
             parser = new TextOnParser (lexerSyntax);
-            this.lexerSyntax = lexerSyntax;
         }
 
         public ICompiledNode GetCompiledNode (TextNode textNode)
@@ -40,14 +38,7 @@ namespace TextOn.Compiler
             var transientCompiledNodes = new Dictionary<TextNode, ICompiledNode> ();
             var compiledNode = CompileNode (transientCompiledNodes, project.Definition);
             compiledNodes = transientCompiledNodes;
-            var variables = new List<ICompiledVariable> ();
-            foreach (var definition in project.VariableDefinitions) {
-                foreach (var form in definition.Forms) {
-                    var compiledVariable = new CompiledVariable (lexerSyntax, definition, form);
-                    variables.Add (compiledVariable);
-                }
-            }
-            return new CompiledTemplate (variables, compiledNode);
+            return new CompiledTemplate (project.Nouns, compiledNode);
         }
 
         /// <summary>

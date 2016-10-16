@@ -8,7 +8,7 @@ namespace TextOn.Lexing
 {
     public sealed class TextOnTextTerminal : RegexBasedTerminal
     {
-        private static string MakeRegex (ILexerSyntax lexerSyntax, bool whitespaceAllowed)
+        internal static string MakeRegex (ILexerSyntax lexerSyntax, bool whitespaceAllowed)
         {
             var specialCharacters =
                 new char []
@@ -17,7 +17,6 @@ namespace TextOn.Lexing
                     lexerSyntax.ChoiceStartDelimiter,
                     lexerSyntax.ChoiceEndDelimiter,
                     lexerSyntax.VariableEndDelimiter,
-                    lexerSyntax.VariableFormDelimiter,
                     lexerSyntax.VariableStartDelimiter,
                     lexerSyntax.EscapeCharacter
             };

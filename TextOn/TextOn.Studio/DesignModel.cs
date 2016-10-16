@@ -29,12 +29,6 @@ namespace TextOn.Studio
                     return "One of the subnodes will be randomly chosen for the output.";
                 case DesignModelType.Sequential:
                     return "All of the subnodes will be included sequentially in the output.";
-                case DesignModelType.VariableRoot:
-                    return "Root node";
-                case DesignModelType.Variable:
-                    return "A variable to be substituted into the output, using the [VARNAME] syntax.";
-                case DesignModelType.VariableForm:
-                    return "A grammatical variant of the variable to be substituted into the output, using the [VARNAME|Variant] syntax.";
                 case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
                 }
@@ -51,12 +45,6 @@ namespace TextOn.Studio
                 case DesignModelType.Choice:
                 case DesignModelType.Sequential:
                     return "Insert subnodes.";
-                case DesignModelType.VariableRoot:
-                    return "Root node";
-                case DesignModelType.Variable:
-                    return "Variable definition - used as a prompt for the user.";
-                case DesignModelType.VariableForm:
-                    return "Suggestion for the value of this variant.";
                 case DesignModelType.ParagraphBreak:
                     return "A paragraph break";
                 }
@@ -188,30 +176,10 @@ namespace TextOn.Studio
             }
         }
 
-        public bool enableAddVariableVariant {
-            [Export (nameof (enableAddVariableVariant))]
-            get {
-                return (modelType == DesignModelType.Variable);
-            }
-        }
-
-
-        public bool enableAddVariable {
-            [Export (nameof (enableAddVariable))]
-            get {
-                return (modelType == DesignModelType.VariableRoot);
-            }
-        }
-
         public NSImage icon {
             [Export (nameof (icon))]
             get {
                 switch (modelType) {
-                case DesignModelType.VariableRoot:
-                    return NSImage.ImageNamed (NSImageName.Folder);
-                case DesignModelType.Variable:
-                case DesignModelType.VariableForm:
-                    return NSImage.ImageNamed (NSImageName.UserGuest);
                 case DesignModelType.Text:
                     return NSImage.ImageNamed (NSImageName.GoRightTemplate);
                 case DesignModelType.Choice:
@@ -259,14 +227,14 @@ namespace TextOn.Studio
         public bool isEditable {
             [Export (nameof (isEditable))]
             get {
-                return (modelType != DesignModelType.VariableRoot);
+                return true;
             }
         }
 
         public bool isDeletable {
             [Export (nameof (isDeletable))]
             get {
-                return (modelType != DesignModelType.VariableRoot && !isRoot);
+                return (!isRoot);
             }
         }
 
@@ -278,31 +246,22 @@ namespace TextOn.Studio
             designs.Add (design);
             DidChangeValue ("designModelArray");
             DidChangeValue (nameof (isLeaf));
-            switch (design.modelType) {
-            case DesignModelType.Text:
-            case DesignModelType.Choice:
-            case DesignModelType.Sequential:
-            case DesignModelType.ParagraphBreak:
-                if (designs.Count == 1) {
-                    design.canMoveUp = false;
-                    design.canMoveDown = false;
-                } else {
-                    design.canMoveUp = true;
-                    design.canMoveDown = true;
-                    var f = designs.GetItem<DesignModel> (0);
-                    f.canMoveUp = false;
-                    f.canMoveDown = true;
-                    var l = designs.GetItem<DesignModel> (designs.Count - 1);
-                    l.canMoveUp = true;
-                    l.canMoveDown = false;
-                    var sf = designs.GetItem<DesignModel> (1);
-                    sf.canMoveUp = true;
-                    var sl = designs.GetItem<DesignModel> (designs.Count - 2);
-                    sl.canMoveDown = true;
-                }
-                break;
-            default:
-                break;
+            if (designs.Count == 1) {
+                design.canMoveUp = false;
+                design.canMoveDown = false;
+            } else {
+                design.canMoveUp = true;
+                design.canMoveDown = true;
+                var f = designs.GetItem<DesignModel> (0);
+                f.canMoveUp = false;
+                f.canMoveDown = true;
+                var l = designs.GetItem<DesignModel> (designs.Count - 1);
+                l.canMoveUp = true;
+                l.canMoveDown = false;
+                var sf = designs.GetItem<DesignModel> (1);
+                sf.canMoveUp = true;
+                var sl = designs.GetItem<DesignModel> (designs.Count - 2);
+                sl.canMoveDown = true;
             }
         }
 
@@ -314,31 +273,22 @@ namespace TextOn.Studio
             designs.Insert (design, index);
             DidChangeValue ("designModelArray");
             DidChangeValue (nameof (isLeaf));
-            switch (design.modelType) {
-            case DesignModelType.Text:
-            case DesignModelType.Choice:
-            case DesignModelType.Sequential:
-            case DesignModelType.ParagraphBreak:
-                if (designs.Count == 1) {
-                    design.canMoveUp = false;
-                    design.canMoveDown = false;
-                } else {
-                    design.canMoveUp = true;
-                    design.canMoveDown = true;
-                    var f = designs.GetItem<DesignModel> (0);
-                    f.canMoveUp = false;
-                    f.canMoveDown = true;
-                    var l = designs.GetItem<DesignModel> (designs.Count - 1);
-                    l.canMoveUp = true;
-                    l.canMoveDown = false;
-                    var sf = designs.GetItem<DesignModel> (1);
-                    sf.canMoveUp = true;
-                    var sl = designs.GetItem<DesignModel> (designs.Count - 2);
-                    sl.canMoveDown = true;
-                }
-                break;
-            default:
-                break;
+            if (designs.Count == 1) {
+                design.canMoveUp = false;
+                design.canMoveDown = false;
+            } else {
+                design.canMoveUp = true;
+                design.canMoveDown = true;
+                var f = designs.GetItem<DesignModel> (0);
+                f.canMoveUp = false;
+                f.canMoveDown = true;
+                var l = designs.GetItem<DesignModel> (designs.Count - 1);
+                l.canMoveUp = true;
+                l.canMoveDown = false;
+                var sf = designs.GetItem<DesignModel> (1);
+                sf.canMoveUp = true;
+                var sl = designs.GetItem<DesignModel> (designs.Count - 2);
+                sl.canMoveDown = true;
             }
         }
 
@@ -374,10 +324,6 @@ namespace TextOn.Studio
             [Export (nameof (enableEncapsulate))]
             get {
                 switch (modelType) {
-                case DesignModelType.Variable:
-                case DesignModelType.VariableForm:
-                case DesignModelType.VariableRoot:
-                    return false;
                 case DesignModelType.Text:
                     return (!isRoot);
                 default:
@@ -415,7 +361,7 @@ namespace TextOn.Studio
         {
             isActive = true;
             isParentActive = true;
-            modelType = DesignModelType.VariableRoot;
+            modelType = DesignModelType.Sequential;
             name = "";
             details = "";
             isRoot = false;

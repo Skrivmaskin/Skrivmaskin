@@ -1,12 +1,12 @@
 using System;
 using System.Collections.Generic;
 
-namespace TextOn.Design
+namespace TextOn.Version0
 {
     /// <summary>
     /// A user variable. This sets up a random replacement in the runner.
     /// </summary>
-    public sealed class Variable : IEquatable<Variable>
+    internal sealed class Variable : IEquatable<Variable>
     {
         public Variable ()
         {
