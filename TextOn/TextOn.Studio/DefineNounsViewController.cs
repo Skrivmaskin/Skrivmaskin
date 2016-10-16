@@ -28,11 +28,8 @@ namespace TextOn.Studio
             base.ViewDidAppear ();
 
             centralViewController.Template.Nouns.NounsInOrderChanged += TemplateUpdated;
-
-            var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
-            DefineNounsTableView.DataSource = datasource;
-            DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (this, datasource);
             apparent = true;
+            TemplateUpdated ();
         }
 
         public override void ViewDidDisappear ()
