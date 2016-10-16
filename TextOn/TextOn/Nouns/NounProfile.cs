@@ -210,6 +210,7 @@ namespace TextOn.Nouns
             noun.Suggestions.Add (suggestion);
             if (suggestion.Dependencies.Count == 0) return; // can't affect dependencies
             RebuildGlobalDependencies ();
+            SuggestionsChangedForNoun?.Invoke (name);
         }
 
         /// <summary>
@@ -249,8 +250,22 @@ namespace TextOn.Nouns
 
         public Noun GetNounByName (string name)
         {
-            Console.Error.WriteLine("GetNounByName {0}", name);
             return nouns [name];
+        }
+
+        /// <summary>
+        /// Sets the dependencies for a suggestion.
+        /// </summary>
+        /// <param name="nounName">Noun name.</param>
+        /// <param name="suggestionValue">Suggestion value.</param>
+        /// <param name="newDependencies">New dependencies.</param>
+        public void SetDependenciesForSuggestion (string nounName, string suggestionValue, IEnumerable<NounSuggestionDependency> newDependencies)
+        {
+            var noun = nouns [nounName];
+            var suggestionToChange = noun.Suggestions.Find ((s) => s.Value == suggestionValue);
+            suggestionToChange.Dependencies = new List<NounSuggestionDependency> (newDependencies);
+            RebuildGlobalDependencies ();
+            SuggestionsChangedForNoun?.Invoke (nounName);
         }
 
         public event Action<string> SuggestionsChangedForNoun;

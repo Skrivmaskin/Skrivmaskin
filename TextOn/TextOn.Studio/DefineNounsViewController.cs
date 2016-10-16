@@ -85,6 +85,8 @@ namespace TextOn.Studio
                 mdlg.SuggestionValue = suggestionValueToManage;
                 mdlg.Profile = centralViewController.Template.Nouns;
                 mdlg.DialogAccepted += (s, e) => {
+                    var newDependencies = mdlg.NewDependencies;
+                    centralViewController.Template.Nouns.SetDependenciesForSuggestion (nounNameToManage, suggestionValueToManage, newDependencies);
                 };
                 break;
             default:
