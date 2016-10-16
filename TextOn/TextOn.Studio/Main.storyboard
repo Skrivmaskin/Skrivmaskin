@@ -1435,7 +1435,7 @@ DQ
                 </viewController>
                 <customObject id="Xr4-op-CJe" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1833.5" y="-811.5"/>
+            <point key="canvasLocation" x="2090" y="-762"/>
         </scene>
         <!--Define Nouns View Controller-->
         <scene sceneID="Blj-pi-Ipg">
@@ -2308,7 +2308,7 @@ DQ
                                     <rect key="frame" x="1" y="0.0" width="408" height="259"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
-                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" headerView="cpy-Fh-wwi" viewBased="YES" id="PAq-gN-bAD">
+                                        <tableView verticalHuggingPriority="750" allowsExpansionToolTips="YES" columnAutoresizingStyle="firstColumnOnly" alternatingRowBackgroundColors="YES" columnReordering="NO" columnSelection="YES" multipleSelection="NO" autosaveColumns="NO" rowHeight="20" headerView="cpy-Fh-wwi" viewBased="YES" id="PAq-gN-bAD">
                                             <rect key="frame" x="0.0" y="0.0" width="661" height="236"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <size key="intercellSpacing" width="3" height="2"/>

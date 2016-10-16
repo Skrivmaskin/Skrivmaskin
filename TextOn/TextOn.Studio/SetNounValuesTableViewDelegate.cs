@@ -157,7 +157,7 @@ namespace TextOn.Studio
 
         public override bool ShouldSelectRow (NSTableView tableView, nint row)
         {
-            return false;
+            return true;
         }
 
         public override bool ShouldReorder (NSTableView tableView, nint columnIndex, nint newColumnIndex)

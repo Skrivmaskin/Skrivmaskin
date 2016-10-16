@@ -87,6 +87,15 @@
               "Value": "Japan"
             }
           ]
+        },
+        {
+          "Value": "Beijing",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "China"
+            }
+          ]
         }
       ]
     },
@@ -119,6 +128,24 @@
               "Value": "London"
             }
           ]
+        },
+        {
+          "Value": "Victoria Park",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "St James' Park",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
         }
       ]
     }
@@ -130,16 +157,27 @@
         "SequentialName": "Sentences",
         "Sequential": [
           {
-            "Text": "This is a text about [COUNTRY]."
+            "ChoiceName": "Opening line",
+            "Choices": [
+              {
+                "Text": "This is a text about [COUNTRY]."
+              },
+              {
+                "Text": "Here is some nonsense about [COUNTRY]."
+              },
+              {
+                "Text": "This text is all about [COUNTRY]."
+              }
+            ]
           },
           {
             "Text": "Specifically, it is about life in [CITY], and the beautiful park there called [PARK]."
           },
           {
-            "Text": "This one day, I was wandering around [DISTRICT]."
+            "Text": "In [DISTRICT] there is the {beautiful|gorgeous|magical|majestic} [PARK]."
           },
           {
-            "Text": "In [DISTRICT] there is the {beautiful|gorgeous|magical|majestic} [PARK]."
+            "Text": "This one day, I was wandering around [DISTRICT]."
           }
         ]
       }
