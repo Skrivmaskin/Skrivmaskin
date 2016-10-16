@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -1431,9 +1432,12 @@ DQ
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="7EQ-ca-ali">
-                                <rect key="frame" x="20" y="5" width="13" height="23"/>
+                                <rect key="frame" x="20" y="5" width="21" height="23"/>
                                 <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="19" id="I2K-RY-jHL"/>
+                                    <constraint firstAttribute="width" constant="21" id="hF2-IW-vDg"/>
                                     <constraint firstAttribute="height" constant="21" id="nDv-WL-1xd"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="19" id="uLH-Ca-CWZ"/>
                                 </constraints>
                                 <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="o73-Rj-L88">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -2719,9 +2723,9 @@ DQ
                                         </connections>
                                     </scrollView>
                                     <button toolTip="Add this synonym to the list of choices" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="fWP-ZA-EdT">
-                                        <rect key="frame" x="0.0" y="-1" width="13" height="21"/>
+                                        <rect key="frame" x="0.0" y="-1" width="19" height="21"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="13" id="Tcf-Xn-dYU"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="19" id="F5m-nL-5PP"/>
                                             <constraint firstAttribute="height" constant="19" id="YMh-71-nci"/>
                                         </constraints>
                                         <buttonCell key="cell" type="smallSquare" bezelStyle="smallSquare" image="NSAddTemplate" imagePosition="overlaps" alignment="center" lineBreakMode="truncatingTail" state="on" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="d4O-ZG-Mfq">
