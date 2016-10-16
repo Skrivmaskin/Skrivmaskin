@@ -144,7 +144,52 @@ namespace TextOn.Studio
             return lastToken;
         }
 
+        public event Action<INode> ModifiedClick;
+
         #region Overrides
+        /// <summary>
+        /// If Alt is down, navigate the Design to the desired text node in the design tree.
+        /// </summary>
+        /// <param name="theEvent">The event.</param>
+        public override void MouseDown (NSEvent theEvent)
+        {
+            if (CompiledTemplate == null) {
+                base.MouseDown (theEvent);
+                return;
+            }
+            var altPressed = (theEvent.ModifierFlags & NSEventModifierMask.AlternateKeyMask) == NSEventModifierMask.AlternateKeyMask;
+            if (!altPressed) {
+                base.MouseDown (theEvent);
+                return;
+            }
+            var point = ConvertPointFromView (theEvent.LocationInWindow, null);
+            var charIndex = CharacterIndex (point);
+            var lines = TextStorage.Value.Split ('\n');
+            var currentCharacter = 0;
+            var lineNumber = 0;
+            foreach (var line in lines) {
+                // bail if this happens
+                if (lineNumber >= Route.Length) {
+                    base.MouseDown (theEvent);
+                    return;
+                }
+                currentCharacter += line.Length + 1; // newline character
+                if (currentCharacter > (int)charIndex) {
+                    var routeNode = Route [lineNumber];
+                    var node = routeNode.Node;
+                    if (node != null) {
+                        ModifiedClick?.Invoke (node);
+                        return;
+                    } else {
+                        base.MouseDown (theEvent);
+                        return;
+                    }
+                }
+                ++lineNumber;
+            }
+            base.MouseDown (theEvent);
+        }
+
         /// <summary>
         /// Look for special keys being pressed and does specific processing based on the key.
         /// </summary>

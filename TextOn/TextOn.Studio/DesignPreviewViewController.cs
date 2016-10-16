@@ -35,6 +35,10 @@ namespace TextOn.Studio
 
             base.ViewDidLoad ();
 
+            TextView.ModifiedClick += (node) => {
+                centralViewController.NavigateAndSelectDesignNode (node);
+            };
+
             if (firstAppearance) {
                 ChoiceFixSlider.MaxValue = 1;
                 ChoiceFixSlider.TickMarksCount = 2;

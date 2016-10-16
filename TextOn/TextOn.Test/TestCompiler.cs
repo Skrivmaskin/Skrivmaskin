@@ -8,6 +8,7 @@ using TextOn.Parsing;
 using TextOn.Design;
 using TextOn.Version0;
 using TextOn.Nouns;
+using System.Text.RegularExpressions;
 
 namespace TextOn.Test
 {
@@ -37,6 +38,23 @@ namespace TextOn.Test
             for (int i = 0; i < elements.Count; i++) {
                 Assert.AreEqual (expected [i], elements [i]);
             }
+        }
+
+        [Test, Ignore ("Currently there is a problem with the RegularExpresison terminal")]
+        public void TestSuccessWithPowerCharacter ()
+        {
+            var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
+            var successNode = compiler.CompileText ("This is ^ some text") as SuccessCompiledNode;
+            Assert.IsNotNull (successNode);
+        }
+
+        [Test]
+        public void TestIronyRegex ()
+        {
+            var regexString = TextOnTextTerminal.MakeRegex (new DefaultLexerSyntax (), true);
+            var regex = new Regex (regexString);
+            var match = regex.Match ("This is ^ some text");
+            Assert.IsTrue (match.Success);
         }
 
         [Test]
