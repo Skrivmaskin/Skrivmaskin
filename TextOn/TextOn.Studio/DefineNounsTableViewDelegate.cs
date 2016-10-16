@@ -48,6 +48,7 @@ namespace TextOn.Studio
             combobox.UsesDataSource = true;
             combobox.Selectable = true;
             combobox.Editable = true;
+            combobox.Bordered = true;
             combobox.IgnoresMultiClick = false;
             combobox.Cell.Font = NSFont.SystemFontOfSize (10);
 
@@ -58,7 +59,6 @@ namespace TextOn.Studio
         private EventHandler SuggestionsComboBox_SelectionChanged (NSComboBox combobox, NSButton addButton, NSButton removeButton, NSButton editConstraintsButton)
         {
             return (s, e) => {
-                Console.WriteLine ("SuggestionsComboBox_SelectionChanged,{0},{1},{2}", combobox.Tag, combobox.SelectedIndex, combobox.StringValue);
                 var row = (int)combobox.Tag;
                 var noun = (row < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (row) : null;
                 if (noun == null) {
@@ -90,7 +90,6 @@ namespace TextOn.Studio
         private EventHandler SuggestionsComboBox_Changed (NSComboBox combobox, NSButton addButton, NSButton removeButton, NSButton editConstraintsButton)
         {
             return (s, e) => {
-                Console.WriteLine ("SuggestionsComboBox_Changed,{0},{1},{2}", combobox.Tag, combobox.SelectedIndex, combobox.StringValue);
                 var row = (int)combobox.Tag;
                 var noun = (row < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (row) : null;
                 if (noun == null) {
@@ -120,11 +119,9 @@ namespace TextOn.Studio
         private EventHandler SuggestionsAddButton_Activated (NSComboBox combobox, NSButton addButton, NSButton removeButton, NSButton editConstraintsButton)
         {
             return (s, e) => {
-                Console.WriteLine ("SuggestionsAddButton_Activated,{0},{1},{2}", combobox.Tag, combobox.SelectedIndex, combobox.StringValue);
                 var row = (int)addButton.Tag;
                 var noun = (row < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (row) : null;
                 if (noun == null) {
-                    Console.Error.WriteLine ("Suggestion added for no noun, row {0}", row);
                     addButton.Enabled = false;
                     removeButton.Enabled = false;
                     editConstraintsButton.Enabled = false;
@@ -147,7 +144,6 @@ namespace TextOn.Studio
         private EventHandler SuggestionsRemoveButton_Activated (NSComboBox combobox, NSButton addButton, NSButton removeButton, NSButton editConstraintsButton)
         {
             return (s, e) => {
-                Console.WriteLine ("SuggestionsRemoveButton_Activated,{0},{1},{2}", combobox.Tag, combobox.SelectedIndex, combobox.StringValue);
                 var row = (int)removeButton.Tag;
                 var noun = (row < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (row) : null;
                 if (noun == null) {
@@ -183,7 +179,6 @@ namespace TextOn.Studio
         private EventHandler SuggestionsEditConstraintsButton_Activated (NSComboBox combobox, NSButton addButton, NSButton removeButton, NSButton editConstraintsButton)
         {
             return (s, e) => {
-                Console.WriteLine ("SuggestionsEditConstraintsButton_Activated,{0},{1},{2}", combobox.Tag, combobox.SelectedIndex, combobox.StringValue);
                 var thisRow = (int)editConstraintsButton.Tag;
                 var noun = (thisRow < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (thisRow) : null;
                 if (noun == null) {
@@ -217,8 +212,6 @@ namespace TextOn.Studio
 
         public override NSView GetViewForItem (NSTableView tableView, NSTableColumn tableColumn, nint row)
         {
-            Console.Error.WriteLine ("DefineNounsTableViewDelegate GetViewForItem {0}", row);
-
             // Get the noun for this row.
             var noun = datasource.NounProfile.GetNounByIndex ((int)row);
 

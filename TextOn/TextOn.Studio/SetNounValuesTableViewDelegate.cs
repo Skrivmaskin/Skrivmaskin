@@ -39,11 +39,14 @@ namespace TextOn.Studio
 
         private void ConfigureComboBox (NSTableCellView view, NSComboBox combobox, nint row)
         {
-            //combobox.AutoresizingMask = NSViewResizingMask.WidthSizable;
+            // Add to view
             view.AddSubview (combobox);
 
+            // Configure
             combobox.UsesDataSource = true;
             combobox.Selectable = true;
+            combobox.Editable = true;
+            combobox.Bordered = true;
             combobox.IgnoresMultiClick = false;
             combobox.Cell.Font = NSFont.SystemFontOfSize (10);
 
@@ -103,7 +106,7 @@ namespace TextOn.Studio
             // This pattern allows you reuse existing views when they are no-longer in use.
             // If the returned view is null, you instance up a new view
             // If a non-null view is returned, you modify it enough to reflect the new data
-            NSTableCellView view = (NSTableCellView)tableView.MakeView (tableColumn.Title, this);
+            NSTableCellView view = (NSTableCellView)tableView.MakeView ("SetNounValues" + tableColumn.Title, this);
             if (view == null) {
                 view = new NSTableCellView ();
 
@@ -135,16 +138,16 @@ namespace TextOn.Studio
                 view.TextField.Tag = row;
                 break;
             case ValueColumnIdentifier:
-                foreach (NSView subview in view.Subviews) {
-                    var cbx = subview as NSComboBox;
-                    if (cbx != null) {
-                        cbx.Tag = row;
-                        var nounName = datasource.Session.GetName ((int)row);
-                        var suggestions = datasource.Session.GetCurrentSuggestionsForNoun (nounName);
-                        cbx.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (suggestions);
-                        cbx.Editable = datasource.Session.GetAcceptsUserValue (nounName);
-                        controller.SetValue (nounName, cbx.StringValue);
-                    }
+                if (view.Subviews.Length != 1)
+                    throw new ApplicationException ("Expected 1 subview, but found " + view.Subviews.Length);
+                var cbx = view.Subviews [0] as NSComboBox;
+                if (cbx != null) {
+                    cbx.Tag = row;
+                    var nounName = datasource.Session.GetName ((int)row);
+                    var suggestions = datasource.Session.GetCurrentSuggestionsForNoun (nounName);
+                    cbx.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (suggestions);
+                    cbx.Editable = datasource.Session.GetAcceptsUserValue (nounName);
+                    controller.SetValue (nounName, cbx.StringValue);
                 }
                 break;
             }
