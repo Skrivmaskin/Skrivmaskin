@@ -95,25 +95,110 @@ namespace TextOn.Studio
                     addButton.Image = NSImage.ImageNamed (NSImageName.AddTemplate);
                     view.AddSubview (addButton);
                     addButton.BezelStyle = buttonStyle;
+                    addButton.Enabled = false;
                     addButton.Tag = row;
+                    var removeButton = new NSButton (new CGRect (274, 0, 20, 20));
+                    removeButton.Image = NSImage.ImageNamed (NSImageName.RemoveTemplate);
+                    view.AddSubview (removeButton);
+                    removeButton.BezelStyle = buttonStyle;
+                    removeButton.Enabled = false;
+                    removeButton.Tag = row;
+                    var editConstraintsButton = new NSButton (new CGRect (296, 0, 104, 20));
+                    editConstraintsButton.Title = "Constraints";
+                    view.AddSubview (editConstraintsButton);
+                    editConstraintsButton.BezelStyle = buttonStyle;
+                    editConstraintsButton.Enabled = false;
+                    editConstraintsButton.Tag = row;
+                    // Begin complicated event hookups
+                    // I'm guessing I need to be a bit careful here as I don't really own these things so guard for everything
+                    combobox.SelectionChanged += (s, e) => {
+                        var thisRow = (int)combobox.Tag;
+                        var thisNoun = (thisRow < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (thisRow) : null;
+                        if (thisNoun == null) {
+                            addButton.Enabled = false;
+                            removeButton.Enabled = false;
+                            editConstraintsButton.Enabled = false;
+                            return;
+                        }
+                        var selectedIndex = (int)combobox.SelectedIndex;
+                        var stringValue = combobox.StringValue;
+                        if (selectedIndex < 0) {
+                            addButton.Enabled = (!String.IsNullOrWhiteSpace (stringValue));
+                            removeButton.Enabled = false;
+                            editConstraintsButton.Enabled = false;
+                            return;
+                        }
+                        var selectedIndexValue = (selectedIndex < thisNoun.Suggestions.Count) ? thisNoun.Suggestions [selectedIndex].Value : "";
+                        if (String.IsNullOrWhiteSpace (selectedIndexValue)) {
+                            addButton.Enabled = false;
+                            removeButton.Enabled = false;
+                            editConstraintsButton.Enabled = false;
+                            return;
+                        }
+                        var hasSelectedItem = stringValue == selectedIndexValue;
+                        addButton.Enabled = !String.IsNullOrWhiteSpace(stringValue) && !hasSelectedItem;
+                        removeButton.Enabled = hasSelectedItem;
+                        editConstraintsButton.Enabled = hasSelectedItem;
+                    };
+                    combobox.Changed += (s, e) => {
+                        var thisRow = (int)combobox.Tag;
+                        var thisNoun = (thisRow < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (thisRow) : null;
+                        if (thisNoun == null) {
+                            addButton.Enabled = false;
+                            removeButton.Enabled = false;
+                            editConstraintsButton.Enabled = false;
+                            return;
+                        }
+                        var selectedIndex = (int)combobox.SelectedIndex;
+                        var stringValue = combobox.StringValue;
+                        if (selectedIndex < 0) {
+                            addButton.Enabled = (!String.IsNullOrWhiteSpace (stringValue));
+                            removeButton.Enabled = false;
+                            editConstraintsButton.Enabled = false;
+                            return;
+                        }
+                        var selectedIndexValue = (selectedIndex < thisNoun.Suggestions.Count) ? thisNoun.Suggestions [selectedIndex].Value : "";
+                        if (String.IsNullOrWhiteSpace (selectedIndexValue)) {
+                            addButton.Enabled = false;
+                            removeButton.Enabled = false;
+                            editConstraintsButton.Enabled = false;
+                            return;
+                        }
+                        var hasSelectedItem = stringValue == selectedIndexValue;
+                        addButton.Enabled = !String.IsNullOrWhiteSpace (stringValue) && !hasSelectedItem;
+                        removeButton.Enabled = hasSelectedItem;
+                        editConstraintsButton.Enabled = hasSelectedItem;
+                    };
                     addButton.Activated += (s, e) => {
-                        var thisNoun = datasource.NounProfile.GetNounByIndex ((int)addButton.Tag);
+                        var thisRow = (int)addButton.Tag;
+                        var thisNoun = (thisRow < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (thisRow) : null;
+                        if (thisNoun == null) {
+                            addButton.Enabled = false;
+                            removeButton.Enabled = false;
+                            editConstraintsButton.Enabled = false;
+                            return;
+                        }
                         var thisSuggestionsPrior = thisNoun.Suggestions.Select ((sugg) => sugg.Value).ToArray ();
-                        if (((combobox.SelectedIndex < 0) || thisSuggestionsPrior[combobox.SelectedIndex] != combobox.StringValue) && (!String.IsNullOrWhiteSpace (combobox.StringValue))) {
+                        if (((combobox.SelectedIndex < 0) || thisSuggestionsPrior [combobox.SelectedIndex] != combobox.StringValue) && (!String.IsNullOrWhiteSpace (combobox.StringValue))) {
                             var thisValue = combobox.StringValue;
                             datasource.NounProfile.AddSuggestion (thisNoun.Name, thisValue, controller.GetCurrentDefaultDependenciesForThisNoun (thisNoun.Name));
                             var thisSuggestions = thisNoun.Suggestions.Select ((sugg) => sugg.Value).ToArray ();
                             combobox.DataSource = new DefineNounsComboBoxDataSource (thisSuggestions);
                             combobox.Select ((NSString)thisValue);
+                            addButton.Enabled = false;
+                            removeButton.Enabled = true;
+                            editConstraintsButton.Enabled = true;
                         }
                     };
-                    var removeButton = new NSButton (new CGRect (274, 0, 20, 20));
-                    removeButton.Image = NSImage.ImageNamed (NSImageName.RemoveTemplate);
-                    view.AddSubview (removeButton);
-                    removeButton.BezelStyle = buttonStyle;
-                    removeButton.Tag = row;
                     removeButton.Activated += (s, e) => {
-                        var thisNoun = datasource.NounProfile.GetNounByIndex ((int)addButton.Tag);
+                        var thisRow = (int)removeButton.Tag;
+                        var thisNoun = (thisRow < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (thisRow) : null;
+                        if (thisNoun == null) {
+                            addButton.Enabled = false;
+                            removeButton.Enabled = false;
+                            editConstraintsButton.Enabled = false;
+                            return;
+                        }
                         var selectedIndex = combobox.SelectedIndex;
                         if (selectedIndex >= 0) {
                             var thisSuggestionValue = thisNoun.Suggestions.ElementAt ((int)selectedIndex).Value;
@@ -121,14 +206,14 @@ namespace TextOn.Studio
                                 controller.DeleteSuggestion (thisNoun.Name, thisSuggestionValue);
                             }
                         }
+                        addButton.Enabled = false;
+                        removeButton.Enabled = false;
+                        editConstraintsButton.Enabled = false;
                     };
-                    var editConstraintsButton = new NSButton (new CGRect (296, 0, 104, 20));
-                    editConstraintsButton.Title = "Constraints";
-                    view.AddSubview (editConstraintsButton);
-                    editConstraintsButton.BezelStyle = buttonStyle;
-                    editConstraintsButton.Tag = row;
                     editConstraintsButton.Activated += (s, e) => {
-                        var thisNoun = datasource.NounProfile.GetNounByIndex ((int)editConstraintsButton.Tag);
+                        var thisRow = (int)editConstraintsButton.Tag;
+                        var thisNoun = (thisRow < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (thisRow) : null;
+                        if (thisNoun == null) return;
                         var selectedIndex = combobox.SelectedIndex;
                         if (selectedIndex >= 0) {
                             var thisSuggestionValue = thisNoun.Suggestions.ElementAt ((int)selectedIndex).Value;
