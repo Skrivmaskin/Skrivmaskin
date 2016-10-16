@@ -53,7 +53,11 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("Results SetControllerLinks");
 
+            WillChangeValue (nameof (generateTooltip));
+            WillChangeValue (nameof (regenerateTooltip));
             parent = cvc;
+            DidChangeValue (nameof (generateTooltip));
+            DidChangeValue (nameof (regenerateTooltip));
         }
 
         public bool canGenerate {
@@ -67,6 +71,31 @@ namespace TextOn.Studio
             [Export (nameof (canRegenerate))]
             get {
                 return (canGenerate && generator.CanRegenerate (parent.CompiledTemplate));
+            }
+        }
+
+        public string generateTooltip {
+            [Export (nameof (generateTooltip))]
+            get {
+                if (parent == null) return "Template not set up";
+                if (parent.CompiledTemplate == null) return "Template not set up";
+                if (generator.IsMissingRequiredNounDefinitions (parent.CompiledTemplate)) return "Template is missing Noun definitions";
+                if (!generator.CanGenerate (parent.CompiledTemplate)) return "Template has errors to fix";
+                if (!parent.AllValuesAreSet) return "User values missing";
+                return "Generate results";
+            }
+        }
+
+        public string regenerateTooltip {
+            [Export (nameof (regenerateTooltip))]
+            get {
+                if (parent == null) return "Template not set up";
+                if (parent.CompiledTemplate == null) return "Template not set up";
+                if (generator.IsMissingRequiredNounDefinitions (parent.CompiledTemplate)) return "Template is missing Noun definitions";
+                if (!generator.CanGenerate (parent.CompiledTemplate)) return "Template has errors to fix";
+                if (!parent.AllValuesAreSet) return "User values missing";
+                if (!generator.CanRegenerate (parent.CompiledTemplate)) return "Haven't got a seed to rerun with";
+                return "Regenerate results using the same last seed";
             }
         }
 
@@ -92,12 +121,16 @@ namespace TextOn.Studio
         {
             DidChangeValue (nameof (canGenerate));
             DidChangeValue (nameof (canRegenerate));
+            DidChangeValue (nameof (generateTooltip));
+            DidChangeValue (nameof (regenerateTooltip));
         }
 
         internal void WillChangeCanGenerate ()
         {
             WillChangeValue (nameof (canGenerate));
             WillChangeValue (nameof (canRegenerate));
+            WillChangeValue (nameof (generateTooltip));
+            WillChangeValue (nameof (regenerateTooltip));
         }
 	}
 }

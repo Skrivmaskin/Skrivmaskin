@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G31" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
+        <deployment identifier="macosx"/>
         <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11201"/>
         <capability name="stacking Non-gravity area distributions on NSStackView" minToolsVersion="7.0" minSystemVersion="10.11"/>
     </dependencies>
@@ -2465,6 +2466,7 @@ DQ
                                 <connections>
                                     <action selector="Generate_Clicked:" target="7Vi-1V-Iov" id="u7h-fA-4Bi"/>
                                     <binding destination="7Vi-1V-Iov" name="enabled" keyPath="canGenerate" id="n5S-uu-QPk"/>
+                                    <binding destination="7Vi-1V-Iov" name="toolTip" keyPath="self.generateTooltip" id="ckI-GC-NWi"/>
                                 </connections>
                             </button>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aY-p4-zXi">
@@ -2506,6 +2508,7 @@ DQ
                                 <connections>
                                     <action selector="Regenerate_Clicked:" target="7Vi-1V-Iov" id="vTr-Ja-XLa"/>
                                     <binding destination="7Vi-1V-Iov" name="enabled" keyPath="self.canRegenerate" id="Egg-ql-gaS"/>
+                                    <binding destination="7Vi-1V-Iov" name="toolTip" keyPath="self.regenerateTooltip" id="Y8r-k7-Ch2"/>
                                 </connections>
                             </button>
                         </subviews>
