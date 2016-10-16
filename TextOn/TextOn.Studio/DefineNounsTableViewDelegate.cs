@@ -166,14 +166,11 @@ namespace TextOn.Studio
                     editConstraintsButton.Enabled = false;
                     return;
                 }
-                var selectedIndex = (int) combobox.SelectedIndex;
-                if (selectedIndex < 0) {
-                    var valueToFind = combobox.StringValue;
-                    selectedIndex = 0;
-                    for (; selectedIndex < noun.Suggestions.Count; ++selectedIndex) {
-                        var suggestion = noun.Suggestions [selectedIndex];
-                        if (suggestion.Value == valueToFind) break;
-                    }
+                var valueToFind = combobox.StringValue;
+                var selectedIndex = 0;
+                for (; selectedIndex < noun.Suggestions.Count; ++selectedIndex) {
+                    var suggestion = noun.Suggestions [selectedIndex];
+                    if (suggestion.Value == valueToFind) break;
                 }
                 if (selectedIndex >= noun.Suggestions.Count) {
                     // this is an error - disable the buttons and ignore
@@ -198,13 +195,31 @@ namespace TextOn.Studio
             return (s, e) => {
                 Console.WriteLine ("SuggestionsEditConstraintsButton_Activated,{0},{1},{2}", combobox.Tag, combobox.SelectedIndex, combobox.StringValue);
                 var thisRow = (int)editConstraintsButton.Tag;
-                var thisNoun = (thisRow < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (thisRow) : null;
-                if (thisNoun == null) return;
-                var selectedIndex = combobox.SelectedIndex;
-                if (selectedIndex >= 0) {
-                    var thisSuggestionValue = thisNoun.Suggestions.ElementAt ((int)selectedIndex).Value;
+                var noun = (thisRow < datasource.NounProfile.Count) ? datasource.NounProfile.GetNounByIndex (thisRow) : null;
+                if (noun == null) {
+                    addButton.Enabled = false;
+                    removeButton.Enabled = false;
+                    editConstraintsButton.Enabled = false;
+                    return;
+                }
+                var selectedIndex = (int)combobox.SelectedIndex;
+                if (selectedIndex < 0) {
+                    var valueToFind = combobox.StringValue;
+                    selectedIndex = 0;
+                    for (; selectedIndex < noun.Suggestions.Count; ++selectedIndex) {
+                        var suggestion = noun.Suggestions [selectedIndex];
+                        if (suggestion.Value == valueToFind) break;
+                    }
+                }
+                if (selectedIndex >= noun.Suggestions.Count) {
+                    // this is an error - disable the buttons and ignore
+                    addButton.Enabled = false;
+                    removeButton.Enabled = false;
+                    editConstraintsButton.Enabled = false;
+                } else {
+                    var thisSuggestionValue = noun.Suggestions.ElementAt (selectedIndex).Value;
                     if (thisSuggestionValue == combobox.StringValue) {
-                        controller.ManageConstraints (thisNoun.Name, thisSuggestionValue);
+                        controller.ManageConstraints (noun.Name, thisSuggestionValue);
                     }
                 }
             };
