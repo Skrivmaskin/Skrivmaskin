@@ -40,6 +40,7 @@ namespace TextOn.Studio
 
             DefineNounsTableView.DataSource = null;
             DefineNounsTableView.Delegate = null;
+            DefineNounsTableView.ReloadData ();
             apparent = false;
         }
 
@@ -49,6 +50,7 @@ namespace TextOn.Studio
                 var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
                 DefineNounsTableView.DataSource = datasource;
                 DefineNounsTableView.Delegate = new DefineNounsTableViewDelegate (this, datasource);
+                DefineNounsTableView.ReloadData ();
             }
         }
 

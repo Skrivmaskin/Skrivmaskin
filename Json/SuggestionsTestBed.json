@@ -85,6 +85,65 @@
           ]
         }
       ]
+    },
+    {
+      "Name": "DISTRICT",
+      "Description": "District",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Enfield",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "UK"
+            },
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "Westminster",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "UK"
+            },
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "Covent Garden",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "UK"
+            },
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "Southwark",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "UK"
+            },
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
     }
   ],
   "Definition": {
@@ -98,6 +157,9 @@
           },
           {
             "Text": "Specifically, it is about life in [CITY], and the beautiful park there called [PARK]."
+          },
+          {
+            "Text": "This one day, I was wandering around [DISTRICT]."
           }
         ]
       }
