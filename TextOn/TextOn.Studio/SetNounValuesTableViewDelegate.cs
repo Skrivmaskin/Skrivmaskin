@@ -50,31 +50,31 @@ namespace TextOn.Studio
             combobox.IgnoresMultiClick = false;
             combobox.Cell.Font = NSFont.SystemFontOfSize (10);
 
-            // Listen for changes to suggestions.
-            //TODO So I think the moral problem with this is that I don't know if the combobox is actually active at this point.
-            datasource.Session.SuggestionsUpdated += (name) => {
-                var thisName = datasource.Session.GetName ((int)combobox.Tag);
-                if (name == thisName) {
-                    // If the suggestion is set, it may need to be cleared after invalidation.
-                    var newSuggestions = datasource.Session.GetCurrentSuggestionsForNoun (name);
-                    if (combobox.SelectedIndex >= 0) {
-                        var value = combobox.StringValue;
-                        combobox.DeselectItem (combobox.SelectedIndex);
-                        var newIndex = 0;
-                        for (; newIndex < newSuggestions.Length; newIndex++) {
-                            if (newSuggestions [newIndex] == value)
-                                break;
-                        }
-                        combobox.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
-                        if (newIndex < newSuggestions.Length) {
-                            combobox.SelectItem (newIndex);
-                        } else if (datasource.Session.GetAcceptsUserValue (thisName)) {
-                            combobox.StringValue = value;
-                        }
-                    } else
-                        combobox.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
-                }
-            };
+//            // Listen for changes to suggestions.
+//            //TODO So I think the moral problem with this is that I don't know if the combobox is actually active at this point.
+//            datasource.Session.SuggestionsUpdated += (name) => {
+//                var thisName = datasource.Session.GetName ((int)combobox.Tag);
+//                if (name == thisName) {
+//                    // If the suggestion is set, it may need to be cleared after invalidation.
+//                    var newSuggestions = datasource.Session.GetCurrentSuggestionsForNoun (name);
+//                    if (combobox.SelectedIndex >= 0) {
+//                        var value = combobox.StringValue;
+//                        combobox.DeselectItem (combobox.SelectedIndex);
+//                        var newIndex = 0;
+//                        for (; newIndex < newSuggestions.Length; newIndex++) {
+//                            if (newSuggestions [newIndex] == value)
+//                                break;
+//                        }
+//                        combobox.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
+//                        if (newIndex < newSuggestions.Length) {
+//                            combobox.SelectItem (newIndex);
+//                        } else if (datasource.Session.GetAcceptsUserValue (thisName)) {
+//                            combobox.StringValue = value;
+//                        }
+//                    } else
+//                        combobox.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
+//                }
+//            };
             // Listen to the value getting set.
             //TODO I think this is over-eager at present - put a delay in or listen to end editing only. Somehow.
             // Delay might be better?
@@ -145,8 +145,7 @@ namespace TextOn.Studio
                 if (cbx != null) {
                     cbx.Tag = row;
                     var nounName = datasource.Session.GetName ((int)row);
-                    var suggestions = datasource.Session.GetCurrentSuggestionsForNoun (nounName);
-                    cbx.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (suggestions);
+                    cbx.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (nounName, datasource.Session);
                     cbx.Editable = datasource.Session.GetAcceptsUserValue (nounName);
                     controller.SetValue (nounName, cbx.StringValue);
                 }

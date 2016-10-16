@@ -1209,9 +1209,9 @@ Gw
                                     <action selector="Cancel_Clicked:" target="eSs-mM-qcd" id="K9N-2L-DV2"/>
                                 </connections>
                             </button>
-                            <button translatesAutoresizingMaskIntoConstraints="NO" id="GC1-Rw-bBA">
+                            <button toolTip="Advanced: Set this to true if you are going to add multiple entries with the exact same constraints." translatesAutoresizingMaskIntoConstraints="NO" id="GC1-Rw-bBA">
                                 <rect key="frame" x="115" y="225" width="304" height="31"/>
-                                <buttonCell key="cell" type="check" title="Apply these constraints to added suggestions." bezelStyle="regularSquare" imagePosition="right" state="on" inset="2" id="ZJu-uV-FGf">
+                                <buttonCell key="cell" type="check" title="Apply these constraints to added suggestions." bezelStyle="regularSquare" imagePosition="right" inset="2" id="ZJu-uV-FGf">
                                     <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                     <font key="font" metaFont="system"/>
                                 </buttonCell>

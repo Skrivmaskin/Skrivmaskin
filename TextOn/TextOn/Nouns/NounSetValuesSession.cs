@@ -49,6 +49,19 @@ namespace TextOn.Nouns
         }
 
         /// <summary>
+        /// Gets the index for a noun name.
+        /// </summary>
+        /// <returns>The name.</returns>
+        /// <param name="name">Name.</param>
+        public int GetIndex (string name)
+        {
+            for (int i = 0; i < nounNames.Length; i++) {
+                if (nounNames [i] == name) return i;
+            }
+            throw new ApplicationException ("Noun " + name + " not found");
+        }
+
+        /// <summary>
         /// Gets the description.
         /// </summary>
         /// <returns>The description.</returns>
@@ -57,6 +70,9 @@ namespace TextOn.Nouns
         {
             return nouns [name].Description;
         }
+
+        private bool isActive = true;
+        public bool IsActive { get { return isActive; } }
 
         /// <summary>
         /// Gets the accepts user value.
@@ -205,6 +221,7 @@ namespace TextOn.Nouns
 
         public void Deactivate ()
         {
+            isActive = false;
             Deactivating?.Invoke ();
         }
 
