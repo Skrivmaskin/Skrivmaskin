@@ -47,6 +47,7 @@ namespace TextOn.Studio
             // Configure
             combobox.UsesDataSource = true;
             combobox.Selectable = true;
+            combobox.Editable = true;
             combobox.IgnoresMultiClick = false;
             combobox.Cell.Font = NSFont.SystemFontOfSize (10);
 
@@ -291,14 +292,27 @@ namespace TextOn.Studio
                 view.TextField.Tag = row;
                 break;
             case SuggestionsColumnIdentifier:
-                foreach (NSView subview in view.Subviews) {
-                    var combobox = subview as NSComboBox;
-                    if (combobox != null) {
-                        combobox.Tag = row;
-                        var suggestions = noun.Suggestions.Select ((s) => s.Value).ToArray ();
-                        combobox.DataSource = new DefineNounsComboBoxDataSource (suggestions);
+                if (view.Subviews.Length != 4)
+                    throw new ApplicationException ("Supposed to have 4 subviews at this point (DefineNounsTable - Suggestions column) - have " + view.Subviews.Length);
+                var combobox = view.Subviews[0] as NSComboBox;
+                if (combobox != null) {
+                    combobox.Tag = row;
+                    var suggestions = noun.Suggestions.Select ((s) => s.Value).ToArray ();
+                    combobox.DataSource = new DefineNounsComboBoxDataSource (suggestions);
+                    if (combobox.SelectedIndex >= 0) {
+                        combobox.DeselectItem (combobox.SelectedIndex);
                     }
+                    combobox.StringValue = "";
                 }
+                var addButton = view.Subviews [1] as NSButton;
+                addButton.Tag = row;
+                addButton.Enabled = false;
+                var removeButton = view.Subviews [2] as NSButton;
+                removeButton.Tag = row;
+                removeButton.Enabled = false;
+                var editConstraintsButton = view.Subviews [3] as NSButton;
+                editConstraintsButton.Tag = row;
+                editConstraintsButton.Enabled = false;
                 break;
             case ConstraintsColumnIdentifier:
                 break;
