@@ -60,6 +60,7 @@ namespace TextOn.Studio
             var dependencies = existingDependencies.Concat (allowedDependencies);
             var remainingDependencies = dependencies.Where ((d) => !constraints.ContainsKey (d)).ToArray ();
             names = remainingDependencies;
+            values = new string [0];
             NounComboBox.DataSource = new DefineNounsComboBoxDataSource (remainingDependencies);
             ValueComboBox.DataSource = null;
             ManageConstraintsTableView.DataSource = new ManageConstraintsTableViewDataSource (this, constraints);
