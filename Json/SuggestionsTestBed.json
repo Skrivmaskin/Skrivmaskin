@@ -160,6 +160,9 @@
           },
           {
             "Text": "This one day, I was wandering around [DISTRICT]."
+          },
+          {
+            "Text": "In [DISTRICT] there is the {beautiful|gorgeous|magical|majestic} [PARK]."
           }
         ]
       }

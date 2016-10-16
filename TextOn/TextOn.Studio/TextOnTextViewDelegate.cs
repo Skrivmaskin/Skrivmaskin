@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Foundation;
 using AppKit;
 using CoreGraphics;
+using TextOn.Nouns;
 
 namespace TextOn.Studio
 {
@@ -48,7 +49,7 @@ namespace TextOn.Studio
             var endString = TextView.LexerSyntax.VariableEndDelimiter.ToString ();
             var completions = new List<string> ();
             completions.Add ("");
-            completions.AddRange (TextView.CompiledTemplate.Nouns.GetAllNouns ().Select ((n) => startString + n.Name + endString));
+            completions.AddRange (TextView.CompiledTemplate.Nouns.GetAllNouns ().Select ((Noun n) => startString + n.Name + endString));
             return completions.ToArray ();
         }
 
