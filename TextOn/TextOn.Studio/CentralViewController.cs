@@ -72,7 +72,19 @@ namespace TextOn.Studio
             }
         }
 
-        DesignViewController designViewController = null;
+        public bool AllValuesAreSet { get { return setVariablesViewController.AllValuesAreSet; } }
+
+        internal void DidChangeCanGenerate ()
+		{
+            resultsViewController.DidChangeCanGenerate ();
+		}
+
+		internal void WillChangeCanGenerate ()
+		{
+            resultsViewController.WillChangeCanGenerate ();
+		}
+
+		DesignViewController designViewController = null;
         DefineNounsViewController defineNounsViewController = null;
         DesignPreviewViewController designPreviewViewController = null;
         SetNounValuesViewController setVariablesViewController = null;

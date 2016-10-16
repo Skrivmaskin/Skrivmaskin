@@ -2450,6 +2450,7 @@ DQ
                                 </buttonCell>
                                 <connections>
                                     <action selector="Generate_Clicked:" target="7Vi-1V-Iov" id="u7h-fA-4Bi"/>
+                                    <binding destination="7Vi-1V-Iov" name="enabled" keyPath="canGenerate" id="n5S-uu-QPk"/>
                                 </connections>
                             </button>
                             <scrollView horizontalLineScroll="10" horizontalPageScroll="10" verticalLineScroll="10" verticalPageScroll="10" hasHorizontalScroller="NO" usesPredominantAxisScrolling="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7aY-p4-zXi">

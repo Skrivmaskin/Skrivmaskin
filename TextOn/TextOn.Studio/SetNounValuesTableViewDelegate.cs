@@ -9,7 +9,7 @@ namespace TextOn.Studio
     public class SetNounValuesTableViewDelegate : NSTableViewDelegate
     {
         private readonly SetNounValuesTableViewDataSource datasource;
-//        private readonly SetNounValuesViewController controller;
+        private readonly SetNounValuesViewController controller;
         private const string CellIdentifier = "SetNounValuesCell";
         private const string NounColumnIdentifier = "Noun";
         private const string DescriptionColumnIdentifier = "Description";
@@ -18,7 +18,7 @@ namespace TextOn.Studio
         public SetNounValuesTableViewDelegate (SetNounValuesViewController controller, SetNounValuesTableViewDataSource datasource)
         {
             this.datasource = datasource;
-//            this.controller = controller;
+            this.controller = controller;
         }
 
         private void ConfigureTextField (NSTableCellView view, nint row)
@@ -77,7 +77,7 @@ namespace TextOn.Studio
             combobox.Changed += (s, e) => {
                 var thisName = datasource.Session.GetName ((int)combobox.Tag);
                 var value = combobox.StringValue;
-                datasource.Session.SetValue (thisName, value);
+                controller.SetValue (thisName, value);
             };
             combobox.SelectionChanged += (s, e) => {
                 var thisName = datasource.Session.GetName ((int)combobox.Tag);
@@ -86,12 +86,12 @@ namespace TextOn.Studio
                     var suggestions = datasource.Session.GetCurrentSuggestionsForNoun (thisName);
                     if (index < suggestions.Length) {
                         var value = suggestions [index];
-                        datasource.Session.SetValue (thisName, value);
+                        controller.SetValue (thisName, value);
                     } else {
-                        datasource.Session.SetValue (thisName, "");
+                        controller.SetValue (thisName, "");
                     }
                 } else {
-                    datasource.Session.SetValue (thisName, "");
+                    controller.SetValue (thisName, "");
                 }
             };
 
@@ -143,7 +143,7 @@ namespace TextOn.Studio
                         var suggestions = datasource.Session.GetCurrentSuggestionsForNoun (nounName);
                         cbx.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (suggestions);
                         cbx.Editable = datasource.Session.GetAcceptsUserValue (nounName);
-                        datasource.Session.SetValue (nounName, cbx.StringValue);
+                        controller.SetValue (nounName, cbx.StringValue);
                     }
                 }
                 break;

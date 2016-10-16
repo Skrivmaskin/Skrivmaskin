@@ -56,10 +56,17 @@ namespace TextOn.Studio
             parent = cvc;
         }
 
+        public bool canGenerate {
+            [Export (nameof (canGenerate))]
+            get {
+                return parent != null && parent.CompiledTemplate != null && parent.AllValuesAreSet && generator.CanGenerate (parent.CompiledTemplate);
+            }
+        }
+
         public bool canRegenerate {
             [Export (nameof (canRegenerate))]
             get {
-                return (parent != null && parent.CompiledTemplate != null && generator.CanGenerate (parent.CompiledTemplate));
+                return (canGenerate && generator.CanRegenerate (parent.CompiledTemplate));
             }
         }
 
@@ -80,5 +87,17 @@ namespace TextOn.Studio
             }
             DidChangeValue (nameof (canRegenerate));
         }
-    }
+
+        internal void DidChangeCanGenerate ()
+        {
+            DidChangeValue (nameof (canGenerate));
+            DidChangeValue (nameof (canRegenerate));
+        }
+
+        internal void WillChangeCanGenerate ()
+        {
+            WillChangeValue (nameof (canGenerate));
+            WillChangeValue (nameof (canRegenerate));
+        }
+	}
 }

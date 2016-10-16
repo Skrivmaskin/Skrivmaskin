@@ -64,6 +64,13 @@ namespace TextOn.Studio
             }
         }
 
+        internal void SetValue (string name, string value)
+        {
+            parent.WillChangeCanGenerate ();
+            if (session != null) session.SetValue (name, value);
+            parent.DidChangeCanGenerate ();
+        }
+
         private CentralViewController parent = null;
         internal void SetControllerLinks (CentralViewController centralViewController)
         {
@@ -76,5 +83,6 @@ namespace TextOn.Studio
         {
             Console.Error.WriteLine ("SetNounValues SetCompiledTemplate");
         }
-    }
+
+   }
 }
