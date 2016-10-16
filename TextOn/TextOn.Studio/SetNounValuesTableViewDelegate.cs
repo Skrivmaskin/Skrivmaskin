@@ -71,8 +71,9 @@ namespace TextOn.Studio
                         combobox.DataSource = new SetNounValuesSuggestionsComboBoxDataSource (newSuggestions);
                 }
             };
-
             // Listen to the value getting set.
+            //TODO I think this is over-eager at present - put a delay in or listen to end editing only. Somehow.
+            // Delay might be better?
             combobox.Changed += (s, e) => {
                 var thisName = datasource.Session.GetName ((int)combobox.Tag);
                 var value = combobox.StringValue;
@@ -82,8 +83,13 @@ namespace TextOn.Studio
                 var thisName = datasource.Session.GetName ((int)combobox.Tag);
                 var index = combobox.SelectedIndex;
                 if (index >= 0) {
-                    var value = datasource.Session.GetCurrentSuggestionsForNoun (thisName) [index];
-                    datasource.Session.SetValue (thisName, value);
+                    var suggestions = datasource.Session.GetCurrentSuggestionsForNoun (thisName);
+                    if (index < suggestions.Length) {
+                        var value = suggestions [index];
+                        datasource.Session.SetValue (thisName, value);
+                    } else {
+                        datasource.Session.SetValue (thisName, "");
+                    }
                 } else {
                     datasource.Session.SetValue (thisName, "");
                 }

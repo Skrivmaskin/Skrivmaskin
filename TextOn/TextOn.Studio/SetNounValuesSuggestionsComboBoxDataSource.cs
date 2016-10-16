@@ -20,6 +20,7 @@ namespace TextOn.Studio
 
         public override NSObject ObjectValueForItem (NSComboBox comboBox, nint index)
         {
+            if (index >= suggestions.Length) return new NSString ("");
             return new NSString (suggestions [index]);
         }
 

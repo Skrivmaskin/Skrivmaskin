@@ -89,7 +89,19 @@
   ],
   "Definition": {
     "SequentialName": "Sentences",
-    "Sequential": []
+    "Sequential": [
+      {
+        "SequentialName": "Sentences",
+        "Sequential": [
+          {
+            "Text": "This is a text about [COUNTRY]."
+          },
+          {
+            "Text": "Specifically, it is about life in [CITY], and the beautiful park there called [PARK]."
+          }
+        ]
+      }
+    ]
   },
   "Version": 1
 }
