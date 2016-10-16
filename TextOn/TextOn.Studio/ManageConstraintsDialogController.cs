@@ -29,6 +29,7 @@ namespace TextOn.Studio
             }
 
             NounComboBox.SelectionChanged += (s, e) => {
+                Console.Error.WriteLine ("ManageConstraints NounComboBox_SelectionChanged");
                 if (ValueComboBox.SelectedIndex >= 0) {
                     ValueComboBox.DeselectItem (ValueComboBox.SelectedIndex);
                 }
@@ -40,6 +41,7 @@ namespace TextOn.Studio
             };
 
             ValueComboBox.SelectionChanged += (s, e) => {
+                Console.Error.WriteLine ("ManageConstraints ValueComboBox_SelectionChanged");
                 AddRowEnabled = ValueComboBox.SelectedIndex >= 0 && values != null & ValueComboBox.SelectedIndex < values.Length;
             };
 
@@ -55,6 +57,7 @@ namespace TextOn.Studio
 
         private void RebuildTable ()
         {
+            Console.Error.WriteLine ("ManageConstraints RebuildTable");
             var existingDependencies = Profile.GetExistingDependencies (NounName);
             var allowedDependencies = Profile.GetAllowedNewDependencies (NounName);
             var dependencies = existingDependencies.Concat (allowedDependencies);
@@ -69,6 +72,7 @@ namespace TextOn.Studio
 
         private void BuildSuggestionComboBox ()
         {
+            Console.Error.WriteLine ("ManageConstraints BuildSuggestionComboBox");
             var name = names [NounComboBox.SelectedIndex];
             values = Profile.GetNounByName (name).Suggestions.Select ((s) => s.Value).ToArray ();
             ValueComboBox.DataSource = new DefineNounsComboBoxDataSource (values);
@@ -76,10 +80,12 @@ namespace TextOn.Studio
 
         partial void AddRow_Clicked (NSObject sender)
         {
+            Console.Error.WriteLine ("ManageConstraints AddRow_Clicked");
             if ((this.NounComboBox.SelectedIndex >= 0) && (this.ValueComboBox.SelectedIndex >= 0)) {
+                Console.Error.WriteLine ("ManageConstraints AddRow_Clicked:All OK");
                 constraints.Add (names [NounComboBox.SelectedIndex], values [ValueComboBox.SelectedIndex]);
-                NounComboBox.DeselectItem (NounComboBox.SelectedIndex);
                 ValueComboBox.DeselectItem (ValueComboBox.SelectedIndex);
+                NounComboBox.DeselectItem (NounComboBox.SelectedIndex);
                 ValueComboBox.Delegate = null;
                 RebuildTable ();
             }
