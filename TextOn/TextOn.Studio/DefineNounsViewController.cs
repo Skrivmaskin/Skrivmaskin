@@ -43,6 +43,7 @@ namespace TextOn.Studio
         internal void TemplateUpdated ()
         {
             centralViewController.Template.Nouns.NounsInOrderChanged += Refresh;
+            centralViewController.Template.Nouns.SuggestionsChangedForNoun += (s) => Refresh ();
             if (apparent) {
                 var datasource = new DefineNounsTableViewDataSource (centralViewController.Template.Nouns);
                 DefineNounsTableView.DataSource = datasource;

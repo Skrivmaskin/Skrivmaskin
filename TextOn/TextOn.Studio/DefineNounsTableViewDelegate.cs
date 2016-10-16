@@ -51,17 +51,6 @@ namespace TextOn.Studio
             combobox.IgnoresMultiClick = false;
             combobox.Cell.Font = NSFont.SystemFontOfSize (10);
 
-            // Listen to changes in suggestions for the relevant Noun
-            nounProfile.SuggestionsChangedForNoun += (nounName) => {
-                var nounIndex = (int)combobox.Tag;
-                var currentNoun = (nounIndex < nounProfile.Count) ? nounProfile.GetNounByIndex (nounIndex) : null;
-                if (currentNoun != null && currentNoun.Name == nounName) {
-                    var suggestions = currentNoun.Suggestions.Select ((s) => s.Value).ToArray ();
-                    combobox.StringValue = "";
-                    combobox.DataSource = new DefineNounsComboBoxDataSource (suggestions);
-                }
-            };
-
             // Tag view
             combobox.Tag = row;
         }
@@ -236,7 +225,7 @@ namespace TextOn.Studio
             // This pattern allows you reuse existing views when they are no-longer in use.
             // If the returned view is null, you instance up a new view
             // If a non-null view is returned, you modify it enough to reflect the new data
-            NSTableCellView view = (NSTableCellView)tableView.MakeView (tableColumn.Title, this);
+            NSTableCellView view = (NSTableCellView)tableView.MakeView ("Define" + tableColumn.Title, this);
             if (view == null) {
                 view = new NSTableCellView ();
 
