@@ -51,6 +51,7 @@ namespace TextOn.Studio
             combobox.Cell.Font = NSFont.SystemFontOfSize (10);
 
             // Listen for changes to suggestions.
+            //TODO So I think the moral problem with this is that I don't know if the combobox is actually active at this point.
             datasource.Session.SuggestionsUpdated += (name) => {
                 var thisName = datasource.Session.GetName ((int)combobox.Tag);
                 if (name == thisName) {
