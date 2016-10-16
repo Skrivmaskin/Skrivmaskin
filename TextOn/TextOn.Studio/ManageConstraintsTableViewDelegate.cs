@@ -65,7 +65,7 @@ namespace TextOn.Studio
                     view.AddSubview (removeButton);
                     removeButton.BezelStyle = buttonStyle;
                     removeButton.Tag = row;
-                    // hook up...
+                    //TODO hook up!!!
                     break;
                 }
             }
