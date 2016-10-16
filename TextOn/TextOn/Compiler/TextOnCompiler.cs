@@ -14,7 +14,6 @@ namespace TextOn.Compiler
     {
         readonly TextOnParser parser;
         Dictionary<TextNode, ICompiledNode> compiledNodes = new Dictionary<TextNode, ICompiledNode> ();
-        readonly ILexerSyntax lexerSyntax;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TextOn.Compilation.TextOnCompiler"/> class.
@@ -23,7 +22,6 @@ namespace TextOn.Compiler
         public TextOnCompiler (ILexerSyntax lexerSyntax)
         {
             parser = new TextOnParser (lexerSyntax);
-            this.lexerSyntax = lexerSyntax;
         }
 
         public ICompiledNode GetCompiledNode (TextNode textNode)

@@ -1,17 +1,58 @@
 {
   "Nouns": [
     {
+      "Name": "CONTINENT",
+      "Description": "Continent",
+      "Suggestions": [
+        {
+          "Value": "Europe",
+          "Dependencies": []
+        },
+        {
+          "Value": "Asia",
+          "Dependencies": []
+        },
+        {
+          "Value": "North America",
+          "Dependencies": []
+        },
+        {
+          "Value": "South America",
+          "Dependencies": []
+        }
+      ]
+    },
+    {
       "Name": "COUNTRY",
       "Description": "Country",
       "AcceptsUserValue": true,
       "Suggestions": [
         {
-          "Value": "UK",
-          "Dependencies": []
+          "Value": "England",
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "Europe"
+            }
+          ]
         },
         {
           "Value": "Japan",
-          "Dependencies": []
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "Asia"
+            }
+          ]
+        },
+        {
+          "Value": "China",
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "Asia"
+            }
+          ]
         }
       ]
     },
@@ -25,7 +66,7 @@
           "Dependencies": [
             {
               "Name": "COUNTRY",
-              "Value": "UK"
+              "Value": "England"
             }
           ]
         },
@@ -35,6 +76,31 @@
             {
               "Name": "COUNTRY",
               "Value": "Japan"
+            }
+          ]
+        },
+        {
+          "Value": "Kyoto",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "Japan"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "DISTRICT",
+      "Description": "District",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Westminster",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
             }
           ]
         }
@@ -48,95 +114,6 @@
         {
           "Value": "Hyde Park",
           "Dependencies": [
-            {
-              "Name": "COUNTRY",
-              "Value": "UK"
-            },
-            {
-              "Name": "CITY",
-              "Value": "London"
-            }
-          ]
-        },
-        {
-          "Value": "Regent's Park",
-          "Dependencies": [
-            {
-              "Name": "COUNTRY",
-              "Value": "UK"
-            },
-            {
-              "Name": "CITY",
-              "Value": "London"
-            }
-          ]
-        },
-        {
-          "Value": "St James' Park",
-          "Dependencies": [
-            {
-              "Name": "COUNTRY",
-              "Value": "UK"
-            },
-            {
-              "Name": "CITY",
-              "Value": "London"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "Name": "DISTRICT",
-      "Description": "District",
-      "AcceptsUserValue": true,
-      "Suggestions": [
-        {
-          "Value": "Enfield",
-          "Dependencies": [
-            {
-              "Name": "COUNTRY",
-              "Value": "UK"
-            },
-            {
-              "Name": "CITY",
-              "Value": "London"
-            }
-          ]
-        },
-        {
-          "Value": "Westminster",
-          "Dependencies": [
-            {
-              "Name": "COUNTRY",
-              "Value": "UK"
-            },
-            {
-              "Name": "CITY",
-              "Value": "London"
-            }
-          ]
-        },
-        {
-          "Value": "Covent Garden",
-          "Dependencies": [
-            {
-              "Name": "COUNTRY",
-              "Value": "UK"
-            },
-            {
-              "Name": "CITY",
-              "Value": "London"
-            }
-          ]
-        },
-        {
-          "Value": "Southwark",
-          "Dependencies": [
-            {
-              "Name": "COUNTRY",
-              "Value": "UK"
-            },
             {
               "Name": "CITY",
               "Value": "London"
