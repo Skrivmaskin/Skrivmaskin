@@ -52,8 +52,9 @@ namespace TextOn.Studio
 
             // Listen to changes in suggestions for the relevant Noun
             nounProfile.SuggestionsChangedForNoun += (nounName) => {
-                var currentNoun = nounProfile.GetNounByIndex ((int)combobox.Tag);
-                if (currentNoun.Name == nounName) {
+                var nounIndex = (int)combobox.Tag;
+                var currentNoun = (nounIndex < nounProfile.Count) ? nounProfile.GetNounByIndex (nounIndex) : null;
+                if (currentNoun != null && currentNoun.Name == nounName) {
                     var suggestions = currentNoun.Suggestions.Select ((s) => s.Value).ToArray ();
                     combobox.StringValue = "";
                     combobox.DataSource = new DefineNounsComboBoxDataSource (suggestions);
