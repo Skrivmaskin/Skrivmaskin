@@ -161,6 +161,8 @@
     <Compile Include="DeleteSuggestionViewController.designer.cs">
       <DependentUpon>DeleteSuggestionViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="ManageConstraintsTableViewDataSource.cs" />
+    <Compile Include="ManageConstraintsTableViewDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />

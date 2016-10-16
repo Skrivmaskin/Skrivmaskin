@@ -23,5 +23,8 @@ namespace TextOn.Studio
 
         // From Define Nouns to Delete Suggestion
         public const string DeleteSuggestion = "DeleteSuggestion";
+
+        // From Define Nouns to Manage Constraints
+        public const string ManageConstraints = "ManageConstraints";
     }
 }

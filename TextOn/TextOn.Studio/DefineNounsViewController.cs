@@ -78,11 +78,21 @@ namespace TextOn.Studio
                     centralViewController.Template.Nouns.DeleteSuggestion (nounNameToDelete, suggestionValueToDelete);
                 };
                 break;
+            case DesignViewDialogSegues.ManageConstraints:
+                var mdlg = segue.DestinationController as ManageConstraintsDialogController;
+                mdlg.Presentor = this;
+                mdlg.NounName = nounNameToManage;
+                mdlg.SuggestionValue = suggestionValueToManage;
+                mdlg.Profile = centralViewController.Template.Nouns;
+                mdlg.DialogAccepted += (s, e) => {
+                };
+                break;
             default:
                 break;
             }
         }
 
+        //TODO Everything below is horribly un-thread-safe, surely? Fix this!!! Or just hope I get away with it?
         private string nounNameToDelete;
         private string suggestionValueToDelete;
         public void DeleteSuggestion (string nounName, string suggestionValue)
@@ -90,6 +100,15 @@ namespace TextOn.Studio
             nounNameToDelete = nounName;
             suggestionValueToDelete = suggestionValue;
             PerformSegue (DesignViewDialogSegues.DeleteSuggestion, this);
+        }
+
+        private string nounNameToManage;
+        private string suggestionValueToManage;
+        public void ManageConstraints (string nounName, string suggestionValue)
+        {
+            nounNameToManage = nounName;
+            suggestionValueToManage = suggestionValue;
+            PerformSegue (DesignViewDialogSegues.ManageConstraints, this);
         }
     }
 }

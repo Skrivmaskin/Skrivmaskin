@@ -114,10 +114,11 @@ namespace TextOn.Studio
                     removeButton.Activated += (s, e) => {
                         var thisNoun = datasource.NounProfile.GetNounByIndex ((int)addButton.Tag);
                         var selectedIndex = combobox.SelectedIndex;
-                        var thisSuggestionsPrior = thisNoun.Suggestions.Select ((sugg) => sugg.Value).ToArray ();
-                        var thisSuggestionValue = thisSuggestionsPrior [selectedIndex];
-                        if ((selectedIndex >= 0) && thisSuggestionValue == combobox.StringValue) {
-                            controller.DeleteSuggestion (thisNoun.Name, thisSuggestionValue);
+                        if (selectedIndex >= 0) {
+                            var thisSuggestionValue = thisNoun.Suggestions.ElementAt ((int)selectedIndex).Value;
+                            if (thisSuggestionValue == combobox.StringValue) {
+                                controller.DeleteSuggestion (thisNoun.Name, thisSuggestionValue);
+                            }
                         }
                     };
                     var editConstraintsButton = new NSButton (new CGRect (296, 0, 104, 20));
@@ -125,6 +126,16 @@ namespace TextOn.Studio
                     view.AddSubview (editConstraintsButton);
                     editConstraintsButton.BezelStyle = buttonStyle;
                     editConstraintsButton.Tag = row;
+                    editConstraintsButton.Activated += (s, e) => {
+                        var thisNoun = datasource.NounProfile.GetNounByIndex ((int)editConstraintsButton.Tag);
+                        var selectedIndex = combobox.SelectedIndex;
+                        if (selectedIndex >= 0) {
+                            var thisSuggestionValue = thisNoun.Suggestions.ElementAt ((int)selectedIndex).Value;
+                            if (thisSuggestionValue == combobox.StringValue) {
+                                controller.ManageConstraints (thisNoun.Name, thisSuggestionValue);
+                            }
+                        }
+                    };
                     break;
                 }
             }

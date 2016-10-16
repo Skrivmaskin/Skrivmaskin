@@ -247,6 +247,12 @@ namespace TextOn.Nouns
             return nouns [nounsInOrder [index]];
         }
 
+        public Noun GetNounByName (string name)
+        {
+            Console.Error.WriteLine("GetNounByName {0}", name);
+            return nouns [name];
+        }
+
         public event Action<string> SuggestionsChangedForNoun;
     }
 }
