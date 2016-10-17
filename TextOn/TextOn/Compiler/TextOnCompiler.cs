@@ -1,5 +1,4 @@
 using System;
-using System.Linq;
 using System.Collections.Generic;
 using TextOn.Design;
 using TextOn.Interfaces;
@@ -79,14 +78,20 @@ namespace TextOn.Compiler
                 return result;
             case NodeType.Choice:
                 var choiceNode = node as ChoiceNode;
-                var choices = choiceNode.Choices.Where ((c) => c.IsActive).Select ((c) => CompileNode (transientCompiledNodes, c)).Where ((c) => c.Type != CompiledNodeType.Blank).ToArray ();
-                foreach (var item in choices) {
-                    hasErrors = hasErrors || item.HasErrors;
-                    foreach (var requiredNoun in item.RequiredNouns) {
-                        requiredNouns.Add (requiredNoun);
+                var choices = new List<CompiledNode> ();
+                foreach (var choice in choiceNode.Choices) {
+                    if (choice.IsActive) {
+                        var cn = CompileNode (transientCompiledNodes, choice);
+                        if (cn.Type != CompiledNodeType.Blank) {
+                            hasErrors = hasErrors || cn.HasErrors;
+                            foreach (var rn in cn.RequiredNouns) {
+                                requiredNouns.Add (rn);
+                            }
+                            choices.Add (cn);
+                        }
                     }
                 }
-                return new CompiledNode (CompiledNodeType.Choice, node, hasErrors, requiredNouns, emptyString, choices, emptyElements);
+                return new CompiledNode (CompiledNodeType.Choice, node, hasErrors, requiredNouns, emptyString, choices.ToArray (), emptyElements);
             case NodeType.Sequential:
                 var sequentialNode = node as SequentialNode;
                 if (sequentialNode.Sequential.Count > 0) {
@@ -95,7 +100,13 @@ namespace TextOn.Compiler
                     int i = 0;
                     for (; i < sequentialNode.Sequential.Count - 1; i++) {
                         compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
-                        if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
+                        if (compiledNode.Type != CompiledNodeType.Blank) {
+                            hasErrors = hasErrors || compiledNode.HasErrors;
+                            foreach (var rn in compiledNode.RequiredNouns) {
+                                requiredNouns.Add (rn);
+                            }
+                            li.Add (compiledNode);
+                        }
                         if (sequentialNode.Sequential [i].Type != NodeType.ParagraphBreak &&
                             sequentialNode.Sequential [i].IsActive &&
                             sequentialNode.Sequential [i + 1].Type != NodeType.ParagraphBreak &&
@@ -105,12 +116,6 @@ namespace TextOn.Compiler
                     compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
                     if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
                     if (li.Count == 0) return new CompiledNode (CompiledNodeType.Blank, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements);
-                    foreach (var item in li) {
-                        hasErrors = hasErrors || item.HasErrors;
-                        foreach (var requiredNoun in item.RequiredNouns) {
-                            requiredNouns.Add (requiredNoun);
-                        }
-                    }
                     return new CompiledNode (CompiledNodeType.Sequential, node, hasErrors, requiredNouns, emptyString, li.ToArray (), emptyElements);
                 }
                 return new CompiledNode (CompiledNodeType.Blank, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements);
