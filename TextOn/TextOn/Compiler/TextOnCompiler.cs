@@ -12,6 +12,11 @@ namespace TextOn.Compiler
     /// </summary>
     public sealed class TextOnCompiler
     {
+        private static readonly TextOnParseElement [] emptyElements = new TextOnParseElement [0];
+        private static readonly CompiledNode [] emptyCompiledNodes = new CompiledNode [0];
+        private static readonly string [] emptyRequiredNouns = new string [0];
+        private const string emptyString = "";
+
         readonly TextOnParser parser;
         Dictionary<TextNode, CompiledNode> compiledNodes = new Dictionary<TextNode, CompiledNode> ();
 
@@ -54,7 +59,7 @@ namespace TextOn.Compiler
 
         private CompiledNode CompileNode (Dictionary<TextNode, CompiledNode> transientCompiledNodes, INode node)
         {
-            if (!node.IsActive) return new CompiledNode (CompiledNodeType.Blank, node, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
+            if (!node.IsActive) return new CompiledNode (CompiledNodeType.Blank, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements);
 
             // Text nodes are a special case here. The compiled node will come out as an error compiled node if there are errors.
             CompiledNode result;
@@ -81,7 +86,7 @@ namespace TextOn.Compiler
                         requiredNouns.Add (requiredNoun);
                     }
                 }
-                return new CompiledNode (CompiledNodeType.Choice, node, hasErrors, requiredNouns, "", choices, new TextOnParseElement [0]);
+                return new CompiledNode (CompiledNodeType.Choice, node, hasErrors, requiredNouns, emptyString, choices, emptyElements);
             case NodeType.Sequential:
                 var sequentialNode = node as SequentialNode;
                 if (sequentialNode.Sequential.Count > 0) {
@@ -95,22 +100,22 @@ namespace TextOn.Compiler
                             sequentialNode.Sequential [i].IsActive &&
                             sequentialNode.Sequential [i + 1].Type != NodeType.ParagraphBreak &&
                             sequentialNode.Sequential [i + 1].IsActive)
-                            li.Add (new CompiledNode (CompiledNodeType.SentenceBreak, null, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]));
+                            li.Add (new CompiledNode (CompiledNodeType.SentenceBreak, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements));
                     }
                     compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
                     if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
-                    if (li.Count == 0) return new CompiledNode (CompiledNodeType.Blank, node, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
+                    if (li.Count == 0) return new CompiledNode (CompiledNodeType.Blank, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements);
                     foreach (var item in li) {
                         hasErrors = hasErrors || item.HasErrors;
                         foreach (var requiredNoun in item.RequiredNouns) {
                             requiredNouns.Add (requiredNoun);
                         }
                     }
-                    return new CompiledNode (CompiledNodeType.Sequential, node, hasErrors, requiredNouns, "", li.ToArray (), new TextOnParseElement [0]);
+                    return new CompiledNode (CompiledNodeType.Sequential, node, hasErrors, requiredNouns, emptyString, li.ToArray (), emptyElements);
                 }
-                return new CompiledNode (CompiledNodeType.Blank, node, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
+                return new CompiledNode (CompiledNodeType.Blank, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements);
             case NodeType.ParagraphBreak:
-                return new CompiledNode (CompiledNodeType.ParagraphBreak, node, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
+                return new CompiledNode (CompiledNodeType.ParagraphBreak, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements);
             default:
                 throw new ApplicationException ("Unexpected design time node during compilation " + (node.GetType ()));
             }
