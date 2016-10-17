@@ -30,6 +30,7 @@ namespace TextOn.Studio
             base.ViewDidAppear ();
 
             session = parent.Template.Nouns.MakeSetValuesSession ();
+            session.SuggestionsUpdated += Session_SuggestionsUpdated;
 
             var datasource = new SetNounValuesTableViewDataSource (session);
             SetNounValuesTableView.DataSource = datasource;
@@ -40,6 +41,8 @@ namespace TextOn.Studio
         {
             base.ViewDidDisappear ();
 
+            session.SuggestionsUpdated -= Session_SuggestionsUpdated;
+            session.Deactivate ();
             session = null;
             // clean up the presentation as well
             SetNounValuesTableView.DataSource = null;
@@ -47,6 +50,16 @@ namespace TextOn.Studio
         }
 
         NounSetValuesSession session = null;
+
+        /// <summary>
+        /// Sessions the suggestions updated. Need to go through and 
+        /// </summary>
+        /// <param name="nounName">Noun name.</param>
+        private void Session_SuggestionsUpdated (string nounName)
+        {
+            var del = SetNounValuesTableView.Delegate as SetNounValuesTableViewDelegate;
+            if (del != null) del.SuggestionsUpdatedForName (nounName, SetNounValuesTableView);
+        }
 
         /// <summary>
         /// Exposes the user's current values to the Generate page.

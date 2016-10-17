@@ -164,5 +164,23 @@ namespace TextOn.Studio
         {
             return false;
         }
+
+        internal void SuggestionsUpdatedForName (string nounName, NSTableView setNounValuesTableView)
+        {
+            if (datasource != null && datasource.Session != null && setNounValuesTableView != null) {
+                var nounIndex = datasource.Session.GetIndex (nounName);
+                var rowView = setNounValuesTableView.GetRowView (nounIndex, false);
+                if (rowView != null && rowView.Subviews.Length >= 3) {
+                    var comboboxCellView = rowView.Subviews [2];
+                    var combobox = comboboxCellView.Subviews [0] as NSComboBox;
+                    if (combobox != null) {
+                        if (combobox.SelectedIndex >= 0) {
+                            combobox.DeselectItem (combobox.SelectedIndex);
+                        }
+                        combobox.ReloadData ();
+                    }
+                }
+            }
+        }
     }
 }
