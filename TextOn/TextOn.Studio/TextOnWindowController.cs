@@ -17,5 +17,12 @@ namespace TextOn.Studio
         /// Signals to view controllers that the user is creating a new document.
         /// </summary>
         public bool IsInNew { get; set; } = false;
+
+        [Action ("search:")]
+        public void SearchText (NSObject sender)
+        {
+            var centralViewController = this.ContentViewController as CentralViewController;
+            centralViewController.Search ();
+        }
     }
 }

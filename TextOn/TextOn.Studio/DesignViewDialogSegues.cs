@@ -26,5 +26,8 @@ namespace TextOn.Studio
 
         // From Define Nouns to Manage Constraints
         public const string ManageConstraints = "ManageConstraints";
+
+        // From Design to Search
+        public const string Search = "Search";
     }
 }

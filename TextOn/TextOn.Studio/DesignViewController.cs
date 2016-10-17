@@ -10,6 +10,7 @@ using TextOn.Compiler;
 using TextOn.Lexing;
 using TextOn.Generation;
 using TextOn.Nouns;
+using TextOn.Search;
 
 namespace TextOn.Studio
 {
@@ -159,6 +160,28 @@ namespace TextOn.Studio
                 default:
                     break;
                 }
+                return;
+            }
+
+            if (segue.DestinationController is SearchDialogController) {
+                var sdlg = segue.DestinationController as SearchDialogController;
+                sdlg.Presentor = this;
+                sdlg.CompiledTemplate = centralViewController.CompiledTemplate;
+                sdlg.DialogAccepted += (s, e) => {
+                    var replace = sdlg.enableReplaceGlobally;
+                    if (replace) {
+                        // replace this exact string globally, then recompile the whole template
+
+                    } else {
+                        // navigate to the first text node that has this exact string in it
+                        if (centralViewController.Template != null) {
+                            var designNode = TextOnSearchAndReplacer.Find (centralViewController.Template.Definition, sdlg.SearchText, true);
+                            if (designNode != null) {
+                                SelectDesignNode (designNode);
+                            }
+                        }
+                    }
+                };
                 return;
             }
 

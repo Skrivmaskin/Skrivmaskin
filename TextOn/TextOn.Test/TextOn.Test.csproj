@@ -58,6 +58,7 @@
     <Compile Include="TemplateHost.cs" />
     <Compile Include="TestNounProfile.cs" />
     <Compile Include="TestNounProfileSession.cs" />
+    <Compile Include="TestSearchAndReplace.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\TextOn\TextOn.csproj">

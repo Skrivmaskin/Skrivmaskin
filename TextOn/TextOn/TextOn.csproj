@@ -93,6 +93,7 @@
     <Compile Include="Version0\Variable.cs" />
     <Compile Include="Version0\VariableForm.cs" />
     <Compile Include="Nouns\NounSetValuesSession.cs" />
+    <Compile Include="Search\TextOnSearchAndReplacer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -106,6 +107,7 @@
     <Folder Include="Parsing\" />
     <Folder Include="Generation\" />
     <Folder Include="Version0\" />
+    <Folder Include="Search\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

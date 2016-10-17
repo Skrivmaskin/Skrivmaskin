@@ -29,6 +29,12 @@ namespace TextOn.Studio
                 SelectedTabViewItemIndex = DesignViewTabViewItemIndex;
         }
 
+        internal void Search ()
+        {
+            SelectedTabViewItemIndex = DesignViewTabViewItemIndex;
+            designViewController.PerformSegue (DesignViewDialogSegues.Search, designViewController);
+        }
+
         #region Design and Compiled templates
         internal TextOnCompiler Compiler = new TextOnCompiler (new DefaultLexerSyntax ());
         internal TextOnTemplate Template { get; set; } = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));

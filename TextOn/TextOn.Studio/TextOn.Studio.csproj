@@ -163,6 +163,10 @@
     </Compile>
     <Compile Include="ManageConstraintsTableViewDataSource.cs" />
     <Compile Include="ManageConstraintsTableViewDelegate.cs" />
+    <Compile Include="SearchDialogController.cs" />
+    <Compile Include="SearchDialogController.designer.cs">
+      <DependentUpon>SearchDialogController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Main.storyboard" />
