@@ -127,7 +127,7 @@ namespace TextOn.Studio
                 var node = routeNode.Node;
                 IEnumerable<TextOnParseElement> elements;
                 if (node.Type == NodeType.Text) {
-                    var compiledText = Compiler.GetCompiledNode (node as TextNode) as ICompiledText;
+                    var compiledText = Compiler.GetCompiledNode (node as TextNode);
                     elements = (compiledText == null) ? new TextOnParseElement [1] { new TextOnParseElement (TextOnParseTokens.Text, 0, new TextOnParseRange (0, line.Length - 1)) } : compiledText.Elements;
                 } else {
                     elements = new TextOnParseElement [1] { new TextOnParseElement (TextOnParseTokens.Text, 0, new TextOnParseRange (0, line.Length - 1)) };

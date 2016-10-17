@@ -14,7 +14,7 @@ namespace TextOn.Compiler
         /// </summary>
         /// <param name="nouns">Nouns.</param>
         /// <param name="definition">Definition.</param>
-        public CompiledTemplate (NounProfile nouns, ICompiledNode definition)
+        public CompiledTemplate (NounProfile nouns, CompiledNode definition)
         {
             Nouns = nouns;
             Definition = definition;
@@ -30,6 +30,6 @@ namespace TextOn.Compiler
         /// The definition of the template.
         /// </summary>
         /// <value>The definition.</value>
-        public ICompiledNode Definition { get; private set; }
+        public CompiledNode Definition { get; private set; }
     }
 }

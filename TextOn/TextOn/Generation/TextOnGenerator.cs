@@ -27,48 +27,42 @@ namespace TextOn.Generation
             this.generatorConfig = generatorConfig;
         }
 
-        private IEnumerable<AnnotatedText> GenerateText (ICompiledNode node, IVariableSubstituter variableSubstituter)
+        private IEnumerable<AnnotatedText> GenerateText (CompiledNode node, IVariableSubstituter variableSubstituter)
         {
             switch (node.Type) {
             case CompiledNodeType.Text:
-                yield return new AnnotatedText (node.Location, (node as TextCompiledNode).Text);
-                break;
+                return new AnnotatedText [1] { new AnnotatedText (node.Location, node.Text) };
             case CompiledNodeType.Variable:
-                yield return new AnnotatedText (node.Location, variableSubstituter.Substitute ((node as VariableCompiledNode).VariableFullName));
-                break;
+                return new AnnotatedText [1] { new AnnotatedText (node.Location, variableSubstituter.Substitute (node.Text)) };
             case CompiledNodeType.Sequential:
-                foreach (var n in (node as SequentialCompiledNode).Sequential) {
-                    foreach (var text in GenerateText (n, variableSubstituter)) {
-                        yield return text;
+                var li = new List<AnnotatedText> ();
+                foreach (var n1 in node.ChildNodes) {
+                    foreach (var text in GenerateText (n1, variableSubstituter)) {
+                        li.Add (text);
                     }
                 }
-                break;
+                return li;
             case CompiledNodeType.Choice:
-                var choices = (node as ChoiceCompiledNode).Choices;
-                if (choices.Count == 0) yield return AnnotatedText.Blank;
+                var choices = node.ChildNodes;
+                if (choices.Length == 0) return new AnnotatedText [1] { AnnotatedText.Blank };
                 else {
-                    var n = randomChooser.Choose (choices.Count);
-                    var choice = choices [n];
-                    var li = GenerateText (choice, variableSubstituter);
-                    foreach (var text in li) {
-                        yield return text;
+                    var n2 = randomChooser.Choose (choices.Length);
+                    var choice = choices [n2];
+                    var li2 = new List<AnnotatedText> ();
+                    foreach (var text in GenerateText (choice, variableSubstituter)) {
+                        li2.Add (text);
                     }
+                    return li2;
                 }
-                break;
             case CompiledNodeType.SentenceBreak:
-                yield return new AnnotatedText (null, generatorConfig.Spacing);
-                break;
+                return new AnnotatedText [1] { new AnnotatedText (null, generatorConfig.Spacing) };
             case CompiledNodeType.ParagraphBreak:
-                yield return new AnnotatedText (null, generatorConfig.ParagraphBreak);
-                break;
+                return new AnnotatedText [1] { new AnnotatedText (null, generatorConfig.ParagraphBreak) };
             case CompiledNodeType.Blank:
-                yield return AnnotatedText.Blank;
-                break;
+                return new AnnotatedText [1] { AnnotatedText.Blank };
             case CompiledNodeType.Success:
-                foreach (var text in GenerateText ((node as SuccessCompiledNode).Node, variableSubstituter)) {
-                    yield return text;
-                }
-                break;
+                var n = node.ChildNodes [0];
+                return GenerateText (n, variableSubstituter);
             default:
                 throw new ApplicationException ("Unrecognised to generate text when there were compiler errors " + node.GetType ());
             }
@@ -91,7 +85,7 @@ namespace TextOn.Generation
         public bool IsMissingRequiredNounDefinitions (CompiledTemplate template)
         {
             var definedNouns = new HashSet<string> (template.Nouns.GetAllNouns ().Select ((n) => n.Name));
-            return template.Definition.RequiredVariables.Where ((n) => !definedNouns.Contains (n)).Count () != 0;
+            return template.Definition.RequiredNouns.Where ((n) => !definedNouns.Contains (n)).Count () != 0;
         }
 
         /// <summary>

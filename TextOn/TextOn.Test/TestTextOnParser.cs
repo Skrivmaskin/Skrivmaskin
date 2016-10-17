@@ -18,10 +18,13 @@ namespace TextOn.Test
         {
             var inputText = "Hello world";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
+            var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
-            var cn = compiledNode.Node as TextCompiledNode;
+            Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
+            Assert.AreEqual (1, compiledNode.ChildNodes.Length);
+            var cn = compiledNode.ChildNodes [0];
             Assert.IsNotNull (cn);
+            Assert.AreEqual (CompiledNodeType.Text, cn.Type);
             Assert.AreEqual (designNode, compiledNode.Location);
             Assert.AreEqual (inputText, cn.Text);
         }
@@ -31,10 +34,14 @@ namespace TextOn.Test
         {
             var inputText = "[SimpleVariable]";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
+            var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
-            var variableNode = compiledNode.Node as VariableCompiledNode;
+            Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
+            Assert.AreEqual (1, compiledNode.ChildNodes.Length);
+            var variableNode = compiledNode.ChildNodes [0];
             Assert.IsNotNull (variableNode);
+            Assert.AreEqual (CompiledNodeType.Variable, variableNode.Type);
+            Assert.AreEqual ("SimpleVariable", variableNode.Text);
         }
 
         [Test]
@@ -42,31 +49,41 @@ namespace TextOn.Test
         {
             var inputText = "{Hello|World} {World|Hello}";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
+            var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
-            var sq = compiledNode.Node as SequentialCompiledNode;
+            Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
+            Assert.AreEqual (1, compiledNode.ChildNodes.Length);
+            var sq = compiledNode.ChildNodes [0];
             Assert.IsNotNull (sq);
-            Assert.AreEqual (3, sq.Sequential.Count);
-            var cn = sq.Sequential [0] as ChoiceCompiledNode;
+            Assert.AreEqual (CompiledNodeType.Sequential, sq.Type);
+            Assert.AreEqual (3, sq.ChildNodes.Length);
+            var cn = sq.ChildNodes [0];
             Assert.IsNotNull (cn);
-            Assert.AreEqual (2, cn.Choices.Count);
-            var tn = cn.Choices [0] as TextCompiledNode;
+            Assert.AreEqual (CompiledNodeType.Choice, cn.Type);
+            Assert.AreEqual (2, cn.ChildNodes.Length);
+            var tn = cn.ChildNodes [0];
             Assert.IsNotNull (tn);
+            Assert.AreEqual (CompiledNodeType.Text, tn.Type);
             Assert.AreEqual ("Hello", tn.Text);
-            tn = cn.Choices [1] as TextCompiledNode;
+            tn = cn.ChildNodes [1];
             Assert.IsNotNull (tn);
+            Assert.AreEqual (CompiledNodeType.Text, tn.Type);
             Assert.AreEqual ("World", tn.Text);
-            tn = sq.Sequential [1] as TextCompiledNode;
+            tn = sq.ChildNodes [1];
             Assert.IsNotNull (tn);
+            Assert.AreEqual (CompiledNodeType.Text, tn.Type);
             Assert.AreEqual (" ", tn.Text);
-            cn = sq.Sequential [2] as ChoiceCompiledNode;
+            cn = sq.ChildNodes [2];
             Assert.IsNotNull (cn);
-            Assert.AreEqual (2, cn.Choices.Count);
-            tn = cn.Choices [0] as TextCompiledNode;
+            Assert.AreEqual (CompiledNodeType.Choice, cn.Type);
+            Assert.AreEqual (2, cn.ChildNodes.Length);
+            tn = cn.ChildNodes [0];
             Assert.IsNotNull (tn);
+            Assert.AreEqual (CompiledNodeType.Text, tn.Type);
             Assert.AreEqual ("World", tn.Text);
-            tn = cn.Choices [1] as TextCompiledNode;
+            tn = cn.ChildNodes [1];
             Assert.IsNotNull (tn);
+            Assert.AreEqual (CompiledNodeType.Text, tn.Type);
             Assert.AreEqual ("Hello", tn.Text);
         }
 
@@ -75,10 +92,14 @@ namespace TextOn.Test
         {
             var inputText = "När du ska hyra bil i [MÄRKE] gör du det snabbt och enkelt via oss på Sixt.";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
+            var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
-            var tn = compiledNode.Node as SequentialCompiledNode;
-            Assert.IsNotNull (tn);
+            Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
+            Assert.AreEqual (1, compiledNode.ChildNodes.Length);
+            var cn = compiledNode.ChildNodes [0];
+            Assert.IsNotNull (cn);
+            Assert.AreEqual (CompiledNodeType.Sequential, cn.Type);
+            Assert.AreEqual (designNode, compiledNode.Location);
         }
 
         [Test]
@@ -86,10 +107,14 @@ namespace TextOn.Test
         {
             var inputText = "[MÄRKE_Variant]";
             var designNode = new TextNode () { Text = inputText };
-            var compiledNode = parser.Compile (designNode) as SuccessCompiledNode;
+            var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
-            var vn = compiledNode.Node as VariableCompiledNode;
-            Assert.IsNotNull (vn);
+            Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
+            Assert.AreEqual (1, compiledNode.ChildNodes.Length);
+            var variableNode = compiledNode.ChildNodes [0];
+            Assert.IsNotNull (variableNode);
+            Assert.AreEqual (CompiledNodeType.Variable, variableNode.Type);
+            Assert.AreEqual ("MÄRKE_Variant", variableNode.Text);
         }
     }
 }

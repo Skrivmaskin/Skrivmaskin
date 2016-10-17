@@ -13,7 +13,7 @@ namespace TextOn.Compiler
     public sealed class TextOnCompiler
     {
         readonly TextOnParser parser;
-        Dictionary<TextNode, ICompiledNode> compiledNodes = new Dictionary<TextNode, ICompiledNode> ();
+        Dictionary<TextNode, CompiledNode> compiledNodes = new Dictionary<TextNode, CompiledNode> ();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:TextOn.Compilation.TextOnCompiler"/> class.
@@ -24,7 +24,7 @@ namespace TextOn.Compiler
             parser = new TextOnParser (lexerSyntax);
         }
 
-        public ICompiledNode GetCompiledNode (TextNode textNode)
+        public CompiledNode GetCompiledNode (TextNode textNode)
         {
             return compiledNodes [textNode];
         }
@@ -35,7 +35,7 @@ namespace TextOn.Compiler
         /// <param name="project">Project.</param>
         public CompiledTemplate Compile (TextOnTemplate project)
         {
-            var transientCompiledNodes = new Dictionary<TextNode, ICompiledNode> ();
+            var transientCompiledNodes = new Dictionary<TextNode, CompiledNode> ();
             var compiledNode = CompileNode (transientCompiledNodes, project.Definition);
             compiledNodes = transientCompiledNodes;
             return new CompiledTemplate (project.Nouns, compiledNode);
@@ -46,18 +46,20 @@ namespace TextOn.Compiler
         /// </summary>
         /// <returns>The text.</returns>
         /// <param name="text">Text.</param>
-        public ICompiledNode CompileText (string text)
+        public CompiledNode CompileText (string text)
         {
-            var transientCompiledNodes = new Dictionary<TextNode, ICompiledNode> ();
+            var transientCompiledNodes = new Dictionary<TextNode, CompiledNode> ();
             return CompileNode (transientCompiledNodes, new TextNode (text, true));
         }
 
-        private ICompiledNode CompileNode (Dictionary<TextNode, ICompiledNode> transientCompiledNodes, INode node)
+        private CompiledNode CompileNode (Dictionary<TextNode, CompiledNode> transientCompiledNodes, INode node)
         {
-            if (!node.IsActive) return new BlankCompiledNode ();
+            if (!node.IsActive) return new CompiledNode (CompiledNodeType.Blank, node, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
 
             // Text nodes are a special case here. The compiled node will come out as an error compiled node if there are errors.
-            ICompiledNode result;
+            CompiledNode result;
+            var hasErrors = false;
+            HashSet<string> requiredNouns = new HashSet<string> ();
             switch (node.Type) {
             case NodeType.Text:
                 var textNode = node as TextNode;
@@ -72,12 +74,19 @@ namespace TextOn.Compiler
                 return result;
             case NodeType.Choice:
                 var choiceNode = node as ChoiceNode;
-                return new ChoiceCompiledNode (choiceNode.Choices.Where ((c) => c.IsActive).Select ((c) => CompileNode (transientCompiledNodes, c)).Where ((c) => c.Type != CompiledNodeType.Blank).ToList (), choiceNode);
+                var choices = choiceNode.Choices.Where ((c) => c.IsActive).Select ((c) => CompileNode (transientCompiledNodes, c)).Where ((c) => c.Type != CompiledNodeType.Blank).ToArray ();
+                foreach (var item in choices) {
+                    hasErrors = hasErrors || item.HasErrors;
+                    foreach (var requiredNoun in item.RequiredNouns) {
+                        requiredNouns.Add (requiredNoun);
+                    }
+                }
+                return new CompiledNode (CompiledNodeType.Choice, node, hasErrors, requiredNouns, "", choices, new TextOnParseElement [0]);
             case NodeType.Sequential:
                 var sequentialNode = node as SequentialNode;
                 if (sequentialNode.Sequential.Count > 0) {
-                    var li = new List<ICompiledNode> ();
-                    ICompiledNode compiledNode;
+                    var li = new List<CompiledNode> ();
+                    CompiledNode compiledNode;
                     int i = 0;
                     for (; i < sequentialNode.Sequential.Count - 1; i++) {
                         compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
@@ -86,16 +95,22 @@ namespace TextOn.Compiler
                             sequentialNode.Sequential [i].IsActive &&
                             sequentialNode.Sequential [i + 1].Type != NodeType.ParagraphBreak &&
                             sequentialNode.Sequential [i + 1].IsActive)
-                            li.Add (new SentenceBreakCompiledNode ());
+                            li.Add (new CompiledNode (CompiledNodeType.SentenceBreak, null, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]));
                     }
                     compiledNode = CompileNode (transientCompiledNodes, sequentialNode.Sequential [i]);
                     if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
-                    if (li.Count == 0) return new BlankCompiledNode ();
-                    return new SequentialCompiledNode (li, sequentialNode);
+                    if (li.Count == 0) return new CompiledNode (CompiledNodeType.Blank, node, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
+                    foreach (var item in li) {
+                        hasErrors = hasErrors || item.HasErrors;
+                        foreach (var requiredNoun in item.RequiredNouns) {
+                            requiredNouns.Add (requiredNoun);
+                        }
+                    }
+                    return new CompiledNode (CompiledNodeType.Sequential, node, hasErrors, requiredNouns, "", li.ToArray (), new TextOnParseElement [0]);
                 }
-                return new BlankCompiledNode ();
+                return new CompiledNode (CompiledNodeType.Blank, node, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
             case NodeType.ParagraphBreak:
-                return new ParagraphBreakCompiledNode ();
+                return new CompiledNode (CompiledNodeType.ParagraphBreak, node, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
             default:
                 throw new ApplicationException ("Unexpected design time node during compilation " + (node.GetType ()));
             }

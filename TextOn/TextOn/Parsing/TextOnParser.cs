@@ -36,14 +36,15 @@ namespace TextOn.Parsing
         /// <summary>
         /// Parse a design time node into a compiled node.
         /// </summary>
-        public ICompiledNode Compile (TextNode designNode)
+        public CompiledNode Compile (TextNode designNode)
         {
             var parseTree = ParseToTree (designNode.Text);
             var elements = MakeElements (designNode.Text.Length, parseTree.Tokens);
             if (parseTree.HasErrors ()) {
-                return new ErrorCompiledNode (designNode, elements);
+                return new CompiledNode (CompiledNodeType.Error, designNode, true, new string[0], "", new CompiledNode[0], elements);
             }
-            return new SuccessCompiledNode (ConvertSentence (designNode, parseTree.Root), designNode, elements);
+            var sentence = ConvertSentence (designNode, parseTree.Root);
+            return new CompiledNode (CompiledNodeType.Success, designNode, false, sentence.RequiredNouns, "", new CompiledNode [1] { sentence }, elements);
         }
 
         internal IEnumerable<TextOnParseElement> MakeElements (int totalLength, List<Token> tokens)
@@ -118,18 +119,27 @@ namespace TextOn.Parsing
             return elements;
         }
 
-        private ICompiledNode ConvertSentence (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertSentence (INode designNode, ParseTreeNode node)
         {
             TextOnParseNodes token;
             if (Enum.TryParse (node.Term.Name, out token)) {
                 switch (token) {
                 case TextOnParseNodes.Sentence:
                     if (node.ChildNodes.Count == 0) {
-                        return new TextCompiledNode ("", designNode);
+                        return new CompiledNode (CompiledNodeType.Text, designNode, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
                     } else if (node.ChildNodes.Count == 1) {
                         return ConvertAnything (designNode, node.ChildNodes [0]);
                     } else {
-                        return new SequentialCompiledNode (node.ChildNodes.Select ((ptn) => ConvertAnything (designNode, ptn)).ToList (), designNode);
+                        var childNodes = node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)).ToArray ();
+                        var hasErrors = false;
+                        HashSet<string> requiredNouns = new HashSet<string> ();
+                        foreach (var item in childNodes) {
+                            hasErrors = hasErrors || item.HasErrors;
+                            foreach (var requiredNoun in item.RequiredNouns) {
+                                requiredNouns.Add (requiredNoun);
+                            }
+                        }
+                        return new CompiledNode (CompiledNodeType.Sequential, designNode, hasErrors, requiredNouns, "", childNodes, new TextOnParseElement [0]);
                     }
                 default:
                     throw new ApplicationException (string.Format ("Unexpected token when expected a sentence: {0}", token));
@@ -138,7 +148,7 @@ namespace TextOn.Parsing
             throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
         }
 
-        private ICompiledNode ConvertAnything (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertAnything (INode designNode, ParseTreeNode node)
         {
             TextOnParseNodes token;
             if (!Enum.TryParse (node.Term.Name, out token))
@@ -161,20 +171,22 @@ namespace TextOn.Parsing
             throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
         }
 
-        private ICompiledNode ConvertVariable (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertVariable (INode designNode, ParseTreeNode node)
         {
             if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
-            return new VariableCompiledNode (node.ChildNodes [1].Token.Text, designNode);
+            var variableName = node.ChildNodes [1].Token.Text;
+            return new CompiledNode (CompiledNodeType.Variable, designNode, false, new string [1] { variableName }, variableName, new CompiledNode [0], new TextOnParseElement [0]);
         }
 
-        private ICompiledNode ConvertPhrase (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertPhrase (INode designNode, ParseTreeNode node)
         {
             TextOnParseNodes token;
             if (!Enum.TryParse (node.Term.Name, out token))
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
             if (token != TextOnParseNodes.Phrase)
                 throw new ApplicationException (string.Format ("Unexpected token when expected a phrase: {0}", token));
-            return new TextCompiledNode (string.Join ("", node.ChildNodes.Select ((cn) => ConvertText (cn))), designNode);
+            var text = string.Join ("", node.ChildNodes.Select ((cn) => ConvertText (cn)));
+            return new CompiledNode (CompiledNodeType.Text, designNode, false, new string [0], text, new CompiledNode [0], new TextOnParseElement [0]);
 
         }
 
@@ -195,7 +207,7 @@ namespace TextOn.Parsing
             }
         }
 
-        private ICompiledNode ConvertMultiChoice (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertMultiChoice (INode designNode, ParseTreeNode node)
         {
             if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
             node = node.ChildNodes [1];
@@ -206,17 +218,35 @@ namespace TextOn.Parsing
             case TextOnParseNodes.SimpleChoice:
                 return ConvertSimpleChoice (designNode, node);
             case TextOnParseNodes.Choice:
-                return new ChoiceCompiledNode (node.ChildNodes.Select ((cn) => ConvertSimpleChoice (designNode, cn)).ToList(), designNode);
+                var childNodes = node.ChildNodes.Select ((cn) => ConvertSimpleChoice (designNode, cn)).ToArray();
+                var hasErrors = false;
+                HashSet<string> requiredNouns = new HashSet<string> ();
+                foreach (var item in childNodes) {
+                    hasErrors = hasErrors || item.HasErrors;
+                    foreach (var requiredNoun in item.RequiredNouns) {
+                        requiredNouns.Add (requiredNoun);
+                    }
+                }
+                return new CompiledNode (CompiledNodeType.Choice, designNode, hasErrors, requiredNouns, "", childNodes, new TextOnParseElement [0]);
             default:
                 throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
             }
         }
 
-        private ICompiledNode ConvertSimpleChoice (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertSimpleChoice (INode designNode, ParseTreeNode node)
         {
-            if (node.ChildNodes.Count == 0) return new TextCompiledNode ("", designNode);
+            if (node.ChildNodes.Count == 0) return new CompiledNode (CompiledNodeType.Text, designNode, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
             if (node.ChildNodes.Count == 1) return ConvertAnything (designNode, node.ChildNodes [0]);
-            return new SequentialCompiledNode (node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)).ToList (), designNode);
+            var childNodes = node.ChildNodes.Select ((cn) => ConvertAnything (designNode, cn)).ToArray ();
+            var hasErrors = false;
+            HashSet<string> requiredNouns = new HashSet<string> ();
+            foreach (var item in childNodes) {
+                hasErrors = hasErrors || item.HasErrors;
+                foreach (var requiredNoun in item.RequiredNouns) {
+                    requiredNouns.Add (requiredNoun);
+                }
+            }
+            return new CompiledNode (CompiledNodeType.Sequential, designNode, hasErrors, requiredNouns, "", childNodes, new TextOnParseElement [0]);
         }
     }
 }

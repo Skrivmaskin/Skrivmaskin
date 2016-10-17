@@ -45,10 +45,6 @@
     <Compile Include="Design\TextOnTemplate.cs" />
     <Compile Include="Design\ParagraphBreakNode.cs" />
     <Compile Include="Compiler\ICompiledNode.cs" />
-    <Compile Include="Compiler\VariableCompiledNode.cs" />
-    <Compile Include="Compiler\TextCompiledNode.cs" />
-    <Compile Include="Compiler\SequentialCompiledNode.cs" />
-    <Compile Include="Compiler\ChoiceCompiledNode.cs" />
     <Compile Include="Interfaces\IDialogService.cs" />
     <Compile Include="Interfaces\IVariableSubstituter.cs" />
     <Compile Include="Interfaces\IRandomChooser.cs" />
@@ -65,18 +61,12 @@
     <Compile Include="Interfaces\IGeneratorConfig.cs" />
     <Compile Include="Services\SingleSpaceUnixGeneratorConfig.cs" />
     <Compile Include="Compiler\CompiledNodeType.cs" />
-    <Compile Include="Compiler\ErrorCompiledNode.cs" />
     <Compile Include="Compiler\TextOnCompiler.cs" />
     <Compile Include="Design\NodeType.cs" />
-    <Compile Include="Compiler\BlankCompiledNode.cs" />
-    <Compile Include="Compiler\ParagraphBreakCompiledNode.cs" />
-    <Compile Include="Compiler\SentenceBreakCompiledNode.cs" />
     <Compile Include="Services\DictionaryBackedVariableSubstituter.cs" />
     <Compile Include="Parsing\TextOnParseTokens.cs" />
     <Compile Include="Parsing\TextOnParseRange.cs" />
     <Compile Include="Parsing\TextOnParseElement.cs" />
-    <Compile Include="Compiler\SuccessCompiledNode.cs" />
-    <Compile Include="Compiler\ICompiledText.cs" />
     <Compile Include="Generation\AnnotatedText.cs" />
     <Compile Include="Generation\AnnotatedOutput.cs" />
     <Compile Include="Design\OutputSplitter.cs" />
@@ -94,6 +84,7 @@
     <Compile Include="Version0\VariableForm.cs" />
     <Compile Include="Nouns\NounSetValuesSession.cs" />
     <Compile Include="Search\TextOnSearchAndReplacer.cs" />
+    <Compile Include="Compiler\CompiledNode.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

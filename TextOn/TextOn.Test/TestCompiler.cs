@@ -19,7 +19,8 @@ namespace TextOn.Test
         public void TestErrorIncompleteVariable ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var errorNode = compiler.CompileText ("{Hello|Hi} [HELLO") as ErrorCompiledNode;
+            var errorNode = compiler.CompileText ("{Hello|Hi} [HELLO");
+            Assert.AreEqual (CompiledNodeType.Error, errorNode.Type);
             var expected = new List<TextOnParseElement> ();
             int choiceDepth = 0;
             expected.Add (new TextOnParseElement (TextOnParseTokens.ChoiceStart, choiceDepth, new TextOnParseRange (0, 0)));
@@ -44,8 +45,9 @@ namespace TextOn.Test
         public void TestSuccessWithPowerCharacter ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var successNode = compiler.CompileText ("This is ^ some text") as SuccessCompiledNode;
+            var successNode = compiler.CompileText ("This is ^ some text");
             Assert.IsNotNull (successNode);
+            Assert.AreEqual (CompiledNodeType.Success, successNode.Type);
         }
 
         [Test]
@@ -61,7 +63,8 @@ namespace TextOn.Test
         public void TestErrorIncompleteVariableForm ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var errorNode = compiler.CompileText ("{Hello|Hi} [HELLO|Blah") as ErrorCompiledNode;
+            var errorNode = compiler.CompileText ("{Hello|Hi} [HELLO|Blah");
+            Assert.AreEqual (CompiledNodeType.Error, errorNode.Type);
             var expected = new List<TextOnParseElement> ();
             int choiceDepth = 0;
             expected.Add (new TextOnParseElement (TextOnParseTokens.ChoiceStart, choiceDepth, new TextOnParseRange (0, 0)));
@@ -88,7 +91,8 @@ namespace TextOn.Test
         public void TestErrorIncompleteChoice ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var errorNode = compiler.CompileText ("Hello there {what is going on|how are yo") as ErrorCompiledNode;
+            var errorNode = compiler.CompileText ("Hello there {what is going on|how are yo");
+            Assert.AreEqual (CompiledNodeType.Error, errorNode.Type);
             var expected = new List<TextOnParseElement> ();
             int choiceDepth = 0;
             expected.Add (new TextOnParseElement (TextOnParseTokens.Text, choiceDepth, new TextOnParseRange (0, 11)));
@@ -109,7 +113,8 @@ namespace TextOn.Test
         public void TestErrorChoiceInvalidVariableNameChoice ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var errorNode = compiler.CompileText ("Hello there [{what is going]") as ErrorCompiledNode;
+            var errorNode = compiler.CompileText ("Hello there [{what is going]");
+            Assert.AreEqual (CompiledNodeType.Error, errorNode.Type);
             var expected = new List<TextOnParseElement> ();
             int choiceDepth = 0;
             expected.Add (new TextOnParseElement (TextOnParseTokens.Text, choiceDepth, new TextOnParseRange (0, 11)));
@@ -128,7 +133,8 @@ namespace TextOn.Test
         public void TestErrorChoiceInvalidVariableNameSpace ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var errorNode = compiler.CompileText ("Hello there [what is going]") as ErrorCompiledNode;
+            var errorNode = compiler.CompileText ("Hello there [what is going]");
+            Assert.AreEqual (CompiledNodeType.Error, errorNode.Type);
             var expected = new List<TextOnParseElement> ();
             int choiceDepth = 0;
             expected.Add (new TextOnParseElement (TextOnParseTokens.Text, choiceDepth, new TextOnParseRange (0, 11)));
@@ -148,7 +154,8 @@ namespace TextOn.Test
         public void TestSuccessTextElements ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var successNode = compiler.CompileText ("Hello there, what is going on?") as SuccessCompiledNode;
+            var successNode = compiler.CompileText ("Hello there, what is going on?");
+            Assert.AreEqual (CompiledNodeType.Success, successNode.Type);
             var expected = new List<TextOnParseElement> ();
             int choiceDepth = 0;
             expected.Add (new TextOnParseElement (TextOnParseTokens.Text, choiceDepth, new TextOnParseRange (0, 29)));
@@ -164,7 +171,8 @@ namespace TextOn.Test
         public void TestSuccessVariableElements ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var successNode = compiler.CompileText ("Hello there, [QUESTION]?") as SuccessCompiledNode;
+            var successNode = compiler.CompileText ("Hello there, [QUESTION]?");
+            Assert.AreEqual (CompiledNodeType.Success, successNode.Type);
             var expected = new List<TextOnParseElement> ();
             int choiceDepth = 0;
             expected.Add (new TextOnParseElement (TextOnParseTokens.Text, choiceDepth, new TextOnParseRange (0, 12)));

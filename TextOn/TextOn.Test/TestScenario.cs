@@ -46,7 +46,7 @@ namespace TextOn.Test
                 var project = host.Object;
                 var compiledProject = compiler.Compile (project);
                 Assert.IsNotNull (compiledProject);
-                Assert.AreEqual (3, compiledProject.Definition.RequiredVariables.Count ());
+                Assert.AreEqual (3, compiledProject.Definition.RequiredNouns.Count ());
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("MÄRKE")).Returns ("London");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P2")).Returns ("Covent Garden");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P3")).Returns ("Ford");
@@ -63,7 +63,7 @@ namespace TextOn.Test
                 var project = host.Object;
                 var compiledProject = compiler.Compile (project);
                 Assert.IsNotNull (compiledProject);
-                Assert.AreEqual (3, compiledProject.Definition.RequiredVariables.Count ());
+                Assert.AreEqual (3, compiledProject.Definition.RequiredNouns.Count ());
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("MÄRKE")).Returns ("Leeds");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P2")).Returns ("Carlton");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P3")).Returns ("Honda");
@@ -80,7 +80,7 @@ namespace TextOn.Test
                 var template = host.Object;
                 var compiledProject = compiler.Compile (template);
                 Assert.IsNotNull (compiledProject);
-                Assert.AreEqual (7, compiledProject.Definition.RequiredVariables.Count ());
+                Assert.AreEqual (7, compiledProject.Definition.RequiredNouns.Count ());
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("BREED")).Returns ("terrier");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("BREEDPlural")).Returns ("terriers");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("CITY")).Returns ("London");
@@ -105,7 +105,7 @@ namespace TextOn.Test
 
                 var compiledProject = compiler.Compile (template);
                 Assert.IsNotNull (compiledProject);
-                Assert.AreEqual (3, compiledProject.Definition.RequiredVariables.Count ());
+                Assert.AreEqual (3, compiledProject.Definition.RequiredNouns.Count ());
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("MÄRKE")).Returns ("Leeds");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P2")).Returns ("Carlton");
                 mockVariableSubstituter.Setup ((vs) => vs.Substitute ("P3")).Returns ("Honda");

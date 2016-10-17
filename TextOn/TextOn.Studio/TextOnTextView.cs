@@ -61,7 +61,7 @@ namespace TextOn.Studio
         public TextOnParseTokens Highlight ()
         {
             if (CompiledTemplate == null) return TextOnParseTokens.Text;
-            var compiledText = compiler.CompileText (TextStorage.Value) as ICompiledText;
+            var compiledText = compiler.CompileText (TextStorage.Value);
             var elements = compiledText.Elements;
             var lastToken = TextOnParseTokens.Error;
             foreach (var element in elements) {
