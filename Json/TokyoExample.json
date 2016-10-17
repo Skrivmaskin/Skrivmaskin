@@ -1,0 +1,184 @@
+{
+  "Nouns": [
+    {
+      "Name": "CITY",
+      "Description": "What city is this text about?",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Tokyo",
+          "Dependencies": []
+        },
+        {
+          "Value": "London",
+          "Dependencies": []
+        }
+      ]
+    },
+    {
+      "Name": "PALACE",
+      "Description": "The name of the palace.",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "The Imperial Palace",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "Tokyo"
+            }
+          ]
+        },
+        {
+          "Value": "Buckingham Palace",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "MONARCH",
+      "Description": "The title of the monarch.",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Emperor",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "Tokyo"
+            }
+          ]
+        },
+        {
+          "Value": "Queen",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "HISTORYMUSEUM",
+      "Description": "The name of the history museum.",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Edo-Tokyo Museum",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "Tokyo"
+            }
+          ]
+        },
+        {
+          "Value": "Museum of London",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "SOMETHINGOLD",
+      "Description": "The name of something old.",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Sensoji Temple",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "Tokyo"
+            }
+          ]
+        },
+        {
+          "Value": "The Lamb and Flag pub",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "ARTMUSEUM",
+      "Description": "The name of the art museum.",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Tokyo National Museum",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "Tokyo"
+            }
+          ]
+        },
+        {
+          "Value": "National Gallery",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "Name": "NATIONALITY",
+      "Description": "The nationality.",
+      "AcceptsUserValue": true,
+      "Suggestions": [
+        {
+          "Value": "Japanese",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "Tokyo"
+            }
+          ]
+        },
+        {
+          "Value": "European",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "London"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "Definition": {
+    "SequentialName": "Sentences",
+    "Sequential": [
+      {
+        "Text": "[CITY] can't be judged from the outside, since those expecting ancient monuments will instead be greeted with modern drabness."
+      },
+      {
+        "Text": "[PALACE], still home to the [MONARCH], shouldn't be missed, and the [HISTORYMUSEUM] details the city's history."
+      },
+      {
+        "Text": "[SOMETHINGOLD] is the city's oldest, and the [ARTMUSEUM] holds the largest collection of [NATIONALITY] art in the world."
+      }
+    ]
+  },
+  "Version": 1
+}

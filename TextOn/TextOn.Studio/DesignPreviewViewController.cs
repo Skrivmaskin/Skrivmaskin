@@ -38,7 +38,6 @@ namespace TextOn.Studio
             TextView.ModifiedClick += (node) => {
                 centralViewController.NavigateAndSelectDesignNode (node);
             };
-            // test i'm on master
 
             if (firstAppearance) {
                 ChoiceFixSlider.MaxValue = 1;
