@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using Irony.Parsing;
 using TextOn.Compiler;
@@ -13,7 +12,7 @@ namespace TextOn.Parsing
     /// <summary>
     /// Responsible for parsing a single line of design time text into compiled node format.
     /// </summary>
-    public sealed class TextOnParser
+    internal sealed class TextOnParser
     {
         readonly ILexerSyntax lexerSyntax;
         readonly Parser parser;

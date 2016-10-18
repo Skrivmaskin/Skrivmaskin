@@ -86,6 +86,7 @@
     <Compile Include="Storage\TemplateWriter.cs" />
     <Compile Include="Design\DesignNode.cs" />
     <Compile Include="Storage\SerializedTemplate.cs" />
+    <Compile Include="Design\IndexPath.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

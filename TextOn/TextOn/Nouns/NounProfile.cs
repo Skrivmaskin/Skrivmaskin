@@ -63,7 +63,6 @@ namespace TextOn.Nouns
         /// <param name="acceptsUserValue">If set to <c>true</c> accepts user value.</param>
         public void AddNewNoun (string name, string description, bool acceptsUserValue)
         {
-            Console.WriteLine ("NounProfile AddNewNoun");
             var noun = new Noun (name, description, acceptsUserValue);
             nouns.Add (name, noun);
             nounsInOrder.Add (name);
@@ -71,8 +70,6 @@ namespace TextOn.Nouns
             // No need to rebuild, this Noun is currently independent.
             globalDependencies.Add (name, new HashSet<string> ());
 
-            if (NounsInOrderChanged == null)
-                Console.Error.WriteLine ("No subscribers to NounsInOrderChanged");
             NounsInOrderChanged?.Invoke ();
         }
 
