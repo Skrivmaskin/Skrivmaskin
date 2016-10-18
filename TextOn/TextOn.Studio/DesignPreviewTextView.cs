@@ -89,15 +89,15 @@ namespace TextOn.Studio
         }
         private static NSColor GetBackgroundColorForChoiceRoute ()
         {
-            return NSColor.FromRgb (150, 240, 240);
+            return NSColor.FromRgb (200, 240, 240);
         }
         private static NSColor GetAtTargetBackgroundColor ()
         {
-            return NSColor.FromRgb (240, 150, 240);
+            return NSColor.FromRgb (240, 200, 240);
         }
         private static NSColor GetWithinTargetBackgroundColor ()
         {
-            return NSColor.FromRgb (240, 240, 150);
+            return NSColor.FromRgb (240, 240, 200);
         }
         private static readonly NSColor choiceRouteBackgroundColor = GetBackgroundColorForChoiceRoute ();
         private static readonly NSColor atTargetBackgroundColor = GetAtTargetBackgroundColor ();
