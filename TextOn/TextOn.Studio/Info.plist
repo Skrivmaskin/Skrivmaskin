@@ -28,5 +28,51 @@
 	<string>Main</string>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
+	<key>UTImportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeDescription</key>
+			<string>TextOn! Template</string>
+			<key>UTTypeIdentifier</key>
+			<string>com.texton.texton</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.text</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>texton</string>
+					<string>TEXTON</string>
+				</array>
+			</dict>
+			<key>UTTypeIconFile</key>
+			<string>iconbuilder</string>
+		</dict>
+	</array>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeExtensions</key>
+			<array>
+				<string>texton</string>
+				<string>TEXTON</string>
+			</array>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.texton.texton</string>
+			</array>
+			<key>CFBundleTypeName</key>
+			<string>TextOn Template</string>
+			<key>NSDocumentClass</key>
+			<string>Document</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleTypeIconFile</key>
+			<string>iconbuilder</string>
+		</dict>
+	</array>
 </dict>
 </plist>

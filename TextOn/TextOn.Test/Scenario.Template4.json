@@ -1,0 +1,126 @@
+﻿{
+  "Nouns": [
+    {
+      "Name": "SELF",
+      "Description": "",
+      "AcceptsUserValue": true,
+      "Suggestions": []
+    },
+    {
+      "Name": "COUNTRY",
+      "Description": "",
+      "AcceptsUserValue": true,
+      "Suggestions": []
+    },
+    {
+      "Name": "science",
+      "Description": "",
+      "AcceptsUserValue": true,
+      "Suggestions": []
+    },
+    {
+      "Name": "philosophy",
+      "Description": "",
+      "AcceptsUserValue": true,
+      "Suggestions": []
+    }
+  ],
+  "Definition": {
+    "SequentialName": "Paragraphs",
+    "Sequential": [
+      {
+        "SequentialName": "Sentences 1",
+        "Sequential": [
+          {
+            "Text": "[SELF]-governance must be grounded in [SELF]-examination."
+          },
+          {
+            "Text": "[SELF]-examination, however, presupposes that the [COUNTRY] university possesses the strength to [SELF]-assertion."
+          },
+          {
+            "Text": "Will we enact it?"
+          },
+          {
+            "Text": "And how?"
+          }
+        ]
+      },
+      {},
+      {
+        "SequentialName": "Sentences 2",
+        "Sequential": [
+          {
+            "Text": "The [SELF]-assertion of the [COUNTRY] university is the primordial, shared will to its essence."
+          },
+          {
+            "Text": "We understand the [COUNTRY] university as the \"high\" school that, grounded in [science], by means of [science] educates and disciplines the leaders and guardians of the fate of the [COUNTRY] people."
+          },
+          {
+            "Text": "The will to the essence of the [COUNTRY] university is the will to [science] as will to the historical mission of the [COUNTRY] people as a people that knows it[SELF] in its state."
+          },
+          {
+            "Text": "Together, [science] and [COUNTRY] fate must come to power in this will to essence."
+          },
+          {
+            "Text": "And they will do so if, and only if, we — this body of teachers and students — on the one hand expose [science] to its innermost necessity and, on the other hand, are equal to the [COUNTRY] fate in its most extreme distress."
+          }
+        ]
+      },
+      {},
+      {
+        "SequentialName": "Sentences 3",
+        "Sequential": [
+          {
+            "Text": "To be sure, as long as — talking about \"the new concept of [science]\" — we contest the [SELF]-sufficiency and lack of presuppositions of an all too up-to-date [science], we will not experience the essence of [science] in its innermost necessity."
+          },
+          {
+            "Text": "Such doing is merely negative; looking back hardly beyond the last decades, it has turned by now into a mere semblance of a true struggle for the essence of [science]."
+          }
+        ]
+      },
+      {},
+      {
+        "SequentialName": "Sentences 4",
+        "Sequential": [
+          {
+            "Text": "If we want to grasp the essence of [science], we must first face up to this decisive question: should there still he [science] for us in the future, or should we let it drift toward a quick end?"
+          },
+          {
+            "Text": "That there should be [science] at all, is never unconditionally necessary."
+          },
+          {
+            "Text": "But if there is to be [science], and if it is to be for us and through us, under what conditions can it then truly exist?"
+          }
+        ]
+      },
+      {},
+      {
+        "SequentialName": "Sentences 5",
+        "Sequential": [
+          {
+            "Text": "Only if we again place ourselves under the power of the beginning of our spiritual-historical being (Dasein)."
+          },
+          {
+            "Text": "This beginning is the setting out^"
+          },
+          {
+            "Text": "of Greek [philosophy]."
+          },
+          {
+            "Text": "Here, for the first time, western man raises him[SELF] up from a popular base and, by virtue of his language, stands up to the totality of what is, which he questions and conceives as the being that it is."
+          },
+          {
+            "Text": "All [science] is [philosophy], whether it knows and wills it— or not."
+          },
+          {
+            "Text": "All [science] remains bound to that beginning of [philosophy]."
+          },
+          {
+            "Text": "From it it draws the strength of its essence, supposing that it still remains equal to this beginning."
+          }
+        ]
+      }
+    ]
+  },
+  "Version": 1
+}

@@ -181,6 +181,7 @@
     <BundleResource Include="Resources\invalid.png" />
     <BundleResource Include="Resources\valid.png" />
     <BundleResource Include="Resources\unset.png" />
+    <BundleResource Include="Resources\iconbuilder.icns" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Mac\Xamarin.Mac.CSharp.targets" />
   <ProjectExtensions>

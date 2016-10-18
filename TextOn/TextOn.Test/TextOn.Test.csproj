@@ -73,6 +73,7 @@
     <EmbeddedResource Include="Scenario.Template1.json" />
     <EmbeddedResource Include="Scenario.Template2.json" />
     <EmbeddedResource Include="Scenario.Template3.json" />
+    <EmbeddedResource Include="Scenario.Template4.json" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -115,5 +115,19 @@ namespace TextOn.Test
                 Assert.AreEqual (expectedNumNouns, numNouns);
             }
         }
+
+        [Test]
+        public void TestTemplate4_Self ()
+        {
+            using (var host = new TemplateHost ()) {
+                var template = host.Object;
+
+                var numNouns = template.Nouns.GetAllNouns ().ToArray ().Length;
+
+                var compiledProject = compiler.Compile (template);
+                Assert.IsNotNull (compiledProject);
+                Assert.IsTrue (compiledProject.Definition.HasErrors);
+            }
+        }
     }
 }

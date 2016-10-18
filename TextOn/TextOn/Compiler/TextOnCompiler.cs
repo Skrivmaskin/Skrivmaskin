@@ -112,6 +112,10 @@ namespace TextOn.Compiler
                             li.Add (new CompiledNode (CompiledNodeType.SentenceBreak, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements));
                     }
                     compiledNode = CompileNode (transientCompiledNodes, node.ChildNodes [i]);
+                    hasErrors = hasErrors || compiledNode.HasErrors;
+                    foreach (var rn in compiledNode.RequiredNouns) {
+                        requiredNouns.Add (rn);
+                    }
                     if (compiledNode.Type != CompiledNodeType.Blank) li.Add (compiledNode);
                     if (li.Count == 0) return new CompiledNode (CompiledNodeType.Blank, node, false, emptyRequiredNouns, emptyString, emptyCompiledNodes, emptyElements);
                     return new CompiledNode (CompiledNodeType.Sequential, node, hasErrors, requiredNouns, emptyString, li.ToArray (), emptyElements);
