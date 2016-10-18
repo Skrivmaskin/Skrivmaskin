@@ -8,7 +8,7 @@ namespace TextOn.Lexing
     /// <remarks>
     /// This static class also provides utilities for converting characters into .NET regex format in various contexts.
     /// </remarks>
-    public static class SpecialCharacters
+    internal static class SpecialCharacters
     {
         /// <summary>
         /// All of the special characters that are available for use.

@@ -6,7 +6,7 @@ using TextOn.Interfaces;
 
 namespace TextOn.Lexing
 {
-    public sealed class TextOnEscapeTerminal : RegexBasedTerminal
+    internal sealed class TextOnEscapeTerminal : RegexBasedTerminal
     {
         private static string MakeRegex (ILexerSyntax lexerSyntax)
         {

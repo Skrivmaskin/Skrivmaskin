@@ -6,7 +6,7 @@ using TextOn.Interfaces;
 
 namespace TextOn.Lexing
 {
-    public sealed class TextOnTextTerminal : RegexBasedTerminal
+    internal sealed class TextOnTextTerminal : RegexBasedTerminal
     {
         internal static string MakeRegex (ILexerSyntax lexerSyntax, bool whitespaceAllowed)
         {
@@ -19,7 +19,7 @@ namespace TextOn.Lexing
                     lexerSyntax.VariableEndDelimiter,
                     lexerSyntax.VariableStartDelimiter,
                     lexerSyntax.EscapeCharacter
-            };
+                };
             var specialCharactersInSquare = specialCharacters.Distinct ().Select ((c) => SpecialCharacters.GetEscapeForRegexInSquareBracket (c));
             var notSpecialCharacterRegex = String.Join ("", specialCharactersInSquare.Select ((x) => "^" + x));
             if (!whitespaceAllowed)
