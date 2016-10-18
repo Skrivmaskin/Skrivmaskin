@@ -19,6 +19,10 @@
         {
           "Value": "South America",
           "Dependencies": []
+        },
+        {
+          "Value": "Africa",
+          "Dependencies": []
         }
       ]
     },
@@ -51,6 +55,33 @@
             {
               "Name": "CONTINENT",
               "Value": "Asia"
+            }
+          ]
+        },
+        {
+          "Value": "Canada",
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "North America"
+            }
+          ]
+        },
+        {
+          "Value": "USA",
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "North America"
+            }
+          ]
+        },
+        {
+          "Value": "Egypt",
+          "Dependencies": [
+            {
+              "Name": "CONTINENT",
+              "Value": "Africa"
             }
           ]
         }
@@ -96,6 +127,33 @@
               "Value": "China"
             }
           ]
+        },
+        {
+          "Value": "Vancouver",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "Canada"
+            }
+          ]
+        },
+        {
+          "Value": "New York City",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "USA"
+            }
+          ]
+        },
+        {
+          "Value": "San Francisco",
+          "Dependencies": [
+            {
+              "Name": "COUNTRY",
+              "Value": "USA"
+            }
+          ]
         }
       ]
     },
@@ -110,6 +168,15 @@
             {
               "Name": "CITY",
               "Value": "London"
+            }
+          ]
+        },
+        {
+          "Value": "Greenwich Village",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "New York City"
             }
           ]
         }
@@ -146,6 +213,15 @@
               "Value": "London"
             }
           ]
+        },
+        {
+          "Value": "Central Park",
+          "Dependencies": [
+            {
+              "Name": "CITY",
+              "Value": "New York City"
+            }
+          ]
         }
       ]
     }
@@ -177,7 +253,15 @@
             "Text": "In [DISTRICT] there is the {beautiful|gorgeous|magical|majestic} [PARK]."
           },
           {
-            "Text": "This one day, I was wandering around [DISTRICT]."
+            "ChoiceName": "New Choice",
+            "Choices": [
+              {
+                "Text": "This one day, I was wandering around [DISTRICT]."
+              },
+              {
+                "Text": "By the way, [COUNTRY] is in [CONTINENT]. Duh."
+              }
+            ]
           }
         ]
       }
