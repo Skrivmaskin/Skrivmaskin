@@ -20,7 +20,7 @@ namespace TextOn.Test
             var resourceName = namespaceName + ".Scenario." + (testName.Replace ("Test", "").Split ('_') [0]) + ".json";
             stream = assembly.GetManifestResourceStream (resourceName);
             streamReader = new StreamReader (stream);
-            Object = TemplateWriter.Read (streamReader);
+            Object = TextOn.Storage.TemplateWriter.Read (streamReader);
         }
 
         public TextOnTemplate Object { get; private set; }

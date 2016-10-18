@@ -9,37 +9,39 @@ namespace TextOn.Design
     /// </summary>
     public static class OutputSplitter
     {
+        private static readonly DesignNode [] emptyDesignSubtree = new DesignNode [0];
+        
         /// <summary>
         /// Given some sample output, split into a new sequential node containing text nodes representing each sentence,
         /// and paragraph break nodes.
         /// </summary>
         /// <param name="sampleOutput">Sample output.</param>
-        public static INode Split (string sampleOutput)
+        public static DesignNode Split (string sampleOutput)
         {
-            var sequential = new List<INode> ();
+            var sequential = new List<DesignNode> ();
             var paragraphs = sampleOutput.Split (new char [] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-            var sequentialNode = new SequentialNode ((paragraphs.Length > 1) ? "Paragraphs" : "Sentences", true, sequential);
+            //var sequentialNode = new SequentialNode ((paragraphs.Length > 1) ? "Paragraphs" : "Sentences", true, sequential);
             if (paragraphs.Length == 0)
-                return sequentialNode;
+                return new DesignNode (NodeType.Sequential, true, "Sentences", emptyDesignSubtree);
             var sentenceSplitRegex = new Regex (@"\s*([^\.^\?^!]+[\.\?!]+)[\s$]+");
             if (paragraphs.Length == 1) {
                 foreach (var text in sentenceSplitRegex.Split (paragraphs [0])) {
                     if (!String.IsNullOrWhiteSpace (text))
-                        sequential.Add (new TextNode (text, true));
+                        sequential.Add (new DesignNode (NodeType.Text, true, text, emptyDesignSubtree));
                 }
-                return sequentialNode;
+                return new DesignNode (NodeType.Sequential, true, "Sentences", sequential.ToArray ());
             }
             for (int i = 0; i < paragraphs.Length; i++) {
-                var sentences = new List<INode> ();
-                var paragraph = new SequentialNode (("Sentences " + (i + 1)), true, sentences);
+                var sentences = new List<DesignNode> ();
                 foreach (var text in sentenceSplitRegex.Split (paragraphs [i])) {
                     if (!String.IsNullOrWhiteSpace (text))
-                        sentences.Add (new TextNode (text, true));
+                        sentences.Add (new DesignNode (NodeType.Text, true, text, emptyDesignSubtree));
                 }
+                var paragraph = new DesignNode (NodeType.Sequential, true, ("Sentences " + (i + 1)), sentences.ToArray ());
                 sequential.Add (paragraph);
-                if (i < paragraphs.Length - 1) sequential.Add (new ParagraphBreakNode (true));
+                if (i < paragraphs.Length - 1) sequential.Add (new DesignNode (NodeType.ParagraphBreak, true, "", emptyDesignSubtree));
             }
-            return sequentialNode;
+            return new DesignNode (NodeType.Sequential, true, "Paragraphs", sequential.ToArray ());
         }
     }
 }

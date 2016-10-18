@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using TextOn.Design;
 
-namespace TextOn.Design
+namespace TextOn.Storage
 {
     /// <summary>
     /// Choice node. Nodes below here are chosen at random.
     /// </summary>
-    public sealed class ChoiceNode : INode, IEquatable<ChoiceNode>
+    internal sealed class ChoiceNode : INode, IEquatable<ChoiceNode>
     {
         internal ChoiceNode () : this ("", true, new List<INode> ())
         {

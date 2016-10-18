@@ -47,7 +47,7 @@ namespace TextOn.Generation
         /// </remarks>
         /// <returns>The design node for character index.</returns>
         /// <param name="characterIndex">Character index.</param>
-        public INode GetDesignNodeForCharacterIndex (int characterIndex)
+        public DesignNode GetDesignNodeForCharacterIndex (int characterIndex)
         {
             int currentCharacterIndex = 0;
             foreach (var text in Text) {

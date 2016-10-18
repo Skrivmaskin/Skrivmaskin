@@ -132,7 +132,7 @@ namespace TextOn.Studio
             SourceTypingAttributesChanged?.Invoke (sender, e);
         }
 
-        public event Action<INode> ModifiedClick;
+        public event Action<DesignNode> ModifiedClick;
         #endregion
 
         public override void MouseDown (NSEvent theEvent)

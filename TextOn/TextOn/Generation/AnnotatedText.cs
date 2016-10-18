@@ -14,7 +14,7 @@ namespace TextOn.Generation
         /// </summary>
         /// <param name="designNode">Design node.</param>
         /// <param name="text">Text.</param>
-        internal AnnotatedText (INode designNode, string text)
+        internal AnnotatedText (DesignNode designNode, string text)
         {
             DesignNode = designNode;
             Text = text;
@@ -24,7 +24,7 @@ namespace TextOn.Generation
         /// Gets the design node that was responsible for this text.
         /// </summary>
         /// <value>The design node.</value>
-        public INode DesignNode { get; private set; }
+        public DesignNode DesignNode { get; private set; }
 
         /// <summary>
         /// Gets the output text.

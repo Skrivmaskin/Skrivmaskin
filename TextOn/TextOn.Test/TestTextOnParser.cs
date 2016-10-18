@@ -17,7 +17,7 @@ namespace TextOn.Test
         public void TestCompileText ()
         {
             var inputText = "Hello world";
-            var designNode = new TextNode () { Text = inputText };
+            var designNode = new DesignNode (NodeType.Text, true, inputText, new DesignNode [0]);
             var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
             Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
@@ -33,7 +33,7 @@ namespace TextOn.Test
         public void TestCompileSimpleVariable ()
         {
             var inputText = "[SimpleVariable]";
-            var designNode = new TextNode () { Text = inputText };
+            var designNode = new DesignNode (NodeType.Text, true, inputText, new DesignNode [0]);
             var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
             Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
@@ -48,7 +48,7 @@ namespace TextOn.Test
         public void TestTwoTextChoices ()
         {
             var inputText = "{Hello|World} {World|Hello}";
-            var designNode = new TextNode () { Text = inputText };
+            var designNode = new DesignNode (NodeType.Text, true, inputText, new DesignNode [0]);
             var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
             Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
@@ -91,7 +91,7 @@ namespace TextOn.Test
         public void TestDiacriticsInText ()
         {
             var inputText = "När du ska hyra bil i [MÄRKE] gör du det snabbt och enkelt via oss på Sixt.";
-            var designNode = new TextNode () { Text = inputText };
+            var designNode = new DesignNode (NodeType.Text, true, inputText, new DesignNode [0]);
             var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
             Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);
@@ -106,7 +106,7 @@ namespace TextOn.Test
         public void TestDiacriticsInVariable ()
         {
             var inputText = "[MÄRKE_Variant]";
-            var designNode = new TextNode () { Text = inputText };
+            var designNode = new DesignNode (NodeType.Text, true, inputText, new DesignNode [0]);
             var compiledNode = parser.Compile (designNode);
             Assert.IsNotNull (compiledNode);
             Assert.AreEqual (CompiledNodeType.Success, compiledNode.Type);

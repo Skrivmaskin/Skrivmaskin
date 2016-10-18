@@ -1,13 +1,14 @@
 using System;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using TextOn.Design;
 
-namespace TextOn.Design
+namespace TextOn.Storage
 {
     /// <summary>
     /// Paragraph break node.
     /// </summary>
-    public sealed class ParagraphBreakNode : INode
+    internal sealed class ParagraphBreakNode : INode
     {
         internal ParagraphBreakNode () : this (true)
         {

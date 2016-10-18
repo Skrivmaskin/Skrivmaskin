@@ -23,7 +23,7 @@ namespace TextOn.Studio
 		}
 
         //TODO can't keep using magic numbers here - get these numbers in a sensible way or else!
-        internal void NavigateAndSelectDesignNode (INode designNode)
+        internal void NavigateAndSelectDesignNode (DesignNode designNode)
         {
             if (designViewController.SelectDesignNode (designNode))
                 SelectedTabViewItemIndex = DesignViewTabViewItemIndex;
@@ -38,7 +38,7 @@ namespace TextOn.Studio
 
         #region Design and Compiled templates
         internal TextOnCompiler Compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-        internal TextOnTemplate Template { get; set; } = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));
+        internal TextOnTemplate Template { get; set; } = new TextOnTemplate (new NounProfile (), new DesignNode (NodeType.Sequential, true, "Sentences", new DesignNode [0]));
         private CompiledTemplate compiledTemplate = null;
         internal IReadOnlyDictionary<string, string> NounValues {
             get {
@@ -111,7 +111,7 @@ namespace TextOn.Studio
             designPreviewViewController.SetControllerLinks (this);
             defineNounsViewController.SetControllerLinks (this);
 
-            Template = new TextOnTemplate (new NounProfile (), new SequentialNode ("Sentences", true, new List<INode> ()));
+            Template = new TextOnTemplate (new NounProfile (), new DesignNode (NodeType.Sequential, true, "Sentences", new DesignNode [0]));
             CreateTree (null, Template);
             defineNounsViewController.TemplateUpdated ();
         }

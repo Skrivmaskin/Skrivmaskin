@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using TextOn.Design;
 using Newtonsoft.Json;
 using System.IO;
@@ -13,13 +14,13 @@ namespace TextOn.Test
     {
         private static IDictionary<TestTemplates, Tuple<TextOnTemplate, string>> projects = TestTemplateUtils.SetupProjects ();
 
-        public void TestWrite (TestTemplates testProject)
+        public void TestWrite (TestTemplates testTemplate)
         {
-            var testCase = projects [testProject];
-            var project = testCase.Item1;
+            var testCase = projects [testTemplate];
+            var template = testCase.Item1;
             var expectedText = testCase.Item2;
             using (var stringWriter = new StringWriter ()) {
-                TemplateWriter.Write (stringWriter, project);
+                TextOn.Storage.TemplateWriter.Write (stringWriter, template);
                 var actualText = stringWriter.ToString ();
                 Assert.AreEqual (expectedText, actualText);
             }
@@ -43,16 +44,31 @@ namespace TextOn.Test
             var expectedTemplate = testCase.Item1;
             var text = testCase.Item2;
             using (var stringReader = new StringReader (text)) {
-                var actualTemplate = TemplateWriter.Read (stringReader);
-                Assert.AreEqual (expectedTemplate.Definition, actualTemplate.Definition);
-                AssertNounProfilesAreEqual (expectedTemplate.Nouns, actualTemplate.Nouns);
-                Assert.AreEqual (expectedTemplate.VariableDefinitions, actualTemplate.VariableDefinitions);
-                Assert.AreEqual (expectedTemplate.Version, actualTemplate.Version);
+                var actualTemplate = TextOn.Storage.TemplateWriter.Read (stringReader);
+                AssertTemplatesAreEqual (expectedTemplate, actualTemplate);
             }
+        }
+
+        public void AssertTemplatesAreEqual (TextOnTemplate expected, TextOnTemplate actual)
+        {
+            AssertNounProfilesAreEqual (expected.Nouns, actual.Nouns);
+            AssertNodesAreEqual (expected.DesignTree, actual.DesignTree, new int [0]);
         }
 
         public void AssertNounProfilesAreEqual (NounProfile expected, NounProfile actual)
         {
+        }
+
+        public void AssertNodesAreEqual (DesignNode expected, DesignNode actual, int [] indexPath)
+        {
+            Assert.AreEqual (expected.IsActive, actual.IsActive, indexPath.ToString ());
+            Assert.AreEqual (expected.Text, actual.Text, indexPath.ToString ());
+            Assert.AreEqual (expected.Type, actual.Type, indexPath.ToString ());
+            Assert.AreEqual (expected.ChildNodes.Length, actual.ChildNodes.Length, indexPath.ToString ());
+            for (int i = 0; i < actual.ChildNodes.Length; i++) {
+                var newIndexPath = indexPath.Concat (new int [1] { i }).ToArray ();
+                AssertNodesAreEqual (expected.ChildNodes [i], actual.ChildNodes [i], newIndexPath);
+            }
         }
 
         [Test]

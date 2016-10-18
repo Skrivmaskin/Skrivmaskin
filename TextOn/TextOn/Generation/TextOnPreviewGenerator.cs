@@ -30,7 +30,7 @@ namespace TextOn.Generation
         }
 
         PreviewRouteState state = PreviewRouteState.BeforeTarget;
-        private IEnumerable<PreviewRouteNode> GenerateText (INode node, INode targetNode)
+        private IEnumerable<PreviewRouteNode> GenerateText (DesignNode node, DesignNode targetNode)
         {
             switch (node.Type) {
             case NodeType.Text:
@@ -52,7 +52,7 @@ namespace TextOn.Generation
                     yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, PreviewRouteState.AtTarget);
                     state = PreviewRouteState.WithinTarget;
                 }
-                foreach (var n in (node as SequentialNode).Sequential) {
+                foreach (var n in node.ChildNodes) {
                     foreach (var text in GenerateText (n, targetNode)) {
                         yield return text;
                     }
@@ -65,11 +65,10 @@ namespace TextOn.Generation
                     yield return new PreviewRouteNode (node, randomChooser.ChoicesMade, PreviewRouteState.AtTarget);
                     state = PreviewRouteState.WithinTarget;
                 }
-                var choiceNode = (node as ChoiceNode);
-                if (choiceNode.Choices.Count > 0) {
-                    var n = randomChooser.Choose (choiceNode, choiceNode.Choices.Count);
+                if (node.ChildNodes.Length > 0) {
+                    var n = randomChooser.Choose (node, node.ChildNodes.Length);
                     if (numChoicesRemaining != null) numChoicesRemaining = (numChoicesRemaining - 1);
-                    var choice = choiceNode.Choices [n];
+                    var choice = node.ChildNodes [n];
                     var li = GenerateText (choice, targetNode);
                     foreach (var text in li) {
                         yield return text;
@@ -89,7 +88,7 @@ namespace TextOn.Generation
         /// Generate a route through the design tree, given the specified fixed choices.
         /// </summary>
         /// <param name="choices">Choices.</param>
-        public IEnumerable<PreviewRouteNode> GenerateWithFixedChoices (INode rootNode, int [] choices)
+        public IEnumerable<PreviewRouteNode> GenerateWithFixedChoices (DesignNode rootNode, int [] choices)
         {
             state = PreviewRouteState.BeforeTarget;
             numChoicesRemaining = choices.Length;
@@ -103,7 +102,7 @@ namespace TextOn.Generation
         /// Generate a route through the design tree, given the specified partial route.
         /// </summary>
         /// <param name="partialRoute">The partial route that will arrive at the desired node on its way.</param>
-        public IEnumerable<PreviewRouteNode> GenerateWithPartialRoute (INode rootNode, PreviewPartialRouteChoiceNode [] partialRoute)
+        public IEnumerable<PreviewRouteNode> GenerateWithPartialRoute (DesignNode rootNode, PreviewPartialRouteChoiceNode [] partialRoute)
         {
             state = PreviewRouteState.BeforeTarget;
             numChoicesRemaining = null;

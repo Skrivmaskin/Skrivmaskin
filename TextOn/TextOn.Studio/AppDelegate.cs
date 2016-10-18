@@ -2,6 +2,7 @@ using System.IO;
 using AppKit;
 using Foundation;
 using TextOn.Design;
+using TextOn.Storage;
 
 namespace TextOn.Studio
 {
@@ -65,7 +66,7 @@ namespace TextOn.Studio
                 // Load the data into the controllers.
                 var viewController = controller.Window.ContentViewController as CentralViewController;
                 var fileInfo = new FileInfo (path);
-                var template = TemplateWriter.Read (fileInfo);
+                var template = TextOn.Storage.TemplateWriter.Read (fileInfo);
                 viewController.CreateTree (path, template);
 
                 //viewController.SetLanguageFromPath (path);

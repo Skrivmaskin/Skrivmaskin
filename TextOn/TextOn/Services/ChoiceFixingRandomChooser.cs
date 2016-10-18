@@ -82,7 +82,7 @@ namespace TextOn.Services
             wrappedRandomChooser.BeginWithSeed (seed);
         }
 
-        public int Choose (ChoiceNode node, int numOptions)
+        public int Choose (DesignNode node, int numOptions)
         {
             int choice;
             if (fixedChoices.Count > 0) {

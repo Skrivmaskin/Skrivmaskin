@@ -13,7 +13,7 @@ namespace TextOn.Test
         {
             using (var host = new TemplateHost ()) {
                 var template = host.Object;
-                var designNode = TextOnSearchAndReplacer.Find (template.Definition, "BlahBlah", true);
+                var designNode = TextOnSearchAndReplacer.Find (template.DesignTree, "BlahBlah", true);
                 Assert.IsNull (designNode);
             }
         }
@@ -25,7 +25,7 @@ namespace TextOn.Test
                 var template = host.Object;
                 var stopwatch = new System.Diagnostics.Stopwatch ();
                 stopwatch.Start ();
-                var designNode = TextOnSearchAndReplacer.Find (template.Definition, "bestämmer", true) as TextNode;
+                var designNode = TextOnSearchAndReplacer.Find (template.DesignTree, "bestämmer", true);
                 stopwatch.Stop ();
                 Assert.IsNotNull (designNode);
             }

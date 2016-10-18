@@ -1,13 +1,14 @@
 using System;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using TextOn.Design;
 
-namespace TextOn.Design
+namespace TextOn.Storage
 {
     /// <summary>
     /// Text node. This is stored in the TextOn language.
     /// </summary>
-    public sealed class TextNode : INode, IEquatable<TextNode>
+    internal sealed class TextNode : INode, IEquatable<TextNode>
     {
         internal TextNode () : this ("", true)
         {

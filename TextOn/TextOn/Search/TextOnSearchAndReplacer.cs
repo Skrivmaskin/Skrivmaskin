@@ -14,26 +14,18 @@ namespace TextOn.Search
         /// <param name="node">Within this node.</param>
         /// <param name="searchText">Search text.</param>
         /// <param name="exact">If set to <c>true</c> perform an exact match.</param>
-        public static INode Find (INode node, string searchText, bool exact)
+        public static DesignNode Find (DesignNode node, string searchText, bool exact)
         {
             switch (node.Type) {
             case NodeType.Text:
-                var textNode = node as TextNode;
-                if (textNode.Text.Contains (searchText))
+                if (node.Text.Contains (searchText))
                     return node;
                 return null;
             case NodeType.ParagraphBreak:
                 return null;
             case NodeType.Choice:
-                var choiceNode = node as ChoiceNode;
-                foreach (var childNode in choiceNode.Choices) {
-                    var returnNode = Find (childNode, searchText, exact);
-                    if (returnNode != null) return returnNode;
-                }
-                return null;
             case NodeType.Sequential:
-                var sequentialNode = node as SequentialNode;
-                foreach (var childNode in sequentialNode.Sequential) {
+                foreach (var childNode in node.ChildNodes) {
                     var returnNode = Find (childNode, searchText, exact);
                     if (returnNode != null) return returnNode;
                 }

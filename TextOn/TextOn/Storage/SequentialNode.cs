@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using Newtonsoft.Json;
+using TextOn.Design;
 
-namespace TextOn.Design
+namespace TextOn.Storage
 {
     /// <summary>
     /// Sequential node. Nodes below here are inserted sequentially.
     /// </summary>
-    public class SequentialNode : INode, IEquatable<SequentialNode>
+    internal class SequentialNode : INode, IEquatable<SequentialNode>
     {
         internal SequentialNode () : this ("", true, new List<INode> ())
         {

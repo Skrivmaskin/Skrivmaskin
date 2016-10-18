@@ -192,7 +192,7 @@ namespace TextOn.Test
         public void TestInactiveParagraphBreak ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var template = new TextOnTemplate (new NounProfile (), new ParagraphBreakNode () { IsActive = false });
+            var template = new TextOnTemplate (new NounProfile (), new DesignNode (NodeType.ParagraphBreak, false, "", new DesignNode [0]));
             var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
@@ -201,7 +201,7 @@ namespace TextOn.Test
         public void TestInactiveText ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var template = new TextOnTemplate (new NounProfile (), new TextNode () { Text = "Hello world", IsActive = false });
+            var template = new TextOnTemplate (new NounProfile (), new DesignNode (NodeType.Text, false, "Hello world", new DesignNode [0]));
             var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
@@ -210,9 +210,9 @@ namespace TextOn.Test
         public void TextInactiveChoice ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var text1 = new TextNode ("ABC", true);
-            var text2 = new TextNode ("DEF", true);
-            var template = new TextOnTemplate (new NounProfile (), new ChoiceNode ("Some choice", false, new List<INode> (new INode [] { text1, text2 })));
+            var text1 = new DesignNode (NodeType.Text, true, "ABC", new DesignNode [0]);
+            var text2 = new DesignNode (NodeType.Text, true, "DEF", new DesignNode [0]);
+            var template = new TextOnTemplate (new NounProfile (), new DesignNode (NodeType.Choice, false, "Some choice", new DesignNode [2] { text1, text2 }));
             var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }
@@ -221,9 +221,9 @@ namespace TextOn.Test
         public void TextInactiveSequential ()
         {
             var compiler = new TextOnCompiler (new DefaultLexerSyntax ());
-            var text1 = new TextNode ("ABC", true);
-            var text2 = new TextNode ("DEF", true);
-            var template = new TextOnTemplate (new NounProfile (), new SequentialNode ("Some sequential", false, new List<INode> (new INode [] { text1, text2 })));
+            var text1 = new DesignNode (NodeType.Text, true, "ABC", new DesignNode [0]);
+            var text2 = new DesignNode (NodeType.Text, true, "DEF", new DesignNode [0]);
+            var template = new TextOnTemplate (new NounProfile (), new DesignNode (NodeType.Sequential, false, "Some sequential", new DesignNode [2] { text1, text2 }));
             var compiledTemplate = compiler.Compile (template);
             Assert.AreEqual (CompiledNodeType.Blank, compiledTemplate.Definition.Type);
         }

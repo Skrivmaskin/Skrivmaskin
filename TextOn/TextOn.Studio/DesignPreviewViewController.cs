@@ -55,13 +55,12 @@ namespace TextOn.Studio
         {
             switch (node.Node.Type) {
             case NodeType.Text:
-                return ((TextNode)node.Node).Text;
+                return node.Node.Text;
             case NodeType.ParagraphBreak:
                 return "<pr/>";
             case NodeType.Choice:
-                return "Selected Node : " + ((ChoiceNode)node.Node).ChoiceName;
             case NodeType.Sequential:
-                return "Selected Node : " + ((SequentialNode)node.Node).SequentialName;
+                return "Selected Node : " + node.Node.Text;
             default:
                 throw new ApplicationException ("Unexpected node type");
             }
@@ -78,7 +77,7 @@ namespace TextOn.Studio
 
             TextView.IsInvalid = false;
 
-            var rootNode = centralViewController.Template.Definition;
+            var rootNode = centralViewController.Template.DesignTree;
             var compiledTemplate = centralViewController.CompiledTemplate;
             if (rootNode == null) {
                 nodes = new PreviewRouteNode [0];

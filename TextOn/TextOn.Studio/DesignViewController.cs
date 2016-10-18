@@ -89,17 +89,16 @@ namespace TextOn.Studio
 
             if (!previewIsHidden && TreeController.SelectionIndexPaths.Length == 1) {
                 List<PreviewPartialRouteChoiceNode> partialRoute = new List<PreviewPartialRouteChoiceNode> ();
-                var node = centralViewController.Template.Definition;
+                var node = centralViewController.Template.DesignTree;
                 var indexPath = TreeController.SelectionIndexPaths [0];
                 var indices = indexPath.GetIndexes ().Skip (1).Select ((n) => (int)n);
                 var choicesMade = 0;
                 foreach (var index in indices) {
                     if (node.Type == NodeType.Sequential)
-                        node = ((SequentialNode)node).Sequential [index];
+                        node = node.ChildNodes [index];
                     else if (node.Type == NodeType.Choice) {
-                        var choiceNode = (ChoiceNode)node;
-                        partialRoute.Add (new PreviewPartialRouteChoiceNode (choiceNode, index, choicesMade++, null));
-                        node = choiceNode.Choices [index];
+                        partialRoute.Add (new PreviewPartialRouteChoiceNode (node, index, choicesMade++, null));
+                        node = node.ChildNodes [index];
                     } else {
                         break;
                     }
@@ -175,7 +174,7 @@ namespace TextOn.Studio
                     } else {
                         // navigate to the first text node that has this exact string in it
                         if (centralViewController.Template != null) {
-                            var designNode = TextOnSearchAndReplacer.Find (centralViewController.Template.Definition, sdlg.SearchText, true);
+                            var designNode = TextOnSearchAndReplacer.Find (centralViewController.Template.DesignTree, sdlg.SearchText, true);
                             if (designNode != null) {
                                 SelectDesignNode (designNode);
                             }
@@ -476,25 +475,20 @@ namespace TextOn.Studio
             return new TextOnTemplate (nounProfile, root);
         }
 
-        INode CreateDesignNode (DesignModel designModel)
+        DesignNode CreateDesignNode (DesignModel designModel)
         {
             switch (designModel.modelType) {
             case DesignModelType.Text:
-                return new TextNode (designModel.details, designModel.isActive);
+                return new DesignNode (NodeType.Text, designModel.isActive, designModel.details, emptyChildNodes);
             case DesignModelType.Choice:
-                var li = new List<INode> ();
+            case DesignModelType.Sequential:
+                var li = new List<DesignNode> ();
                 for (int i = 0; i < designModel.numberOfDesigns; i++) {
                     li.Add (CreateDesignNode (designModel.Designs.GetItem<DesignModel> ((nuint)i)));
                 }
-                return new ChoiceNode (designModel.name, designModel.isActive, li);
-            case DesignModelType.Sequential:
-                var li2 = new List<INode> ();
-                for (int i = 0; i < designModel.numberOfDesigns; i++) {
-                    li2.Add (CreateDesignNode (designModel.Designs.GetItem<DesignModel> ((nuint)i)));
-                }
-                return new SequentialNode (designModel.name, designModel.isActive, li2);
+                return new DesignNode ((designModel.modelType == DesignModelType.Choice ? NodeType.Choice : NodeType.Sequential), designModel.isActive, designModel.name, li.ToArray ());
             case DesignModelType.ParagraphBreak:
-                return new ParagraphBreakNode (designModel.isActive);
+                return new DesignNode (NodeType.ParagraphBreak, designModel.isActive, "", emptyChildNodes);
             default:
                 break;
             }
@@ -509,7 +503,7 @@ namespace TextOn.Studio
             loading = true;
             var array = new NSMutableArray ();
             SetDesigns (array);
-            if (this.CreateDefinition (centralViewController.Template.Definition, true, (d) => AddDesign (d), true, out errorText)) {
+            if (this.CreateDefinition (centralViewController.Template.DesignTree, true, (d) => AddDesign (d), true, out errorText)) {
                 centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template);
                 loading = false;
                 return;
@@ -517,26 +511,23 @@ namespace TextOn.Studio
             loading = false;
         }
 
-        public bool CreateDefinition (INode designNode, bool root, Action<DesignModel> addDefn, bool isParentActive, out string errorText)
+        public bool CreateDefinition (DesignNode designNode, bool root, Action<DesignModel> addDefn, bool isParentActive, out string errorText)
         {
-            IEnumerable<INode> children;
+            IEnumerable<DesignNode> children;
             DesignModel design;
             switch (designNode.Type) {
             case NodeType.Choice:
-                children = (designNode as ChoiceNode).Choices;
-                design = new DesignModel (root, DesignModelType.Choice, (designNode as ChoiceNode).ChoiceName, "", designNode.IsActive, isParentActive);
-                break;
             case NodeType.Sequential:
-                children = (designNode as SequentialNode).Sequential;
-                design = new DesignModel (root, DesignModelType.Sequential, (designNode as SequentialNode).SequentialName, "", designNode.IsActive, isParentActive);
+                children = designNode.ChildNodes;
+                design = new DesignModel (root, (designNode.Type == NodeType.Choice ? DesignModelType.Choice : DesignModelType.Sequential), designNode.Text, "", designNode.IsActive, isParentActive);
                 break;
             case NodeType.ParagraphBreak:
-                children = new INode [0];
+                children = emptyChildNodes;
                 design = new DesignModel (root, DesignModelType.ParagraphBreak, "Paragraph Break", "", designNode.IsActive, isParentActive);
                 break;
             case NodeType.Text:
-                children = new INode [0];
-                design = new DesignModel (root, DesignModelType.Text, "", (designNode as TextNode).Text, designNode.IsActive, isParentActive);
+                children = emptyChildNodes;
+                design = new DesignModel (root, DesignModelType.Text, "", designNode.Text, designNode.IsActive, isParentActive);
                 break;
             default:
                 throw new ApplicationException ("Unrecognised design node type " + designNode.Type);
@@ -552,23 +543,12 @@ namespace TextOn.Studio
 
         #endregion
 
-        private bool FindAndSelectDesignNode (INode designNode, INode reachedNode, ref NSIndexPath indexPath)
+        private static readonly DesignNode [] emptyChildNodes = new DesignNode [0];
+        private bool FindAndSelectDesignNode (DesignNode designNode, DesignNode reachedNode, ref NSIndexPath indexPath)
         {
             if (designNode == reachedNode) return true;
-            IEnumerable<INode> children;
-            switch (reachedNode.Type) {
-            case NodeType.Choice:
-                children = ((ChoiceNode)reachedNode).Choices;
-                break;
-            case NodeType.Sequential:
-                children = ((SequentialNode)reachedNode).Sequential;
-                break;
-            default:
-                children = new INode [0];
-                break;
-            }
             nuint i = 0;
-            foreach (var childNode in children) {
+            foreach (var childNode in reachedNode.ChildNodes) {
                 NSIndexPath innerIndexPath = indexPath.IndexPathByAddingIndex (i);
                 if (FindAndSelectDesignNode (designNode, childNode, ref innerIndexPath)) {
                     indexPath = innerIndexPath;
@@ -579,10 +559,10 @@ namespace TextOn.Studio
             return false;
         }
 
-        internal bool SelectDesignNode (INode designNode)
+        internal bool SelectDesignNode (DesignNode designNode)
         {
             var indexPath = (new NSIndexPath ()).IndexPathByAddingIndex (0);
-            var retVal = FindAndSelectDesignNode (designNode, centralViewController.Template.Definition, ref indexPath);
+            var retVal = FindAndSelectDesignNode (designNode, centralViewController.Template.DesignTree, ref indexPath);
             if (retVal) {
                 TreeController.RemoveSelectionIndexPaths (TreeController.SelectionIndexPaths);
                 TreeController.AddSelectionIndexPaths (new NSIndexPath [1] { indexPath });

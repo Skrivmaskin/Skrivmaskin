@@ -38,13 +38,7 @@
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Compiler\CompiledTemplate.cs" />
-    <Compile Include="Design\INode.cs" />
-    <Compile Include="Design\TextNode.cs" />
-    <Compile Include="Design\SequentialNode.cs" />
-    <Compile Include="Design\ChoiceNode.cs" />
     <Compile Include="Design\TextOnTemplate.cs" />
-    <Compile Include="Design\ParagraphBreakNode.cs" />
-    <Compile Include="Compiler\ICompiledNode.cs" />
     <Compile Include="Interfaces\IDialogService.cs" />
     <Compile Include="Interfaces\IVariableSubstituter.cs" />
     <Compile Include="Interfaces\IRandomChooser.cs" />
@@ -79,12 +73,19 @@
     <Compile Include="Nouns\NounProfile.cs" />
     <Compile Include="Nouns\NounSuggestion.cs" />
     <Compile Include="Nouns\NounSuggestionDependency.cs" />
-    <Compile Include="Design\TemplateWriter.cs" />
     <Compile Include="Version0\Variable.cs" />
     <Compile Include="Version0\VariableForm.cs" />
     <Compile Include="Nouns\NounSetValuesSession.cs" />
     <Compile Include="Search\TextOnSearchAndReplacer.cs" />
     <Compile Include="Compiler\CompiledNode.cs" />
+    <Compile Include="Storage\ChoiceNode.cs" />
+    <Compile Include="Storage\INode.cs" />
+    <Compile Include="Storage\ParagraphBreakNode.cs" />
+    <Compile Include="Storage\SequentialNode.cs" />
+    <Compile Include="Storage\TextNode.cs" />
+    <Compile Include="Storage\TemplateWriter.cs" />
+    <Compile Include="Design\DesignNode.cs" />
+    <Compile Include="Storage\SerializedTemplate.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -99,6 +100,7 @@
     <Folder Include="Generation\" />
     <Folder Include="Version0\" />
     <Folder Include="Search\" />
+    <Folder Include="Storage\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

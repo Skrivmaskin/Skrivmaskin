@@ -31,7 +31,7 @@ namespace TextOn.Studio
             ResultsView.ModifiedClick += OnModifiedClick;
         }
 
-        void OnModifiedClick (INode designNode)
+        void OnModifiedClick (DesignNode designNode)
         {
             if (parent != null) {
                 parent.NavigateAndSelectDesignNode (designNode);

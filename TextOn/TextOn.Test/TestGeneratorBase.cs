@@ -17,21 +17,20 @@ namespace TextOn.Test
             return new CompiledTemplate (nouns ?? new NounProfile (), definition);
         }
 
+        private DesignNode fakeDesignNode = new DesignNode (NodeType.Text, true, "", new DesignNode [0]);
+
         internal CompiledNode MakeSimpleText (string text)
         {
-            var mockDesignNode = new Mock<INode> ();
-            return new CompiledNode (CompiledNodeType.Text, mockDesignNode.Object, false, new string [0], text, new CompiledNode [0], new TextOnParseElement [0]);
+            return new CompiledNode (CompiledNodeType.Text, fakeDesignNode, false, new string [0], text, new CompiledNode [0], new TextOnParseElement [0]);
         }
 
         internal CompiledNode MakeSimpleVariable (string variableName)
         {
-            var mockDesignNode = new Mock<INode> ();
-            return new CompiledNode (CompiledNodeType.Variable, mockDesignNode.Object, false, new string [0], variableName, new CompiledNode [0], new TextOnParseElement [0]);
+            return new CompiledNode (CompiledNodeType.Variable, fakeDesignNode, false, new string [0], variableName, new CompiledNode [0], new TextOnParseElement [0]);
         }
 
         internal CompiledNode MakeChoice (params CompiledNode [] compiledNodes)
         {
-            var mockDesignNode = new Mock<INode> ();
             var hasErrors = false;
             var requiredNouns = new HashSet<string> ();
             foreach (var item in compiledNodes) {
@@ -40,12 +39,11 @@ namespace TextOn.Test
                     requiredNouns.Add (requiredNoun);
                 }
             }
-            return new CompiledNode (CompiledNodeType.Choice, mockDesignNode.Object, hasErrors, requiredNouns, "", compiledNodes, new TextOnParseElement [0]);
+            return new CompiledNode (CompiledNodeType.Choice, fakeDesignNode, hasErrors, requiredNouns, "", compiledNodes, new TextOnParseElement [0]);
         }
     
         internal CompiledNode MakeSequential (params CompiledNode [] compiledNodes)
         {
-            var mockDesignNode = new Mock<INode> ();
             var hasErrors = false;
             var requiredNouns = new HashSet<string> ();
             foreach (var item in compiledNodes) {
@@ -54,7 +52,7 @@ namespace TextOn.Test
                     requiredNouns.Add (requiredNoun);
                 }
             }
-            return new CompiledNode (CompiledNodeType.Sequential, mockDesignNode.Object, hasErrors, requiredNouns, "", compiledNodes, new TextOnParseElement [0]);
+            return new CompiledNode (CompiledNodeType.Sequential, fakeDesignNode, hasErrors, requiredNouns, "", compiledNodes, new TextOnParseElement [0]);
         }
     }
 }

@@ -1,10 +1,12 @@
 using System;
-namespace TextOn.Design
+using TextOn.Design;
+
+namespace TextOn.Storage
 {
     /// <summary>
     /// Storage representation of a node in the calculation graph.
     /// </summary>
-    public interface INode : IEquatable<INode>
+    internal interface INode : IEquatable<INode>
     {
         /// <summary>
         /// Gets the type of this node in the design tree.

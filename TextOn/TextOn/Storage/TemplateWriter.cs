@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 using Newtonsoft.Json;
@@ -6,7 +7,7 @@ using Newtonsoft.Json.Linq;
 using TextOn.Design;
 using TextOn.Nouns;
 
-namespace TextOn.Design
+namespace TextOn.Storage
 {
     /// <summary>
     /// JSON serializer for design time TextOn templates.
@@ -72,13 +73,52 @@ namespace TextOn.Design
             }
         }
 
-        /// <summary>
-        /// Get the JSON converters needed to write projects, for testing and for users to be abl        /// to serialize Projects themselves.
-        /// </summary>
-        /// <value>The json converters.</value>
         private static JsonConverter [] JsonConverters {
             get {
                 return new JsonConverter [] { new NodeConverter (), new NounProfileConverter () };
+            }
+        }
+
+        private static readonly DesignNode [] emptyDesignNodeSubtree = new DesignNode [0];
+        private static DesignNode ConvertNodeFromSerialized (INode node)
+        {
+            switch (node.Type) {
+            case NodeType.Text:
+                var textNode = node as TextNode;
+                return new DesignNode (NodeType.Text, textNode.IsActive, textNode.Text, emptyDesignNodeSubtree);
+            case NodeType.ParagraphBreak:
+                var paragraphBreakNode = node as ParagraphBreakNode;
+                return new DesignNode (NodeType.ParagraphBreak, paragraphBreakNode.IsActive, "", emptyDesignNodeSubtree);
+            case NodeType.Choice:
+                var choiceNode = node as ChoiceNode;
+                return new DesignNode (NodeType.Choice, choiceNode.IsActive, choiceNode.ChoiceName, choiceNode.Choices.Select ((n) => ConvertNodeFromSerialized (n)).ToArray ());
+            case NodeType.Sequential:
+                var sequentialNode = node as SequentialNode;
+                return new DesignNode (NodeType.Sequential, sequentialNode.IsActive, sequentialNode.SequentialName, sequentialNode.Sequential.Select ((n) => ConvertNodeFromSerialized (n)).ToArray ());
+            default:
+                throw new ApplicationException ("Unrecognised node type " + node.Type);
+            }
+        }
+
+        private static SerializedTemplate ConvertToSerialized (TextOnTemplate template)
+        {
+            var definition = ConvertNodeToSerialized (template.DesignTree);
+            return new SerializedTemplate (template.Nouns, null, definition, 1);
+        }
+
+        private static INode ConvertNodeToSerialized (DesignNode designNode)
+        {
+            switch (designNode.Type) {
+            case NodeType.Text:
+                return new TextNode (designNode.Text, designNode.IsActive);
+            case NodeType.ParagraphBreak:
+                return new ParagraphBreakNode (designNode.IsActive);
+            case NodeType.Sequential:
+                return new SequentialNode (designNode.Text, designNode.IsActive, designNode.ChildNodes.Select ((n) => ConvertNodeToSerialized (n)).ToList());
+            case NodeType.Choice:
+                return new ChoiceNode (designNode.Text, designNode.IsActive, designNode.ChildNodes.Select ((n) => ConvertNodeToSerialized (n)).ToList());
+            default:
+                throw new ApplicationException ("Unrecognised node type " + designNode.Type);
             }
         }
 
@@ -95,7 +135,7 @@ namespace TextOn.Design
             foreach (var converter in JsonConverters) {
                 serializer.Converters.Add (converter);
             }
-            serializer.Serialize (writer, template);
+            serializer.Serialize (writer, ConvertToSerialized (template));
         }
 
         /// <summary>
@@ -119,8 +159,9 @@ namespace TextOn.Design
             foreach (var converter in JsonConverters) {
                 serializer.Converters.Add (converter);
             }
-            var template = (TextOnTemplate)serializer.Deserialize (reader, typeof (TextOnTemplate));
-            return template;
+            var serializedTemplate = (SerializedTemplate)serializer.Deserialize (reader, typeof (SerializedTemplate));
+            var designNode = ConvertNodeFromSerialized (serializedTemplate.Definition);
+            return new TextOnTemplate (serializedTemplate.Nouns, designNode);
         }
 
         /// <summary>

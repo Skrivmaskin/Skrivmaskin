@@ -10,10 +10,11 @@ namespace TextOn.Test
         [Test]
         public void TestEmpty ()
         {
-            var sequentialNode = OutputSplitter.Split ("") as SequentialNode;
+            var sequentialNode = OutputSplitter.Split ("");
             Assert.IsNotNull (sequentialNode);
-            Assert.AreEqual ("Sentences", sequentialNode.SequentialName);
-            Assert.IsEmpty (sequentialNode.Sequential);
+            Assert.AreEqual (NodeType.Sequential, sequentialNode.Type);
+            Assert.AreEqual ("Sentences", sequentialNode.Text);
+            Assert.IsEmpty (sequentialNode.ChildNodes);
         }
 
         [Test]
@@ -28,17 +29,18 @@ namespace TextOn.Test
                 "Let's do it then.",
                 "OK?"
             };
-            var sequentialNode = OutputSplitter.Split (output) as SequentialNode;
+            var sequentialNode = OutputSplitter.Split (output);
             Assert.IsNotNull (sequentialNode);
-            Assert.AreEqual ("Sentences", sequentialNode.SequentialName);
-            Assert.AreEqual (expected.Length, sequentialNode.Sequential.Count);
+            Assert.AreEqual (NodeType.Sequential, sequentialNode.Type);
+            Assert.AreEqual ("Sentences", sequentialNode.Text);
+            Assert.AreEqual (expected.Length, sequentialNode.ChildNodes.Length);
             for (int i = 0; i < expected.Length; i++) {
-                var textNode = sequentialNode.Sequential [i] as TextNode;
+                var textNode = sequentialNode.ChildNodes [i];
                 Assert.IsNotNull (textNode);
+                Assert.AreEqual (NodeType.Text, textNode.Type);
                 Assert.AreEqual (expected [i], textNode.Text);
             }
         }
-
 
         [Test]
         public void TestSingleParagraphEllipsis ()
@@ -49,13 +51,15 @@ namespace TextOn.Test
                 "Here it is...",
                 "I'm seriously!"
             };
-            var sequentialNode = OutputSplitter.Split (output) as SequentialNode;
+            var sequentialNode = OutputSplitter.Split (output);
             Assert.IsNotNull (sequentialNode);
-            Assert.AreEqual ("Sentences", sequentialNode.SequentialName);
-            Assert.AreEqual (expected.Length, sequentialNode.Sequential.Count);
+            Assert.AreEqual (NodeType.Sequential, sequentialNode.Type);
+            Assert.AreEqual ("Sentences", sequentialNode.Text);
+            Assert.AreEqual (expected.Length, sequentialNode.ChildNodes.Length);
             for (int i = 0; i < expected.Length; i++) {
-                var textNode = sequentialNode.Sequential [i] as TextNode;
+                var textNode = sequentialNode.ChildNodes [i];
                 Assert.IsNotNull (textNode);
+                Assert.AreEqual (NodeType.Text, textNode.Type);
                 Assert.AreEqual (expected [i], textNode.Text);
             }
         }
@@ -79,42 +83,49 @@ namespace TextOn.Test
             var expected3 = new string []{
                 "And this is the third paragraph..."
             };
-            var sequentialNode = OutputSplitter.Split (output) as SequentialNode;
+            var sequentialNode = OutputSplitter.Split (output);
             Assert.IsNotNull (sequentialNode);
-            Assert.AreEqual ("Paragraphs", sequentialNode.SequentialName);
-            Assert.AreEqual (5, sequentialNode.Sequential.Count);
+            Assert.AreEqual (NodeType.Sequential, sequentialNode.Type);
+            Assert.AreEqual ("Paragraphs", sequentialNode.Text);
+            Assert.AreEqual (5, sequentialNode.ChildNodes.Length);
 
-            var sn1 = sequentialNode.Sequential [0] as SequentialNode;
+            var sn1 = sequentialNode.ChildNodes [0];
             Assert.IsNotNull (sn1);
-            Assert.AreEqual ("Sentences 1", sn1.SequentialName);
-            Assert.AreEqual (expected1.Length, sn1.Sequential.Count);
+            Assert.AreEqual (NodeType.Sequential, sn1.Type);
+            Assert.AreEqual ("Sentences 1", sn1.Text);
+            Assert.AreEqual (expected1.Length, sn1.ChildNodes.Length);
             for (int i = 0; i < expected1.Length; i++) {
-                var textNode = sn1.Sequential [i] as TextNode;
+                var textNode = sn1.ChildNodes [i];
                 Assert.IsNotNull (textNode);
+                Assert.AreEqual (NodeType.Text, textNode.Type);
                 Assert.AreEqual (expected1 [i], textNode.Text);
             }
 
-            Assert.IsTrue (sequentialNode.Sequential [1] is ParagraphBreakNode);
+            Assert.IsTrue (sequentialNode.ChildNodes [1].Type == NodeType.ParagraphBreak);
 
-            var sn2 = sequentialNode.Sequential [2] as SequentialNode;
+            var sn2 = sequentialNode.ChildNodes [2];
             Assert.IsNotNull (sn2);
-            Assert.AreEqual ("Sentences 2", sn2.SequentialName);
-            Assert.AreEqual (expected2.Length, sn2.Sequential.Count);
+            Assert.AreEqual (NodeType.Sequential, sn2.Type);
+            Assert.AreEqual ("Sentences 2", sn2.Text);
+            Assert.AreEqual (expected2.Length, sn2.ChildNodes.Length);
             for (int i = 0; i < expected2.Length; i++) {
-                var textNode = sn2.Sequential [i] as TextNode;
+                var textNode = sn2.ChildNodes [i];
                 Assert.IsNotNull (textNode);
+                Assert.AreEqual (NodeType.Text, textNode.Type);
                 Assert.AreEqual (expected2 [i], textNode.Text);
             }
 
-            Assert.IsTrue (sequentialNode.Sequential [3] is ParagraphBreakNode);
+            Assert.IsTrue (sequentialNode.ChildNodes [3].Type == NodeType.ParagraphBreak);
 
-            var sn3 = sequentialNode.Sequential [4] as SequentialNode;
+            var sn3 = sequentialNode.ChildNodes [4];
             Assert.IsNotNull (sn3);
-            Assert.AreEqual ("Sentences 3", sn3.SequentialName);
-            Assert.AreEqual (expected3.Length, sn3.Sequential.Count);
+            Assert.AreEqual (NodeType.Sequential, sn3.Type);
+            Assert.AreEqual ("Sentences 3", sn3.Text);
+            Assert.AreEqual (expected3.Length, sn3.ChildNodes.Length);
             for (int i = 0; i < expected3.Length; i++) {
-                var textNode = sn3.Sequential [i] as TextNode;
+                var textNode = sn3.ChildNodes [i];
                 Assert.IsNotNull (textNode);
+                Assert.AreEqual (NodeType.Text, textNode.Type);
                 Assert.AreEqual (expected3 [i], textNode.Text);
             }
         }

@@ -4,7 +4,7 @@ namespace TextOn.Generation
 {
     public sealed class PreviewPartialRouteChoiceNode
     {
-        public PreviewPartialRouteChoiceNode (ChoiceNode choiceNode, int decision, int choicesMade, INode targetNode)
+        public PreviewPartialRouteChoiceNode (DesignNode choiceNode, int decision, int choicesMade, DesignNode targetNode)
         {
             ChoiceNode = choiceNode;
             Decision = decision;
@@ -12,9 +12,9 @@ namespace TextOn.Generation
             TargetNode = targetNode;
         }
 
-        public ChoiceNode ChoiceNode { get; private set; }
+        public DesignNode ChoiceNode { get; private set; }
         public int Decision { get; private set; }
         public int ChoicesMade { get; private set; }
-        public INode TargetNode { get; private set; }
+        public DesignNode TargetNode { get; private set; }
     }
 }

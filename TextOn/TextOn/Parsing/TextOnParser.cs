@@ -36,7 +36,10 @@ namespace TextOn.Parsing
         /// <summary>
         /// Parse a design time node into a compiled node.
         /// </summary>
-        public CompiledNode Compile (TextNode designNode)
+        /// <remarks>
+        /// The design node must be a text node by this point.
+        /// </remarks>
+        public CompiledNode Compile (DesignNode designNode)
         {
             var parseTree = ParseToTree (designNode.Text);
             var elements = MakeElements (designNode.Text.Length, parseTree.Tokens);
@@ -119,7 +122,7 @@ namespace TextOn.Parsing
             return elements;
         }
 
-        private CompiledNode ConvertSentence (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertSentence (DesignNode designNode, ParseTreeNode node)
         {
             TextOnParseNodes token;
             if (Enum.TryParse (node.Term.Name, out token)) {
@@ -148,7 +151,7 @@ namespace TextOn.Parsing
             throw new ApplicationException (string.Format ("Unexpected token: {0}", node.Term.Name));
         }
 
-        private CompiledNode ConvertAnything (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertAnything (DesignNode designNode, ParseTreeNode node)
         {
             TextOnParseNodes token;
             if (!Enum.TryParse (node.Term.Name, out token))
@@ -171,14 +174,14 @@ namespace TextOn.Parsing
             throw new ApplicationException (string.Format ("Unexpected token: {0}", token));
         }
 
-        private CompiledNode ConvertVariable (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertVariable (DesignNode designNode, ParseTreeNode node)
         {
             if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
             var variableName = node.ChildNodes [1].Token.Text;
             return new CompiledNode (CompiledNodeType.Variable, designNode, false, new string [1] { variableName }, variableName, new CompiledNode [0], new TextOnParseElement [0]);
         }
 
-        private CompiledNode ConvertPhrase (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertPhrase (DesignNode designNode, ParseTreeNode node)
         {
             TextOnParseNodes token;
             if (!Enum.TryParse (node.Term.Name, out token))
@@ -207,7 +210,7 @@ namespace TextOn.Parsing
             }
         }
 
-        private CompiledNode ConvertMultiChoice (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertMultiChoice (DesignNode designNode, ParseTreeNode node)
         {
             if (node.ChildNodes.Count != 3) throw new ApplicationException (string.Format ("Unexpected number of children {0}", node.ChildNodes.Count));
             node = node.ChildNodes [1];
@@ -233,7 +236,7 @@ namespace TextOn.Parsing
             }
         }
 
-        private CompiledNode ConvertSimpleChoice (INode designNode, ParseTreeNode node)
+        private CompiledNode ConvertSimpleChoice (DesignNode designNode, ParseTreeNode node)
         {
             if (node.ChildNodes.Count == 0) return new CompiledNode (CompiledNodeType.Text, designNode, false, new string [0], "", new CompiledNode [0], new TextOnParseElement [0]);
             if (node.ChildNodes.Count == 1) return ConvertAnything (designNode, node.ChildNodes [0]);

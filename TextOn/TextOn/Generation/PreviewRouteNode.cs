@@ -14,7 +14,7 @@ namespace TextOn.Generation
         /// <param name="node">Node.</param>
         /// <param name="choicesMadeSoFar">Choices made so far.</param>
         /// <param name="state">Calculated by the generator - determines if the target of the preview has been reached.</param>
-        internal PreviewRouteNode (INode node, int [] choicesMadeSoFar, PreviewRouteState state)
+        internal PreviewRouteNode (DesignNode node, int [] choicesMadeSoFar, PreviewRouteState state)
         {
             Node = node;
             ChoicesMadeSoFar = choicesMadeSoFar;
@@ -28,7 +28,7 @@ namespace TextOn.Generation
         /// This is a simple text node or a paragraph break node.
         /// </remarks>
         /// <value>The node.</value>
-        public INode Node { get; private set; }
+        public DesignNode Node { get; private set; }
 
         /// <summary>
         /// Gets all of the choices made so far in this route.
