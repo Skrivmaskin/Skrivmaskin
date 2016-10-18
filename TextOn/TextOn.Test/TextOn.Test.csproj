@@ -70,10 +70,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Scenario.Template1.json" />
-    <EmbeddedResource Include="Scenario.Template2.json" />
-    <EmbeddedResource Include="Scenario.Template3.json" />
-    <EmbeddedResource Include="Scenario.Template4.json" />
+    <EmbeddedResource Include="Scenario.Template1.texton" />
+    <EmbeddedResource Include="Scenario.Template2.texton" />
+    <EmbeddedResource Include="Scenario.Template3.texton" />
+    <EmbeddedResource Include="Scenario.Template4.texton" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

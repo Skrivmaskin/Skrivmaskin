@@ -17,7 +17,7 @@ namespace TextOn.Test
         public TemplateHost ([CallerMemberName] string testName = "Don't know")
         {
             var assembly = Assembly.GetExecutingAssembly ();
-            var resourceName = namespaceName + ".Scenario." + (testName.Replace ("Test", "").Split ('_') [0]) + ".json";
+            var resourceName = namespaceName + ".Scenario." + (testName.Replace ("Test", "").Split ('_') [0]) + ".texton";
             stream = assembly.GetManifestResourceStream (resourceName);
             streamReader = new StreamReader (stream);
             Object = TextOn.Storage.TemplateWriter.Read (streamReader);
