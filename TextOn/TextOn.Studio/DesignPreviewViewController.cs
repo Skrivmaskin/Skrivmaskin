@@ -21,8 +21,6 @@ namespace TextOn.Studio
         private CentralViewController centralViewController = null;
         internal void SetControllerLinks (CentralViewController cvc)
         {
-            Console.Error.WriteLine ("Preview SetControllerLinks");
-
             centralViewController = cvc;
             if (TextView != null)
                 TextView.Compiler = centralViewController.Compiler;
@@ -31,8 +29,6 @@ namespace TextOn.Studio
         bool firstAppearance = true;
         public override void ViewDidLoad ()
         {
-            Console.Error.WriteLine ("Preview ViewDidLoad");
-
             base.ViewDidLoad ();
 
             TextView.ModifiedClick += (node) => {
@@ -73,8 +69,6 @@ namespace TextOn.Studio
 
         public void UpdatePreview (PreviewPartialRouteChoiceNode [] partialRoute)
         {
-            Console.Error.WriteLine ("Preview UpdatePreview");
-
             TextView.IsInvalid = false;
 
             var rootNode = centralViewController.Template.DesignTree;
@@ -122,8 +116,6 @@ namespace TextOn.Studio
 
         partial void Slider_Moved (NSObject sender)
         {
-            Console.Error.WriteLine ("Preview Slider_Moved");
-
             // this signifies that the fixed choices setup will be used instead.
             if (partialRoute.Length > 0)
                 partialRoute = new PreviewPartialRouteChoiceNode [0];
@@ -149,8 +141,6 @@ namespace TextOn.Studio
 
         partial void Respin_Clicked (NSObject sender)
         {
-            Console.Error.WriteLine ("Preview Respin_Clicked");
-
             if (centralViewController != null) {
                 UpdatePreview (partialRoute);
             }

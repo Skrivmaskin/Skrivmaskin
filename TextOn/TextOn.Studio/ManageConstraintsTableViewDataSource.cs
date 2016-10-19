@@ -17,7 +17,6 @@ namespace TextOn.Studio
 
         public override nint GetRowCount (NSTableView tableView)
         {
-            Console.Error.WriteLine ("ManageConstraintsTable GetRowCount {0}", values.Count);
             return values.Count;
         }
     }

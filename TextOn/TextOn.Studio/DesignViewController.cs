@@ -11,12 +11,14 @@ using TextOn.Lexing;
 using TextOn.Generation;
 using TextOn.Nouns;
 using TextOn.Search;
+using log4net;
 
 namespace TextOn.Studio
 {
     public partial class DesignViewController : NSViewController
     {
         CentralViewController centralViewController = null;
+        static readonly ILog Log = LogManager.GetLogger (nameof (DesignViewController));
 
         public DesignViewController (IntPtr handle) : base (handle)
         {
@@ -24,15 +26,11 @@ namespace TextOn.Studio
 
         public void SetControllerLinks (CentralViewController cvc)
         {
-            Console.Error.WriteLine ("Design SetControllerLinks");
-
             centralViewController = cvc;
         }
 
         public override void ViewDidLoad ()
         {
-            Console.Error.WriteLine ("Design ViewDidLoad");
-
             base.ViewDidLoad ();
         }
 
@@ -41,13 +39,9 @@ namespace TextOn.Studio
 
         public override void ViewDidAppear ()
         {
-            Console.Error.WriteLine ("Design ViewDidAppear");
-
             base.ViewDidAppear ();
 
             if (firstTimeAppearing) {
-                Console.Error.WriteLine ("Design ViewDidAppear (firstTimeAppearing)");
-
                 firstTimeAppearing = false;
                 OutlineView.TreeController = TreeController;
 
@@ -74,7 +68,7 @@ namespace TextOn.Studio
         private bool fiddlingWithSelection = false;
         public void SelectionChanged (NSObservedChange change)
         {
-            Console.Error.WriteLine ("Design SelectionChanged");
+            Log.Debug ("Selection changed");
 
             if (!fiddlingWithSelection && !loading) {
                 UpdatePreview ();
@@ -85,8 +79,6 @@ namespace TextOn.Studio
 
         public void UpdatePreview ()
         {
-            Console.Error.WriteLine ("Design UpdatePreview");
-
             if (!previewIsHidden && TreeController.SelectionIndexPaths.Length == 1) {
                 List<PreviewPartialRouteChoiceNode> partialRoute = new List<PreviewPartialRouteChoiceNode> ();
                 var node = centralViewController.Template.DesignTree;
@@ -111,8 +103,6 @@ namespace TextOn.Studio
         #region Edits from the tree to a TextOnTemplate
         void DocumentEditedAction ()
         {
-            Console.Error.WriteLine ("Design DocumentEditedAction");
-
             if (!loading) {
                 // Reread project from the outline view
                 var template = CreateTemplateFromOutlineView ();
@@ -129,8 +119,6 @@ namespace TextOn.Studio
         #region Seque to dialog
         public override void PrepareForSegue (NSStoryboardSegue segue, NSObject sender)
         {
-            Console.Error.WriteLine ("Design PrepareForSegue");
-
             base.PrepareForSegue (segue, sender);
 
             if (segue.DestinationController is CreateTemplateViewController) {
@@ -351,8 +339,6 @@ namespace TextOn.Studio
 
         private void AddChildModel (DesignModelType modelType, string name, string details, bool isActive)
         {
-            Console.Error.WriteLine ("Design AddChildModel");
-
             fiddlingWithSelection = true;
             var selected = ((DesignModel)TreeController.SelectedObjects [0]);
             var model = new DesignModel (modelType, name, details, isActive, selected.isNodeActive);
@@ -368,8 +354,6 @@ namespace TextOn.Studio
 
         private void AddChild (DesignModel model)
         {
-            Console.Error.WriteLine ("Design AddChild");
-
             var selected = ((DesignModel)TreeController.SelectedObjects [0]);
             selected.AddDesign (model);
             DocumentEditedAction ();
@@ -379,8 +363,6 @@ namespace TextOn.Studio
         #region Move Up/Down
         partial void MoveUp_Clicked (NSObject sender)
         {
-            Console.Error.WriteLine ("Design MoveUp_Clicked");
-
             fiddlingWithSelection = true;
             // Find parent, remove at index, add at (index - 1), select.
             var selectionIndexPath = TreeController.SelectionIndexPaths [0];
@@ -401,8 +383,6 @@ namespace TextOn.Studio
 
         partial void MoveDown_Clicked (NSObject sender)
         {
-            Console.Error.WriteLine ("Design MoveDown_Clicked");
-
             fiddlingWithSelection = true;
             // Find parent, remove at index, add at (index + 1), select.
             var selectionIndexPath = TreeController.SelectionIndexPaths [0];
@@ -467,8 +447,6 @@ namespace TextOn.Studio
         /// <returns>The project from outline view.</returns>
         TextOnTemplate CreateTemplateFromOutlineView ()
         {
-            Console.Error.WriteLine ("Design CreateTemplateFromOutlineView");
-
             var definitionNode = Designs.GetItem<DesignModel> ((nuint)0);
             var nounProfile = centralViewController.Template?.Nouns;
             var root = CreateDesignNode (definitionNode);

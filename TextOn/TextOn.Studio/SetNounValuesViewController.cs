@@ -87,15 +87,11 @@ namespace TextOn.Studio
         private CentralViewController parent = null;
         internal void SetControllerLinks (CentralViewController centralViewController)
         {
-            Console.Error.WriteLine ("SetNounValues SetControllerLinks");
-
             this.parent = centralViewController;
         }
 
         internal void SetCompiledTemplate ()
         {
-            Console.Error.WriteLine ("SetNounValues SetCompiledTemplate");
         }
-
-   }
+    }
 }

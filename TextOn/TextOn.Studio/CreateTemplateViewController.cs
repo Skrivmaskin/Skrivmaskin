@@ -15,8 +15,6 @@ namespace TextOn.Studio
 
         public override void ViewDidLoad ()
         {
-            Console.Error.WriteLine ("CreateTemplate ViewDidLoad");
-
             base.ViewDidLoad ();
 
             // Set up the view with useful titles and description.

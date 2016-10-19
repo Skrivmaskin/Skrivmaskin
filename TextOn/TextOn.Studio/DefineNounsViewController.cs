@@ -53,14 +53,12 @@ namespace TextOn.Studio
 
         private void Refresh ()
         {
-            Console.Error.WriteLine ("DefineNouns Refresh");
             DefineNounsTableView.ReloadData ();
         }
 
         private CentralViewController centralViewController = null;
         internal void SetControllerLinks (CentralViewController cvc)
         {
-            Console.Error.WriteLine ("DefineNouns SetControllerLinks");
             centralViewController = cvc;
         }
 

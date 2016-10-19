@@ -289,7 +289,6 @@ namespace TextOn.Nouns
         /// <param name="newDependencies">New dependencies.</param>
         public void SetDependenciesForSuggestion (string nounName, string suggestionValue, IEnumerable<NounSuggestionDependency> newDependencies)
         {
-            Console.WriteLine ("Setting suggestion dependencies for {0}, {1}", nounName, suggestionValue);
             var noun = nouns [nounName];
             var suggestionToChange = noun.Suggestions.Find ((s) => s.Value == suggestionValue);
             suggestionToChange.Dependencies = new List<NounSuggestionDependency> (newDependencies);

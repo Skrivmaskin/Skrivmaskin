@@ -98,8 +98,6 @@ namespace TextOn.Studio
         ResultsViewController resultsViewController = null;
         public override void AwakeFromNib ()
         {
-            Console.Error.WriteLine ("Central AwakeFromNib");
-
             base.AwakeFromNib ();
 
             // This is really cheesy - recurse through to find the controllers with fairly intimate knowledge of
@@ -124,8 +122,6 @@ namespace TextOn.Studio
 
         public void CreateTree (string path, TextOnTemplate template)
         {
-            Console.Error.WriteLine ("Central CreateTree");
-
             Template = template;
             FilePath = path;
             designViewController.CreateTree ();
