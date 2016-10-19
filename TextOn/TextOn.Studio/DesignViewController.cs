@@ -103,15 +103,20 @@ namespace TextOn.Studio
         #region Edits from the tree to a TextOnTemplate
         void DocumentEditedAction ()
         {
-            if (!loading) {
-                // Reread project from the outline view
-                var template = CreateTemplateFromOutlineView ();
-                NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
-                centralViewController.Template = template;
-                centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template); // has a caching layer so should be quick
-            }
+            try {
+                Log.Debug ("DocumentEditedAction");
+                if (!loading) {
+                    // Reread project from the outline view
+                    var template = CreateTemplateFromOutlineView ();
+                    NSApplication.SharedApplication.KeyWindow.DocumentEdited = true;
+                    centralViewController.Template = template;
+                    centralViewController.CompiledTemplate = centralViewController.Compiler.Compile (centralViewController.Template); // has a caching layer so should be quick
+                }
 
-            centralViewController.MarkPreviewAsInvalid ();
+                centralViewController.MarkPreviewAsInvalid ();
+            } catch (Exception e) {
+                Log.Error ("Error in DocumentEditedAction", e);
+            }
         }
 
         #endregion
@@ -339,6 +344,8 @@ namespace TextOn.Studio
 
         private void AddChildModel (DesignModelType modelType, string name, string details, bool isActive)
         {
+            Log.DebugFormat ("AddChildModel,{0},{1},{2},{3}", modelType, name, details, isActive);
+
             fiddlingWithSelection = true;
             var selected = ((DesignModel)TreeController.SelectedObjects [0]);
             var model = new DesignModel (modelType, name, details, isActive, selected.isNodeActive);
@@ -354,6 +361,8 @@ namespace TextOn.Studio
 
         private void AddChild (DesignModel model)
         {
+            Log.DebugFormat ("AddChild,{0},{1}", model.name, model.details);
+            
             var selected = ((DesignModel)TreeController.SelectedObjects [0]);
             selected.AddDesign (model);
             DocumentEditedAction ();
@@ -363,6 +372,8 @@ namespace TextOn.Studio
         #region Move Up/Down
         partial void MoveUp_Clicked (NSObject sender)
         {
+            Log.Debug ("MoveUp_Clicked");
+
             fiddlingWithSelection = true;
             // Find parent, remove at index, add at (index - 1), select.
             var selectionIndexPath = TreeController.SelectionIndexPaths [0];
@@ -383,6 +394,8 @@ namespace TextOn.Studio
 
         partial void MoveDown_Clicked (NSObject sender)
         {
+            Log.Debug ("MoveDown_Clicked");
+
             fiddlingWithSelection = true;
             // Find parent, remove at index, add at (index + 1), select.
             var selectionIndexPath = TreeController.SelectionIndexPaths [0];
@@ -524,6 +537,7 @@ namespace TextOn.Studio
         private static readonly DesignNode [] emptyChildNodes = new DesignNode [0];
         private bool FindAndSelectDesignNode (DesignNode designNode, DesignNode reachedNode, ref NSIndexPath indexPath)
         {
+            Log.DebugFormat ("FindAndSelectDesignNode,{0},{1}", designNode.Text, reachedNode.Text);
             if (designNode == reachedNode) return true;
             nuint i = 0;
             foreach (var childNode in reachedNode.ChildNodes) {
@@ -539,6 +553,8 @@ namespace TextOn.Studio
 
         internal bool SelectDesignNode (DesignNode designNode)
         {
+            Log.DebugFormat ("SelectDesignNode,{0}", designNode.Text);
+
             var indexPath = (new NSIndexPath ()).IndexPathByAddingIndex (0);
             var retVal = FindAndSelectDesignNode (designNode, centralViewController.Template.DesignTree, ref indexPath);
             if (retVal) {

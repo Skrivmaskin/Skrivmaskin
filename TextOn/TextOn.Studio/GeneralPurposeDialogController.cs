@@ -5,17 +5,22 @@ using System;
 using Foundation;
 using AppKit;
 using TextOn.Compiler;
+using log4net;
 
 namespace TextOn.Studio
 {
 	public partial class GeneralPurposeDialogController : NSViewController
 	{
+        private readonly ILog Log = LogManager.GetLogger (nameof (GeneralPurposeDialogController));
+
 		public GeneralPurposeDialogController (IntPtr handle) : base (handle)
 		{
 		}
 
         public override void ViewDidLoad ()
         {
+            Log.DebugFormat ("ViewDidLoad");
+
             base.ViewDidLoad ();
             Title = titleText;
             NameTextField.StringValue = NameTextInput;

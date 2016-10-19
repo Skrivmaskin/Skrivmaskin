@@ -8,6 +8,7 @@ using TextOn.Lexing;
 using TextOn.Interfaces;
 using TextOn.Parsing;
 using TextOn.Generation;
+using log4net;
 
 namespace TextOn.Studio
 {
@@ -20,6 +21,8 @@ namespace TextOn.Studio
     /// </summary>
     partial class DesignPreviewTextView : NSTextView
     {
+        private static readonly ILog Log = LogManager.GetLogger (nameof (DesignPreviewTextView));
+
         #region Automatic properties
         public ILexerSyntax LexerSyntax { get; set; } = new DefaultLexerSyntax ();
         // Shared compiler with the Central.
@@ -32,12 +35,16 @@ namespace TextOn.Studio
         #region Text view
         public DesignPreviewTextView (IntPtr handle) : base (handle)
         {
+            Log.Debug ("Constructor");
+
             this.Delegate = new DesignPreviewTextViewDelegate (this);
         }
         #endregion
 
         public void SetValue (string value, PreviewRouteNode[] route, CompiledTemplate compiledTemplate)
         {
+            Log.DebugFormat ("SetValue");
+
             Value = value;
             CompiledTemplate = compiledTemplate;
             Route = route;
@@ -107,35 +114,42 @@ namespace TextOn.Studio
         //TODO This relies on the text I chose for <pr/> compiling as text - yikes.
         public TextOnParseTokens Highlight ()
         {
-            if (CompiledTemplate == null) return TextOnParseTokens.Text;
-            if (IsInvalid) return TextOnParseTokens.Text;
+            try {
+                Log.DebugFormat ("Highlight");
 
-            var lastToken = TextOnParseTokens.Error;
-            var lines = TextStorage.Value.Split ('\n');
-            var currentCharacter = 0;
-            var lineNumber = 0;
-            foreach (var line in lines) {
-                // bail if this happens
-                if (lineNumber >= Route.Length) return TextOnParseTokens.Text;
-                var routeNode = Route [lineNumber];
-                var node = routeNode.Node;
-                IEnumerable<TextOnParseElement> elements;
-                if (node.Type == NodeType.Text) {
-                    var compiledText = Compiler.GetCompiledNode (node);
-                    elements = (compiledText == null) ? new TextOnParseElement [1] { new TextOnParseElement (TextOnParseTokens.Text, 0, new TextOnParseRange (0, line.Length - 1)) } : compiledText.Elements;
-                } else {
-                    elements = new TextOnParseElement [1] { new TextOnParseElement (TextOnParseTokens.Text, 0, new TextOnParseRange (0, line.Length - 1)) };
+                if (CompiledTemplate == null) return TextOnParseTokens.Text;
+                if (IsInvalid) return TextOnParseTokens.Text;
+
+                var lastToken = TextOnParseTokens.Error;
+                var lines = TextStorage.Value.Split ('\n');
+                var currentCharacter = 0;
+                var lineNumber = 0;
+                foreach (var line in lines) {
+                    // bail if this happens
+                    if (lineNumber >= Route.Length) return TextOnParseTokens.Text;
+                    var routeNode = Route [lineNumber];
+                    var node = routeNode.Node;
+                    IEnumerable<TextOnParseElement> elements;
+                    if (node.Type == NodeType.Text) {
+                        var compiledText = Compiler.GetCompiledNode (node);
+                        elements = (compiledText == null) ? new TextOnParseElement [1] { new TextOnParseElement (TextOnParseTokens.Text, 0, new TextOnParseRange (0, line.Length - 1)) } : compiledText.Elements;
+                    } else {
+                        elements = new TextOnParseElement [1] { new TextOnParseElement (TextOnParseTokens.Text, 0, new TextOnParseRange (0, line.Length - 1)) };
+                    }
+                    foreach (var element in elements) {
+                        var range = new NSRange (currentCharacter + element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
+                        var attributes = GetAttributes (Route [lineNumber].State, element.Token, element.ChoiceDepth > 0);
+                        LayoutManager.SetTemporaryAttributes (attributes, range);
+                        lastToken = element.Token;
+                    }
+                    currentCharacter += line.Length + 1;
+                    ++lineNumber;
                 }
-                foreach (var element in elements) {
-                    var range = new NSRange (currentCharacter + element.Range.StartCharacter, element.Range.EndCharacter - element.Range.StartCharacter + 1);
-                    var attributes = GetAttributes (Route[lineNumber].State, element.Token, element.ChoiceDepth > 0);
-                    LayoutManager.SetTemporaryAttributes (attributes, range);
-                    lastToken = element.Token;
-                }
-                currentCharacter += line.Length + 1;
-                ++lineNumber;
+                return lastToken;
+            } catch (Exception e) {
+                Log.Error ("Exception during Highlight", e);
+                return TextOnParseTokens.Error;
             }
-            return lastToken;
         }
 
         public event Action<DesignNode> ModifiedClick;
@@ -147,6 +161,8 @@ namespace TextOn.Studio
         /// <param name="theEvent">The event.</param>
         public override void MouseDown (NSEvent theEvent)
         {
+            Log.DebugFormat ("MouseDown");
+
             if (CompiledTemplate == null) {
                 base.MouseDown (theEvent);
                 return;
@@ -190,6 +206,8 @@ namespace TextOn.Studio
         /// <param name="theEvent">The event.</param>
         public override void KeyDown (NSEvent theEvent)
         {
+            Log.DebugFormat ("KeyDown");
+
             base.KeyDown (theEvent);
             var possibleComplete = Char.IsLetterOrDigit (theEvent.Characters [0]);
             //TODO Note, not ideal, because the user's position should be taken into account.
@@ -202,6 +220,8 @@ namespace TextOn.Studio
 
         public override NSRange RangeForUserCompletion ()
         {
+            Log.DebugFormat ("RangeForUserCompletion");
+
             var range = base.RangeForUserCompletion ();
             // either the character before the range is a '[' or a '|'
             var start = range.Location;

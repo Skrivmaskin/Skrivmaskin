@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using AppKit;
 using CoreGraphics;
 using Foundation;
+using log4net;
 
 namespace TextOn.Studio
 {
     class DesignPreviewTextViewDelegate : NSTextViewDelegate
     {
+        private readonly ILog Log = LogManager.GetLogger (nameof (DesignPreviewTextViewDelegate));
+
         internal DesignPreviewTextView TextView { get; private set; }
 
         public DesignPreviewTextViewDelegate (DesignPreviewTextView textView)
@@ -27,6 +30,8 @@ namespace TextOn.Studio
         /// the first item in the list). Pass -1 for no selected items.</param>
         public override string [] GetCompletions (NSTextView textView, string [] words, NSRange charRange, ref nint index)
         {
+            Log.DebugFormat ("RangeForUserCompletion");
+
             var startString = TextView.LexerSyntax.VariableStartDelimiter.ToString ();
             var endString = TextView.LexerSyntax.VariableEndDelimiter.ToString ();
             var completions = new List<string> ();

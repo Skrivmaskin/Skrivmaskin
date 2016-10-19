@@ -11,11 +11,14 @@ using TextOn.Design;
 using TextOn.Generation;
 using TextOn.Version0;
 using TextOn.Nouns;
+using log4net;
 
 namespace TextOn.Studio
 {
 	public partial class CentralViewController : NSTabViewController
 	{
+        private static readonly ILog Log = LogManager.GetLogger (nameof (CentralViewController));
+
         private const int DesignViewTabViewItemIndex = 0;
 
 		public CentralViewController (IntPtr handle) : base (handle)
@@ -60,6 +63,7 @@ namespace TextOn.Studio
 
         private void DiscoverControllers (NSViewController grandpa, NSViewController dad, NSViewController controller)
         {
+            Log.Debug ("Discovering controllers");
             if (controller is DesignViewController) {
                 designViewController = (DesignViewController)controller;
                 designViewController.NounsSplitViewController = dad as NSSplitViewController;
@@ -103,15 +107,22 @@ namespace TextOn.Studio
             // This is really cheesy - recurse through to find the controllers with fairly intimate knowledge of
             // how they link together, then tell them all about me so that they can ask me to do work for them.
             DiscoverControllers (null, null, this);
-            designViewController.SetControllerLinks (this);
-            setVariablesViewController.SetControllerLinks (this);
-            resultsViewController.SetControllerLinks (this);
-            designPreviewViewController.SetControllerLinks (this);
-            defineNounsViewController.SetControllerLinks (this);
 
-            Template = new TextOnTemplate (new NounProfile (), new DesignNode (NodeType.Sequential, true, "Sentences", new DesignNode [0]));
-            CreateTree (null, Template);
-            defineNounsViewController.TemplateUpdated ();
+            Log.Debug ("Setting up");
+            try {
+                designViewController.SetControllerLinks (this);
+                setVariablesViewController.SetControllerLinks (this);
+                resultsViewController.SetControllerLinks (this);
+                designPreviewViewController.SetControllerLinks (this);
+                defineNounsViewController.SetControllerLinks (this);
+
+                Template = new TextOnTemplate (new NounProfile (), new DesignNode (NodeType.Sequential, true, "Sentences", new DesignNode [0]));
+                CreateTree (null, Template);
+                defineNounsViewController.TemplateUpdated ();
+            } catch (Exception e) {
+                Log.Fatal ("Exception while setting up ", e);
+                throw;
+            }
         }
 
         /// <summary>
@@ -122,10 +133,16 @@ namespace TextOn.Studio
 
         public void CreateTree (string path, TextOnTemplate template)
         {
-            Template = template;
-            FilePath = path;
-            designViewController.CreateTree ();
-            defineNounsViewController.TemplateUpdated ();
+            Log.Debug ("Create tree");
+            try {
+                Template = template;
+                FilePath = path;
+                designViewController.CreateTree ();
+                defineNounsViewController.TemplateUpdated ();
+            } catch (Exception e) {
+                Log.Error ("Exception hit while creating tree", e);
+                // ...
+            }
         }
 
         public void GeneratePreview (PreviewPartialRouteChoiceNode[] partialRoute)

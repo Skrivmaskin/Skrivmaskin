@@ -7,11 +7,14 @@ using AppKit;
 using CoreGraphics;
 using System.Collections.Generic;
 using TextOn.Nouns;
+using log4net;
 
 namespace TextOn.Studio
 {
     public partial class DefineNounsViewController : NSViewController
     {
+        private static readonly ILog Log = LogManager.GetLogger (nameof (DefineNounsViewController));
+
         public DefineNounsViewController (IntPtr handle) : base (handle)
         {
         }
@@ -25,6 +28,8 @@ namespace TextOn.Studio
 
         public override void ViewDidAppear ()
         {
+            Log.Debug ("Appeared");
+
             base.ViewDidAppear ();
 
             apparent = true;
@@ -33,6 +38,8 @@ namespace TextOn.Studio
 
         public override void ViewDidDisappear ()
         {
+            Log.Debug ("Disappeared");
+            
             base.ViewDidDisappear ();
 
             DefineNounsTableView.DataSource = null;
@@ -42,6 +49,8 @@ namespace TextOn.Studio
 
         internal void TemplateUpdated ()
         {
+            Log.Debug ("TemplateUpdated");
+
             centralViewController.Template.Nouns.NounsInOrderChanged += Refresh;
             centralViewController.Template.Nouns.SuggestionsChangedForNoun += (s) => Refresh ();
             if (apparent) {
@@ -53,6 +62,8 @@ namespace TextOn.Studio
 
         private void Refresh ()
         {
+            Log.Debug ("Refresh");
+            
             DefineNounsTableView.ReloadData ();
         }
 
@@ -64,6 +75,8 @@ namespace TextOn.Studio
 
         public override void PrepareForSegue (NSStoryboardSegue segue, NSObject sender)
         {
+            Log.DebugFormat ("PrepareForSegue,{0}", segue.Identifier);
+            
             base.PrepareForSegue (segue, sender);
 
             switch (segue.Identifier) {

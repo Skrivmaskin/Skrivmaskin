@@ -19,7 +19,13 @@ namespace TextOn.Compiler
         /// <param name="requiredNouns">Required nouns.</param>
         /// <param name="text">Text.</param>
         /// <param name="childNodes">Child nodes.</param>
-        public CompiledNode (CompiledNodeType nodeType, DesignNode location, bool hasErrors, IEnumerable<string> requiredNouns, string text, CompiledNode[] childNodes, IEnumerable<TextOnParseElement> elements)
+        public CompiledNode (CompiledNodeType nodeType,
+                             DesignNode location,
+                             bool hasErrors,
+                             IEnumerable<string> requiredNouns,
+                             string text,
+                             CompiledNode[] childNodes,
+                             IEnumerable<TextOnParseElement> elements)
         {
             Type = nodeType;
             Location = location;
