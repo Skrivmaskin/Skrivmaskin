@@ -10,9 +10,9 @@ open TextOn.Design
 open System
 
 
-let shouldBeThree = BasicStats.countSentenceBreaksInString "Hello, my name is Jonas. I am from Sweden. This is a silly text."
-let shouldBeZero = BasicStats.countSentenceBreaksInString ". I don't have a sentence"
-let shouldBeTwo = BasicStats.countSentenceBreaksInString ". I have a couple of sentences....... But not many."
+let shouldBeThree = BasicStats.sentenceCounter "Hello, my name is Jonas. I am from Sweden. This is a silly text."
+let shouldBeZero = BasicStats.sentenceCounter ". I don't have a sentence"
+let shouldBeTwo = BasicStats.sentenceCounter ". I have a couple of sentences....... But not many."
 
 (* test whitespace cropping *)
 let _ = "test      " |> BasicStats.removeTrailingWhitespace = "test"
